@@ -10,6 +10,6 @@ export class User {
   @Column({ length: 20 })
   clientId: string;
 
-  @Column({ length: 60 , default: "xd", nullable: true})
-  name: string;
+  @Column({ length: 60 , default: "", nullable: true})
+  name?: string;
 }
