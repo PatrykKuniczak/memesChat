@@ -40,7 +40,7 @@ export class UserGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
 
   async handleDisconnect(@ConnectedSocket() client: Socket) {
     const sockets = this.server.sockets;
-    await this.remove(client.id);
+    // await this.remove(client.id);
 
     this.logger.log(`Disconnected socket id: ${client.id}`);
     this.logger.debug(`Number of connected sockets: ${sockets.size}`);
