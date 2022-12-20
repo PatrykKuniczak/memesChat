@@ -33,6 +33,6 @@ export class UserService {
     }
 
     async findById(id: string) {
-        return await this.entityManager.findOne(User, {where: {clientId: id}, select: {name: true}});
+        return await this.entityManager.findOne(User, {where: {clientId: id}});
     }
 }

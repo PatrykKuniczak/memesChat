@@ -53,7 +53,7 @@ export class UserGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
     @SubscribeMessage("typing")
     async typing(@MessageBody("isTyping") isTyping: boolean,
                  @ConnectedSocket() client: Socket) {
-        const name = this.findById(client.id);
+        const {name} = await this.findById(client.id);
 
         return client.broadcast.emit("typing", {name, isTyping});
     }
