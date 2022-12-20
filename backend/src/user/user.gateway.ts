@@ -1,80 +1,86 @@
 import {
-  ConnectedSocket,
-  MessageBody,
-  OnGatewayConnection,
-  OnGatewayDisconnect,
-  OnGatewayInit,
-  SubscribeMessage,
-  WebSocketGateway,
-  WebSocketServer
+    ConnectedSocket,
+    MessageBody,
+    OnGatewayConnection,
+    OnGatewayDisconnect,
+    OnGatewayInit,
+    SubscribeMessage,
+    WebSocketGateway,
+    WebSocketServer
 } from "@nestjs/websockets";
-import { UserService } from "./user.service";
-import { Namespace, Socket } from "socket.io";
-import { Logger } from "@nestjs/common";
-import { CreateUserDto } from "./dto/create-user.dto";
+import {UserService} from "./user.service";
+import {Namespace, Socket} from "socket.io";
+import {Logger} from "@nestjs/common";
+import {CreateUserDto} from "./dto/create-user.dto";
 
 
-@WebSocketGateway({ namespace: "user" })
+@WebSocketGateway({namespace: "user"})
 export class UserGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
 
-  @WebSocketServer()
-  server: Namespace;
+    @WebSocketServer()
+    server: Namespace;
 
-  private readonly logger = new Logger(UserGateway.name);
+    private readonly logger = new Logger(UserGateway.name);
 
-  constructor(private readonly userService: UserService) {
-  }
+    constructor(private readonly userService: UserService) {
+    }
 
-  afterInit(): void {
-    this.logger.log(`Websocket Gateway initialized.`);
-  }
+    afterInit(): void {
+        this.logger.log(`Websocket Gateway initialized.`);
+    }
 
-  async handleConnection(@ConnectedSocket() client: Socket) {
-    const sockets = this.server.sockets;
-    this.logger.log(`WS Client with id: ${client.id} connected!`);
-    this.logger.debug(`Number of connected sockets: ${sockets.size}`);
+    async handleConnection(@ConnectedSocket() client: Socket) {
+        const sockets = this.server.sockets;
 
-    await this.create({ clientId: client.id });
-    return client.emit("hello", `Witaj ${client.id}`);
-  }
+        this.logger.log(`WS Client with id: ${client.id} connected!`);
+        this.logger.debug(`Number of connected sockets: ${sockets.size}`);
 
-  async handleDisconnect(@ConnectedSocket() client: Socket) {
-    const sockets = this.server.sockets;
-    // await this.remove(client.id);
+        await this.create({clientId: client.id});
+        return client.emit("hello", `Witaj ${client.id}`);
+    }
 
-    this.logger.log(`Disconnected socket id: ${client.id}`);
-    this.logger.debug(`Number of connected sockets: ${sockets.size}`);
+    async handleDisconnect(@ConnectedSocket() client: Socket) {
+        const sockets = this.server.sockets;
 
-    this.server.emit("goodbye", `goodbye ${client.id}`);
-    // TODO - remove client from poll and send `participants_updated` event to remaining clients
-  }
+        await this.remove(client.id);
 
-  @SubscribeMessage("join")
-  joinRoom(@MessageBody("name") name: string,
-           @ConnectedSocket() client: Socket) {
-    return this.userService.identify(+client.id);
-  }
+        this.logger.log(`Disconnected socket id: ${client.id}`);
+        this.logger.debug(`Number of connected sockets: ${sockets.size}`);
 
-  @SubscribeMessage("typing")
-  async typing(@MessageBody("isTyping") isTyping: boolean,
-               @ConnectedSocket() client: Socket) {
-    const name = this.userService.findByName(+client.id);
+        return this.server.emit("goodbye", `Żegnaj ${client.id}`);
+    }
 
-    return client.broadcast.emit("typing", { name, isTyping });
-  }
+    @SubscribeMessage("typing")
+    async typing(@MessageBody("isTyping") isTyping: boolean,
+                 @ConnectedSocket() client: Socket) {
+        const name = this.findById(client.id);
 
-  @SubscribeMessage("findAll")
-  async findAll(@ConnectedSocket() client: Socket) {
-    const allUsers = await this.userService.findAll();
+        return client.broadcast.emit("typing", {name, isTyping});
+    }
 
-    return client.emit("allUsers", allUsers);
-  }
+    @SubscribeMessage("findAll")
+    async findAll(@ConnectedSocket() client: Socket) {
+        const allUsers = await this.userService.findAll();
 
-  private async create(createUserDto: CreateUserDto) {
-    return await this.userService.create(createUserDto);
-  }
+        return client.emit("allUsers", allUsers);
+    }
 
-  private async remove(clientId: string) {
-    await this.userService.remove(clientId);
-  }
+    @SubscribeMessage("editName")
+    async edit(@ConnectedSocket() client: Socket, @MessageBody("name") name: string) {
+        const {affected} = await this.userService.edit({clientId: client.id, name});
+
+        return client.emit("editedUserName", Boolean(affected))
+    }
+
+    private async create(createUserDto: CreateUserDto) {
+        return await this.userService.create(createUserDto);
+    }
+
+    private async remove(clientId: string) {
+        await this.userService.remove(clientId);
+    }
+
+    private async findById(clientId: string) {
+        return await this.userService.findById(clientId);
+    }
 }

@@ -1,37 +1,38 @@
-import { Injectable } from "@nestjs/common";
-import { CreateUserDto } from "./dto/create-user.dto";
-import { InjectEntityManager } from "@nestjs/typeorm";
-import { EntityManager } from "typeorm";
-import { User } from "./entities/user.entity";
-import { WebSocketServer } from "@nestjs/websockets";
-import { Namespace } from "socket.io";
+import {Injectable} from "@nestjs/common";
+import {CreateUserDto} from "./dto/create-user.dto";
+import {InjectEntityManager} from "@nestjs/typeorm";
+import {EntityManager} from "typeorm";
+import {User} from "./entities/user.entity";
+import {WebSocketServer} from "@nestjs/websockets";
+import {Namespace} from "socket.io";
+import {UpdateUserDto} from "./dto/update-user.dto";
 
 
 @Injectable()
 export class UserService {
-  @WebSocketServer()
-  server: Namespace;
+    @WebSocketServer()
+    server: Namespace;
 
-  constructor(@InjectEntityManager() private entityManager: EntityManager) {
-  }
+    constructor(@InjectEntityManager() private entityManager: EntityManager) {
+    }
 
-  create(createUserDto: CreateUserDto) {
-    return this.entityManager.save(this.entityManager.create(User, createUserDto));
-  }
+    async create(createUserDto: CreateUserDto) {
+        return await this.entityManager.save(this.entityManager.create(User, createUserDto));
+    }
 
-  async remove(id: string) {
-    return this.entityManager.delete(User, { clientId: id });
-  }
+    async edit({clientId, name}: UpdateUserDto) {
+        return await this.entityManager.update(User, {clientId}, {name});
+    }
 
-  async findAll() {
-    return new Array(...await this.server.sockets.keys());
-  }
+    async remove(id: string) {
+        return await this.entityManager.delete(User, {clientId: id});
+    }
 
-  identify(id: number) {
-    return this.entityManager.findOne(User, { where: { id } });
-  }
+    async findAll() {
+        return await this.entityManager.find(User);
+    }
 
-  findByName(id: number) {
-    return this.entityManager.findOne(User, { where: { id }, select: { name: true } });
-  }
+    async findById(id: string) {
+        return await this.entityManager.findOne(User, {where: {clientId: id}, select: {name: true}});
+    }
 }
