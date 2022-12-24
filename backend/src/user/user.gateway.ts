@@ -77,17 +77,18 @@ export class UserGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
 
     const result = await isValid(user);
 
-    if (!(result[0] instanceof ValidationError))
+    if (result && result[0] instanceof ValidationError)
+      return client.emit("editedUserName", result[0].constraints);
+
+    else
       try {
         const { affected } = await this.userService.edit(user);
 
         return client.emit("editedUserName", Boolean(affected));
       } catch (err: any) {
         if (err instanceof QueryFailedError)
-          return client.emit("editedUserName", "Duplicate username");
+          return client.emit("editedUserName", "Duplicated username");
       }
-    else
-      return client.emit("editedUserName", result[0].constraints);
   }
 
   @SubscribeMessage("getUsersAmount")
