@@ -1,86 +1,113 @@
 import {
-    ConnectedSocket,
-    MessageBody,
-    OnGatewayConnection,
-    OnGatewayDisconnect,
-    OnGatewayInit,
-    SubscribeMessage,
-    WebSocketGateway,
-    WebSocketServer
+  ConnectedSocket,
+  MessageBody,
+  OnGatewayConnection,
+  OnGatewayDisconnect,
+  OnGatewayInit,
+  SubscribeMessage,
+  WebSocketGateway,
+  WebSocketServer
 } from "@nestjs/websockets";
-import {UserService} from "./user.service";
-import {Namespace, Socket} from "socket.io";
-import {Logger} from "@nestjs/common";
-import {CreateUserDto} from "./dto/create-user.dto";
+import { UserService } from "./user.service";
+import { Server, Socket } from "socket.io";
+import { Logger } from "@nestjs/common";
+import { CreateUserDto } from "./dto/create-user.dto";
+import { QueryFailedError } from "typeorm";
+import isValid from "../helper";
+import { ValidationError } from "class-validator";
 
 
-@WebSocketGateway({namespace: "user"})
+@WebSocketGateway()
 export class UserGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
+  @WebSocketServer() server: Server;
 
-    @WebSocketServer()
-    server: Namespace;
+  private readonly logger = new Logger(UserGateway.name);
 
-    private readonly logger = new Logger(UserGateway.name);
+  constructor(private readonly userService: UserService) {
+  }
 
-    constructor(private readonly userService: UserService) {
+  afterInit(): void {
+    this.logger.log(`Websocket Gateway initialized.`);
+  }
+
+  async handleConnection(@ConnectedSocket() client: Socket) {
+    this.logger.verbose(`Connect Socket with id: ${client.id} connected!`);
+    this.logger.debug(`Number of connected sockets: ${this.getSocketsAmount()}`);
+
+    return await this.create({ clientId: client.id }).catch(err => err.message);
+  }
+
+  async handleDisconnect(@ConnectedSocket() { id }: Socket) {
+    let result: string;
+
+    try {
+      const { name } = await this.userService.findById(id);
+      const { affected } = await this.remove(id);
+      affected && (result = `Żegnaj ${name}`);
+    } catch (err: any) {
+      result = err.message;
     }
 
-    afterInit(): void {
-        this.logger.log(`Websocket Gateway initialized.`);
-    }
+    this.logger.verbose(`Disconnected socket with id: ${id}`);
+    this.logger.debug(`Number of connected sockets: ${this.getSocketsAmount()}`);
 
-    async handleConnection(@ConnectedSocket() client: Socket) {
-        const sockets = this.server.sockets;
+    return this.server.emit("goodbye", result);
+  }
 
-        this.logger.log(`WS Client with id: ${client.id} connected!`);
-        this.logger.debug(`Number of connected sockets: ${sockets.size}`);
+  @SubscribeMessage("typing")
+  async typing(@MessageBody("isTyping") isTyping: boolean,
+               @ConnectedSocket() client: Socket) {
+    const { name } = await this.findById(client.id);
 
-        await this.create({clientId: client.id});
-        return client.emit("hello", `Witaj ${client.id}`);
-    }
+    return client.broadcast.emit("typing", { name, isTyping });
+  }
 
-    async handleDisconnect(@ConnectedSocket() client: Socket) {
-        const sockets = this.server.sockets;
+  @SubscribeMessage("findAllUsers")
+  async findAll(@ConnectedSocket() client: Socket) {
+    const allUsers = await this.userService.findAll();
 
-        await this.remove(client.id);
+    return client.emit("allUsers", allUsers);
+  }
 
-        this.logger.log(`Disconnected socket id: ${client.id}`);
-        this.logger.debug(`Number of connected sockets: ${sockets.size}`);
+  @SubscribeMessage("editUserName")
+  async edit(@ConnectedSocket() client: Socket, @MessageBody("name") name: string) {
+    const user = new CreateUserDto();
+    user.name = name;
+    user.clientId = client.id;
 
-        return this.server.emit("goodbye", `Żegnaj ${client.id}`);
-    }
+    const result = await isValid(user);
 
-    @SubscribeMessage("typing")
-    async typing(@MessageBody("isTyping") isTyping: boolean,
-                 @ConnectedSocket() client: Socket) {
-        const {name} = await this.findById(client.id);
+    if (!(result[0] instanceof ValidationError))
+      try {
+        const { affected } = await this.userService.edit(user);
 
-        return client.broadcast.emit("typing", {name, isTyping});
-    }
+        return client.emit("editedUserName", Boolean(affected));
+      } catch (err: any) {
+        if (err instanceof QueryFailedError)
+          return client.emit("editedUserName", "Duplicate username");
+      }
+    else
+      return client.emit("editedUserName", result[0].constraints);
+  }
 
-    @SubscribeMessage("findAll")
-    async findAll(@ConnectedSocket() client: Socket) {
-        const allUsers = await this.userService.findAll();
+  @SubscribeMessage("getUsersAmount")
+  async getUsersAmount() {
+    return this.server.emit("usersAmount", this.getSocketsAmount());
+  }
 
-        return client.emit("allUsers", allUsers);
-    }
+  private async create(createUserDto: CreateUserDto) {
+    return await this.userService.create(createUserDto);
+  }
 
-    @SubscribeMessage("editName")
-    async edit(@ConnectedSocket() client: Socket, @MessageBody("name") name: string) {
-        const {affected} = await this.userService.edit({clientId: client.id, name});
+  private async remove(clientId: string) {
+    return await this.userService.remove(clientId);
+  }
 
-        return client.emit("editedUserName", Boolean(affected))
-    }
+  private async findById(clientId: string) {
+    return await this.userService.findById(clientId);
+  }
 
-    private async create(createUserDto: CreateUserDto) {
-        return await this.userService.create(createUserDto);
-    }
-
-    private async remove(clientId: string) {
-        await this.userService.remove(clientId);
-    }
-
-    private async findById(clientId: string) {
-        return await this.userService.findById(clientId);
-    }
+  private getSocketsAmount() {
+    return this.server.sockets.sockets.size;
+  }
 }
