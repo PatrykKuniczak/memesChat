@@ -1,7 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Message } from "../../message/entities/message.entity";
 
 
-// TODO: DODAJ UNIQUE DO NAME i relacje z message
 @Entity("User")
 export class User {
   @PrimaryGeneratedColumn()
@@ -10,6 +10,10 @@ export class User {
   @Column({ length: 20 })
   clientId: string;
 
-  @Column({ length: 60 , default: "", nullable: true})
+  @Column({ length: 60, unique: true, default: null })
   name?: string;
+
+  @OneToMany(() => Message,
+    (message) => message.id, { nullable: true })
+  message: Message[];
 }
