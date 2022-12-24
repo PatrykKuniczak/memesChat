@@ -5,24 +5,25 @@ import { Message } from "./entities/message.entity";
 import { InjectEntityManager } from "@nestjs/typeorm";
 import { EntityManager } from "typeorm";
 
+
 @Injectable()
 export class MessageService {
   constructor(@InjectEntityManager() private entityManager: EntityManager) {
   }
 
-  create(createMessageDto: CreateMessageDto) {
-    return this.entityManager.save(this.entityManager.create(Message, createMessageDto));
+  async create(createMessageDto: CreateMessageDto) {
+    return await this.entityManager.save(this.entityManager.create(Message, createMessageDto));
   }
 
-  findAll() {
-    return this.entityManager.find(Message);
+  async findAll() {
+    return await this.entityManager.find(Message);
   }
 
-  update(id: number, updateMessageDto: UpdateMessageDto) {
-    return this.entityManager.update(Message, id, updateMessageDto);
+  async update(id: number, updateMessageDto: UpdateMessageDto) {
+    return await this.entityManager.update(Message, id, updateMessageDto);
   }
 
-  remove(id: number | string) {
-    return this.entityManager.delete(Message, id);
+  async remove(id: number | string) {
+    return await this.entityManager.delete(Message, id);
   }
 }

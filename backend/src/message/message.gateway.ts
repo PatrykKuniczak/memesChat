@@ -2,39 +2,45 @@ import { ConnectedSocket, MessageBody, SubscribeMessage, WebSocketGateway, WebSo
 import { MessageService } from "./message.service";
 import { CreateMessageDto } from "./dto/create-message.dto";
 import { UpdateMessageDto } from "./dto/update-message.dto";
-import { Namespace, Socket } from "socket.io";
+import { Socket } from "socket.io";
+import { UserService } from "../user/user.service";
 
-@WebSocketGateway({ namespace: "message" })
+
+@WebSocketGateway()
 export class MessageGateway {
-  @WebSocketServer()
-  server: Namespace;
+  @WebSocketServer() server;
 
-  constructor(private readonly messageService: MessageService) {
+  constructor(private readonly messageService: MessageService, private readonly userService: UserService) {
   }
 
-  @SubscribeMessage("create")
-  async create(@ConnectedSocket() client: Socket, @MessageBody() createMessageDto: CreateMessageDto) {
-    const message = await this.messageService.create(createMessageDto);
-    return client.emit("created", message);
+  @SubscribeMessage("createMessage")
+  async create(@ConnectedSocket() client: Socket, @MessageBody("content") messageContent: string) {
+    const { id } = await this.userService.findById(client.id);
+    const message: CreateMessageDto = { user: id, content: messageContent };
+
+    const result = await this.messageService.create(message).catch(err => new Error(err.message));
+
+    return client.emit("createdMessage", result);
   }
 
-  @SubscribeMessage("findAll")
+  @SubscribeMessage("findAllMessages")
   async findAll(@ConnectedSocket() client: Socket) {
     const allMessages = await this.messageService.findAll();
 
     client.emit("allMessages", allMessages);
-
   }
 
-  @SubscribeMessage("update")
+  @SubscribeMessage("updateMessage")
   async update(@ConnectedSocket() client: Socket, @MessageBody() updateMessageDto: UpdateMessageDto) {
     const { affected } = await this.messageService.update(updateMessageDto.id, updateMessageDto);
-    return client.emit("updated", Boolean(affected));
+
+    return client.emit("updatedMessage", Boolean(affected));
   }
 
-  @SubscribeMessage("remove")
-  async remove(@ConnectedSocket() client: Socket, @MessageBody() id: number | string) {
+  @SubscribeMessage("removeMessage")
+  async remove(@ConnectedSocket() client: Socket, @MessageBody("id") id: number | string) {
     const { affected } = await this.messageService.remove(id);
-    return client.emit("removed", Boolean(affected));
+
+    return client.emit("removedMessage", Boolean(affected));
   }
 }
