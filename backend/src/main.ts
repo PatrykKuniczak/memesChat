@@ -9,7 +9,7 @@ async function bootstrap() {
   const logger = new Logger("Main");
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
-  const port = parseInt(configService.get("PORT"));
+  const port = parseInt(configService.get("SERVER_PORT"));
 
   app.useWebSocketAdapter(new SocketIOAdapter(app, configService));
 
