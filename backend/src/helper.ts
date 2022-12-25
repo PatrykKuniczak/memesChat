@@ -1,4 +1,5 @@
 import { validateOrReject } from "class-validator";
+import * as dotenv from "dotenv";
 
 
 async function isValid(input) {
@@ -9,5 +10,7 @@ async function isValid(input) {
   }
 }
 
+dotenv.config({ path: "./.env" });
+export const CLIENT_PORT = +process.env.WS_CLIENT_PORT;
 
 export default isValid;
