@@ -13,11 +13,11 @@ import { Server, Socket } from "socket.io";
 import { Logger } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { QueryFailedError } from "typeorm";
-import isValid from "../helper";
+import isValid, { CLIENT_PORT } from "../helper";
 import { ValidationError } from "class-validator";
 
 
-@WebSocketGateway()
+@WebSocketGateway(CLIENT_PORT, { cors: `http://localhost:${CLIENT_PORT}` })
 export class UserGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server: Server;
 

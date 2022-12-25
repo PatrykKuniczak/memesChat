@@ -4,9 +4,10 @@ import { CreateMessageDto } from "./dto/create-message.dto";
 import { UpdateMessageDto } from "./dto/update-message.dto";
 import { Socket } from "socket.io";
 import { UserService } from "../user/user.service";
+import { CLIENT_PORT } from "../helper";
 
 
-@WebSocketGateway()
+@WebSocketGateway(CLIENT_PORT, { cors: `http://localhost:${CLIENT_PORT}` })
 export class MessageGateway {
   @WebSocketServer() server;
 
