@@ -2,7 +2,7 @@ import styled from "styled-components";
 import {SIZES} from "../../constants/styleConstants";
 
 
-const SignupContainer = styled.body`
+const SignupContainer = styled.div`
   display: grid;
   place-content: center;
   padding-top: 10rem;
