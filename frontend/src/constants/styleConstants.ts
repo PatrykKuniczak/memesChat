@@ -11,4 +11,5 @@ const SIZES = {
   lg: "1.5rem",
   xxl: "3rem",
 };
+
 export { COLORS, SIZES };
