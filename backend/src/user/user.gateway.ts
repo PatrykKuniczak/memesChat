@@ -26,8 +26,9 @@ export class UserGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
   constructor(private readonly userService: UserService) {
   }
 
-  afterInit(): void {
-    this.logger.log(`Websocket Gateway initialized.`);
+  async afterInit(): Promise<void> {
+    await this.userService.removeAll();
+    await this.logger.log(`Websocket Gateway initialized.`);
   }
 
   async handleConnection(@ConnectedSocket() client: Socket) {

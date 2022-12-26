@@ -28,6 +28,11 @@ export class UserService {
     return await this.entityManager.delete(User, { clientId });
   }
 
+  async removeAll() {
+    const allUsers = await this.entityManager.find(User);
+    return await this.entityManager.remove(User, allUsers);
+  }
+
   async findAll() {
     return await this.entityManager.find(User);
   }
