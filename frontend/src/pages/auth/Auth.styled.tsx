@@ -13,6 +13,7 @@ const SignupContainer = styled.div`
 const Heading = styled.h1`
   color: #fff;
   font-size: ${SIZES.xxl};
+  text-align: center;
 `;
 
 const Form = styled.form`
