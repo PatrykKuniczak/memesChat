@@ -10,19 +10,20 @@ import {
 import { NavLink, PrimaryButton } from "../../components/buttons/Button.styled";
 import { useParams } from "react-router-dom";
 
+
 const Auth: React.FC = () => {
-  let { type } = useParams();
+  const { eventType } = useParams();
 
   return (
     <SignupContainer>
-      <Heading>{type === "signup" ? "Rejestracja" : "Logowanie"}</Heading>
+      <Heading>{eventType === "signUp" ? "Rejestracja" : "Logowanie"}</Heading>
 
       <Form action="">
         <Label htmlFor="login">Login</Label>
         <Input type="text" id="login" name="login" />
         <Label htmlFor="password">Hasło</Label>
         <Input type="text" id="password" name="password" />
-        {type === "signup" && (
+        {eventType === "signUp" && (
           <>
             <Label htmlFor="password">Powtórz hasło</Label>
             <Input type="text" id="password" name="password" />
@@ -32,12 +33,12 @@ const Auth: React.FC = () => {
 
       <ButtonsContainer>
         <PrimaryButton>
-          {type === "signup" ? "Zarejestruj" : "Zaloguj"}
+          {eventType === "signUp" ? "Zarejestruj" : "Zaloguj"}
         </PrimaryButton>
-        {type === "signup" ? (
-          <NavLink to="signin">Mam juz konto</NavLink>
+        {eventType === "signUp" ? (
+          <NavLink to="/auth/signIn">Mam juz konto</NavLink>
         ) : (
-          <NavLink to="signup">Nie mam jeszcze konta</NavLink>
+          <NavLink to="/auth/signUp">Nie mam jeszcze konta</NavLink>
         )}
       </ButtonsContainer>
     </SignupContainer>
