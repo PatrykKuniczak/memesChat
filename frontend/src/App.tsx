@@ -9,6 +9,7 @@ import {
     Route,
     Routes
 } from "react-router-dom";
+import Home from "./pages/home/Home";
 
 
 const App: React.FC = () => {
@@ -20,6 +21,7 @@ const App: React.FC = () => {
                 <BrowserRouter>
                     <Routes>
                         <Route element={<Outlet />}>
+                            <Route path="/" element={<Home />} />
                             <Route path="/auth/:eventType" element={<Auth />} />
                         </Route>
                         <Route path="*" element={<Navigate to={"/"} />} />
