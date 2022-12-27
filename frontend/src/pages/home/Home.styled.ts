@@ -2,10 +2,13 @@ import styled from "styled-components";
 
 const Container = styled.div`
     display: grid;
-    grid-template-columns: 30% minmax(0, 1fr);
+    grid-template-columns: repeat(auto-fill);
     gap: 1.5rem;
-    //test it!
     margin: 1rem;
+
+    @media (min-width: 50em) {
+        grid-template-columns: min(30%, 300px) minmax(0, 1fr);
+    }
 `;
 
 const Header = styled.header`
