@@ -6,7 +6,6 @@ const SignupContainer = styled.div`
   display: grid;
   place-content: center;
   padding-top: 10rem;
-  background-color: ${(props) => props.theme.gray_400};
   height: 100vh;
 `;
 
