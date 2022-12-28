@@ -93,14 +93,11 @@ const MessagesWrapper = styled.div`
     margin-top: 1rem;
     flex: 1;
     overflow-y: scroll;
-    @media (min-width: 50em) {
-    }
 `;
 
 const MessageContainer = styled.div`
     display: flex;
     align-items: start;
-
     gap: 1rem;
 `;
 
