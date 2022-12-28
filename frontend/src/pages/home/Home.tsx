@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Search from "../../components/search/Search";
 import {
     Container,
@@ -8,8 +8,13 @@ import {
     Main,
     MainHeader,
     MemeIcon,
+    Message,
+    MessageAuthor,
     MessageInput,
-    MessageWrapper,
+    MessagesWrapper,
+    MessageSettings,
+    MessageContainer,
+    InputWrapper,
     OnlineBadge,
     User,
     UserImage,
@@ -17,8 +22,40 @@ import {
     UsersContainer
 } from "./Home.styled";
 import user from "../../assets/user.jpg";
+import { BsPencil, BsTrash } from "react-icons/bs";
 
 const Home = () => {
+    const [selected, setSelected] = useState("");
+
+    const messages = [
+        { id: "1", message: "Lorem ipsumxxxxxxxx xxx xxx xxx" },
+        {
+            id: "2",
+            message:
+                "Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx"
+        },
+        {
+            id: "2",
+            message:
+                "Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx"
+        },
+        {
+            id: "2",
+            message:
+                "Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx"
+        },
+        {
+            id: "2",
+            message:
+                "Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx"
+        },
+        {
+            id: "2",
+            message:
+                "Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx"
+        }
+    ];
+
     return (
         <Container>
             <aside>
@@ -53,10 +90,28 @@ const Home = () => {
                 <MainHeader>
                     <Search />
                 </MainHeader>
-                <MessageWrapper>
+                <MessagesWrapper>
+                    {messages.map(({ id, message }) => {
+                        return (
+                            <MessageContainer>
+                                <MessageAuthor src={user} />
+                                <Message onClick={() => setSelected(id)}>
+                                    {message}
+                                </Message>
+                                {selected === id && (
+                                    <MessageSettings>
+                                        <BsTrash />
+                                        <BsPencil />
+                                    </MessageSettings>
+                                )}
+                            </MessageContainer>
+                        );
+                    })}
+                </MessagesWrapper>
+                <InputWrapper>
                     <MessageInput />
                     <MemeIcon />
-                </MessageWrapper>
+                </InputWrapper>
             </Main>
         </Container>
     );

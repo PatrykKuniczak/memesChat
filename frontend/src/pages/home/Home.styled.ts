@@ -71,7 +71,6 @@ const Main = styled.main`
     padding: 0.5rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     min-height: 30em;
 
     @media (min-width: 50em) {
@@ -87,7 +86,50 @@ const MainHeader = styled.header`
     padding: 1rem;
 `;
 
-const MessageWrapper = styled.header`
+const MessagesWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex: 1;
+    overflow-y: scroll;
+    @media (min-width: 50em) {
+    }
+`;
+
+const MessageContainer = styled.div`
+    display: flex;
+    align-items: start;
+
+    gap: 1rem;
+`;
+
+const Message = styled.p`
+    border-radius: 5px;
+    background-color: ${(props) => props.theme.gray_400};
+    color: ${(props) => props.theme.gray_300};
+    padding: 0.5rem;
+    cursor: pointer;
+    flex: 1;
+`;
+
+const MessageAuthor = styled.img`
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 50%;
+`;
+
+const MessageSettings = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 25px;
+    background-color: ${(props) => props.theme.gray_300};
+    padding: 0.5rem;
+`;
+
+const InputWrapper = styled.header`
     display: flex;
     align-items: center;
     border-radius: 5px;
@@ -121,7 +163,12 @@ export {
     UserName,
     Main,
     MainHeader,
-    MessageWrapper,
+    MessagesWrapper,
+    MessageContainer,
+    Message,
+    MessageAuthor,
+    MessageSettings,
+    InputWrapper,
     MessageInput,
     MemeIcon
 };
