@@ -35,22 +35,22 @@ const Home = () => {
                 "Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx"
         },
         {
-            id: "2",
+            id: "3",
             message:
                 "Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx"
         },
         {
-            id: "2",
+            id: "4",
             message:
                 "Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx"
         },
         {
-            id: "2",
+            id: "5",
             message:
                 "Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx"
         },
         {
-            id: "2",
+            id: "6",
             message:
                 "Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx"
         }
