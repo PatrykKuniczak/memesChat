@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { BsSearch } from "react-icons/bs";
 
-const Wrapper = styled.div`
+const SearchWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -11,7 +11,7 @@ const Wrapper = styled.div`
     padding: 1rem;
 `;
 
-const Input = styled.input.attrs(() => ({
+const SearchInput = styled.input.attrs(() => ({
     type: "search"
 }))`
     background-color: ${(props) => props.theme.gray_500};
@@ -22,8 +22,8 @@ const Input = styled.input.attrs(() => ({
     font-size: 1rem;
 `;
 
-const Icon = styled(BsSearch)`
+const SearchIcon = styled(BsSearch)`
     color: ${(props) => props.theme.gray_300};
 `;
 
-export { Wrapper, Input, Icon };
+export { SearchWrapper, SearchInput, SearchIcon };

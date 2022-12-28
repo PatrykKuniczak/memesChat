@@ -1,12 +1,12 @@
 import React from "react";
-import { Icon, Input, Wrapper } from "./Search.styled";
+import { SearchIcon, SearchInput, SearchWrapper } from "./Search.styled";
 
 const Search = () => {
     return (
-        <Wrapper>
-            <Input placeholder="Search" />
-            <Icon />
-        </Wrapper>
+        <SearchWrapper>
+            <SearchInput placeholder="Search" />
+            <SearchIcon />
+        </SearchWrapper>
     );
 };
 
