@@ -1,13 +1,15 @@
 import styled from "styled-components";
+import { BsStars } from "react-icons/bs";
 
 const Container = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fill);
     gap: 1.5rem;
-    margin: 1rem;
+    padding: 2.5rem;
 
     @media (min-width: 50em) {
         grid-template-columns: min(30%, 300px) minmax(0, 1fr);
+        height: 100%;
     }
 `;
 
@@ -63,6 +65,50 @@ const UserName = styled.p`
     font-size: 1.25rem;
 `;
 
+const Main = styled.main`
+    border-radius: 5px;
+    background-color: ${(props) => props.theme.gray_500};
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 30em;
+
+    @media (min-width: 50em) {
+        height: 100%;
+    }
+`;
+
+const MainHeader = styled.header`
+    display: flex;
+    justify-content: end;
+    border-radius: 5px;
+    background-color: ${(props) => props.theme.gray_400};
+    padding: 1rem;
+`;
+
+const MessageWrapper = styled.header`
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    background-color: ${(props) => props.theme.gray_400};
+    padding: 0.5rem;
+    border: 1px solid #fff;
+    margin: 3rem;
+`;
+
+const MessageInput = styled.input`
+    border-radius: 5px;
+    background-color: ${(props) => props.theme.gray_400};
+    padding: 1rem;
+    border: none;
+    width: 100%;
+`;
+
+const MemeIcon = styled(BsStars)`
+    fill: ${(props) => props.theme.gray_300};
+`;
+
 export {
     Container,
     Header,
@@ -72,5 +118,10 @@ export {
     Label,
     User,
     UserImage,
-    UserName
+    UserName,
+    Main,
+    MainHeader,
+    MessageWrapper,
+    MessageInput,
+    MemeIcon
 };

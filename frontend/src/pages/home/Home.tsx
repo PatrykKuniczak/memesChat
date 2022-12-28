@@ -5,6 +5,11 @@ import {
     Header,
     Heading,
     Label,
+    Main,
+    MainHeader,
+    MemeIcon,
+    MessageInput,
+    MessageWrapper,
     OnlineBadge,
     User,
     UserImage,
@@ -44,7 +49,15 @@ const Home = () => {
                     </div>
                 </UsersContainer>
             </aside>
-            <main></main>
+            <Main>
+                <MainHeader>
+                    <Search />
+                </MainHeader>
+                <MessageWrapper>
+                    <MessageInput />
+                    <MemeIcon />
+                </MessageWrapper>
+            </Main>
         </Container>
     );
 };
