@@ -56,6 +56,23 @@ const Home = () => {
         }
     ];
 
+    const getMessages = () => {
+        return messages.map(({ id, message }) => {
+            return (
+                <MessageContainer>
+                    <MessageAuthor src={user} />
+                    <Message onClick={() => setSelected(id)}>{message}</Message>
+                    {selected === id && (
+                        <MessageSettings>
+                            <BsTrash />
+                            <BsPencil />
+                        </MessageSettings>
+                    )}
+                </MessageContainer>
+            );
+        });
+    };
+
     return (
         <Container>
             <aside>
@@ -90,24 +107,7 @@ const Home = () => {
                 <MainHeader>
                     <Search />
                 </MainHeader>
-                <MessagesWrapper>
-                    {messages.map(({ id, message }) => {
-                        return (
-                            <MessageContainer>
-                                <MessageAuthor src={user} />
-                                <Message onClick={() => setSelected(id)}>
-                                    {message}
-                                </Message>
-                                {selected === id && (
-                                    <MessageSettings>
-                                        <BsTrash />
-                                        <BsPencil />
-                                    </MessageSettings>
-                                )}
-                            </MessageContainer>
-                        );
-                    })}
-                </MessagesWrapper>
+                <MessagesWrapper>{getMessages()}</MessagesWrapper>
                 <InputWrapper>
                     <MessageInput />
                     <MemeIcon />
