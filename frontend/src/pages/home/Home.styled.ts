@@ -87,7 +87,9 @@ const MessagesWrapper = styled.div`
     gap: 1rem;
     margin-top: 1rem;
     flex: 1;
-    overflow-y: scroll;
+    overflow-y: auto;
+    min-height: 400px;
+    max-height: 100vh;
 `;
 
 const MessageContainer = styled.div`
