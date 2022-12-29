@@ -65,17 +65,18 @@ const UserName = styled.p`
     font-size: 1.25rem;
 `;
 
+// TODO: ZAKOMENTOWANE, ZRÓB TO WSZYSTKO RWD
 const Main = styled.main`
     border-radius: 5px;
     background-color: ${(props) => props.theme.gray_500};
     padding: 0.5rem;
     display: flex;
     flex-direction: column;
-    min-height: 30em;
+    //min-height: 10em;
 
-    @media (min-width: 50em) {
-        height: 100%;
-    }
+    //@media (min-width: 50em) {
+    //    height: 100%;
+    //}
 `;
 
 const MainHeader = styled.header`
