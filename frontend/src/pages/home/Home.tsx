@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import Search from "../../components/search/Search";
 import {
     Container,
@@ -22,13 +22,13 @@ import {
     UsersContainer
 } from "./Home.styled";
 import user from "../../assets/user.jpg";
-import { BsPencil, BsTrash } from "react-icons/bs";
+import {BsPencil, BsTrash} from "react-icons/bs";
 
 const Home = () => {
     const [selected, setSelected] = useState("");
 
     const messages = [
-        { id: "1", message: "Lorem ipsumxxxxxxxx xxx xxx xxx" },
+        {id: "1", message: "Lorem ipsumxxxxxxxx xxx xxx xxx"},
         {
             id: "2",
             message:
@@ -56,48 +56,44 @@ const Home = () => {
         }
     ];
 
-    const getMessages = () => {
-        return messages.map(({ id, message }) => {
-            return (
-                <MessageContainer>
-                    <MessageAuthor src={user} />
-                    <Message onClick={() => setSelected(id)}>{message}</Message>
-                    {selected === id && (
-                        <MessageSettings>
-                            <BsTrash />
-                            <BsPencil />
-                        </MessageSettings>
-                    )}
-                </MessageContainer>
-            );
-        });
-    };
+    const getMessages = () => messages.map(({id, message}) =>
+        (<MessageContainer>
+                <MessageAuthor src={user}/>
+                <Message onClick={() => setSelected(id)}>{message}</Message>
+                {selected === id && (
+                    <MessageSettings>
+                        <BsTrash/>
+                        <BsPencil/>
+                    </MessageSettings>
+                )}
+            </MessageContainer>
+        ))
 
     return (
         <Container>
             <aside>
                 <Header>
                     <Heading>Users</Heading>
-                    <OnlineBadge>21</OnlineBadge>
+                    <OnlineBadge>{Math.floor(Math.random() * 100)}</OnlineBadge>
                 </Header>
                 <UsersContainer>
-                    <Search />
+                    <Search/>
                     <Label>Online</Label>
                     <div>
                         <User>
-                            <UserImage src={user} />
+                            <UserImage src={user}/>
                             <UserName>John Doe</UserName>
                         </User>
                         <User>
-                            <UserImage src={user} />
+                            <UserImage src={user}/>
                             <UserName>John Doe</UserName>
                         </User>
                         <User>
-                            <UserImage src={user} />
+                            <UserImage src={user}/>
                             <UserName>John Doe</UserName>
                         </User>
                         <User>
-                            <UserImage src={user} />
+                            <UserImage src={user}/>
                             <UserName>John Doe</UserName>
                         </User>
                     </div>
@@ -105,16 +101,16 @@ const Home = () => {
             </aside>
             <Main>
                 <MainHeader>
-                    <Search />
+                    <Search/>
                 </MainHeader>
                 <MessagesWrapper>{getMessages()}</MessagesWrapper>
                 <InputWrapper>
-                    <MessageInput />
-                    <MemeIcon />
+                    <MessageInput/>
+                    <MemeIcon/>
                 </InputWrapper>
             </Main>
         </Container>
     );
-};
+}
 
 export default Home;
