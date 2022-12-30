@@ -8,14 +8,6 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
   
-  html {
-    height: 100%;
-  }
-  
-  #root { 
-    height: 100%; 
-  }
-  
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -24,7 +16,6 @@ const GlobalStyles = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
     
     background-color: ${COLORS.gray_400};
-    height: 100%;
   }
 
   code {
