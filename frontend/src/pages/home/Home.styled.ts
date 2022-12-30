@@ -134,10 +134,11 @@ const InputWrapper = styled.header`
 `;
 
 const MessageInput = styled.input`
-    border-radius: 5px;
     background-color: ${(props) => props.theme.gray_400};
     padding: 1rem;
-    border: none;
+    border: transparent;
+    outline: transparent;
+    color: ${(props) => props.theme.gray_300};
     width: 100%;
 `;
 
