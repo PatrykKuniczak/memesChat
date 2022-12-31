@@ -119,8 +119,9 @@ const MessageSettings = styled.div`
     align-items: center;
     gap: 0.5rem;
     border-radius: 25px;
-    background-color: ${(props) => props.theme.gray_300};
-    padding: 0.5rem;
+    background-color: ${(props) => props.theme.gray_400};
+    padding: 0.5rem 1rem;
+    color: ${(props) => props.theme.gray_300};
 `;
 
 const InputWrapper = styled.header`
