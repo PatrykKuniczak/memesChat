@@ -14,12 +14,12 @@ const SearchWrapper = styled.div`
 const SearchInput = styled.input.attrs(() => ({
     type: "search"
 }))`
-  background-color: ${(props) => props.theme.gray_500};
-  border: transparent;
-  outline: transparent;
-  color: ${(props) => props.theme.gray_300};
-  width: 100%;
-  font-size: 1rem;
+    background-color: ${(props) => props.theme.gray_500};
+    border: transparent;
+    outline: transparent;
+    color: ${(props) => props.theme.gray_300};
+    width: 100%;
+    font-size: 1rem;
 `;
 
 const SearchIcon = styled(BsSearch)`
