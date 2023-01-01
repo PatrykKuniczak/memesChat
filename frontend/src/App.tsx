@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import {io} from "socket.io-client";
 
 
-const socket = io(`http://localhost:${process.env.REACT_APP_WS_PORT}`);
+const socket = io(`${process.env.REACT_APP_WS_URL}`);
 
 const App: React.FC = () => {
     const [isConnected, setIsConnected] = useState(socket.connected);
