@@ -7,7 +7,7 @@ const typeOrmConfig: TypeOrmModuleAsyncOptions = {
     inject: [ConfigService],
     useFactory: async (configService: ConfigService): Promise<any> =>
         ({
-            type: 'postgres',
+            type: configService.get("DB_TYPE"),
             url: configService.get("DB_URL"),
             entities: ["dist/**/*.entity.js"],
             extra: {
