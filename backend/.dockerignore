@@ -3,5 +3,5 @@ dist
 .idea
 README.md
 .gitignore
-Dockerfile-prod
+docker-files
 .dockerignore
