@@ -10,7 +10,6 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const port = parseInt(configService.get("SERVER_PORT"));
 
-
   await app.listen(port);
   logger.log(`Server running on port ${port}`);
 }
