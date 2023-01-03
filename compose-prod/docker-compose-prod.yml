@@ -1,0 +1,56 @@
+version: "3.8"
+
+services:
+  backend:
+    container_name: backend
+    build:
+      context: ../backend
+      dockerfile: docker-files/Dockerfile-prod
+    command: npm start
+    volumes:
+      - ../backend:/backend
+      - /backend/node_modules
+    env_file:
+      - .env
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
+      - "${WS_PORT}:${WS_PORT}"
+    depends_on:
+      - db
+    links:
+      - db
+    networks:
+      - memesChat
+
+  frontend:
+    container_name: frontend
+    build:
+      context: ../frontend
+      dockerfile: docker-files/Dockerfile-prod
+    command: npm start
+    volumes:
+      - ../frontend:/frontend
+      - /frontend/node_modules
+    env_file:
+      - .env
+    ports:
+      - "${FRONT_PORT}:${FRONT_PORT}"
+    depends_on:
+      - backend
+    links:
+      - backend
+    networks:
+      - memesChat
+
+  db:
+    container_name: db
+    image: "${DB_TYPE}:15.1"
+    env_file:
+      - .env
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    networks:
+      - memesChat
+
+networks:
+  memesChat:
