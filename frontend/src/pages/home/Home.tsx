@@ -14,12 +14,8 @@ import {
     Main,
     MainHeader,
     MemeIcon,
-    Message,
-    MessageAuthor,
     MessageInput,
     MessagesWrapper,
-    MessageSettings,
-    MessageContainer,
     InputWrapper,
     OnlineBadge,
     User,
@@ -31,6 +27,7 @@ import {
 import user from "../../assets/user.jpg";
 import { useSearchParams } from "react-router-dom";
 import useMessages from "./useMessages";
+import MessagesBox from "./MessagesBox";
 
 const Home = () => {
     const [selected, setSelected] = useState("");
@@ -167,7 +164,17 @@ const Home = () => {
                         }}
                     />
                 </MainHeader>
-                <MessagesWrapper>{getMessages()}</MessagesWrapper>
+                <MessagesWrapper>
+                    <MessagesBox
+                        filteredMessages={filteredMessages}
+                        chatInput={chatInput}
+                        handleSetEditMode={setEditMode}
+                        handleSetFilteredMessages={setFilteredMessages}
+                        handleSetSelected={setSelected}
+                        messages={messages}
+                        selected={selected}
+                    />
+                </MessagesWrapper>
                 <InputWrapper>
                     <MessageInput
                         ref={chatInput}
