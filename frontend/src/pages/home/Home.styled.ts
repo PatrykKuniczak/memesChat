@@ -119,11 +119,16 @@ const Message = styled.p`
     flex: 1;
 `;
 
-const MessageAuthor = styled.img`
+const MessageAuthorImage = styled.img`
     width: 32px;
     height: 32px;
     object-fit: cover;
     border-radius: 50%;
+`;
+
+const MessageAuthor = styled.p`
+    color: ${(props) => props.theme.gray_300};
+    padding-block: 0.25rem;
 `;
 
 const MessageSettings = styled.div`
@@ -175,6 +180,7 @@ export {
     MessagesWrapper,
     MessageContainer,
     Message,
+    MessageAuthorImage,
     MessageAuthor,
     MessageSettings,
     InputWrapper,

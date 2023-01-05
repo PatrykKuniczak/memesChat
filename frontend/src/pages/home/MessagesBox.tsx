@@ -2,6 +2,7 @@ import React, { Dispatch, MutableRefObject, SetStateAction } from "react";
 import {
     Message,
     MessageAuthor,
+    MessageAuthorImage,
     MessageContainer,
     MessageSettings
 } from "./Home.styled";
@@ -32,11 +33,13 @@ const MessagesBox = ({
     <>
         {filteredMessages.map(({ id, message, author }) => (
             <MessageContainer>
-                <MessageAuthor src={user} />
-                <Message onClick={() => handleSetSelected(id)}>
-                    {message}
-                </Message>
-                Author: {author}
+                <MessageAuthorImage src={user} />
+                <div>
+                    <MessageAuthor>{author}</MessageAuthor>
+                    <Message onClick={() => handleSetSelected(id)}>
+                        {message}
+                    </Message>
+                </div>
                 {selected === id && (
                     <MessageSettings>
                         <BsPencilSquare
