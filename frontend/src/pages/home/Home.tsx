@@ -6,6 +6,7 @@ import {
     useTransition
 } from "react";
 import Search from "../../components/search/Search";
+import Avatar from "../../components/avatar/Avatar";
 import {
     Container,
     Header,
@@ -144,37 +145,40 @@ const Home = () => {
                     </div>
                 </UsersContainer>
             </aside>
-            <Main>
-                <MainHeader>
-                    <MessageSearchBar
-                        searchMode={searchMode}
-                        handleSetSearchMode={setSearchMode}
-                        handleSetSearchParams={setSearchParams}
-                        applyFilter={applyFilter}
-                    />
-                </MainHeader>
-                <MessagesWrapper>
-                    <MessagesBox
-                        filteredMessages={filteredMessages}
-                        chatInput={chatInput}
-                        handleSetEditMode={setEditMode}
-                        handleSetFilteredMessages={setFilteredMessages}
-                        handleSetSelected={setSelected}
-                        messages={messages}
-                        selected={selected}
-                    />
-                </MessagesWrapper>
-                <InputWrapper>
-                    <MessageInput
-                        ref={chatInput}
-                        onKeyDown={onTextInputEnterPress}
-                        onChange={(event) =>
-                            setCurrentInputValue(() => event.target.value)
-                        }
-                    />
-                    <MemeIcon />
-                </InputWrapper>
-            </Main>
+            <div>
+                <Avatar />
+                <Main>
+                    <MainHeader>
+                        <MessageSearchBar
+                            searchMode={searchMode}
+                            handleSetSearchMode={setSearchMode}
+                            handleSetSearchParams={setSearchParams}
+                            applyFilter={applyFilter}
+                        />
+                    </MainHeader>
+                    <MessagesWrapper>
+                        <MessagesBox
+                            filteredMessages={filteredMessages}
+                            chatInput={chatInput}
+                            handleSetEditMode={setEditMode}
+                            handleSetFilteredMessages={setFilteredMessages}
+                            handleSetSelected={setSelected}
+                            messages={messages}
+                            selected={selected}
+                        />
+                    </MessagesWrapper>
+                    <InputWrapper>
+                        <MessageInput
+                            ref={chatInput}
+                            onKeyDown={onTextInputEnterPress}
+                            onChange={(event) =>
+                                setCurrentInputValue(() => event.target.value)
+                            }
+                        />
+                        <MemeIcon />
+                    </InputWrapper>
+                </Main>
+            </div>
         </Container>
     );
 };
