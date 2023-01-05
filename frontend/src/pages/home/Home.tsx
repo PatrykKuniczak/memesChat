@@ -22,12 +22,12 @@ import {
     UserImage,
     UserName,
     UsersContainer,
-    SearchTypeSwitcher
 } from "./Home.styled";
 import user from "../../assets/user.jpg";
 import { useSearchParams } from "react-router-dom";
 import useMessages from "./useMessages";
 import MessagesBox from "./MessagesBox";
+import MessageSearchBar from "./MessageSearchBar";
 
 const Home = () => {
     const [selected, setSelected] = useState("");
@@ -108,7 +108,7 @@ const Home = () => {
         chatInput.current!.value = "";
     };
 
-    const handleChange = () => {
+    const applyFilter = () => {
         startTransition(() => {
             setFilteredMessages(filter);
         });
@@ -146,22 +146,11 @@ const Home = () => {
             </aside>
             <Main>
                 <MainHeader>
-                    <SearchTypeSwitcher
-                        onClick={() =>
-                            setSearchMode(
-                                searchMode === "message" ? "user" : "message"
-                            )
-                        }
-                    >
-                        {searchMode}
-                    </SearchTypeSwitcher>
-                    <Search
-                        onChange={(event) => {
-                            setSearchParams({
-                                messagesFilter: event.target.value
-                            });
-                            handleChange();
-                        }}
+                    <MessageSearchBar
+                        searchMode={searchMode}
+                        handleSetSearchMode={setSearchMode}
+                        handleSetSearchParams={setSearchParams}
+                        applyFilter={applyFilter}
                     />
                 </MainHeader>
                 <MessagesWrapper>
