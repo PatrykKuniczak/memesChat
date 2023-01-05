@@ -1,4 +1,10 @@
-import React, { useRef, useState } from "react";
+import {
+    KeyboardEvent,
+    useEffect,
+    useRef,
+    useState,
+    useTransition
+} from "react";
 import Search from "../../components/search/Search";
 import {
     Container,
@@ -19,56 +25,67 @@ import {
     User,
     UserImage,
     UserName,
-    UsersContainer
+    UsersContainer,
+    SearchTypeSwitcher
 } from "./Home.styled";
 import user from "../../assets/user.jpg";
-import { BsPencilSquare, BsTrashFill } from "react-icons/bs";
+import { useSearchParams } from "react-router-dom";
+import useMessages from "./useMessages";
 
 const Home = () => {
     const [selected, setSelected] = useState("");
     const [editMode, setEditMode] = useState(false);
 
+    const { messages } = useMessages();
+    const [filteredMessages, setFilteredMessages] = useState(messages);
+
     const chatInput = useRef<HTMLInputElement | null>(null);
 
     const [currentInputValue, setCurrentInputValue] = useState("");
 
-    const [messages, setMessages] = useState([
-        { id: "1", message: "Lorem ipsumxxxxxxxx xxx xxx xxx" },
-        {
-            id: "2",
-            message:
-                "Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx"
-        },
-        {
-            id: "3",
-            message:
-                "Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx"
-        },
-        {
-            id: "4",
-            message:
-                "Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx"
-        },
-        {
-            id: "5",
-            message:
-                "Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx"
-        },
-        {
-            id: "6",
-            message:
-                "Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx Lorem ipsumxxxxxxxx xxx xxx xxx"
-        }
-    ]);
-    const onTextInputEnterPress = (
-        event: React.KeyboardEvent<HTMLInputElement>
-    ) => {
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const [isPending, startTransition] = useTransition();
+
+    const [searchMode, setSearchMode] = useState<"user" | "message">("message");
+
+    const filter = () => {
+        return messages.filter(({ message, author }) => {
+            let filter = searchParams.get("messagesFilter") || "";
+            if (filter === "") {
+                return true;
+            }
+
+            if (searchMode === "user") {
+                return author.toLowerCase().startsWith(filter.toLowerCase());
+            }
+
+            return (
+                message
+                    .toLowerCase()
+                    .split(" ")
+                    .find((piece) =>
+                        filter.toLowerCase().split(" ").includes(piece)
+                    ) !== undefined
+            );
+        });
+    };
+    useEffect(() => {
+        setFilteredMessages(filter);
+        chatInput.current!.value = searchParams.get("messagesFilter") || "";
+    }, [searchParams]);
+
+    useEffect(() => {
+        setFilteredMessages(messages);
+    }, [messages]);
+
+    const onTextInputEnterPress = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key !== "Enter") {
             return;
         }
 
         if (editMode) {
-            setMessages((prevState) => {
+            setFilteredMessages((prevState) => {
                 return prevState.map((message) => {
                     if (message.id === selected) {
                         return {
@@ -85,38 +102,20 @@ const Home = () => {
             return;
         }
 
-        setMessages((prevState) => {
-            return [...prevState, { id: "10", message: currentInputValue }];
+        setFilteredMessages((prevState) => {
+            return [
+                ...prevState,
+                { id: "10", message: currentInputValue, author: "degi_" }
+            ];
         });
         chatInput.current!.value = "";
     };
-    const getMessages = () =>
-        messages.map(({ id, message }) => (
-            <MessageContainer>
-                <MessageAuthor src={user} />
-                <Message onClick={() => setSelected(id)}>{message}</Message>
-                {selected === id && (
-                    <MessageSettings>
-                        <BsPencilSquare
-                            onClick={() => {
-                                setEditMode(true);
-                                chatInput.current!.value =
-                                    messages.find(
-                                        (message) => message.id === selected
-                                    )?.message || "";
-                            }}
-                        />
-                        <BsTrashFill
-                            onClick={() =>
-                                setMessages(() =>
-                                    messages.filter(({ id }) => id !== selected)
-                                )
-                            }
-                        />
-                    </MessageSettings>
-                )}
-            </MessageContainer>
-        ));
+
+    const handleChange = () => {
+        startTransition(() => {
+            setFilteredMessages(filter);
+        });
+    };
 
     return (
         <Container>
@@ -150,7 +149,23 @@ const Home = () => {
             </aside>
             <Main>
                 <MainHeader>
-                    <Search />
+                    <SearchTypeSwitcher
+                        onClick={() =>
+                            setSearchMode(
+                                searchMode === "message" ? "user" : "message"
+                            )
+                        }
+                    >
+                        {searchMode}
+                    </SearchTypeSwitcher>
+                    <Search
+                        onChange={(event) => {
+                            setSearchParams({
+                                messagesFilter: event.target.value
+                            });
+                            handleChange();
+                        }}
+                    />
                 </MainHeader>
                 <MessagesWrapper>{getMessages()}</MessagesWrapper>
                 <InputWrapper>

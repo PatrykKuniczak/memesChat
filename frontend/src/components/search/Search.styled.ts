@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { BsSearch } from "react-icons/bs";
+import { InputHTMLAttributes } from "react";
 
 const SearchWrapper = styled.div`
     display: flex;
@@ -11,9 +12,11 @@ const SearchWrapper = styled.div`
     padding: 1rem;
 `;
 
-const SearchInput = styled.input.attrs(() => ({
-    type: "search"
-}))`
+const SearchInput = styled.input.attrs<InputHTMLAttributes<HTMLInputElement>>(
+    () => ({
+        type: "search"
+    })
+)`
     background-color: ${(props) => props.theme.gray_500};
     border: transparent;
     outline: transparent;

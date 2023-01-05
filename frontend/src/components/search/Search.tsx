@@ -1,10 +1,10 @@
-import React from "react";
+import { FC, InputHTMLAttributes } from "react";
 import { SearchIcon, SearchInput, SearchWrapper } from "./Search.styled";
 
-const Search = () => {
+const Search: FC<InputHTMLAttributes<HTMLInputElement>> = (props) => {
     return (
         <SearchWrapper>
-            <SearchInput placeholder="Search" />
+            <SearchInput placeholder="Search" {...props} />
             <SearchIcon />
         </SearchWrapper>
     );

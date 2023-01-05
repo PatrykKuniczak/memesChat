@@ -81,6 +81,18 @@ const MainHeader = styled.header`
     padding: 1rem;
 `;
 
+const SearchTypeSwitcher = styled.button`
+  background-color: ${(props) => props.theme.gray_500};
+  border: transparent;
+  border-radius: 5px;
+  outline: transparent;
+  padding: 1rem;
+  margin-right: 1rem;
+  color: ${(props) => props.theme.gray_300};
+  font-size: 1rem;
+  text-transform: capitalize;
+`;
+
 const MessagesWrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -159,6 +171,7 @@ export {
     UserName,
     Main,
     MainHeader,
+    SearchTypeSwitcher,
     MessagesWrapper,
     MessageContainer,
     Message,
