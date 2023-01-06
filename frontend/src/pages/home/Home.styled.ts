@@ -21,15 +21,17 @@ const Header = styled.header`
 
 const Heading = styled.h1`
     color: #fff;
+  
     font-size: 1.5rem;
     font-weight: 700;
 `;
 
 const OnlineBadge = styled.div`
-    padding: 0.5rem 1.5rem;
     background-color: ${(props) => props.theme.primary};
     color: #fff;
+
     border-radius: 5px;
+    padding: 0.5rem 1.5rem;
 `;
 
 const UsersContainer = styled.section`
@@ -38,6 +40,7 @@ const UsersContainer = styled.section`
 
 const Label = styled.p`
     color: ${(props) => props.theme.gray_300};
+  
     margin-top: 1rem;
 `;
 
@@ -53,16 +56,17 @@ const User = styled.div`
 `;
 
 const UserImage = styled.img`
-    object-fit: cover;
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    object-fit: cover;
 `;
 
 const UserName = styled.p`
     color: #fff;
-    font-weight: 500;
+
     font-size: 1.25rem;
+    font-weight: 500;
 `;
 
 const Main = styled.main`

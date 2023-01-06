@@ -7,24 +7,27 @@ const MessageContainer = styled.div`
 `;
 
 const Message = styled.p`
+    flex: 1;
     border-radius: 5px;
+    padding: 0.5rem;
+
     background-color: ${(props) => props.theme.gray_400};
     color: ${(props) => props.theme.gray_300};
-    padding: 0.5rem;
+
     cursor: pointer;
-    flex: 1;
 `;
 
 const MessageAuthorImage = styled.img`
     width: 32px;
     height: 32px;
-    object-fit: cover;
     border-radius: 50%;
+    object-fit: cover;
 `;
 
 const MessageAuthor = styled.p`
-    color: ${(props) => props.theme.gray_300};
     padding-block: 0.25rem;
+
+    color: ${(props) => props.theme.gray_300};
 `;
 
 const MessageSettings = styled.div`
@@ -32,8 +35,9 @@ const MessageSettings = styled.div`
     align-items: center;
     gap: 0.5rem;
     border-radius: 25px;
-    background-color: ${(props) => props.theme.gray_400};
     padding: 0.5rem 1rem;
+
+    background-color: ${(props) => props.theme.gray_400};
     color: ${(props) => props.theme.gray_300};
 `;
 

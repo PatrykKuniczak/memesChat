@@ -7,9 +7,10 @@ const SearchWrapper = styled.div`
     align-items: center;
     justify-content: space-between;
     gap: 0.5rem;
-    background-color: ${(props) => props.theme.gray_500};
     border-radius: 5px;
     padding: 1rem;
+
+    background-color: ${(props) => props.theme.gray_500};
 `;
 
 const SearchInput = styled.input.attrs<InputHTMLAttributes<HTMLInputElement>>(
@@ -17,11 +18,13 @@ const SearchInput = styled.input.attrs<InputHTMLAttributes<HTMLInputElement>>(
         type: "search"
     })
 )`
-    background-color: ${(props) => props.theme.gray_500};
+    width: 100%;
     border: transparent;
     outline: transparent;
+
+    background-color: ${(props) => props.theme.gray_500};
     color: ${(props) => props.theme.gray_300};
-    width: 100%;
+
     font-size: 1rem;
 `;
 
