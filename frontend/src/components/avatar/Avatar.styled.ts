@@ -11,7 +11,6 @@ const AvatarWrapper = styled.div`
 `;
 
 const Button = styled.button`
-    cursor: pointer;
     all: unset;
     background: #ffffff00;
     padding: 0.5rem;
@@ -67,6 +66,7 @@ const Input = styled.input`
     background: #3b3b3b;
     border: 1px solid grey;
     border-radius: 0.2rem;
+    cursor: pointer;
 `;
 
 const DeleteAccountModal = styled.div`
