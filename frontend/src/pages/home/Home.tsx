@@ -1,10 +1,4 @@
-import {
-    KeyboardEvent,
-    useEffect,
-    useRef,
-    useState,
-    useTransition
-} from "react";
+import { KeyboardEvent, useEffect, useRef, useState } from "react";
 import Search from "../../components/search/Search";
 import {
     Container,
@@ -21,13 +15,14 @@ import {
     User,
     UserImage,
     UserName,
-    UsersContainer,
+    UsersContainer
 } from "./Home.styled";
 import user from "../../assets/user.jpg";
 import { useSearchParams } from "react-router-dom";
 import useMessages from "../../hooks/useMessages";
 import MessagesBox from "./MessagesBox";
 import MessageSearchBar from "./MessageSearchBar";
+import useMessagesFilter from "../../hooks/useMessagesFilter";
 
 const Home = () => {
     const [selected, setSelected] = useState("");
@@ -41,27 +36,20 @@ const Home = () => {
     const [currentInputValue, setCurrentInputValue] = useState("");
 
     const [searchParams, setSearchParams] = useSearchParams();
-
-    const [isPending, startTransition] = useTransition();
-
     const [searchMode, setSearchMode] = useState<"user" | "message">("message");
-
-    const filter = () => {
-        return messages.filter(({ message, author }) => {
-            let filter = searchParams.get("messagesFilter") || "";
-            if (filter === "") {
-                return true;
-            }
-
-            if (searchMode === "user") {
-                return author.toLowerCase().startsWith(filter.toLowerCase());
-            }
 
     // TODO: Add event handlers
 
     useEffect(() => {
         setFilteredMessages(messages);
     }, [messages]);
+
+    const { applyFilter } = useMessagesFilter({
+        messages,
+        searchMode,
+        searchParams,
+        setFilteredMessages
+    });
 
     const onTextInputEnterPress = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key !== "Enter") {
@@ -93,12 +81,6 @@ const Home = () => {
             ];
         });
         chatInput.current!.value = "";
-    };
-
-    const applyFilter = () => {
-        startTransition(() => {
-            setFilteredMessages(filter);
-        });
     };
 
     return (
