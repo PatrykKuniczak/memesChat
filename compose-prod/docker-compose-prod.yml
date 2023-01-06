@@ -3,6 +3,7 @@ version: "3.8"
 services:
   backend:
     container_name: backend
+    restart: on-failure
     build:
       context: ../backend
       dockerfile: docker-files/Dockerfile-prod
@@ -24,6 +25,7 @@ services:
 
   frontend:
     container_name: frontend
+    restart: on-failure
     build:
       context: ../frontend
       dockerfile: docker-files/Dockerfile-prod
@@ -44,6 +46,7 @@ services:
 
   db:
     container_name: db
+    restart: unless-stopped
     image: "${DB_TYPE}:15.1"
     env_file:
       - .env
