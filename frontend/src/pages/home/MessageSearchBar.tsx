@@ -1,5 +1,5 @@
 import { Dispatch, FC, SetStateAction } from "react";
-import { SearchTypeSwitcher } from "./Home.styled";
+import { SearchContainer, SearchTypeSwitcher } from "./Home.styled";
 import Search from "../../components/search/Search";
 
 interface Props {
@@ -16,7 +16,7 @@ const MessageSearchBar: FC<Props> = ({
     applyFilter
 }) => {
     return (
-        <div>
+        <SearchContainer>
             <SearchTypeSwitcher
                 onClick={() =>
                     handleSetSearchMode((searchMode) =>
@@ -34,7 +34,7 @@ const MessageSearchBar: FC<Props> = ({
                     applyFilter();
                 }}
             />
-        </div>
+        </SearchContainer>
     );
 };
 

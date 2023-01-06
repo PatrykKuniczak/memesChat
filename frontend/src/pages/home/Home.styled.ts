@@ -81,6 +81,13 @@ const MainHeader = styled.header`
     padding: 1rem;
 `;
 
+const SearchContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+`;
+
 const SearchTypeSwitcher = styled.button`
     background-color: ${(props) => props.theme.gray_500};
     border: transparent;
@@ -176,6 +183,7 @@ export {
     UserName,
     Main,
     MainHeader,
+    SearchContainer,
     SearchTypeSwitcher,
     MessagesWrapper,
     MessageContainer,
