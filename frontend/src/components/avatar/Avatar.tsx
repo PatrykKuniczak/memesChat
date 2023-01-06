@@ -31,8 +31,8 @@ const Avatar = () => {
         setShowEditNicknameModal(false);
         setShowDeleteAccountModal(false);
     };
-    const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
+    const handleNicknameChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.value;
         setNewUserName(value);
     };
 
