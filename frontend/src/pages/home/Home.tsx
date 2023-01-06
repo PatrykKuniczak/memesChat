@@ -25,7 +25,7 @@ import {
 } from "./Home.styled";
 import user from "../../assets/user.jpg";
 import { useSearchParams } from "react-router-dom";
-import useMessages from "./useMessages";
+import useMessages from "../../hooks/useMessages";
 import MessagesBox from "./MessagesBox";
 import MessageSearchBar from "./MessageSearchBar";
 
@@ -57,20 +57,7 @@ const Home = () => {
                 return author.toLowerCase().startsWith(filter.toLowerCase());
             }
 
-            return (
-                message
-                    .toLowerCase()
-                    .split(" ")
-                    .find((piece) =>
-                        filter.toLowerCase().split(" ").includes(piece)
-                    ) !== undefined
-            );
-        });
-    };
-    useEffect(() => {
-        setFilteredMessages(filter);
-        chatInput.current!.value = searchParams.get("messagesFilter") || "";
-    }, [searchParams]);
+    // TODO: Add event handlers
 
     useEffect(() => {
         setFilteredMessages(messages);
