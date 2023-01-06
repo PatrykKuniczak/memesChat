@@ -25,7 +25,7 @@ const ChevronIcon = styled(BsChevronDown)`
 const DropdownWrapper = styled.div`
     position: relative;
     top: 2rem;
-    right: 0.5rem;
+    right: -12rem;
 `;
 
 const DropdownList = styled.ul`
