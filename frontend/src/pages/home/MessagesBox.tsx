@@ -32,7 +32,7 @@ const MessagesBox = ({
 }: MessagesProps) => (
     <>
         {filteredMessages.map(({ id, message, author }) => (
-            <MessageContainer>
+            <MessageContainer key={id}>
                 <MessageAuthorImage src={user} />
                 <div>
                     <MessageAuthor>{author}</MessageAuthor>
