@@ -81,25 +81,6 @@ const MainHeader = styled.header`
     padding: 1rem;
 `;
 
-const SearchContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
-`;
-
-const SearchTypeSwitcher = styled.button`
-    background-color: ${(props) => props.theme.gray_500};
-    border: transparent;
-    border-radius: 5px;
-    outline: transparent;
-    padding: 1rem;
-    margin-right: 1rem;
-    color: ${(props) => props.theme.gray_300};
-    font-size: 1rem;
-    text-transform: capitalize;
-`;
-
 const MessagesWrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -109,43 +90,6 @@ const MessagesWrapper = styled.div`
     overflow-y: auto;
     min-height: 400px;
     max-height: 100vh;
-`;
-
-const MessageContainer = styled.div`
-    display: flex;
-    align-items: start;
-    gap: 1rem;
-`;
-
-const Message = styled.p`
-    border-radius: 5px;
-    background-color: ${(props) => props.theme.gray_400};
-    color: ${(props) => props.theme.gray_300};
-    padding: 0.5rem;
-    cursor: pointer;
-    flex: 1;
-`;
-
-const MessageAuthorImage = styled.img`
-    width: 32px;
-    height: 32px;
-    object-fit: cover;
-    border-radius: 50%;
-`;
-
-const MessageAuthor = styled.p`
-    color: ${(props) => props.theme.gray_300};
-    padding-block: 0.25rem;
-`;
-
-const MessageSettings = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    border-radius: 25px;
-    background-color: ${(props) => props.theme.gray_400};
-    padding: 0.5rem 1rem;
-    color: ${(props) => props.theme.gray_300};
 `;
 
 const InputWrapper = styled.header`
@@ -183,14 +127,7 @@ export {
     UserName,
     Main,
     MainHeader,
-    SearchContainer,
-    SearchTypeSwitcher,
     MessagesWrapper,
-    MessageContainer,
-    Message,
-    MessageAuthorImage,
-    MessageAuthor,
-    MessageSettings,
     InputWrapper,
     MessageInput,
     MemeIcon

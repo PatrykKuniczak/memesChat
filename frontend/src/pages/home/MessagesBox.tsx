@@ -5,7 +5,7 @@ import {
     MessageAuthorImage,
     MessageContainer,
     MessageSettings
-} from "./Home.styled";
+} from "./MessagesBox.styled";
 import user from "../../assets/user.jpg";
 import { BsPencilSquare, BsTrashFill } from "react-icons/bs";
 
