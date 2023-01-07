@@ -2,12 +2,12 @@ import { KeyboardEvent, useEffect, useRef, useState } from "react";
 import Search from "../../components/search/Search";
 import Avatar from "../../components/avatar/Avatar";
 import {
-    Container,
+    Main,
     Header,
     Heading,
     Label,
-    Main,
-    MainHeader,
+    Chat,
+    ChatHeader,
     MemeIcon,
     MessageInput,
     MessagesWrapper,
@@ -85,7 +85,7 @@ const Home = () => {
     };
 
     return (
-        <Container>
+        <Main>
             <aside>
                 <Header>
                     <Heading>Users</Heading>
@@ -116,15 +116,15 @@ const Home = () => {
             </aside>
             <div>
                 <Avatar />
-                <Main>
-                    <MainHeader>
+                <Chat>
+                    <ChatHeader>
                         <MessageSearchBar
                             searchMode={searchMode}
                             handleSetSearchMode={setSearchMode}
                             handleSetSearchParams={setSearchParams}
                             applyFilter={applyFilter}
                         />
-                    </MainHeader>
+                    </ChatHeader>
                     <MessagesWrapper>
                         <MessagesBox
                             filteredMessages={filteredMessages}
@@ -146,9 +146,9 @@ const Home = () => {
                         />
                         <MemeIcon />
                     </InputWrapper>
-                </Main>
+                </Chat>
             </div>
-        </Container>
+        </Main>
     );
 };
 

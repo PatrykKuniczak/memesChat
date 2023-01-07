@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { BsStars } from "react-icons/bs";
 
-const Container = styled.div`
+const Main = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fill);
     gap: 1.5rem;
@@ -69,7 +69,7 @@ const UserName = styled.p`
     font-weight: 500;
 `;
 
-const Main = styled.main`
+const Chat = styled.main`
     border-radius: 5px;
     background-color: ${(props) => props.theme.gray_500};
     padding: 0.5rem;
@@ -77,7 +77,7 @@ const Main = styled.main`
     flex-direction: column;
 `;
 
-const MainHeader = styled.header`
+const ChatHeader = styled.header`
     display: flex;
     justify-content: end;
     border-radius: 5px;
@@ -120,7 +120,7 @@ const MemeIcon = styled(BsStars)`
 `;
 
 export {
-    Container,
+    Main,
     Header,
     Heading,
     OnlineBadge,
@@ -129,8 +129,8 @@ export {
     User,
     UserImage,
     UserName,
-    Main,
-    MainHeader,
+    Chat,
+    ChatHeader,
     MessagesWrapper,
     InputWrapper,
     MessageInput,
