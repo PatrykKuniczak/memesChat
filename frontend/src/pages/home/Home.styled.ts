@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { BsStars } from "react-icons/bs";
+import { BsStars, BsImage } from "react-icons/bs";
 
 const Main = styled.div`
     display: grid;
@@ -116,7 +116,15 @@ const MessageInput = styled.input`
 `;
 
 const MemeIcon = styled(BsStars)`
+    margin: 0 0.5rem;
     fill: ${(props) => props.theme.gray_300};
+    cursor: pointer;
+`;
+
+const MemeGenerateIcon = styled(BsImage)`
+    margin: 0 0.5rem;
+    fill: ${(props) => props.theme.gray_300};
+    cursor: pointer;
 `;
 
 export {
@@ -134,5 +142,6 @@ export {
     MessagesWrapper,
     InputWrapper,
     MessageInput,
-    MemeIcon
+    MemeIcon,
+    MemeGenerateIcon
 };

@@ -9,6 +9,7 @@ import {
     Chat,
     ChatHeader,
     MemeIcon,
+    MemeGenerateIcon,
     MessageInput,
     MessagesWrapper,
     InputWrapper,
@@ -150,6 +151,7 @@ const Home = () => {
                                 }
                             />
                             <MemeIcon />
+                            <MemeGenerateIcon />
                         </InputWrapper>
                     </Chat>
                 </div>
