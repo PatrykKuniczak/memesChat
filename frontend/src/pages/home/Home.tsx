@@ -1,6 +1,6 @@
 import { KeyboardEvent, useEffect, useRef, useState } from "react";
+import Navbar from "../../components/navbar/Navbar";
 import Search from "../../components/search/Search";
-import Avatar from "../../components/avatar/Avatar";
 import {
     Main,
     Header,
@@ -85,70 +85,76 @@ const Home = () => {
     };
 
     return (
-        <Main>
-            <aside>
-                <Header>
-                    <Heading>Users</Heading>
-                    <OnlineBadge>{Math.floor(Math.random() * 100)}</OnlineBadge>
-                </Header>
-                <UsersContainer>
-                    <Search />
-                    <Label>Online</Label>
-                    <div>
-                        <User>
-                            <UserImage src={user} />
-                            <UserName>John Doe</UserName>
-                        </User>
-                        <User>
-                            <UserImage src={user} />
-                            <UserName>John Doe</UserName>
-                        </User>
-                        <User>
-                            <UserImage src={user} />
-                            <UserName>John Doe</UserName>
-                        </User>
-                        <User>
-                            <UserImage src={user} />
-                            <UserName>John Doe</UserName>
-                        </User>
-                    </div>
-                </UsersContainer>
-            </aside>
-            <div>
-                <Avatar />
-                <Chat>
-                    <ChatHeader>
-                        <MessageSearchBar
-                            searchMode={searchMode}
-                            handleSetSearchMode={setSearchMode}
-                            handleSetSearchParams={setSearchParams}
-                            applyFilter={applyFilter}
-                        />
-                    </ChatHeader>
-                    <MessagesWrapper>
-                        <MessagesBox
-                            filteredMessages={filteredMessages}
-                            chatInput={chatInput}
-                            handleSetEditMode={setEditMode}
-                            handleSetFilteredMessages={setFilteredMessages}
-                            handleSetSelected={setSelected}
-                            messages={messages}
-                            selected={selected}
-                        />
-                    </MessagesWrapper>
-                    <InputWrapper>
-                        <MessageInput
-                            ref={chatInput}
-                            onKeyDown={onTextInputEnterPress}
-                            onChange={(event) =>
-                                setCurrentInputValue(() => event.target.value)
-                            }
-                        />
-                        <MemeIcon />
-                    </InputWrapper>
-                </Chat>
-            </div>
-        </Main>
+        <>
+            <Navbar />
+            <Main>
+                <aside>
+                    <Header>
+                        <Heading>Users</Heading>
+                        <OnlineBadge>
+                            {Math.floor(Math.random() * 100)}
+                        </OnlineBadge>
+                    </Header>
+                    <UsersContainer>
+                        <Search />
+                        <Label>Online</Label>
+                        <div>
+                            <User>
+                                <UserImage src={user} />
+                                <UserName>John Doe</UserName>
+                            </User>
+                            <User>
+                                <UserImage src={user} />
+                                <UserName>John Doe</UserName>
+                            </User>
+                            <User>
+                                <UserImage src={user} />
+                                <UserName>John Doe</UserName>
+                            </User>
+                            <User>
+                                <UserImage src={user} />
+                                <UserName>John Doe</UserName>
+                            </User>
+                        </div>
+                    </UsersContainer>
+                </aside>
+                <div>
+                    <Chat>
+                        <ChatHeader>
+                            <MessageSearchBar
+                                searchMode={searchMode}
+                                handleSetSearchMode={setSearchMode}
+                                handleSetSearchParams={setSearchParams}
+                                applyFilter={applyFilter}
+                            />
+                        </ChatHeader>
+                        <MessagesWrapper>
+                            <MessagesBox
+                                filteredMessages={filteredMessages}
+                                chatInput={chatInput}
+                                handleSetEditMode={setEditMode}
+                                handleSetFilteredMessages={setFilteredMessages}
+                                handleSetSelected={setSelected}
+                                messages={messages}
+                                selected={selected}
+                            />
+                        </MessagesWrapper>
+                        <InputWrapper>
+                            <MessageInput
+                                ref={chatInput}
+                                onKeyDown={onTextInputEnterPress}
+                                onChange={(event) =>
+                                    setCurrentInputValue(
+                                        () => event.target.value
+                                    )
+                                }
+                            />
+                            <MemeIcon />
+                        </InputWrapper>
+                    </Chat>
+                </div>
+            </Main>
+        </>
     );
 };
 
