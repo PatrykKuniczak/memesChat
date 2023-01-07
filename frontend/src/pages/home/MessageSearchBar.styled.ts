@@ -8,11 +8,11 @@ const SearchContainer = styled.div`
 `;
 
 const SearchTypeSwitcher = styled.button`
+    padding: 1rem;
+    margin-right: 1rem;
     border: transparent;
     border-radius: 5px;
     outline: transparent;
-    padding: 1rem;
-    margin-right: 1rem;
 
     background-color: ${(props) => props.theme.gray_500};
     color: ${(props) => props.theme.gray_300};
