@@ -5,7 +5,7 @@ const Container = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fill);
     gap: 1.5rem;
-    padding: 2.5rem;
+    padding: 2.5rem 0 2.5rem 2.5rem;
 
     @media (min-width: 50em) {
         grid-template-columns: min(30%, 300px) minmax(0, 1fr);
@@ -21,7 +21,7 @@ const Header = styled.header`
 
 const Heading = styled.h1`
     color: #fff;
-  
+
     font-size: 1.5rem;
     font-weight: 700;
 `;
@@ -40,7 +40,7 @@ const UsersContainer = styled.section`
 
 const Label = styled.p`
     color: ${(props) => props.theme.gray_300};
-  
+
     margin-top: 1rem;
 `;
 

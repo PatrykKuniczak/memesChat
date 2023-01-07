@@ -12,7 +12,8 @@ import {
     DeleteAccountModalButtons,
     ButtonPrimary,
     ButtonSecondary,
-    ChevronIcon
+    ChevronIcon,
+    ModalBackgroundHandler
 } from "./Avatar.styled";
 
 import { UserImage, UserName } from "../../pages/home/Home.styled";
@@ -37,82 +38,107 @@ const Avatar = () => {
     };
 
     return (
-      <AvatarWrapper>
-          {showAvatarDropdown && (
-              <DropdownWrapper
-                  onClick={() => {
-                      setShowAvatarDropdown(false);
-                  }}
-              >
-                  <DropdownList>
-                      <DropdownListItem
-                          onClick={() => {
-                              setShowEditNicknameModal(true);
-                              setShowDeleteAccountModal(false);
-                          }}
-                      >
-                          Edytuj konto
-                      </DropdownListItem>
-                      <DropdownListItem
-                          onClick={() => {
-                              setShowDeleteAccountModal(true);
-                              setShowEditNicknameModal(false);
-                          }}
-                      >
-                          Usuń konto
-                      </DropdownListItem>
-                  </DropdownList>
-              </DropdownWrapper>
-          )}
-          {showEditNicknameModal && (
-              <EditNicknameModal>
-                  <span>Twój nowy nick:</span>
-                  <Input
-                      type="text"
-                      value={newUserName}
-                      onChange={(e) => handleNicknameChange(e)}
-                  />
-                  <Input
-                      type="submit"
-                      value="Zapisz"
-                      onClick={() => {
-                          setUserName(newUserName);
-                          setShowEditNicknameModal(false);
-                          setShowAvatarDropdown(false);
-                      }}
-                  />
-              </EditNicknameModal>
-          )}
-          {showDeleteAccountModal && (
-              <DeleteAccountModal>
-                  <>
-                      <span>Czy na pewno chcesz usunąć konto?</span>
-                      <DeleteAccountModalButtons>
-                          <ButtonPrimary
-                              onClick={() => {
-                                  setShowDeleteAccountModal(false);
-                                  setShowAvatarDropdown(false);
-                              }}
-                          >
-                              Tak, usuwam konto
-                          </ButtonPrimary>
-                          <ButtonSecondary
-                              onClick={() => {
-                                  setShowDeleteAccountModal(false);
-                                  setShowAvatarDropdown(false);
-                              }}
-                          >
-                              Anuluj
-                          </ButtonSecondary>
-                      </DeleteAccountModalButtons>
-                  </>
-              </DeleteAccountModal>
-          )}
+        <AvatarWrapper>
+            {showEditNicknameModal && (
+                <>
+                    <EditNicknameModal>
+                        <span>Twój nowy nick:</span>
+                        <Input
+                            type="text"
+                            value={newUserName}
+                            onChange={(e) => handleNicknameChange(e)}
+                        />
+                        <Input
+                            type="submit"
+                            value="Zapisz"
+                            onClick={() => {
+                                setUserName(newUserName);
+                                setShowEditNicknameModal(false);
+                                setShowAvatarDropdown(false);
+                            }}
+                        />
+                    </EditNicknameModal>
+                    <ModalBackgroundHandler
+                        onClick={() => {
+                            setShowEditNicknameModal(false);
+                            setShowAvatarDropdown(false);
+                        }}
+                    />
+                </>
+            )}
+            {showDeleteAccountModal && (
+                <>
+                    <DeleteAccountModal>
+                        <>
+                            <span>Czy na pewno chcesz usunąć konto?</span>
+                            <DeleteAccountModalButtons>
+                                <ButtonPrimary
+                                    onClick={() => {
+                                        setShowDeleteAccountModal(false);
+                                        setShowAvatarDropdown(false);
+                                    }}
+                                >
+                                    Tak, usuwam konto
+                                </ButtonPrimary>
+                                <ButtonSecondary
+                                    onClick={() => {
+                                        setShowDeleteAccountModal(false);
+                                        setShowAvatarDropdown(false);
+                                    }}
+                                >
+                                    Anuluj
+                                </ButtonSecondary>
+                            </DeleteAccountModalButtons>
+                        </>
+                    </DeleteAccountModal>
+                    <ModalBackgroundHandler
+                        onClick={() => {
+                            setShowDeleteAccountModal(false);
+                            setShowAvatarDropdown(false);
+                        }}
+                    />
+                </>
+            )}
             <UserName>{userName}</UserName>
             <UserImage src={user} />
-            <Button onClick={toggleAvatarDropdown}>
-                <ChevronIcon />
-            </Button>
+            <div>
+                <Button onClick={toggleAvatarDropdown}>
+                    <ChevronIcon />
+                </Button>
+                {showAvatarDropdown && (
+                    <DropdownWrapper
+                        onClick={() => {
+                            setShowAvatarDropdown(false);
+                        }}
+                    >
+                        <>
+                            <DropdownList>
+                                <DropdownListItem
+                                    onClick={() => {
+                                        setShowEditNicknameModal(true);
+                                        setShowDeleteAccountModal(false);
+                                    }}
+                                >
+                                    Edytuj konto
+                                </DropdownListItem>
+                                <DropdownListItem
+                                    onClick={() => {
+                                        setShowDeleteAccountModal(true);
+                                        setShowEditNicknameModal(false);
+                                    }}
+                                >
+                                    Usuń konto
+                                </DropdownListItem>
+                            </DropdownList>
+                            <ModalBackgroundHandler
+                                onClick={() => {
+                                    setShowAvatarDropdown(false);
+                                }}
+                            />
+                        </>
+                    </DropdownWrapper>
+                )}
+            </div>
         </AvatarWrapper>
     );
 };

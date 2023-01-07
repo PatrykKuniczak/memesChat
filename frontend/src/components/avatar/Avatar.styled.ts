@@ -3,7 +3,6 @@ import { BsChevronDown } from "react-icons/bs";
 
 const AvatarWrapper = styled.div`
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: right;
     gap: 0.5rem;
@@ -23,8 +22,7 @@ const ChevronIcon = styled(BsChevronDown)`
 
 const DropdownWrapper = styled.div`
     position: relative;
-    top: 2rem;
-    right: -12rem;
+    top: 1rem;
 `;
 
 const DropdownList = styled.ul`
@@ -37,6 +35,7 @@ const DropdownList = styled.ul`
     padding: 0.5rem;
     border: 2px solid #00000077;
     border-radius: 0.5rem;
+    z-index: 2;
 `;
 
 const DropdownListItem = styled.li`
@@ -51,12 +50,14 @@ const EditNicknameModal = styled.div`
     position: absolute;
     top: 30%;
     left: 50%;
+    transform: translate(-50%, -50%);
     align-items: center;
     color: white;
     background: ${(props) => props.theme.gray_500};
     padding: 1rem 2rem;
     border: 2px solid #00000077;
     border-radius: 0.5rem;
+    z-index: 2;
 `;
 
 const Input = styled.input`
@@ -75,17 +76,18 @@ const DeleteAccountModal = styled.div`
     position: absolute;
     top: 30%;
     left: 50%;
+    transform: translate(-50%, -50%);
     align-items: center;
     color: white;
     background: ${(props) => props.theme.gray_500};
     padding: 2rem;
     border: 2px solid #00000077;
     border-radius: 0.5rem;
+    z-index: 2;
 `;
 
 const DeleteAccountModalButtons = styled.div`
     display: flex;
-    flex-direction: row;
     align-items: center;
     color: white;
     padding: 1rem 2rem 0rem;
@@ -110,6 +112,16 @@ const ButtonSecondary = styled.div`
     cursor: pointer;
 `;
 
+const ModalBackgroundHandler = styled.div`
+    position: fixed;
+    // background: #ffaacc55;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 200%;
+    z-index: 1;
+`
+
 export {
     AvatarWrapper,
     Button,
@@ -122,5 +134,6 @@ export {
     DeleteAccountModalButtons,
     ButtonPrimary,
     ButtonSecondary,
-    ChevronIcon
+    ChevronIcon,
+    ModalBackgroundHandler
 };
