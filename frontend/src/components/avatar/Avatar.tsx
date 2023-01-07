@@ -100,7 +100,7 @@ const Avatar = () => {
                 </>
             )}
             <UserName>{userName}</UserName>
-            <UserImage src={user} />
+            <UserImage src={user} onClick={toggleAvatarDropdown} />
             <div>
                 <Button onClick={toggleAvatarDropdown}>
                     <ChevronIcon />
