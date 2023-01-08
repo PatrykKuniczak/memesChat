@@ -114,6 +114,7 @@ const InputWrapper = styled.header`
 
 const MessageInput = styled.input`
     padding: 1rem;
+    width: 100%;
     outline: transparent;
     border: transparent;
 
