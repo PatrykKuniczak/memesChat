@@ -18,7 +18,6 @@ const SearchInput = styled.input.attrs<InputHTMLAttributes<HTMLInputElement>>(
         type: "search"
     })
 )`
-    width: 100%;
     border: transparent;
     outline: transparent;
 
