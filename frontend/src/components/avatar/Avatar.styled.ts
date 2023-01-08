@@ -141,6 +141,8 @@ const ModalBackgroundHandler = styled.div`
 
     width: 100vw;
     height: 200%;
+
+    background-color: #00000026;
 `;
 
 export {
