@@ -3,14 +3,14 @@ import { Dispatch, SetStateAction, useEffect, useTransition } from "react";
 type Messages = { id: string; message: string; author: string }[];
 
 interface Props {
-    messages: Messages;
+    filteredMessages: Messages;
     searchMode: string;
     searchParams: URLSearchParams;
     setFilteredMessages: Dispatch<SetStateAction<Messages>>;
 }
 
 const useMessagesFilter = ({
-    messages,
+    filteredMessages,
     searchMode,
     searchParams,
     setFilteredMessages
@@ -22,7 +22,7 @@ const useMessagesFilter = ({
     }, [searchParams]);
 
     const filter = () => {
-        return messages.filter(({ message, author }) => {
+        return filteredMessages.filter(({ message, author }) => {
             let filter = searchParams.get("messagesFilter") || "";
             if (filter === "") {
                 return true;

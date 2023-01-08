@@ -47,7 +47,7 @@ const Home = () => {
     }, [messages]);
 
     const { applyFilter } = useMessagesFilter({
-        messages,
+        filteredMessages,
         searchMode,
         searchParams,
         setFilteredMessages
