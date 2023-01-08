@@ -1,4 +1,5 @@
-import React, { ChangeEvent, useState } from "react";
+import React from "react";
+import { useAvatarFunc } from "./useAvatarFunc";
 
 import {
     AvatarWrapper,
@@ -16,87 +17,61 @@ import {
     ModalBackgroundHandler
 } from "./Avatar.styled";
 
-import { UserImage, UserName } from "../../pages/home/Home.styled";
+import { UserImage, UserName } from "pages/home/Home.styled";
 
-import user from "../../assets/user.jpg";
+import user from "assets/user.jpg";
+
 
 const Avatar = () => {
-    const [userName, setUserName] = useState("John Doe");
-    const [newUserName, setNewUserName] = useState(userName);
-    const [showAvatarDropdown, setShowAvatarDropdown] = useState(false);
-    const [showEditNicknameModal, setShowEditNicknameModal] = useState(false);
-    const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
-
-    const toggleAvatarDropdown = () => {
-        setShowAvatarDropdown((prevState) => !prevState);
-        setShowEditNicknameModal(false);
-        setShowDeleteAccountModal(false);
-    };
-    const handleNicknameChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        setNewUserName(value);
-    };
+    const {
+        userName,
+        newUserName,
+        avatarWidgetStatus,
+        handleNicknameChange,
+        toggleAvatarDropdown,
+        toggleAccountEditModal,
+        toggleAccountDeleteModal,
+        updateUserName,
+        deleteAccountConfirm,
+        deleteAccountCancel,
+    }  = useAvatarFunc();
 
     return (
         <AvatarWrapper>
-            {showEditNicknameModal && (
+            {avatarWidgetStatus === "account-edit-modal-visible" && (
                 <>
                     <EditNicknameModal>
                         <span>Twój nowy nick:</span>
                         <Input
                             type="text"
                             value={newUserName}
-                            onChange={(e) => handleNicknameChange(e)}
+                            onChange={(event) => handleNicknameChange(event)}
                         />
                         <Input
                             type="submit"
                             value="Zapisz"
-                            onClick={() => {
-                                setUserName(newUserName);
-                                setShowEditNicknameModal(false);
-                                setShowAvatarDropdown(false);
-                            }}
+                            onClick={updateUserName}
                         />
                     </EditNicknameModal>
-                    <ModalBackgroundHandler
-                        onClick={() => {
-                            setShowEditNicknameModal(false);
-                            setShowAvatarDropdown(false);
-                        }}
-                    />
+                    <ModalBackgroundHandler onClick={toggleAvatarDropdown} />
                 </>
             )}
-            {showDeleteAccountModal && (
+            {avatarWidgetStatus === "account-delete-modal-visible" && (
                 <>
                     <DeleteAccountModal>
                         <>
                             <span>Czy na pewno chcesz usunąć konto?</span>
                             <DeleteAccountModalButtons>
-                                <ButtonPrimary
-                                    onClick={() => {
-                                        setShowDeleteAccountModal(false);
-                                        setShowAvatarDropdown(false);
-                                    }}
-                                >
+                                <ButtonPrimary onClick={deleteAccountConfirm}>
                                     Tak, usuwam konto
                                 </ButtonPrimary>
-                                <ButtonSecondary
-                                    onClick={() => {
-                                        setShowDeleteAccountModal(false);
-                                        setShowAvatarDropdown(false);
-                                    }}
-                                >
+                                <ButtonSecondary onClick={deleteAccountCancel}>
                                     Anuluj
                                 </ButtonSecondary>
                             </DeleteAccountModalButtons>
                         </>
                     </DeleteAccountModal>
-                    <ModalBackgroundHandler
-                        onClick={() => {
-                            setShowDeleteAccountModal(false);
-                            setShowAvatarDropdown(false);
-                        }}
-                    />
+                    <ModalBackgroundHandler onClick={toggleAvatarDropdown} />
                 </>
             )}
             <UserName>{userName}</UserName>
@@ -105,35 +80,23 @@ const Avatar = () => {
                 <Button onClick={toggleAvatarDropdown}>
                     <ChevronIcon />
                 </Button>
-                {showAvatarDropdown && (
-                    <DropdownWrapper
-                        onClick={() => {
-                            setShowAvatarDropdown(false);
-                        }}
-                    >
+                {avatarWidgetStatus === "dropdown-visible" && (
+                    <DropdownWrapper>
                         <>
                             <DropdownList>
                                 <DropdownListItem
-                                    onClick={() => {
-                                        setShowEditNicknameModal(true);
-                                        setShowDeleteAccountModal(false);
-                                    }}
+                                    onClick={toggleAccountEditModal}
                                 >
                                     Edytuj konto
                                 </DropdownListItem>
                                 <DropdownListItem
-                                    onClick={() => {
-                                        setShowDeleteAccountModal(true);
-                                        setShowEditNicknameModal(false);
-                                    }}
+                                    onClick={toggleAccountDeleteModal}
                                 >
                                     Usuń konto
                                 </DropdownListItem>
                             </DropdownList>
                             <ModalBackgroundHandler
-                                onClick={() => {
-                                    setShowAvatarDropdown(false);
-                                }}
+                                onClick={toggleAvatarDropdown}
                             />
                         </>
                     </DropdownWrapper>

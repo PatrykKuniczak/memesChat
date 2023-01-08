@@ -1,6 +1,6 @@
 import { KeyboardEvent, useEffect, useRef, useState } from "react";
-import Navbar from "../../components/navbar/Navbar";
-import Search from "../../components/search/Search";
+import Navbar from "components/navbar/Navbar";
+import Search from "components/search/Search";
 import {
     Main,
     Header,
@@ -19,12 +19,12 @@ import {
     UserName,
     UsersContainer
 } from "./Home.styled";
-import user from "../../assets/user.jpg";
+import user from "assets/user.jpg";
 import { useSearchParams } from "react-router-dom";
-import useMessages from "../../hooks/useMessages";
+import useMessages from "hooks/useMessages";
 import MessagesBox from "./MessagesBox";
 import MessageSearchBar from "./MessageSearchBar";
-import useMessagesFilter from "../../hooks/useMessagesFilter";
+import useMessagesFilter from "hooks/useMessagesFilter";
 
 const Home = () => {
     const [selected, setSelected] = useState("");
