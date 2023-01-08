@@ -99,6 +99,15 @@ const MessagesWrapper = styled.div`
     max-height: 100vh;
 
     overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #313131;
+        border-radius: 3px;
+    }
 `;
 
 const InputWrapper = styled.header`
