@@ -1,12 +1,12 @@
 import { Dispatch, SetStateAction, useEffect, useTransition } from "react";
 
+type Messages = { id: string; message: string; author: string }[];
+
 interface Props {
-    messages: { id: string; message: string; author: string }[];
+    messages: Messages;
     searchMode: string;
     searchParams: URLSearchParams;
-    setFilteredMessages: Dispatch<
-        SetStateAction<{ id: string; message: string; author: string }[]>
-    >;
+    setFilteredMessages: Dispatch<SetStateAction<Messages>>;
 }
 
 const useMessagesFilter = ({
