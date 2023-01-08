@@ -6,8 +6,8 @@ COPY . .
 
 ENV NODE_ENV=production
 
-RUN npm ci --production --legacy-peer-deps
+RUN npm ci --production
 
 RUN npm run build
 
-CMD [ "node", "dist/main"]
+CMD ["node", "dist/main"]
