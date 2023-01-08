@@ -34,7 +34,7 @@ const Avatar = () => {
         updateUserName,
         deleteAccountConfirm,
         deleteAccountCancel,
-    }  = useAvatarFunc();
+    } = useAvatarFunc();
 
     return (
         <AvatarWrapper>

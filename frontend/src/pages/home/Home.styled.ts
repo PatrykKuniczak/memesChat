@@ -5,11 +5,14 @@ const Main = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fill);
     gap: 1.5rem;
-    padding: 2.5rem 0 2.5rem 2.5rem;
+    padding: 1rem;
 
     @media (min-width: 50em) {
-        grid-template-columns: min(30%, 300px) minmax(0, 1fr);
-        min-height: 100vh;
+        grid-template-columns: 1fr 2fr;
+
+        padding: 2.5rem;
+
+        max-height: 100%;
     }
 `;
 
@@ -76,6 +79,8 @@ const Chat = styled.main`
     padding: 0.5rem;
     border-radius: 5px;
 
+    max-height: 80vh;
+
     background-color: ${(props) => props.theme.gray_500};
 `;
 
@@ -96,7 +101,7 @@ const MessagesWrapper = styled.div`
     margin-top: 1rem;
 
     min-height: 400px;
-    max-height: 100vh;
+    max-height: 80vh;
 
     overflow-y: auto;
 
@@ -113,7 +118,7 @@ const MessagesWrapper = styled.div`
 const InputWrapper = styled.header`
     display: flex;
     align-items: center;
-    margin: 3rem;
+    margin: 2rem;
     padding: 0.5rem;
     border-radius: 5px;
 

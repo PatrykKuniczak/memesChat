@@ -119,7 +119,7 @@ const Home = () => {
                         </div>
                     </UsersContainer>
                 </aside>
-                <div>
+                <>
                     <Chat>
                         <ChatHeader>
                             <MessageSearchBar
@@ -154,7 +154,7 @@ const Home = () => {
                             <MemeGenerateIcon />
                         </InputWrapper>
                     </Chat>
-                </div>
+                </>
             </Main>
         </>
     );
