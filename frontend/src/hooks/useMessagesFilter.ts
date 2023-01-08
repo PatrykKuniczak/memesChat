@@ -32,14 +32,7 @@ const useMessagesFilter = ({
                 return author.toLowerCase().startsWith(filter.toLowerCase());
             }
 
-            return (
-                message
-                    .toLowerCase()
-                    .split(" ")
-                    .find((piece) =>
-                        filter.toLowerCase().split(" ").includes(piece)
-                    ) !== undefined
-            );
+            return message.toLowerCase().includes(filter.toLowerCase());
         });
     };
 
