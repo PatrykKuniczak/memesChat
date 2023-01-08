@@ -17,9 +17,9 @@ import {
     ModalBackgroundHandler
 } from "./Avatar.styled";
 
-import { UserImage, UserName } from "../../pages/home/Home.styled";
+import { UserImage, UserName } from "pages/home/Home.styled";
 
-import user from "../../assets/user.jpg";
+import user from "assets/user.jpg";
 
 
 const Avatar = () => {

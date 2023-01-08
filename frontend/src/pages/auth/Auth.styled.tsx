@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { SIZES } from "../../constants/styleConstants";
+import { SIZES } from "constants/styleConstants";
 
 const SignupContainer = styled.div`
     display: grid;

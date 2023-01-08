@@ -1,6 +1,6 @@
 import { Dispatch, FC, SetStateAction } from "react";
 import { SearchContainer, SearchTypeSwitcher } from "./MessageSearchBar.styled";
-import Search from "../../components/search/Search";
+import Search from "components/search/Search";
 
 interface Props {
     searchMode: string;

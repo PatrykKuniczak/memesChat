@@ -7,7 +7,7 @@ import {
   Label,
   SignupContainer
 } from "./Auth.styled";
-import { NavLink, PrimaryButton } from "../../components/buttons/Button.styled";
+import { NavLink, PrimaryButton } from "components/buttons/Button.styled";
 import { useParams } from "react-router-dom";
 
 
