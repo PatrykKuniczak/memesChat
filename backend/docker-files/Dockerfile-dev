@@ -1,0 +1,11 @@
+#FROM node:19.3-alpine
+#
+#WORKDIR /backend
+#
+#COPY . .
+#
+#ENV NODE_ENV=development
+#
+#RUN npm i
+#
+#CMD ["node", "dist/main"]
