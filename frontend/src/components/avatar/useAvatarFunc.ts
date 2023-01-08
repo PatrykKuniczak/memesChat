@@ -1,6 +1,6 @@
-import React, { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState } from "react";
 
-export const useAvatarFunc = (userInput: string) => {
+export const useAvatarFunc = (userInput = "") => {
     const [userName, setUserName] = useState<string>("John Doe");
     const [newUserName, setNewUserName] = useState(userName);
     const [avatarWidgetStatus, setAvatarWidgetStatus] =
@@ -39,6 +39,7 @@ export const useAvatarFunc = (userInput: string) => {
     }
 
     return {
+        userInput,
         userName,
         setUserName,
         newUserName,

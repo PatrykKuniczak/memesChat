@@ -23,7 +23,6 @@ import user from "assets/user.jpg";
 
 
 const Avatar = () => {
-    const userInput = ''
     const {
         userName,
         newUserName,
@@ -35,7 +34,7 @@ const Avatar = () => {
         updateUserName,
         deleteAccountConfirm,
         deleteAccountCancel,
-    }  = useAvatarFunc(userInput);
+    }  = useAvatarFunc();
 
     return (
         <AvatarWrapper>
