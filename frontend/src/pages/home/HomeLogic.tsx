@@ -61,7 +61,7 @@ const HomeLogic = () => {
     };
 
     useMessagesFilter({
-        filteredMessages,
+        messages,
         searchMode,
         searchParams,
         handleSetFilteredMessages
@@ -95,13 +95,14 @@ const HomeLogic = () => {
         setFilteredMessages((prevState) => {
             return [
                 ...prevState,
-                { id: "10", message: currentInputValue, author: "degi_" }
+                { id: "1110", message: currentInputValue, author: "degi_" }
             ];
         });
         chatInput.current!.value = "";
     };
 
     return {
+        messages,
         filteredMessages,
         handleSetFilteredMessages,
         chatInput,

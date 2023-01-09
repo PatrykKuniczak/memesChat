@@ -9,14 +9,14 @@ import {
 type Messages = { id: string; message: string; author: string }[];
 
 interface Props {
-    filteredMessages: Messages;
+    messages: Messages;
     searchMode: string;
     searchParams: URLSearchParams;
     handleSetFilteredMessages: Dispatch<SetStateAction<Messages>>;
 }
 
 const useMessagesFilter = ({
-    filteredMessages,
+    messages,
     searchMode,
     searchParams,
     handleSetFilteredMessages
@@ -24,7 +24,7 @@ const useMessagesFilter = ({
     const [isPending, startTransition] = useTransition();
 
     const filterMessages = useMemo(() => {
-        return filteredMessages.filter(({ message, author }) => {
+        return messages.filter(({ message, author }) => {
             let filter = searchParams.get("messagesFilter") || "";
             if (filter === "") {
                 return true;
@@ -36,7 +36,7 @@ const useMessagesFilter = ({
 
             return message.toLowerCase().includes(filter.toLowerCase());
         });
-    }, [filteredMessages, searchMode, searchParams]);
+    }, [messages, searchMode, searchParams]);
 
     useEffect(() => {
         startTransition(() => {

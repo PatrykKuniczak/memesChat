@@ -25,6 +25,7 @@ import HomeLogic from "./HomeLogic";
 
 const Home = () => {
     const {
+        messages,
         filteredMessages,
         handleSetFilteredMessages,
         chatInput,
@@ -90,7 +91,7 @@ const Home = () => {
                                     handleSetFilteredMessages
                                 }
                                 handleSetSelected={handleSetSelected}
-                                messages={filteredMessages}
+                                messages={messages}
                                 selected={selected}
                             />
                         </MessagesWrapper>
