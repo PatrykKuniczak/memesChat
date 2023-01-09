@@ -1,4 +1,4 @@
-import React, { Dispatch, MutableRefObject, SetStateAction } from "react";
+import { Dispatch, MutableRefObject, SetStateAction } from "react";
 import {
     Message,
     MessageAuthor,
@@ -9,13 +9,13 @@ import {
 import user from "assets/user.jpg";
 import { BsPencilSquare, BsTrashFill } from "react-icons/bs";
 
+type Messages = { id: string; message: string; author: string }[];
+
 interface MessagesProps {
-    filteredMessages: { id: string; message: string; author: string }[];
+    filteredMessages: Messages;
     selected: string;
-    messages: { id: string; message: string; author: string }[];
-    handleSetFilteredMessages: Dispatch<
-        SetStateAction<{ id: string; message: string; author: string }[]>
-    >;
+    messages: Messages;
+    handleSetFilteredMessages: Dispatch<SetStateAction<Messages>>;
     handleSetSelected: (id: string) => void;
     handleSetEditMode: (mode: boolean) => void;
     chatInput: MutableRefObject<HTMLInputElement | null>;

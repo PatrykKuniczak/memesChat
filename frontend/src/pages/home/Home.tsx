@@ -1,4 +1,3 @@
-import { KeyboardEvent, useEffect, useRef, useState } from "react";
 import Navbar from "components/navbar/Navbar";
 import Search from "components/search/Search";
 import {
@@ -20,70 +19,24 @@ import {
     UsersContainer
 } from "./Home.styled";
 import user from "assets/user.jpg";
-import { useSearchParams } from "react-router-dom";
-import useMessages from "hooks/useMessages";
 import MessagesBox from "./MessagesBox";
 import MessageSearchBar from "./MessageSearchBar";
-import useMessagesFilter from "hooks/useMessagesFilter";
+import HomeLogic from "./HomeLogic";
 
 const Home = () => {
-    const [selected, setSelected] = useState("");
-    const [editMode, setEditMode] = useState(false);
-
-    const { messages } = useMessages();
-    const [filteredMessages, setFilteredMessages] = useState(messages);
-
-    const chatInput = useRef<HTMLInputElement | null>(null);
-
-    const [currentInputValue, setCurrentInputValue] = useState("");
-
-    const [searchParams, setSearchParams] = useSearchParams();
-    const [searchMode, setSearchMode] = useState<"user" | "message">("message");
-
-    // TODO: Add event handlers
-
-    useEffect(() => {
-        setFilteredMessages(messages);
-    }, [messages]);
-
-    const { applyFilter } = useMessagesFilter({
+    const {
         filteredMessages,
+        handleSetFilteredMessages,
+        chatInput,
+        selected,
+        handleSetSelected,
+        handleSetEditMode,
         searchMode,
-        searchParams,
-        setFilteredMessages
-    });
-
-    const onTextInputEnterPress = (event: KeyboardEvent<HTMLInputElement>) => {
-        if (event.key !== "Enter") {
-            return;
-        }
-
-        if (editMode) {
-            setFilteredMessages((prevState) => {
-                return prevState.map((message) => {
-                    if (message.id === selected) {
-                        return {
-                            ...message,
-                            message: currentInputValue
-                        };
-                    }
-                    return message;
-                });
-            });
-
-            chatInput.current!.value = "";
-            setEditMode(false);
-            return;
-        }
-
-        setFilteredMessages((prevState) => {
-            return [
-                ...prevState,
-                { id: "10", message: currentInputValue, author: "degi_" }
-            ];
-        });
-        chatInput.current!.value = "";
-    };
+        handleSetSearchMode,
+        handleSetSearchParams,
+        handleSetCurrentInputValue,
+        handleTextInputEnterPress
+    } = HomeLogic();
 
     return (
         <>
@@ -124,28 +77,29 @@ const Home = () => {
                         <ChatHeader>
                             <MessageSearchBar
                                 searchMode={searchMode}
-                                handleSetSearchMode={setSearchMode}
-                                handleSetSearchParams={setSearchParams}
-                                applyFilter={applyFilter}
+                                handleSetSearchMode={handleSetSearchMode}
+                                handleSetSearchParams={handleSetSearchParams}
                             />
                         </ChatHeader>
                         <MessagesWrapper>
                             <MessagesBox
                                 filteredMessages={filteredMessages}
                                 chatInput={chatInput}
-                                handleSetEditMode={setEditMode}
-                                handleSetFilteredMessages={setFilteredMessages}
-                                handleSetSelected={setSelected}
-                                messages={messages}
+                                handleSetEditMode={handleSetEditMode}
+                                handleSetFilteredMessages={
+                                    handleSetFilteredMessages
+                                }
+                                handleSetSelected={handleSetSelected}
+                                messages={filteredMessages}
                                 selected={selected}
                             />
                         </MessagesWrapper>
                         <InputWrapper>
                             <MessageInput
                                 ref={chatInput}
-                                onKeyDown={onTextInputEnterPress}
+                                onKeyDown={handleTextInputEnterPress}
                                 onChange={(event) =>
-                                    setCurrentInputValue(
+                                    handleSetCurrentInputValue(
                                         () => event.target.value
                                     )
                                 }

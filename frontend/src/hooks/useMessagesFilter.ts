@@ -1,4 +1,10 @@
-import { Dispatch, SetStateAction, useEffect, useTransition } from "react";
+import {
+    Dispatch,
+    SetStateAction,
+    useEffect,
+    useMemo,
+    useTransition
+} from "react";
 
 type Messages = { id: string; message: string; author: string }[];
 
@@ -6,22 +12,18 @@ interface Props {
     filteredMessages: Messages;
     searchMode: string;
     searchParams: URLSearchParams;
-    setFilteredMessages: Dispatch<SetStateAction<Messages>>;
+    handleSetFilteredMessages: Dispatch<SetStateAction<Messages>>;
 }
 
 const useMessagesFilter = ({
     filteredMessages,
     searchMode,
     searchParams,
-    setFilteredMessages
+    handleSetFilteredMessages
 }: Props) => {
     const [isPending, startTransition] = useTransition();
 
-    useEffect(() => {
-        setFilteredMessages(filter);
-    }, [searchParams]);
-
-    const filter = () => {
+    const filterMessages = useMemo(() => {
         return filteredMessages.filter(({ message, author }) => {
             let filter = searchParams.get("messagesFilter") || "";
             if (filter === "") {
@@ -34,15 +36,13 @@ const useMessagesFilter = ({
 
             return message.toLowerCase().includes(filter.toLowerCase());
         });
-    };
+    }, [filteredMessages, searchMode, searchParams]);
 
-    const applyFilter = () => {
+    useEffect(() => {
         startTransition(() => {
-            setFilteredMessages(filter);
+            handleSetFilteredMessages(filterMessages);
         });
-    };
-
-    return { applyFilter };
+    }, [searchParams]);
 };
 
 export default useMessagesFilter;

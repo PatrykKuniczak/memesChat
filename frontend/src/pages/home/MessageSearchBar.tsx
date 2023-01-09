@@ -6,14 +6,12 @@ interface Props {
     searchMode: string;
     handleSetSearchMode: Dispatch<SetStateAction<"message" | "user">>;
     handleSetSearchParams: (searchParams: {}) => void;
-    applyFilter: () => void;
 }
 
 const MessageSearchBar: FC<Props> = ({
     searchMode,
     handleSetSearchMode,
-    handleSetSearchParams,
-    applyFilter
+    handleSetSearchParams
 }) => {
     return (
         <SearchContainer>
@@ -31,7 +29,6 @@ const MessageSearchBar: FC<Props> = ({
                     handleSetSearchParams({
                         messagesFilter: event.target.value
                     });
-                    applyFilter();
                 }}
             />
         </SearchContainer>
