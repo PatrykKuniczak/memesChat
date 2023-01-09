@@ -4,9 +4,7 @@ WORKDIR /frontend
 
 COPY . .
 
-ENV NODE_ENV=production
-
-RUN npm ci --production && npm i -g serve
+RUN npm ci --production && npm i serve
 
 RUN npm run build
 
