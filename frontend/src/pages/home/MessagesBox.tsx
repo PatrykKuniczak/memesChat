@@ -15,6 +15,7 @@ interface MessagesProps {
     filteredMessages: Messages;
     selected: string;
     messages: Messages;
+    handleSetMessages: Dispatch<SetStateAction<Messages>>;
     handleSetFilteredMessages: Dispatch<SetStateAction<Messages>>;
     handleSetSelected: (id: string) => void;
     handleSetEditMode: (mode: boolean) => void;
@@ -25,7 +26,7 @@ const MessagesBox = ({
     filteredMessages,
     selected,
     messages,
-    handleSetFilteredMessages,
+    handleSetMessages,
     handleSetSelected,
     handleSetEditMode,
     chatInput
@@ -53,7 +54,7 @@ const MessagesBox = ({
                         />
                         <BsTrashFill
                             onClick={() =>
-                                handleSetFilteredMessages(() =>
+                                handleSetMessages(() =>
                                     messages.filter(({ id }) => id !== selected)
                                 )
                             }

@@ -13,7 +13,7 @@ const HomeLogic = () => {
     const [selected, setSelected] = useState("");
     const [editMode, setEditMode] = useState(false);
 
-    const { messages } = useMessages();
+    const { messages, handleSetMessages } = useMessages();
     const [filteredMessages, setFilteredMessages] = useState(messages);
 
     const chatInput = useRef<HTMLInputElement | null>(null);
@@ -27,7 +27,6 @@ const HomeLogic = () => {
         setFilteredMessages(messages);
     }, [messages]);
 
-    // TODO: Add event handlers
     const handleSetSelected = (id: string) => {
         setSelected(id);
     };
@@ -75,7 +74,7 @@ const HomeLogic = () => {
         }
 
         if (editMode) {
-            setFilteredMessages((prevState) => {
+            handleSetMessages((prevState) => {
                 return prevState.map((message) => {
                     if (message.id === selected) {
                         return {
@@ -92,10 +91,15 @@ const HomeLogic = () => {
             return;
         }
 
-        setFilteredMessages((prevState) => {
+        let number = Math.floor(Math.random() * 100) + 10;
+        handleSetMessages((prevState) => {
             return [
                 ...prevState,
-                { id: "1110", message: currentInputValue, author: "degi_" }
+                {
+                    id: number.toString(),
+                    message: currentInputValue,
+                    author: "degi_"
+                }
             ];
         });
         chatInput.current!.value = "";
@@ -103,6 +107,7 @@ const HomeLogic = () => {
 
     return {
         messages,
+        handleSetMessages,
         filteredMessages,
         handleSetFilteredMessages,
         chatInput,

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 
 const UseMessages = () => {
     const [messages, setMessages] = useState<
@@ -38,7 +38,15 @@ const UseMessages = () => {
         };
     }, []);
 
-    return { messages };
+    const handleSetMessages = (
+        messages: SetStateAction<
+            { id: string; message: string; author: string }[]
+        >
+    ) => {
+        setMessages(messages);
+    };
+
+    return { messages, handleSetMessages };
 };
 
 export default UseMessages;

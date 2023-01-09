@@ -36,7 +36,8 @@ const Home = () => {
         handleSetSearchMode,
         handleSetSearchParams,
         handleSetCurrentInputValue,
-        handleTextInputEnterPress
+        handleTextInputEnterPress,
+        handleSetMessages
     } = HomeLogic();
 
     return (
@@ -92,6 +93,7 @@ const Home = () => {
                                 }
                                 handleSetSelected={handleSetSelected}
                                 messages={messages}
+                                handleSetMessages={handleSetMessages}
                                 selected={selected}
                             />
                         </MessagesWrapper>
