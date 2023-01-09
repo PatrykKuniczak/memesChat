@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const NavbarWrapper = styled.nav`
+    position: fixed;
     display: flex;
     width: 100%;
     justify-content: flex-end;

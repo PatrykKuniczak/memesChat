@@ -16,7 +16,11 @@ const GlobalStyles = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
+    height: 100vh;
+
     background-color: ${COLORS.gray_400};
+
+    // overflow-y: none;
   }
 
   code {

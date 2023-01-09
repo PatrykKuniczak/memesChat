@@ -1,7 +1,9 @@
 import Navbar from "components/navbar/Navbar";
 import Search from "components/search/Search";
 import {
+    Root,
     Main,
+    Aside,
     Header,
     Heading,
     Label,
@@ -16,7 +18,8 @@ import {
     User,
     UserImage,
     UserName,
-    UsersContainer
+    UsersContainer,
+    UserList
 } from "./Home.styled";
 import user from "assets/user.jpg";
 import MessagesBox from "./MessagesBox";
@@ -41,10 +44,10 @@ const Home = () => {
     } = HomeLogic();
 
     return (
-        <>
+        <Root>
             <Navbar />
             <Main>
-                <aside>
+                <Aside>
                     <Header>
                         <Heading>Users</Heading>
                         <OnlineBadge>
@@ -54,7 +57,7 @@ const Home = () => {
                     <UsersContainer>
                         <Search />
                         <Label>Online</Label>
-                        <div>
+                        <UserList>
                             <User>
                                 <UserImage src={user} />
                                 <UserName>John Doe</UserName>
@@ -71,11 +74,34 @@ const Home = () => {
                                 <UserImage src={user} />
                                 <UserName>John Doe</UserName>
                             </User>
-                        </div>
+                            <User>
+                                <UserImage src={user} />
+                                <UserName>John Doe</UserName>
+                            </User>
+                            <User>
+                                <UserImage src={user} />
+                                <UserName>John Doe</UserName>
+                            </User>
+                            <User>
+                                <UserImage src={user} />
+                                <UserName>John Doe</UserName>
+                            </User>
+                            <User>
+                                <UserImage src={user} />
+                                <UserName>John Doe</UserName>
+                            </User>
+                            <User>
+                                <UserImage src={user} />
+                                <UserName>John Doe</UserName>
+                            </User>
+                            <User>
+                                <UserImage src={user} />
+                                <UserName>John Doe</UserName>
+                            </User>
+                        </UserList>
                     </UsersContainer>
-                </aside>
-                <>
-                    <Chat>
+                </Aside>
+                <Chat>
                         <ChatHeader>
                             <MessageSearchBar
                                 searchMode={searchMode}
@@ -111,9 +137,8 @@ const Home = () => {
                             <MemeGenerateIcon />
                         </InputWrapper>
                     </Chat>
-                </>
             </Main>
-        </>
+        </Root>
     );
 };
 

@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import { BsStars, BsImage } from "react-icons/bs";
 
+const Root = styled.div`
+    height: 100vh;
+`;
+
 const Main = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fill);
@@ -10,15 +14,20 @@ const Main = styled.div`
     @media (min-width: 50em) {
         grid-template-columns: 1fr 2fr;
 
-        padding: 2.5rem;
+        padding: 5rem 2.5rem 1rem;
 
-        max-height: 100%;
+        height: 100%;
     }
+`;
+
+const Aside = styled.aside`
+    max-height: calc(100vh - 7rem);
 `;
 
 const Header = styled.header`
     display: flex;
     align-items: center;
+
     gap: 1rem;
 `;
 
@@ -30,15 +39,36 @@ const Heading = styled.h1`
 `;
 
 const OnlineBadge = styled.div`
-    background-color: ${(props) => props.theme.primary};
-    color: #fff;
-
     border-radius: 5px;
     padding: 0.5rem 1.5rem;
+
+    background-color: ${(props) => props.theme.primary};
+    color: #fff;
 `;
 
 const UsersContainer = styled.section`
     margin-top: 1.5rem;
+`;
+
+const UserList = styled.div`
+    position: relative;
+
+    max-height: calc(100vh - 16rem);
+
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #313131;
+        border-radius: 3px;
+    }
+
+    @media (max-width: 50em) {
+        max-height: 30vh;
+    }
 `;
 
 const Label = styled.p`
@@ -79,7 +109,7 @@ const Chat = styled.main`
     padding: 0.5rem;
     border-radius: 5px;
 
-    max-height: 80vh;
+    max-height: calc(100vh - 7rem);
 
     background-color: ${(props) => props.theme.gray_500};
 `;
@@ -99,9 +129,7 @@ const MessagesWrapper = styled.div`
     flex-direction: column;
     gap: 1rem;
     margin-top: 1rem;
-
-    min-height: 400px;
-    max-height: 80vh;
+    height: 100%;
 
     overflow-y: auto;
 
@@ -151,11 +179,14 @@ const MemeGenerateIcon = styled(BsImage)`
 `;
 
 export {
+    Root,
+    Aside,
     Main,
     Header,
     Heading,
     OnlineBadge,
     UsersContainer,
+    UserList,
     Label,
     User,
     UserImage,
