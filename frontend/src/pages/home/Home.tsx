@@ -102,41 +102,41 @@ const Home = () => {
                     </UsersContainer>
                 </Aside>
                 <Chat>
-                        <ChatHeader>
-                            <MessageSearchBar
-                                searchMode={searchMode}
-                                handleSetSearchMode={handleSetSearchMode}
-                                handleSetSearchParams={handleSetSearchParams}
-                            />
-                        </ChatHeader>
-                        <MessagesWrapper>
-                            <MessagesBox
-                                filteredMessages={filteredMessages}
-                                chatInput={chatInput}
-                                handleSetEditMode={handleSetEditMode}
-                                handleSetFilteredMessages={
-                                    handleSetFilteredMessages
-                                }
-                                handleSetSelected={handleSetSelected}
-                                messages={messages}
-                                handleSetMessages={handleSetMessages}
-                                selected={selected}
-                            />
-                        </MessagesWrapper>
-                        <InputWrapper>
-                            <MessageInput
-                                ref={chatInput}
-                                onKeyDown={handleTextInputEnterPress}
-                                onChange={(event) =>
-                                    handleSetCurrentInputValue(
-                                        () => event.target.value
-                                    )
-                                }
-                            />
-                            <MemeIcon />
-                            <MemeGenerateIcon />
-                        </InputWrapper>
-                    </Chat>
+                    <ChatHeader>
+                        <MessageSearchBar
+                            searchMode={searchMode}
+                            handleSetSearchMode={handleSetSearchMode}
+                            handleSetSearchParams={handleSetSearchParams}
+                        />
+                    </ChatHeader>
+                    <MessagesWrapper>
+                        <MessagesBox
+                            filteredMessages={filteredMessages}
+                            chatInput={chatInput}
+                            handleSetEditMode={handleSetEditMode}
+                            handleSetFilteredMessages={
+                                handleSetFilteredMessages
+                            }
+                            handleSetSelected={handleSetSelected}
+                            messages={messages}
+                            handleSetMessages={handleSetMessages}
+                            selected={selected}
+                        />
+                    </MessagesWrapper>
+                    <InputWrapper>
+                        <MessageInput
+                            ref={chatInput}
+                            onKeyDown={handleTextInputEnterPress}
+                            onChange={(event) =>
+                                handleSetCurrentInputValue(
+                                    () => event.target.value
+                                )
+                            }
+                        />
+                        <MemeIcon />
+                        <MemeGenerateIcon />
+                    </InputWrapper>
+                </Chat>
             </Main>
         </Root>
     );

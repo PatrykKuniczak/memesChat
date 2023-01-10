@@ -15,13 +15,15 @@ const Main = styled.div`
         grid-template-columns: 1fr 2fr;
 
         padding: 5rem 2.5rem 1rem;
-
-        height: 100%;
     }
 `;
 
 const Aside = styled.aside`
-    max-height: calc(100vh - 7rem);
+    max-height: calc(100vh - 6rem);
+
+    @media (max-width: 50em) {
+        max-height: 400px;
+    }
 `;
 
 const Header = styled.header`
@@ -53,7 +55,7 @@ const UsersContainer = styled.section`
 const UserList = styled.div`
     position: relative;
 
-    max-height: calc(100vh - 16rem);
+    max-height: calc(100vh - 15rem);
 
     overflow-y: auto;
 
@@ -67,7 +69,7 @@ const UserList = styled.div`
     }
 
     @media (max-width: 50em) {
-        max-height: 30vh;
+        max-height: 280px;
     }
 `;
 
@@ -109,9 +111,14 @@ const Chat = styled.main`
     padding: 0.5rem;
     border-radius: 5px;
 
-    max-height: calc(100vh - 7rem);
+    max-height: calc(100vh - 6rem);
+    min-height: 400px;
 
     background-color: ${(props) => props.theme.gray_500};
+
+    @media (max-width: 50em) {
+        max-height: calc(100vh - 460px);
+    }
 `;
 
 const ChatHeader = styled.header`
@@ -129,7 +136,6 @@ const MessagesWrapper = styled.div`
     flex-direction: column;
     gap: 1rem;
     margin-top: 1rem;
-    height: 100%;
 
     overflow-y: auto;
 
