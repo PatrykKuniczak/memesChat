@@ -69,7 +69,7 @@ const UserList = styled.div`
     }
 
     @media (max-width: 50em) {
-        max-height: 280px;
+        max-height: 200px;
     }
 `;
 
@@ -88,6 +88,10 @@ const User = styled.div`
     &:nth-child(odd) {
         background-color: ${(props) => props.theme.gray_500};
     }
+
+    @media (max-width: 50em) {
+        padding: 0.5rem;
+    }
 `;
 
 const UserImage = styled.img`
@@ -96,6 +100,11 @@ const UserImage = styled.img`
     border-radius: 50%;
 
     object-fit: cover;
+
+    @media (max-width: 50em) {
+        width: 40px;
+        height: 40px;
+    }
 `;
 
 const UserName = styled.p`
@@ -117,7 +126,7 @@ const Chat = styled.main`
     background-color: ${(props) => props.theme.gray_500};
 
     @media (max-width: 50em) {
-        max-height: calc(100vh - 460px);
+        max-height: calc(100vh - 400px);
     }
 `;
 
