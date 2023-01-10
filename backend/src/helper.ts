@@ -1,15 +1,16 @@
 import { validateOrReject } from "class-validator";
-
+import * as dotenv from "dotenv";
 
 async function isValid(input) {
-  try {
-    return await validateOrReject(input);
-  } catch (err) {
-    return err;
-  }
+	try {
+		return await validateOrReject(input);
+	} catch (err) {
+		return err;
+	}
 }
 
+dotenv.config({ path: "./.env" });
 export const CLIENT_PORT = +process.env.WS_PORT;
-export const CLIENT_URL= process.env.REACT_APP_WS_URL;
+export const CLIENT_URL = process.env.WS_URL;
 
 export default isValid;
