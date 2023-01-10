@@ -3,7 +3,7 @@ version: "3.8"
 services:
   backend:
     container_name: backend
-    restart: on-failure
+    restart: unless-stopped
     build:
       context: ../backend
       dockerfile: docker-files/Dockerfile-prod
@@ -25,7 +25,7 @@ services:
 
   frontend:
     container_name: frontend
-    restart: on-failure
+    restart: unless-stopped
     build:
       context: ../frontend
       dockerfile: docker-files/Dockerfile-prod
