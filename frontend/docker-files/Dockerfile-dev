@@ -1,11 +1,9 @@
-#FROM node:19.3-alpine
-#
-#WORKDIR /frontend
-#
-#COPY . .
-#
-#ENV NODE_ENV=development
-#
-#RUN npm i
-#
-#CMD [ "npx", "serve", "build" ]
+FROM node:19.3-alpine
+
+WORKDIR /frontend
+
+COPY . .
+
+RUN npm ci
+
+CMD [ "npx", "serve", "build" ]
