@@ -61,4 +61,8 @@ OR -DEV:
 
     docker-compose -f docker-compose-dev.yml up
 
+CONFIGURE PRETTIER IN YOUR IDE:
+
+    PRETTIER IS IN ROOT(OUTER OF APPS) DIR PACKAGE.JSON     
+
 ENJOY YOUR TASKS
