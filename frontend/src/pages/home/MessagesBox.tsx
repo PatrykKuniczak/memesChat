@@ -1,4 +1,4 @@
-import { Dispatch, MutableRefObject, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 import {
     Message,
     MessageAuthor,
@@ -15,21 +15,18 @@ interface MessagesProps {
     filteredMessages: Messages;
     selected: string;
     messages: Messages;
-    handleSetMessages: Dispatch<SetStateAction<Messages>>;
+    handleDeleteMessage: () => void;
     handleSetFilteredMessages: Dispatch<SetStateAction<Messages>>;
     handleSetSelected: (id: string) => void;
-    handleSetEditMode: (mode: boolean) => void;
-    chatInput: MutableRefObject<HTMLInputElement | null>;
+    handleSetEditMode: () => void;
 }
 
 const MessagesBox = ({
     filteredMessages,
     selected,
-    messages,
-    handleSetMessages,
+    handleDeleteMessage,
     handleSetSelected,
-    handleSetEditMode,
-    chatInput
+    handleSetEditMode
 }: MessagesProps) => (
     <>
         {filteredMessages.map(({ id, message, author }) => (
@@ -43,22 +40,8 @@ const MessagesBox = ({
                 </div>
                 {selected === id && (
                     <MessageSettings>
-                        <BsPencilSquare
-                            onClick={() => {
-                                handleSetEditMode(true);
-                                chatInput.current!.value =
-                                    messages.find(
-                                        (message) => message.id === selected
-                                    )?.message || "";
-                            }}
-                        />
-                        <BsTrashFill
-                            onClick={() =>
-                                handleSetMessages(() =>
-                                    messages.filter(({ id }) => id !== selected)
-                                )
-                            }
-                        />
+                        <BsPencilSquare onClick={handleSetEditMode} />
+                        <BsTrashFill onClick={handleDeleteMessage} />
                     </MessageSettings>
                 )}
             </MessageContainer>

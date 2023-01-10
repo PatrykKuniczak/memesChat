@@ -1,4 +1,5 @@
 import {
+    ChangeEvent,
     KeyboardEvent,
     SetStateAction,
     useEffect,
@@ -31,8 +32,11 @@ const HomeLogic = () => {
         setSelected(id);
     };
 
-    const handleSetEditMode = (editMode: boolean) => {
-        setEditMode(editMode);
+    const handleSetEditMode = () => {
+        setEditMode(true);
+
+        chatInput.current!.value =
+            messages.find(({ id }) => id === selected)?.message || "";
     };
 
     const handleSetFilteredMessages = (
@@ -44,19 +48,53 @@ const HomeLogic = () => {
     };
 
     const handleSetCurrentInputValue = (
-        currentInputValue: SetStateAction<string>
+        event: ChangeEvent<HTMLInputElement>
     ) => {
-        setCurrentInputValue(currentInputValue);
+        setCurrentInputValue(event.target.value);
     };
 
-    const handleSetSearchParams = (searchParams: {}) => {
-        setSearchParams(searchParams);
+    const handleSetSearchParams = (event: ChangeEvent<HTMLInputElement>) => {
+        setSearchParams({
+            messagesFilter: event.target.value
+        });
     };
 
-    const handleSetSearchMode = (
-        searchMode: SetStateAction<"user" | "message">
-    ) => {
-        setSearchMode(searchMode);
+    const handleSetSearchMode = () => {
+        setSearchMode((searchMode) =>
+            searchMode === "message" ? "user" : "message"
+        );
+    };
+
+    const handleAddMessage = () => {
+        let number = Math.floor(Math.random() * 100) + 10;
+        handleSetMessages((prevState) => {
+            return [
+                ...prevState,
+                {
+                    id: number.toString(),
+                    message: currentInputValue,
+                    author: "degi_"
+                }
+            ];
+        });
+    };
+
+    const handleDeleteMessage = () => {
+        handleSetMessages(messages.filter(({ id }) => id !== selected));
+    };
+
+    const handleUpdateMessage = () => {
+        handleSetMessages((prevState) => {
+            return prevState.map((message) => {
+                if (message.id === selected) {
+                    return {
+                        ...message,
+                        message: currentInputValue
+                    };
+                }
+                return message;
+            });
+        });
     };
 
     useMessagesFilter({
@@ -74,34 +112,14 @@ const HomeLogic = () => {
         }
 
         if (editMode) {
-            handleSetMessages((prevState) => {
-                return prevState.map((message) => {
-                    if (message.id === selected) {
-                        return {
-                            ...message,
-                            message: currentInputValue
-                        };
-                    }
-                    return message;
-                });
-            });
+            handleUpdateMessage();
 
             chatInput.current!.value = "";
             setEditMode(false);
             return;
         }
 
-        let number = Math.floor(Math.random() * 100) + 10;
-        handleSetMessages((prevState) => {
-            return [
-                ...prevState,
-                {
-                    id: number.toString(),
-                    message: currentInputValue,
-                    author: "degi_"
-                }
-            ];
-        });
+        handleAddMessage();
         chatInput.current!.value = "";
     };
 
@@ -117,6 +135,7 @@ const HomeLogic = () => {
         handleSetEditMode,
         searchMode,
         handleSetSearchMode,
+        handleDeleteMessage,
         searchParams,
         handleSetSearchParams,
         handleSetCurrentInputValue,

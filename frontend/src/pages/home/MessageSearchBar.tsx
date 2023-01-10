@@ -1,11 +1,11 @@
-import { Dispatch, FC, SetStateAction } from "react";
+import { ChangeEvent, FC } from "react";
 import { SearchContainer, SearchTypeSwitcher } from "./MessageSearchBar.styled";
 import Search from "components/search/Search";
 
 interface Props {
     searchMode: string;
-    handleSetSearchMode: Dispatch<SetStateAction<"message" | "user">>;
-    handleSetSearchParams: (searchParams: {}) => void;
+    handleSetSearchMode: () => void;
+    handleSetSearchParams: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const MessageSearchBar: FC<Props> = ({
@@ -15,22 +15,10 @@ const MessageSearchBar: FC<Props> = ({
 }) => {
     return (
         <SearchContainer>
-            <SearchTypeSwitcher
-                onClick={() =>
-                    handleSetSearchMode((searchMode) =>
-                        searchMode === "message" ? "user" : "message"
-                    )
-                }
-            >
+            <SearchTypeSwitcher onClick={handleSetSearchMode}>
                 {searchMode}
             </SearchTypeSwitcher>
-            <Search
-                onChange={(event) => {
-                    handleSetSearchParams({
-                        messagesFilter: event.target.value
-                    });
-                }}
-            />
+            <Search onChange={handleSetSearchParams} />
         </SearchContainer>
     );
 };

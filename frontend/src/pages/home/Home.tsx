@@ -37,10 +37,10 @@ const Home = () => {
         handleSetEditMode,
         searchMode,
         handleSetSearchMode,
+        handleDeleteMessage,
         handleSetSearchParams,
         handleSetCurrentInputValue,
-        handleTextInputEnterPress,
-        handleSetMessages
+        handleTextInputEnterPress
     } = HomeLogic();
 
     return (
@@ -112,14 +112,13 @@ const Home = () => {
                     <MessagesWrapper>
                         <MessagesBox
                             filteredMessages={filteredMessages}
-                            chatInput={chatInput}
                             handleSetEditMode={handleSetEditMode}
                             handleSetFilteredMessages={
                                 handleSetFilteredMessages
                             }
                             handleSetSelected={handleSetSelected}
                             messages={messages}
-                            handleSetMessages={handleSetMessages}
+                            handleDeleteMessage={handleDeleteMessage}
                             selected={selected}
                         />
                     </MessagesWrapper>
@@ -127,11 +126,7 @@ const Home = () => {
                         <MessageInput
                             ref={chatInput}
                             onKeyDown={handleTextInputEnterPress}
-                            onChange={(event) =>
-                                handleSetCurrentInputValue(
-                                    () => event.target.value
-                                )
-                            }
+                            onChange={handleSetCurrentInputValue}
                         />
                         <MemeIcon />
                         <MemeGenerateIcon />
