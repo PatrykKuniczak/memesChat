@@ -53,8 +53,6 @@ const UsersContainer = styled.section`
 `;
 
 const UserList = styled.div`
-    position: relative;
-
     max-height: calc(100vh - 15rem);
 
     overflow-y: auto;

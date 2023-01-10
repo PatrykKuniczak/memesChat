@@ -4,6 +4,8 @@ const COLORS = {
   gray_300: "#878787",
   gray_400: "#1A1A1A",
   gray_500: "#161616",
+
+  gray_semitransparent: "#16161688",
 };
 const SIZES = {
   sm: "1rem",
