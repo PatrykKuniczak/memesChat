@@ -22,8 +22,8 @@ import {
     UserList
 } from "./Home.styled";
 import user from "assets/user.jpg";
-import MessagesBox from "./MessagesBox";
-import MessageSearchBar from "./MessageSearchBar";
+import MessagesBox from "components/messages/MessagesBox";
+import MessageSearchBar from "components/searchBar/MessageSearchBar";
 import HomeLogic from "./HomeLogic";
 
 const Home = () => {
