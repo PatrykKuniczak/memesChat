@@ -25,7 +25,7 @@ const useMessagesFilter = ({
 
     const filterMessages = useMemo(() => {
         return messages.filter(({ message, author }) => {
-            let filter = searchParams.get("messagesFilter") || "";
+            const filter = searchParams.get("messagesFilter") || "";
             if (filter === "") {
                 return true;
             }

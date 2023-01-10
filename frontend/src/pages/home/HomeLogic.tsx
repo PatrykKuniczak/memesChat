@@ -66,7 +66,7 @@ const HomeLogic = () => {
     };
 
     const handleAddMessage = () => {
-        let number = Math.floor(Math.random() * 100) + 10;
+        const number = Math.floor(Math.random() * 100) + 10;
         handleSetMessages((prevState) => {
             return [
                 ...prevState,
