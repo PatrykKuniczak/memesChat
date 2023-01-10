@@ -1,8 +1,6 @@
 import { ChangeEvent, useState } from "react";
 
-export const useAvatarFunc = (
-    userInput: ChangeEvent<HTMLInputElement> | string = ""
-) => {
+export const useMenuFunc = () => {
     const [userName, setUserName] = useState("John Doe");
     const [newUserName, setNewUserName] = useState(userName);
     const [avatarWidgetStatus, setAvatarWidgetStatus] = useState<
@@ -12,9 +10,8 @@ export const useAvatarFunc = (
         | "account-delete-modal-visible"
     >("dropdown-hidden");
 
-    function handleNicknameChange(userInput: ChangeEvent<HTMLInputElement>) {
-        const value = userInput.target.value;
-        setNewUserName(value);
+    function handleNicknameChange(event: ChangeEvent<HTMLInputElement>) {
+        setNewUserName(event.target.value);
     }
 
     function toggleAvatarDropdown() {
@@ -37,15 +34,16 @@ export const useAvatarFunc = (
     }
 
     function deleteAccountConfirm() {
+        // todo: miejsce na twoja logike
         toggleAvatarDropdown();
     }
 
     function deleteAccountCancel() {
+        // todo: miejsce na twoja logike
         toggleAvatarDropdown();
     }
 
     return {
-        userInput,
         userName,
         setUserName,
         newUserName,

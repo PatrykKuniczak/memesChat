@@ -1,5 +1,5 @@
 import React from "react";
-import { useAvatarFunc } from "./useMenuFunc";
+import { useMenuFunc } from "./useMenuFunc";
 
 import {
     MenuWrapper,
@@ -18,7 +18,7 @@ import {
     ButtonSecondary,
     ChevronIcon,
     ModalBackgroundHandler,
-    BurgerIcon,
+    BurgerIcon
 } from "./Menu.styled";
 
 // import { UserImage, UserName } from "pages/home/Home.styled";
@@ -37,7 +37,7 @@ const Avatar = () => {
         updateUserName,
         deleteAccountConfirm,
         deleteAccountCancel
-    } = useAvatarFunc();
+    } = useMenuFunc();
 
     return (
         <>
