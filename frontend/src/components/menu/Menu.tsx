@@ -21,11 +21,9 @@ import {
     BurgerIcon
 } from "./Menu.styled";
 
-// import { UserImage, UserName } from "pages/home/Home.styled";
-
 import user from "assets/user.jpg";
 
-const Avatar = () => {
+const Menu = () => {
     const {
         userName,
         newUserName,
@@ -120,4 +118,4 @@ const Avatar = () => {
     );
 };
 
-export default Avatar;
+export default Menu;
