@@ -7,11 +7,11 @@ const COLORS = {
 
   gray_semitransparent: "#16161688",
 };
-const SIZES = {
+const FONT_SIZES = {
   sm: "1rem",
   md: "1.125rem",
   lg: "1.5rem",
   xxl: "3rem",
 };
 
-export { COLORS, SIZES };
+export { COLORS, FONT_SIZES };

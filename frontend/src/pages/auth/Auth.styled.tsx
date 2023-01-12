@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { SIZES } from "constants/styleConstants";
+import { FONT_SIZES } from "constants/styleConstants";
 
 const SignupContainer = styled.div`
     display: grid;
@@ -10,7 +10,7 @@ const SignupContainer = styled.div`
 
 const Heading = styled.h1`
     color: #fff;
-    font-size: ${SIZES.xxl};
+    font-size: ${FONT_SIZES.xxl};
     text-align: center;
 `;
 
@@ -22,7 +22,7 @@ const Form = styled.form`
 
 const Label = styled.label`
     color: ${(props) => props.theme.gray_300};
-    font-size: ${SIZES.md};
+    font-size: ${FONT_SIZES.md};
     margin-top: 1.5rem;
 `;
 
