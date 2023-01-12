@@ -38,11 +38,10 @@ const MenuUserImage = styled.img`
 `;
 
 const DropdownButton = styled.button`
-    all: unset;
-
     padding: 0.5rem;
+    border: none;
 
-    background: #ffffff00;
+    background: transparent;
 
     cursor: pointer;
 
@@ -248,11 +247,19 @@ const ModalBackgroundHandler = styled.div`
 // burger menu for mobile view
 
 const BurgerIcon = styled(FiAlignJustify)`
-    display: flex;
     width: 50px;
     height: 50px;
 
     color: ${(props) => props.theme.gray_300};
+`;
+
+const BurgerButton = styled.button`
+    width: 50px;
+    height: 50px;
+
+    border: none;
+
+    background: transparent;
 
     cursor: pointer;
 
@@ -278,5 +285,6 @@ export {
     ButtonSecondary,
     ChevronIcon,
     ModalBackgroundHandler,
-    BurgerIcon
+    BurgerIcon,
+    BurgerButton
 };

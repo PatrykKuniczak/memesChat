@@ -184,11 +184,23 @@ const MemeIcon = styled(BsStars)`
     cursor: pointer;
 `;
 
+const MemeButton = styled.button`
+    border: none;
+
+    background-color: transparent;
+`;
+
 const MemeGenerateIcon = styled(BsImage)`
     margin: 0 0.5rem;
 
     fill: ${(props) => props.theme.gray_300};
     cursor: pointer;
+`;
+
+const MemeGenerateButton = styled.button`
+    border: none;
+
+    background-color: transparent;
 `;
 
 export {
@@ -210,5 +222,7 @@ export {
     InputWrapper,
     MessageInput,
     MemeIcon,
-    MemeGenerateIcon
+    MemeButton,
+    MemeGenerateIcon,
+    MemeGenerateButton
 };

@@ -18,7 +18,8 @@ import {
     ButtonSecondary,
     ChevronIcon,
     ModalBackgroundHandler,
-    BurgerIcon
+    BurgerIcon,
+    BurgerButton
 } from "./Menu.styled";
 
 import user from "assets/user.jpg";
@@ -92,7 +93,9 @@ const Menu = () => {
                     <DropdownButton onClick={toggleAvatarDropdown}>
                         <ChevronIcon />
                     </DropdownButton>
-                    <BurgerIcon onClick={toggleAvatarDropdown} />
+                    <BurgerButton onClick={toggleAvatarDropdown}>
+                        <BurgerIcon />
+                    </BurgerButton>
                 </>
             </MenuWrapper>
             {avatarWidgetStatus === "dropdown-visible" && (

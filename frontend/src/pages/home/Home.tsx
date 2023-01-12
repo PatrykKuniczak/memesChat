@@ -19,7 +19,9 @@ import {
     UserImage,
     UserName,
     UsersContainer,
-    UserList
+    UserList,
+    MemeButton,
+    MemeGenerateButton
 } from "./Home.styled";
 import user from "assets/user.jpg";
 import MessagesBox from "components/messages/MessagesBox";
@@ -128,8 +130,12 @@ const Home = () => {
                             onKeyDown={handleTextInputEnterPress}
                             onChange={handleSetCurrentInputValue}
                         />
-                        <MemeIcon />
-                        <MemeGenerateIcon />
+                        <MemeButton>
+                            <MemeIcon />
+                        </MemeButton>
+                        <MemeGenerateButton>
+                            <MemeGenerateIcon />
+                        </MemeGenerateButton>
                     </InputWrapper>
                 </Chat>
             </Main>
