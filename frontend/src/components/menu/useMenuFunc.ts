@@ -10,38 +10,38 @@ export const useMenuFunc = () => {
         | "account-delete-modal-visible"
     >("dropdown-hidden");
 
-    function handleNicknameChange(event: ChangeEvent<HTMLInputElement>) {
+    const handleNicknameChange = (event: ChangeEvent<HTMLInputElement>) => {
         setNewUserName(event.target.value);
-    }
+    };
 
-    function toggleAvatarDropdown() {
+    const toggleAvatarDropdown = () => {
         avatarWidgetStatus === "dropdown-hidden"
             ? setAvatarWidgetStatus("dropdown-visible")
             : setAvatarWidgetStatus("dropdown-hidden");
-    }
+    };
 
-    function toggleAccountEditModal() {
+    const toggleAccountEditModal = () => {
         setAvatarWidgetStatus("account-edit-modal-visible");
-    }
+    };
 
-    function toggleAccountDeleteModal() {
+    const toggleAccountDeleteModal = () => {
         setAvatarWidgetStatus("account-delete-modal-visible");
-    }
+    };
 
-    function updateUserName() {
+    const updateUserName = () => {
         setUserName(newUserName);
         setAvatarWidgetStatus("dropdown-hidden");
-    }
+    };
 
-    function deleteAccountConfirm() {
+    const deleteAccountConfirm = () => {
         // todo: miejsce na twoja logike
         toggleAvatarDropdown();
-    }
+    };
 
-    function deleteAccountCancel() {
+    const deleteAccountCancel = () => {
         // todo: miejsce na twoja logike
         toggleAvatarDropdown();
-    }
+    };
 
     return {
         userName,
