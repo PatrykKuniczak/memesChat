@@ -2,6 +2,7 @@ import {
     ChangeEvent,
     KeyboardEvent,
     SetStateAction,
+    useCallback,
     useEffect,
     useRef,
     useState
@@ -39,13 +40,16 @@ const HomeLogic = () => {
             messages.find(({ id }) => id === selected)?.message || "";
     };
 
-    const handleSetFilteredMessages = (
-        filteredMessages: SetStateAction<
-            { id: string; message: string; author: string }[]
-        >
-    ) => {
-        setFilteredMessages(filteredMessages);
-    };
+    const handleSetFilteredMessages = useCallback(
+        (
+            filteredMessages: SetStateAction<
+                { id: string; message: string; author: string }[]
+            >
+        ) => {
+            setFilteredMessages(filteredMessages);
+        },
+        []
+    );
 
     const handleSetCurrentInputValue = (
         event: ChangeEvent<HTMLInputElement>

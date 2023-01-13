@@ -39,10 +39,8 @@ const useMessagesFilter = ({
     }, [messages, searchMode, searchParams]);
 
     useEffect(() => {
-        startTransition(() => {
-            handleSetFilteredMessages(filterMessages);
-        });
-    }, [searchParams]);
+        startTransition(() => handleSetFilteredMessages(filterMessages));
+    }, [filterMessages, handleSetFilteredMessages, searchParams]);
 };
 
 export default useMessagesFilter;
