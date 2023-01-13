@@ -240,8 +240,8 @@ const ModalBackgroundHandler = styled.div`
     width: 100vw;
     height: 200%;
 
-    background-color: ${(props) => props.theme.gray_semitransparent};
-    backdrop-filter: blur(2px);
+    // background-color: ${(props) => props.theme.gray_semitransparent};
+    // backdrop-filter: blur(2px);
 `;
 
 // burger menu for mobile view
