@@ -1,9 +1,0 @@
-FROM node:19.3-alpine
-
-WORKDIR /backend
-
-COPY . .
-
-RUN npm ci
-
-CMD ["node", "dist/main"]

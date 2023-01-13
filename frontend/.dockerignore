@@ -3,5 +3,5 @@ build
 .idea
 README.md
 .gitignore
-docker-files
+Dockerfile
 .dockerignore
