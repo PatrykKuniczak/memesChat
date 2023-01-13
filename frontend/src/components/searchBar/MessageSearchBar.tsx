@@ -18,7 +18,7 @@ const MessageSearchBar: FC<Props> = ({
             <SearchTypeSwitcher onClick={handleSetSearchMode}>
                 {searchMode}
             </SearchTypeSwitcher>
-            <Search onChange={handleSetSearchParams} />
+            <Search onChange={handleSetSearchParams} variant="dark" />
         </SearchContainer>
     );
 };
