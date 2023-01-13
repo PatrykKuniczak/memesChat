@@ -10,7 +10,7 @@ async function isValid(input) {
 }
 
 dotenv.config({ path: "./.env" });
-export const CLIENT_PORT = +process.env.WS_PORT;
-export const CLIENT_URL = process.env.WS_URL;
+export const WS_CLIENT_PORT = +process.env.WS_PORT;
+export const WS_CLIENT_URL = process.env.WS_URL;
 
 export default isValid;
