@@ -4,6 +4,7 @@ import { FONT_SIZES } from "constants/styleConstants";
 const SignupContainer = styled.div`
     display: grid;
     place-content: center;
+    grid-template-columns: min(40rem, 50%);
     height: 100vh;
 `;
 
@@ -37,10 +38,16 @@ const Input = styled.input`
 
 const ButtonsContainer = styled.div`
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 4rem;
     justify-content: center;
     gap: 1.5rem;
-    margin-top: 4rem;
+
+    @media screen and (min-width: 50em) {
+        flex-direction: row;
+        align-items: center;
+    }
 `;
 
 export { SignupContainer, Heading, Form, Input, Label, ButtonsContainer };
