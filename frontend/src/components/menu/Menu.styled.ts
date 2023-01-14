@@ -103,7 +103,7 @@ const DropdownListItem = styled.li`
     }
 `;
 
-const EditNicknameModal = styled.div`
+const EditNameModal = styled.div`
     position: absolute;
     z-index: 2;
     top: 30vh;
@@ -276,7 +276,7 @@ export {
     DropdownWrapper,
     DropdownList,
     DropdownListItem,
-    EditNicknameModal,
+    EditNameModal,
     TextInput,
     SubmitButton,
     DeleteAccountModal,
