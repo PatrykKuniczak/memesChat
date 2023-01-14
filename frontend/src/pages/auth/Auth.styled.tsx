@@ -4,7 +4,7 @@ import { FONT_SIZES } from "constants/styleConstants";
 const SignupContainer = styled.div`
     display: grid;
     place-content: center;
-    padding-top: 10rem;
+    grid-template-columns: min(40rem, 50%);
     height: 100vh;
 `;
 
@@ -28,18 +28,26 @@ const Label = styled.label`
 
 const Input = styled.input`
     border-radius: 5px;
-    border: none;
+    border: 1px solid rgba(65, 65, 65, 0.66);
     padding: 1rem;
     margin-top: 0.5rem;
-    background-color: ${(props) => props.theme.gray_500};
+
+    background: rgba(112, 112, 112, 0.1);
+    backdrop-filter: blur(27px);
 `;
 
 const ButtonsContainer = styled.div`
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 4rem;
     justify-content: center;
     gap: 1.5rem;
-    margin-top: 4rem;
+
+    @media screen and (min-width: 50em) {
+        flex-direction: row;
+        align-items: center;
+    }
 `;
 
 export { SignupContainer, Heading, Form, Input, Label, ButtonsContainer };

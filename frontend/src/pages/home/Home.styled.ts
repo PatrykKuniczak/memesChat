@@ -84,7 +84,9 @@ const User = styled.div`
     gap: 1rem;
 
     &:nth-child(odd) {
-        background-color: ${(props) => props.theme.gray_500};
+        background: rgba(112, 112, 112, 0.1);
+        border: 1px solid rgba(65, 65, 65, 0.66);
+        backdrop-filter: blur(27px);
     }
 
     @media (max-width: 50em) {
@@ -121,7 +123,9 @@ const Chat = styled.main`
     max-height: calc(100vh - 6rem);
     min-height: 400px;
 
-    background-color: ${(props) => props.theme.gray_500};
+    background: rgba(112, 112, 112, 0.1);
+    border: 1px solid rgba(65, 65, 65, 0.66);
+    backdrop-filter: blur(27px);
 
     @media (max-width: 50em) {
         max-height: calc(100vh - 410px);
@@ -134,7 +138,7 @@ const ChatHeader = styled.header`
     padding: 1rem;
     border-radius: 5px;
 
-    background-color: ${(props) => props.theme.gray_400};
+    background-color: hsla(0, 0%, 28%, 0.25);
 `;
 
 const MessagesWrapper = styled.div`

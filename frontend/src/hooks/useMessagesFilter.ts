@@ -5,23 +5,23 @@ import {
     useMemo,
     useTransition
 } from "react";
+import { useSearchParams } from "react-router-dom";
 
 type Messages = { id: string; message: string; author: string }[];
 
 interface Props {
     messages: Messages;
     searchMode: string;
-    searchParams: URLSearchParams;
     handleSetFilteredMessages: Dispatch<SetStateAction<Messages>>;
 }
 
 const useMessagesFilter = ({
     messages,
     searchMode,
-    searchParams,
     handleSetFilteredMessages
 }: Props) => {
     const [isPending, startTransition] = useTransition();
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const filterMessages = useMemo(() => {
         return messages.filter(({ message, author }) => {
@@ -39,10 +39,8 @@ const useMessagesFilter = ({
     }, [messages, searchMode, searchParams]);
 
     useEffect(() => {
-        startTransition(() => {
-            handleSetFilteredMessages(filterMessages);
-        });
-    }, [searchParams]);
+        startTransition(() => handleSetFilteredMessages(filterMessages));
+    }, [filterMessages, handleSetFilteredMessages, searchParams]);
 };
 
 export default useMessagesFilter;

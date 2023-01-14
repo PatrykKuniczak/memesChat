@@ -2,12 +2,12 @@ import {
     ChangeEvent,
     KeyboardEvent,
     SetStateAction,
+    useCallback,
     useEffect,
     useRef,
     useState
 } from "react";
 import useMessages from "../../hooks/useMessages";
-import { useSearchParams } from "react-router-dom";
 import useMessagesFilter from "../../hooks/useMessagesFilter";
 
 const HomeLogic = () => {
@@ -21,7 +21,6 @@ const HomeLogic = () => {
 
     const [currentInputValue, setCurrentInputValue] = useState("");
 
-    const [searchParams, setSearchParams] = useSearchParams();
     const [searchMode, setSearchMode] = useState<"user" | "message">("message");
 
     useEffect(() => {
@@ -39,24 +38,21 @@ const HomeLogic = () => {
             messages.find(({ id }) => id === selected)?.message || "";
     };
 
-    const handleSetFilteredMessages = (
-        filteredMessages: SetStateAction<
-            { id: string; message: string; author: string }[]
-        >
-    ) => {
-        setFilteredMessages(filteredMessages);
-    };
+    const handleSetFilteredMessages = useCallback(
+        (
+            filteredMessages: SetStateAction<
+                { id: string; message: string; author: string }[]
+            >
+        ) => {
+            setFilteredMessages(filteredMessages);
+        },
+        []
+    );
 
     const handleSetCurrentInputValue = (
         event: ChangeEvent<HTMLInputElement>
     ) => {
         setCurrentInputValue(event.target.value);
-    };
-
-    const handleSetSearchParams = (event: ChangeEvent<HTMLInputElement>) => {
-        setSearchParams({
-            messagesFilter: event.target.value
-        });
     };
 
     const handleSetSearchMode = () => {
@@ -100,7 +96,6 @@ const HomeLogic = () => {
     useMessagesFilter({
         messages,
         searchMode,
-        searchParams,
         handleSetFilteredMessages
     });
 
@@ -136,8 +131,6 @@ const HomeLogic = () => {
         searchMode,
         handleSetSearchMode,
         handleDeleteMessage,
-        searchParams,
-        handleSetSearchParams,
         handleSetCurrentInputValue,
         handleTextInputEnterPress
     };

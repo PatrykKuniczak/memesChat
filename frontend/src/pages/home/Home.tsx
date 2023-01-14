@@ -40,7 +40,6 @@ const Home = () => {
         searchMode,
         handleSetSearchMode,
         handleDeleteMessage,
-        handleSetSearchParams,
         handleSetCurrentInputValue,
         handleTextInputEnterPress
     } = HomeLogic();
@@ -108,7 +107,6 @@ const Home = () => {
                         <MessageSearchBar
                             searchMode={searchMode}
                             handleSetSearchMode={handleSetSearchMode}
-                            handleSetSearchParams={handleSetSearchParams}
                         />
                     </ChatHeader>
                     <MessagesWrapper>
