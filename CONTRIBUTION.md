@@ -1,0 +1,62 @@
+GIT CLONE: https://github.com/PatrykKuniczak/memesChat.git
+
+// DON'T CHANGE PREDEFINED (STARTS WITH '$') VALUES //
+
+HOST EACH APP STANDALONE:\
+GO TO FRONTEND AND BACKEND DIRECTORIES, AND DO IT FOR EACH:\
+
+    CREATE ".env" FILE IN EACH APP ROOT DIRECTORY, VALUES:
+        
+        FOR BACKEND:
+
+        DB_TYPE=postgres
+        POSTGRES_USER=
+        POSTGRES_PASSWORD=
+        POSTGRES_HOST=
+        POSTGRES_PORT=
+        POSTGRES_DB= ## USE DIFFERENT FOR DEV AND PROD ##
+        DB_URL=$DB_TYPE://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST:$POSTGRES_PORT/$POSTGRES_DB
+        SERVER_PORT=
+        WS_PORT=
+        WS_URL=YOURHOST:$WS_PORT
+
+        FOR FRONTEND:
+
+        REACT_APP_WS_URL=YOURHOST:WS_PORT(FROM BACKEND)
+
+        RUN NPM I
+        
+        START BACKEND: 'npm run start:dev'
+        START FRONTEND: 'npm start'
+
+// DON'T CHANGE ALL PREDEFINED VALUES //
+
+FOR DOCKER
+
+    CREATE ".env" FILE IN ROOT (OUTSIDE OF APPS), VALUES:
+
+        DB_TYPE=postgres
+        POSTGRES_USER=
+        POSTGRES_PASSWORD=
+        POSTGRES_HOST=db
+        POSTGRES_PORT=
+        POSTGRES_DB=live_chat
+        DB_URL=${DB_TYPE}://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+        SERVER_PORT=
+        WS_PORT=
+        WS_URL=http://localhost:${WS_PORT}
+        REACT_APP_PORT=
+        REACT_APP_WS_URL=${WS_URL}
+
+RUN ```docker-compose up```
+
+CONFIGURE PRETTIER IN YOUR IDE:
+
+    PRETTIER IS IN ROOT(OUTER OF APPS) DIR:
+
+    memesChat\node_modules\prettier
+
+EP. FOR WEBSTORM:\
+https://blog.jetbrains.com/webstorm/2020/07/webstorm-2020-2/
+
+ENJOY YOUR TASKS

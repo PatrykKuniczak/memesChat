@@ -1,12 +1,17 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { WebScrapperModule } from './web-scrapper/web-scrapper.module';
-import { LiveChatModule } from './live-chat/live-chat.module';
+import { Module } from "@nestjs/common";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import typeOrmConfig from "database/config/typeorm.config";
+import { ConfigModule } from "@nestjs/config";
+import { MessageModule } from "message/message.module";
+import { UserModule } from "user/user.module";
 
 @Module({
-  imports: [WebScrapperModule, LiveChatModule],
-  controllers: [AppController],
-  providers: [AppService],
+	imports: [
+		ConfigModule.forRoot({ isGlobal: true }),
+		TypeOrmModule.forRootAsync(typeOrmConfig),
+		MessageModule,
+		UserModule
+	],
+	exports: [TypeOrmModule]
 })
 export class AppModule {}
