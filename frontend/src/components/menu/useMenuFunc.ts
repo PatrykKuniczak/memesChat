@@ -1,15 +1,15 @@
-import { useSelector, useDispatch } from "react-redux";
-import { ChangeEvent } from "react";
+import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
+import { ChangeEvent, KeyboardEvent } from "react";
 
 import { toggleMenuStatus } from "store/slices/MenuSlice";
 import { editUsername, saveNewUsername } from "store/slices/UserSlice";
 
 export const useMenuFunc = () => {
-    const menuStatus = useSelector((store: any) => store.menu.menuStatus);
-    const username = useSelector((store: any) => store.user.username);
-    const newUsername = useSelector((store: any) => store.user.newUsername);
+    const menuStatus = useAppSelector((store) => store.menu.menuStatus);
+    const username = useAppSelector((store) => store.user.username);
+    const newUsername = useAppSelector((store) => store.user.newUsername);
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const toggleAvatarDropdown = () => {
         dispatch(toggleMenuStatus("toggle-dropdown"));
@@ -21,6 +21,12 @@ export const useMenuFunc = () => {
 
     const handleNicknameChange = (event: ChangeEvent<HTMLInputElement>) => {
         dispatch(editUsername(event.target.value));
+    };
+
+    const handleNicknameEnter = (event: KeyboardEvent) => {
+        if (event.key === "Enter") {
+            updateUsername();
+        }
     };
 
     const updateUsername = () => {
@@ -49,6 +55,7 @@ export const useMenuFunc = () => {
         newUsername,
         updateUsername,
         handleNicknameChange,
+        handleNicknameEnter,
         toggleAvatarDropdown,
         toggleAccountEditModal,
         toggleAccountDeleteModal,
