@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { useMenuFunc } from "./useMenuFunc";
 
 import {
@@ -38,8 +37,6 @@ const Menu = () => {
         deleteAccountConfirm,
         deleteAccountCancel
     } = useMenuFunc();
-
-    const entireStore = useSelector((store: any) => store);
 
     const editNameModal = () => (
         <>
@@ -97,7 +94,6 @@ const Menu = () => {
     return (
         <>
             <MenuWrapper>
-                {JSON.stringify(entireStore)}
                 {menuStatus === "account-edit-modal-visible" && editNameModal()}
                 {menuStatus === "account-delete-modal-visible" &&
                     deleteAccountModal()}
