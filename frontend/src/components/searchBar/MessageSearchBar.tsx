@@ -3,13 +3,9 @@ import { SearchContainer, SearchTypeSwitcher } from "./MessageSearchBar.styled";
 import Search from "components/search/Search";
 import useMessageSearchBar from "./useMessageSearchBar";
 
-interface Props {
-    searchMode: string;
-    handleSetSearchMode: () => void;
-}
-
-const MessageSearchBar: FC<Props> = ({ searchMode, handleSetSearchMode }) => {
-    const { handleSetSearchParams } = useMessageSearchBar();
+const MessageSearchBar: FC = () => {
+    const { handleSetSearchParams, searchMode, handleSetSearchMode } =
+        useMessageSearchBar();
 
     return (
         <SearchContainer>

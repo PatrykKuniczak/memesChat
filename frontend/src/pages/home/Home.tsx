@@ -9,41 +9,20 @@ import {
     Label,
     Chat,
     ChatHeader,
-    MemeIcon,
-    MemeGenerateIcon,
-    MessageInput,
     MessagesWrapper,
-    InputWrapper,
     OnlineBadge,
     User,
     UserImage,
     UserName,
     UsersContainer,
-    UserList,
-    MemeButton,
-    MemeGenerateButton
+    UserList
 } from "./Home.styled";
 import user from "assets/user.jpg";
 import MessagesBox from "components/messages/MessagesBox";
 import MessageSearchBar from "components/searchBar/MessageSearchBar";
-import HomeLogic from "./HomeLogic";
+import ChatInput from "components/chatInput/ChatInput";
 
 const Home = () => {
-    const {
-        messages,
-        filteredMessages,
-        handleSetFilteredMessages,
-        chatInput,
-        selected,
-        handleSetSelected,
-        handleSetEditMode,
-        searchMode,
-        handleSetSearchMode,
-        handleDeleteMessage,
-        handleSetCurrentInputValue,
-        handleTextInputEnterPress
-    } = HomeLogic();
-
     return (
         <Root>
             <Navbar />
@@ -104,37 +83,12 @@ const Home = () => {
                 </Aside>
                 <Chat>
                     <ChatHeader>
-                        <MessageSearchBar
-                            searchMode={searchMode}
-                            handleSetSearchMode={handleSetSearchMode}
-                        />
+                        <MessageSearchBar />
                     </ChatHeader>
                     <MessagesWrapper>
-                        <MessagesBox
-                            filteredMessages={filteredMessages}
-                            handleSetEditMode={handleSetEditMode}
-                            handleSetFilteredMessages={
-                                handleSetFilteredMessages
-                            }
-                            handleSetSelected={handleSetSelected}
-                            messages={messages}
-                            handleDeleteMessage={handleDeleteMessage}
-                            selected={selected}
-                        />
+                        <MessagesBox />
                     </MessagesWrapper>
-                    <InputWrapper>
-                        <MessageInput
-                            ref={chatInput}
-                            onKeyDown={handleTextInputEnterPress}
-                            onChange={handleSetCurrentInputValue}
-                        />
-                        <MemeButton>
-                            <MemeIcon />
-                        </MemeButton>
-                        <MemeGenerateButton>
-                            <MemeGenerateIcon />
-                        </MemeGenerateButton>
-                    </InputWrapper>
+                    <ChatInput />
                 </Chat>
             </Main>
         </Root>
