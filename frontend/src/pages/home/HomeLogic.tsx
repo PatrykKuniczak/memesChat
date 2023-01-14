@@ -8,7 +8,6 @@ import {
     useState
 } from "react";
 import useMessages from "../../hooks/useMessages";
-import { useSearchParams } from "react-router-dom";
 import useMessagesFilter from "../../hooks/useMessagesFilter";
 
 const HomeLogic = () => {
@@ -22,7 +21,6 @@ const HomeLogic = () => {
 
     const [currentInputValue, setCurrentInputValue] = useState("");
 
-    const [searchParams, setSearchParams] = useSearchParams();
     const [searchMode, setSearchMode] = useState<"user" | "message">("message");
 
     useEffect(() => {
@@ -55,12 +53,6 @@ const HomeLogic = () => {
         event: ChangeEvent<HTMLInputElement>
     ) => {
         setCurrentInputValue(event.target.value);
-    };
-
-    const handleSetSearchParams = (event: ChangeEvent<HTMLInputElement>) => {
-        setSearchParams({
-            messagesFilter: event.target.value
-        });
     };
 
     const handleSetSearchMode = () => {
@@ -104,7 +96,6 @@ const HomeLogic = () => {
     useMessagesFilter({
         messages,
         searchMode,
-        searchParams,
         handleSetFilteredMessages
     });
 
@@ -140,8 +131,6 @@ const HomeLogic = () => {
         searchMode,
         handleSetSearchMode,
         handleDeleteMessage,
-        searchParams,
-        handleSetSearchParams,
         handleSetCurrentInputValue,
         handleTextInputEnterPress
     };
