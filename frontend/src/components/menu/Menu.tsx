@@ -30,6 +30,7 @@ const Menu = () => {
         username,
         newUsername,
         handleNicknameChange,
+        handleNicknameEnter,
         updateUsername,
         toggleAvatarDropdown,
         toggleAccountEditModal,
@@ -38,65 +39,48 @@ const Menu = () => {
         deleteAccountCancel
     } = useMenuFunc();
 
-    const editNameModal = () => (
-        <>
-            <EditNameModal>
-                <span>Twój nowy nick:</span>
-                <TextInput
-                    type="text"
-                    value={newUsername}
-                    onChange={(event) => handleNicknameChange(event)}
-                    onKeyDown={(event) => {
-                        event.key === "Enter" && updateUsername();
-                    }}
-                />
-                <SubmitButton
-                    type="submit"
-                    value="Zapisz"
-                    onClick={updateUsername}
-                />
-            </EditNameModal>
-            <ModalBackgroundHandler onClick={toggleAvatarDropdown} />
-        </>
-    );
-
-    const deleteAccountModal = () => (
-        <>
-            <DeleteAccountModal>
-                <span>Czy na pewno chcesz usunąć konto?</span>
-                <DeleteAccountModalButtons>
-                    <ButtonSecondary onClick={deleteAccountConfirm}>
-                        Tak, usuwam konto
-                    </ButtonSecondary>
-                    <ButtonPrimary onClick={deleteAccountCancel}>
-                        Anuluj
-                    </ButtonPrimary>
-                </DeleteAccountModalButtons>
-            </DeleteAccountModal>
-            <ModalBackgroundHandler onClick={toggleAvatarDropdown} />
-        </>
-    );
-
-    const menuDropdown = () => (
-        <DropdownWrapper>
-            <DropdownList>
-                <DropdownListItem onClick={toggleAccountEditModal}>
-                    Edytuj konto
-                </DropdownListItem>
-                <DropdownListItem onClick={toggleAccountDeleteModal}>
-                    Usuń konto
-                </DropdownListItem>
-            </DropdownList>
-            <ModalBackgroundHandler onClick={toggleAvatarDropdown} />
-        </DropdownWrapper>
-    );
-
     return (
         <>
             <MenuWrapper>
-                {menuStatus === "account-edit-modal-visible" && editNameModal()}
-                {menuStatus === "account-delete-modal-visible" &&
-                    deleteAccountModal()}
+                {menuStatus === "account-edit-modal-visible" && (
+                    <>
+                        <EditNameModal>
+                            <span>Twój nowy nick:</span>
+                            <TextInput
+                                type="text"
+                                value={newUsername}
+                                onChange={handleNicknameChange}
+                                onKeyDown={handleNicknameEnter}
+                            />
+                            <SubmitButton
+                                type="submit"
+                                value="Zapisz"
+                                onClick={updateUsername}
+                            />
+                        </EditNameModal>
+                        <ModalBackgroundHandler
+                            onClick={toggleAvatarDropdown}
+                        />
+                    </>
+                )}
+                {menuStatus === "account-delete-modal-visible" && (
+                    <>
+                        <DeleteAccountModal>
+                            <span>Czy na pewno chcesz usunąć konto?</span>
+                            <DeleteAccountModalButtons>
+                                <ButtonSecondary onClick={deleteAccountConfirm}>
+                                    Tak, usuwam konto
+                                </ButtonSecondary>
+                                <ButtonPrimary onClick={deleteAccountCancel}>
+                                    Anuluj
+                                </ButtonPrimary>
+                            </DeleteAccountModalButtons>
+                        </DeleteAccountModal>
+                        <ModalBackgroundHandler
+                            onClick={toggleAvatarDropdown}
+                        />
+                    </>
+                )}
                 <MenuUserName>{username}</MenuUserName>
                 <MenuUserImage src={user} onClick={toggleAvatarDropdown} />
                 <>
@@ -108,7 +92,19 @@ const Menu = () => {
                     </BurgerButton>
                 </>
             </MenuWrapper>
-            {menuStatus === "dropdown-visible" && menuDropdown()}
+            {menuStatus === "dropdown-visible" && (
+                <DropdownWrapper>
+                    <DropdownList>
+                        <DropdownListItem onClick={toggleAccountEditModal}>
+                            Edytuj konto
+                        </DropdownListItem>
+                        <DropdownListItem onClick={toggleAccountDeleteModal}>
+                            Usuń konto
+                        </DropdownListItem>
+                    </DropdownList>
+                    <ModalBackgroundHandler onClick={toggleAvatarDropdown} />
+                </DropdownWrapper>
+            )}
         </>
     );
 };
