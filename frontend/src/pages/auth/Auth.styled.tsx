@@ -28,10 +28,12 @@ const Label = styled.label`
 
 const Input = styled.input`
     border-radius: 5px;
-    border: none;
+    border: 1px solid rgba(65, 65, 65, 0.66);
     padding: 1rem;
     margin-top: 0.5rem;
-    background-color: ${(props) => props.theme.gray_500};
+
+    background: rgba(112, 112, 112, 0.1);
+    backdrop-filter: blur(27px);
 `;
 
 const ButtonsContainer = styled.div`
