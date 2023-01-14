@@ -4,7 +4,6 @@ import { FONT_SIZES } from "constants/styleConstants";
 const SignupContainer = styled.div`
     display: grid;
     place-content: center;
-    padding-top: 10rem;
     height: 100vh;
 `;
 
