@@ -6,16 +6,25 @@ import {
     useState
 } from "react";
 import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
-import { deleteMessage, setEditMode } from "store/slices/ChatSlice";
+import {
+    deleteMessage,
+    fetchMessages,
+    setEditMode
+} from "store/slices/ChatSlice";
 import useMessagesFilter from "hooks/useMessagesFilter";
 
 const useMessagesBox = () => {
     const [selected, setSelected] = useState("");
     const chatInput = useRef<HTMLInputElement | null>(null);
 
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(fetchMessages());
+    }, []);
+
     const messages = useAppSelector((state) => state.chat.messages);
     const searchMode = useAppSelector((state) => state.search.searchMode);
-    const dispatch = useAppDispatch();
 
     const [filteredMessages, setFilteredMessages] = useState(messages);
 

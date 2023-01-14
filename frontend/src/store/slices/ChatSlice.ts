@@ -1,5 +1,10 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+
+const fetchMessages = createAsyncThunk("fetchMessages", async () => {
+    const response = await fetch(`https://dummyjson.com/comments`);
+    return await response.json();
+});
 
 type PayloadType = { selected: string; message: string };
 
@@ -51,6 +56,23 @@ export const chatSlice = createSlice({
                 ({ id }) => id !== action.payload
             );
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(fetchMessages.fulfilled, (state, action) => {
+            state.messages = action.payload.comments.map(
+                (comment: {
+                    id: string;
+                    body: string;
+                    user: { username: string };
+                }) => {
+                    return {
+                        id: comment.id,
+                        message: comment.body,
+                        author: comment.user.username
+                    };
+                }
+            );
+        });
     }
 });
 
@@ -58,5 +80,7 @@ export const { setEditMode, updateMessage, addMessage, deleteMessage } =
     chatSlice.actions;
 
 export const selectChat = (state: RootState) => state.chat;
+
+export { fetchMessages };
 
 export default chatSlice.reducer;
