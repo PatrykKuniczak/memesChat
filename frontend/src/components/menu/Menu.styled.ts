@@ -240,8 +240,17 @@ const ModalBackgroundHandler = styled.div`
     width: 100vw;
     height: 200%;
 
-    // background-color: ${(props) => props.theme.gray_semitransparent};
-    // backdrop-filter: blur(2px);
+    backdrop-filter: blur(3px);
+`;
+
+const ModalBackgroundHandlerClear = styled.div`
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 1;
+
+    width: 100vw;
+    height: 200%;
 `;
 
 // burger menu for mobile view
@@ -285,6 +294,7 @@ export {
     ButtonSecondary,
     ChevronIcon,
     ModalBackgroundHandler,
+    ModalBackgroundHandlerClear,
     BurgerIcon,
     BurgerButton
 };

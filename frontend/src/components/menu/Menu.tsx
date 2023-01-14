@@ -18,6 +18,7 @@ import {
     ButtonSecondary,
     ChevronIcon,
     ModalBackgroundHandler,
+    ModalBackgroundHandlerClear,
     BurgerIcon,
     BurgerButton
 } from "./Menu.styled";
@@ -101,8 +102,13 @@ const Menu = () => {
                         <DropdownListItem onClick={toggleAccountDeleteModal}>
                             Usuń konto
                         </DropdownListItem>
+                        <ModalBackgroundHandlerClear
+                            onClick={toggleAvatarDropdown}
+                        />
                     </DropdownList>
-                    <ModalBackgroundHandler onClick={toggleAvatarDropdown} />
+                    <ModalBackgroundHandlerClear
+                        onClick={toggleAvatarDropdown}
+                    />
                 </DropdownWrapper>
             )}
         </>
