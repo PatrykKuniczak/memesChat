@@ -1,11 +1,10 @@
-import { ChangeEvent, KeyboardEvent, useRef, useState } from "react";
-import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
-import { addMessage, updateMessage, setEditMode } from "store/slices/ChatSlice";
+import { ChangeEvent, FormEvent, useRef, useState } from "react";
+import { addMessage } from "store/slices/ChatSlice";
+import { useAppDispatch } from "hooks/reduxHooks";
 
 const useChatInput = () => {
     const chatInput = useRef<HTMLInputElement | null>(null);
     const [currentInputValue, setCurrentInputValue] = useState("");
-    const editMode = useAppSelector((state) => state.chat.editMode);
     const dispatch = useAppDispatch();
 
     const handleSetCurrentInputValue = (
@@ -14,34 +13,20 @@ const useChatInput = () => {
         setCurrentInputValue(event.target.value);
     };
 
-    const handleTextInputEnterPress = (
-        event: KeyboardEvent<HTMLInputElement>
-    ) => {
-        if (event.key !== "Enter") {
-            return;
-        }
+    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
 
-        if (editMode) {
-            dispatch(
-                updateMessage({
-                    selected: "",
-                    message: currentInputValue
-                })
-            );
-
+        if (currentInputValue) {
+            dispatch(addMessage(currentInputValue));
+            setCurrentInputValue("");
             chatInput.current!.value = "";
-            dispatch(setEditMode(false));
-            return;
         }
-
-        dispatch(addMessage(currentInputValue));
-        chatInput.current!.value = "";
     };
 
     return {
         chatInput,
         handleSetCurrentInputValue,
-        handleTextInputEnterPress
+        handleSubmit
     };
 };
 

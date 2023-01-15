@@ -9,12 +9,10 @@ const fetchMessages = createAsyncThunk("fetchMessages", async () => {
 type PayloadType = { selected: string; message: string };
 
 interface Chat {
-    editMode: boolean;
     messages: { id: string; message: string; author: string }[];
 }
 
 const initialState: Chat = {
-    editMode: false,
     messages: [{ id: "1", message: "Lorem", author: "Destrox" }]
 };
 
@@ -22,10 +20,6 @@ export const chatSlice = createSlice({
     name: "chat",
     initialState,
     reducers: {
-        setEditMode: (state, action: PayloadAction<boolean>) => {
-            state.editMode = action.payload;
-        },
-
         addMessage: (state, action: PayloadAction<string>) => {
             const number = Math.floor(Math.random() * 100) + 10;
 
@@ -76,8 +70,7 @@ export const chatSlice = createSlice({
     }
 });
 
-export const { setEditMode, updateMessage, addMessage, deleteMessage } =
-    chatSlice.actions;
+export const { updateMessage, addMessage, deleteMessage } = chatSlice.actions;
 
 export const selectChat = (state: RootState) => state.chat;
 

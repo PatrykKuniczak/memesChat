@@ -1,22 +1,9 @@
-import {
-    SetStateAction,
-    useCallback,
-    useEffect,
-    useRef,
-    useState
-} from "react";
+import { SetStateAction, useCallback, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
-import {
-    deleteMessage,
-    fetchMessages,
-    setEditMode
-} from "store/slices/ChatSlice";
+import { fetchMessages } from "store/slices/ChatSlice";
 import useMessagesFilter from "hooks/useMessagesFilter";
 
 const useMessagesBox = () => {
-    const [selected, setSelected] = useState("");
-    const chatInput = useRef<HTMLInputElement | null>(null);
-
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -31,21 +18,6 @@ const useMessagesBox = () => {
     useEffect(() => {
         setFilteredMessages(messages);
     }, [messages]);
-
-    const handleSetSelected = (id: string) => {
-        setSelected(id);
-    };
-
-    const handleSetEditMode = () => {
-        dispatch(setEditMode(true));
-
-        chatInput.current!.value =
-            messages.find(({ id }) => id === selected)?.message || "";
-    };
-
-    const handleDeleteMessage = () => {
-        dispatch(deleteMessage(selected));
-    };
 
     const handleSetFilteredMessages = useCallback(
         (
@@ -65,11 +37,7 @@ const useMessagesBox = () => {
     });
 
     return {
-        filteredMessages,
-        selected,
-        handleSetSelected,
-        handleSetEditMode,
-        handleDeleteMessage
+        filteredMessages
     };
 };
 

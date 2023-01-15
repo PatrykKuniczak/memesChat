@@ -1,5 +1,6 @@
 import React from "react";
 import {
+    Form,
     InputWrapper,
     MemeButton,
     MemeGenerateButton,
@@ -10,16 +11,17 @@ import {
 import useChatInput from "./useChatInput";
 
 const ChatInput = () => {
-    const { chatInput, handleTextInputEnterPress, handleSetCurrentInputValue } =
+    const { chatInput, handleSetCurrentInputValue, handleSubmit } =
         useChatInput();
 
     return (
         <InputWrapper>
-            <MessageInput
-                ref={chatInput}
-                onKeyDown={handleTextInputEnterPress}
-                onChange={handleSetCurrentInputValue}
-            />
+            <Form onSubmit={handleSubmit}>
+                <MessageInput
+                    ref={chatInput}
+                    onChange={handleSetCurrentInputValue}
+                />
+            </Form>
             <MemeButton>
                 <MemeIcon />
             </MemeButton>

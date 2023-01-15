@@ -12,6 +12,10 @@ const InputWrapper = styled.header`
     border: 1px solid #fff;
 `;
 
+const Form = styled.form`
+    width: 100%;
+`;
+
 const MessageInput = styled.input`
     padding: 1rem;
     width: 100%;
@@ -50,6 +54,7 @@ const MemeGenerateButton = styled.button`
 
 export {
     InputWrapper,
+    Form,
     MessageInput,
     MemeIcon,
     MemeButton,

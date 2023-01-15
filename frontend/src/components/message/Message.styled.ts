@@ -6,7 +6,7 @@ const MessageContainer = styled.div`
     gap: 1rem;
 `;
 
-const Message = styled.p`
+const MessageContent = styled.p`
     flex: 1;
     border-radius: 5px;
     padding: 0.5rem;
@@ -21,7 +21,7 @@ const MessageAuthorImage = styled.img`
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    
+
     object-fit: cover;
 `;
 
@@ -44,7 +44,7 @@ const MessageSettings = styled.div`
 
 export {
     MessageContainer,
-    Message,
+    MessageContent,
     MessageAuthorImage,
     MessageAuthor,
     MessageSettings
