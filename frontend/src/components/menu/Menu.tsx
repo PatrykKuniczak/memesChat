@@ -27,13 +27,16 @@ import user from "assets/user.jpg";
 
 const Menu = () => {
     const {
-        menuStatus,
+        dropdownVisible,
+        accountEditModalVisible,
+        accountDeleteModalVisible,
         username,
         newUsername,
         handleNicknameChange,
         handleNicknameEnter,
         updateUsername,
-        toggleAvatarDropdown,
+        toggleDropdown,
+        hideModals,
         toggleAccountEditModal,
         toggleAccountDeleteModal,
         deleteAccountConfirm,
@@ -43,7 +46,7 @@ const Menu = () => {
     return (
         <>
             <MenuWrapper>
-                {menuStatus === "account-edit-modal-visible" && (
+                {accountEditModalVisible === true && (
                     <>
                         <EditNameModal>
                             <span>Twój nowy nick:</span>
@@ -59,12 +62,11 @@ const Menu = () => {
                                 onClick={updateUsername}
                             />
                         </EditNameModal>
-                        <ModalBackgroundHandler
-                            onClick={toggleAvatarDropdown}
-                        />
+                        <ModalBackgroundHandler onClick={hideModals} />
                     </>
                 )}
-                {menuStatus === "account-delete-modal-visible" && (
+
+                {accountDeleteModalVisible === true && (
                     <>
                         <DeleteAccountModal>
                             <span>Czy na pewno chcesz usunąć konto?</span>
@@ -77,23 +79,22 @@ const Menu = () => {
                                 </ButtonPrimary>
                             </DeleteAccountModalButtons>
                         </DeleteAccountModal>
-                        <ModalBackgroundHandler
-                            onClick={toggleAvatarDropdown}
-                        />
+                        <ModalBackgroundHandler onClick={hideModals} />
                     </>
                 )}
                 <MenuUserName>{username}</MenuUserName>
-                <MenuUserImage src={user} onClick={toggleAvatarDropdown} />
+                <MenuUserImage src={user} onClick={toggleDropdown} />
                 <>
-                    <DropdownButton onClick={toggleAvatarDropdown}>
+                    <DropdownButton onClick={toggleDropdown}>
                         <ChevronIcon />
                     </DropdownButton>
-                    <BurgerButton onClick={toggleAvatarDropdown}>
+                    <BurgerButton onClick={toggleDropdown}>
                         <BurgerIcon />
                     </BurgerButton>
                 </>
             </MenuWrapper>
-            {menuStatus === "dropdown-visible" && (
+
+            {dropdownVisible === true && (
                 <DropdownWrapper>
                     <DropdownList>
                         <DropdownListItem onClick={toggleAccountEditModal}>
@@ -102,13 +103,9 @@ const Menu = () => {
                         <DropdownListItem onClick={toggleAccountDeleteModal}>
                             Usuń konto
                         </DropdownListItem>
-                        <ModalBackgroundHandlerClear
-                            onClick={toggleAvatarDropdown}
-                        />
+                        <ModalBackgroundHandlerClear onClick={hideModals} />
                     </DropdownList>
-                    <ModalBackgroundHandlerClear
-                        onClick={toggleAvatarDropdown}
-                    />
+                    <ModalBackgroundHandlerClear onClick={hideModals} />
                 </DropdownWrapper>
             )}
         </>

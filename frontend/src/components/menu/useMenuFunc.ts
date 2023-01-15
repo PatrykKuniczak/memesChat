@@ -1,22 +1,40 @@
 import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
 import { ChangeEvent, KeyboardEvent } from "react";
 
-import { toggleMenuStatus } from "store/slices/MenuSlice";
+import {
+    toggleDropdownVisibility,
+    hideAllModals,
+    toggleAccountEditModalVisibility,
+    toggleAccountDeleteModalVisibility
+} from "store/slices/MenuSlice";
 import { editUsername, saveNewUsername } from "store/slices/UserSlice";
 
 export const useMenuFunc = () => {
-    const menuStatus = useAppSelector((store) => store.menu.menuStatus);
+    // const menuStatus = console.log(useAppSelector((store) => store.menu));
+    const dropdownVisible = useAppSelector(
+        (store) => store.menu.dropdownVisible
+    );
+    const accountEditModalVisible = useAppSelector(
+        (store) => store.menu.accountEditModalVisible
+    );
+    const accountDeleteModalVisible = useAppSelector(
+        (store) => store.menu.accountDeleteModalVisible
+    );
     const username = useAppSelector((store) => store.user.username);
     const newUsername = useAppSelector((store) => store.user.newUsername);
 
     const dispatch = useAppDispatch();
 
-    const toggleAvatarDropdown = () => {
-        dispatch(toggleMenuStatus("toggle-dropdown"));
+    const toggleDropdown = () => {
+        dispatch(toggleDropdownVisibility());
+    };
+
+    const hideModals = () => {
+        dispatch(hideAllModals());
     };
 
     const toggleAccountEditModal = () => {
-        dispatch(toggleMenuStatus("account-edit-modal-visible"));
+        dispatch(toggleAccountEditModalVisibility());
     };
 
     const handleNicknameChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -31,32 +49,35 @@ export const useMenuFunc = () => {
 
     const updateUsername = () => {
         dispatch(saveNewUsername());
-        dispatch(toggleMenuStatus("toggle-dropdown"));
+        dispatch(hideAllModals());
     };
 
     const toggleAccountDeleteModal = () => {
-        dispatch(toggleMenuStatus("account-delete-modal-visible"));
+        dispatch(toggleAccountDeleteModalVisibility());
+        // dispatch(toggleMenuStatus("account-delete-modal-visible"));
     };
 
     const deleteAccountConfirm = () => {
         // todo: miejsce na twoja logike
-        toggleAvatarDropdown();
+        dispatch(hideAllModals());
     };
 
     const deleteAccountCancel = () => {
         // todo: miejsce na twoja logike
-        toggleAvatarDropdown();
+        dispatch(hideAllModals());
     };
 
     return {
-        menuStatus,
-        toggleMenuStatus,
+        dropdownVisible,
+        accountEditModalVisible,
+        accountDeleteModalVisible,
         username,
         newUsername,
         updateUsername,
         handleNicknameChange,
         handleNicknameEnter,
-        toggleAvatarDropdown,
+        toggleDropdown,
+        hideModals,
         toggleAccountEditModal,
         toggleAccountDeleteModal,
         deleteAccountConfirm,

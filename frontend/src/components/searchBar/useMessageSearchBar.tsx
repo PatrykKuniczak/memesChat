@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import { toggleSearchMode } from "../../store/slices/SearchSlice";
+import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
+import { toggleSearchMode } from "store/slices/SearchSlice";
 
 const useMessageSearchBar = () => {
     const [searchParams, setSearchParams] = useSearchParams();
