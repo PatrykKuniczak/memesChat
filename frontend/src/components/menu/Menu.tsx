@@ -33,7 +33,6 @@ const Menu = () => {
         username,
         newUsername,
         handleNicknameChange,
-        handleNicknameEnter,
         updateUsername,
         toggleDropdown,
         hideModals,
@@ -46,7 +45,7 @@ const Menu = () => {
     return (
         <>
             <MenuWrapper>
-                {accountEditModalVisible === true && (
+                {accountEditModalVisible && (
                     <>
                         <EditNameModal>
                             <span>Twój nowy nick:</span>
@@ -54,7 +53,6 @@ const Menu = () => {
                                 type="text"
                                 value={newUsername}
                                 onChange={handleNicknameChange}
-                                onKeyDown={handleNicknameEnter}
                             />
                             <SubmitButton
                                 type="submit"
@@ -66,7 +64,7 @@ const Menu = () => {
                     </>
                 )}
 
-                {accountDeleteModalVisible === true && (
+                {accountDeleteModalVisible && (
                     <>
                         <DeleteAccountModal>
                             <span>Czy na pewno chcesz usunąć konto?</span>
@@ -94,7 +92,7 @@ const Menu = () => {
                 </>
             </MenuWrapper>
 
-            {dropdownVisible === true && (
+            {dropdownVisible && (
                 <DropdownWrapper>
                     <DropdownList>
                         <DropdownListItem onClick={toggleAccountEditModal}>

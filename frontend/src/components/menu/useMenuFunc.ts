@@ -1,70 +1,59 @@
 import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
-import { ChangeEvent, KeyboardEvent } from "react";
+import { useState, ChangeEvent } from "react";
 
-import {
-    toggleDropdownVisibility,
-    hideAllModals,
-    toggleAccountEditModalVisibility,
-    toggleAccountDeleteModalVisibility
-} from "store/slices/MenuSlice";
-import { editUsername, saveNewUsername } from "store/slices/UserSlice";
+import { editUsername } from "store/slices/UserSlice";
 
 export const useMenuFunc = () => {
-    // const menuStatus = console.log(useAppSelector((store) => store.menu));
-    const dropdownVisible = useAppSelector(
-        (store) => store.menu.dropdownVisible
-    );
-    const accountEditModalVisible = useAppSelector(
-        (store) => store.menu.accountEditModalVisible
-    );
-    const accountDeleteModalVisible = useAppSelector(
-        (store) => store.menu.accountDeleteModalVisible
-    );
-    const username = useAppSelector((store) => store.user.username);
-    const newUsername = useAppSelector((store) => store.user.newUsername);
-
     const dispatch = useAppDispatch();
 
+    const username = useAppSelector((state) => state.user.username);
+
+    const [newUsername, setNewUsername] = useState(
+        useAppSelector((state) => state.user.username)
+    );
+    const [dropdownVisible, setDropdownVisible] = useState(false);
+    const [accountEditModalVisible, setAccountEditModalVisible] =
+        useState(false);
+    const [accountDeleteModalVisible, setAccountDeleteModalVisible] =
+        useState(false);
+
     const toggleDropdown = () => {
-        dispatch(toggleDropdownVisibility());
+        setDropdownVisible((prevState) => !prevState);
     };
 
     const hideModals = () => {
-        dispatch(hideAllModals());
+        setDropdownVisible(false);
+        setAccountEditModalVisible(false);
+        setAccountDeleteModalVisible(false);
     };
 
     const toggleAccountEditModal = () => {
-        dispatch(toggleAccountEditModalVisibility());
+        setAccountEditModalVisible(true);
+        setDropdownVisible(false);
     };
 
     const handleNicknameChange = (event: ChangeEvent<HTMLInputElement>) => {
-        dispatch(editUsername(event.target.value));
-    };
-
-    const handleNicknameEnter = (event: KeyboardEvent) => {
-        if (event.key === "Enter") {
-            updateUsername();
-        }
+        setNewUsername(event.target.value);
     };
 
     const updateUsername = () => {
-        dispatch(saveNewUsername());
-        dispatch(hideAllModals());
+        dispatch(editUsername(newUsername));
+        hideModals();
     };
 
     const toggleAccountDeleteModal = () => {
-        dispatch(toggleAccountDeleteModalVisibility());
-        // dispatch(toggleMenuStatus("account-delete-modal-visible"));
+        setAccountDeleteModalVisible(true);
+        setDropdownVisible(false);
     };
 
     const deleteAccountConfirm = () => {
         // todo: miejsce na twoja logike
-        dispatch(hideAllModals());
+        hideModals();
     };
 
     const deleteAccountCancel = () => {
         // todo: miejsce na twoja logike
-        dispatch(hideAllModals());
+        hideModals();
     };
 
     return {
@@ -75,7 +64,6 @@ export const useMenuFunc = () => {
         newUsername,
         updateUsername,
         handleNicknameChange,
-        handleNicknameEnter,
         toggleDropdown,
         hideModals,
         toggleAccountEditModal,
@@ -84,3 +72,89 @@ export const useMenuFunc = () => {
         deleteAccountCancel
     };
 };
+
+// import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
+// import { ChangeEvent, KeyboardEvent } from "react";
+
+// import {
+//     toggleDropdownVisibility,
+//     hideAllModals,
+//     toggleAccountEditModalVisibility,
+//     toggleAccountDeleteModalVisibility
+// } from "store/slices/MenuSlice";
+// import { editUsername, saveNewUsername } from "store/slices/UserSlice";
+
+// export const useMenuFunc = () => {
+//     // const menuStatus = console.log(useAppSelector((store) => store.menu));
+//     const dropdownVisible = useAppSelector(
+//         (store) => store.menu.dropdownVisible
+//     );
+//     const accountEditModalVisible = useAppSelector(
+//         (store) => store.menu.accountEditModalVisible
+//     );
+//     const accountDeleteModalVisible = useAppSelector(
+//         (store) => store.menu.accountDeleteModalVisible
+//     );
+//     const username = useAppSelector((store) => store.user.username);
+//     const newUsername = useAppSelector((store) => store.user.newUsername);
+
+//     const dispatch = useAppDispatch();
+
+//     const toggleDropdown = () => {
+//         dispatch(toggleDropdownVisibility());
+//     };
+
+//     const hideModals = () => {
+//         dispatch(hideAllModals());
+//     };
+
+//     const toggleAccountEditModal = () => {
+//         dispatch(toggleAccountEditModalVisibility());
+//     };
+
+//     const handleNicknameChange = (event: ChangeEvent<HTMLInputElement>) => {
+//         dispatch(editUsername(event.target.value));
+//     };
+
+//     const handleNicknameEnter = (event: KeyboardEvent) => {
+//         if (event.key === "Enter") {
+//             updateUsername();
+//         }
+//     };
+
+//     const updateUsername = () => {
+//         dispatch(saveNewUsername());
+//         dispatch(hideAllModals());
+//     };
+
+//     const toggleAccountDeleteModal = () => {
+//         dispatch(toggleAccountDeleteModalVisibility());
+//     };
+
+//     const deleteAccountConfirm = () => {
+//         // todo: miejsce na twoja logike
+//         dispatch(hideAllModals());
+//     };
+
+//     const deleteAccountCancel = () => {
+//         // todo: miejsce na twoja logike
+//         dispatch(hideAllModals());
+//     };
+
+//     return {
+//         dropdownVisible,
+//         accountEditModalVisible,
+//         accountDeleteModalVisible,
+//         username,
+//         newUsername,
+//         updateUsername,
+//         handleNicknameChange,
+//         handleNicknameEnter,
+//         toggleDropdown,
+//         hideModals,
+//         toggleAccountEditModal,
+//         toggleAccountDeleteModal,
+//         deleteAccountConfirm,
+//         deleteAccountCancel
+//     };
+// };

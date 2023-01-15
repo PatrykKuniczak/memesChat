@@ -31,25 +31,6 @@ export const menuSlice = createSlice({
         hideAllModals: (state: any) => {
             Object.keys(state).forEach((i) => state[i] = false);
         }
-
-        // toggleMenuStatus: (state, action) => {
-        //     switch (action.payload) {
-        //         case "toggle-dropdown":
-        //             state.menuStatus =
-        //                 state.menuStatus === "dropdown-hidden"
-        //                     ? "dropdown-visible"
-        //                     : "dropdown-hidden";
-        //             break;
-        //         case "account-edit-modal-visible":
-        //             state.menuStatus = "account-edit-modal-visible";
-        //             break;
-        //         case "account-delete-modal-visible":
-        //             state.menuStatus = "account-delete-modal-visible";
-        //             break;
-        //         default:
-        //             console.log(`Sorry, unable to reset ${state.menuStatus}.`);
-        //     }
-        // }
     }
 });
 

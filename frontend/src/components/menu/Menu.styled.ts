@@ -103,7 +103,7 @@ const DropdownListItem = styled.li`
     }
 `;
 
-const EditNameModal = styled.div`
+const EditNameModal = styled.form`
     position: absolute;
     z-index: 2;
     top: 30vh;

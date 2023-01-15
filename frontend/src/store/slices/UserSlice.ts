@@ -1,14 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { RootState } from 'store/store'
+import type { RootState } from "store/store";
 
 export interface User {
     username: string;
-    newUsername: string;
 }
 
 const initialState: User = {
-    username: "John Doe",
-    newUsername: "John Doe"
+    username: "Dohn Joe"
 };
 
 export const userSlice = createSlice({
@@ -16,16 +14,14 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         editUsername: (state, action) => {
-            state.newUsername = action.payload;
-        },
-        saveNewUsername: (state) => {
-          state.username = state.newUsername;
-      }
+            console.log(state.username);
+            state.username = action.payload;
+        }
     }
 });
 
-export const { editUsername, saveNewUsername } = userSlice.actions;
+export const { editUsername } = userSlice.actions;
 
-export const selectUser = (state: RootState) => state.user
+export const selectUser = (state: RootState) => state.user;
 
 export default userSlice.reducer;
