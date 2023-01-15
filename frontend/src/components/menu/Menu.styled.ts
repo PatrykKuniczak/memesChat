@@ -7,20 +7,20 @@ import { FiAlignJustify } from "react-icons/fi";
 const MenuWrapper = styled.div`
     display: flex;
     align-items: center;
-    justify-content: right;
-    gap: 0.5rem;
 
     padding: 0.5rem;
     transition: opacity 5s;
 `;
 
 const MenuUserName = styled.span`
+    margin-right: 0.5rem;
+
     color: #fff;
 
     font-size: 1.25rem;
     font-weight: 500;
 
-    @media (max-width: 50em) {
+    @media (max-width: 800px) {
         display: none;
     }
 `;
@@ -32,7 +32,7 @@ const MenuUserImage = styled.img`
 
     object-fit: cover;
 
-    @media (max-width: 50em) {
+    @media (max-width: 800px) {
         display: none;
     }
 `;
@@ -45,18 +45,20 @@ const DropdownButton = styled.button`
 
     cursor: pointer;
 
-    @media (max-width: 50em) {
+    @media (max-width: 800px) {
         display: none;
     }
 `;
 
 const ChevronIcon = styled(BsChevronDown)`
-    color: ${(props) => props.theme.gray_300};
+    width: 16px;
+    height: 16px;
+    color: ${(props) => props.theme.white};
 `;
 
 const DropdownWrapper = styled.div`
     position: relative;
-    top: 4rem;
+    top: 2rem;
 `;
 
 const DropdownList = styled.ul`
@@ -64,17 +66,17 @@ const DropdownList = styled.ul`
     z-index: 2;
     right: 0;
 
-    padding: 0.5rem;
-    border: 1px solid ${(props) => props.theme.gray_300};
+    padding: 0.5rem 1rem;
+    border: 1px solid ${(props) => props.theme.primary};
     border-radius: 0.5rem;
 
     background-color: ${(props) => props.theme.gray_500};
-    color: ${(props) => props.theme.gray_300};
+    color: ${(props) => props.theme.white};
 
     white-space: nowrap;
     list-style-type: none;
 
-    @media (max-width: 50em) {
+    @media (max-width: 800px) {
         position: fixed;
         top: 5rem;
         left: 0;
@@ -95,7 +97,7 @@ const DropdownListItem = styled.li`
 
     cursor: pointer;
 
-    @media (max-width: 50em) {
+    @media (max-width: 800px) {
         padding: 1.5rem;
 
         font-size: 1.5rem;
@@ -114,29 +116,35 @@ const EditNameModal = styled.form`
     gap: 1rem;
     align-items: center;
     padding: 3rem 4rem;
-    border: 1px solid ${(props) => props.theme.gray_300};
+    border: 1px solid ${(props) => props.theme.primary};
     border-radius: 0.5rem;
 
-    color: white;
+    color: ${(props) => props.theme.white};
     background: ${(props) => props.theme.gray_500};
 
     font-size: 1rem;
     font-weight: 300;
 
-    @media (max-width: 50em) {
+    @media (max-width: 800px) {
         flex-direction: column;
         width: 80vw;
         padding: 4rem 2rem;
     }
 `;
 
+const ModalSpan = styled.span`
+    white-space: nowrap;
+
+    color: white;
+`;
+
 const TextInput = styled.input`
     margin: 0 1rem;
     padding: 0.5rem 1rem;
-    border: 1px solid ${(props) => props.theme.gray_300};
+    border: 1px solid ${(props) => props.theme.primary};
     border-radius: 0.2rem;
 
-    color: white;
+    color: ${(props) => props.theme.white};
     background: ${(props) => props.theme.gray_semitransparent};
 
     font-size: 1rem;
@@ -144,19 +152,18 @@ const TextInput = styled.input`
 
     cursor: pointer;
 
-    @media (max-width: 50em) {
+    @media (max-width: 800px) {
         width: 100%;
         padding: 1rem;
     }
 `;
 
-const SubmitButton = styled.input`
-    margin: 0 1rem;
-    padding: 0.5rem 1rem;
+const SubmitButton = styled.button`
+    padding: 0.5rem 2rem;
     border: 1px solid ${(props) => props.theme.gray_500};
     border-radius: 0.2rem;
 
-    color: white;
+    color: ${(props) => props.theme.white};
     background: ${(props) => props.theme.primary};
 
     font-size: 1rem;
@@ -164,7 +171,7 @@ const SubmitButton = styled.input`
 
     cursor: pointer;
 
-    @media (max-width: 50em) {
+    @media (max-width: 800px) {
         width: 100%;
         padding: 1rem;
     }
@@ -180,17 +187,16 @@ const DeleteAccountModal = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 3rem 4rem;
-    border: 1px solid ${(props) => props.theme.gray_300};
+    padding: 2rem 3rem;
+    border: 1px solid ${(props) => props.theme.primary};
     border-radius: 0.5rem;
 
     font-size: 1rem;
     font-weight: 300;
 
-    color: white;
     background: ${(props) => props.theme.gray_500};
 
-    @media (max-width: 50em) {
+    @media (max-width: 800px) {
         width: 90vw;
         padding: 3rem 1rem;
     }
@@ -202,30 +208,32 @@ const DeleteAccountModalButtons = styled.div`
     padding: 2rem 2rem 0rem;
     border-radius: 0.5rem;
 
-    color: white;
+    white-space: nowrap;
 
-    @media (max-width: 50em) {
+    @media (max-width: 800px) {
         padding: 2rem 0 0 0;
     }
 `;
 
-const ButtonPrimary = styled.div`
+const ButtonPrimary = styled.button`
     margin: 0 1rem;
     padding: 0.5rem 1rem;
-    border: 1px solid ${(props) => props.theme.gray_500};
+    border: 1px solid ${(props) => props.theme.gray_400};
     border-radius: 0.2rem;
 
+    color: ${(props) => props.theme.white};
     background: ${(props) => props.theme.primary};
 
     cursor: pointer;
 `;
 
-const ButtonSecondary = styled.div`
+const ButtonSecondary = styled.button`
     margin: 0 1rem;
     padding: 0.5rem 1rem;
-    border: 1px solid black;
+    border: 1px solid ${(props) => props.theme.gray_200};
     border-radius: 0.2rem;
 
+    color: ${(props) => props.theme.white};
     background: ${(props) => props.theme.gray_400};
 
     cursor: pointer;
@@ -259,7 +267,7 @@ const BurgerIcon = styled(FiAlignJustify)`
     width: 50px;
     height: 50px;
 
-    color: ${(props) => props.theme.gray_300};
+    color: ${(props) => props.theme.white};
 `;
 
 const BurgerButton = styled.button`
@@ -272,7 +280,7 @@ const BurgerButton = styled.button`
 
     cursor: pointer;
 
-    @media (min-width: 50em) {
+    @media (min-width: 800px) {
         display: none;
     }
 `;
@@ -285,6 +293,7 @@ export {
     DropdownWrapper,
     DropdownList,
     DropdownListItem,
+    ModalSpan,
     EditNameModal,
     TextInput,
     SubmitButton,

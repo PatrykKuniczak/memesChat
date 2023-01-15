@@ -1,7 +1,7 @@
 import Navbar from "components/navbar/Navbar";
 import Search from "components/search/Search";
 import {
-    Root,
+    MainWrapper,
     Main,
     Aside,
     Header,
@@ -23,7 +23,7 @@ import ChatInput from "components/chatInput/ChatInput";
 
 const Home = () => {
     return (
-        <Root>
+        <MainWrapper>
             <Navbar />
             <Main>
                 <Aside>
@@ -88,7 +88,7 @@ const Home = () => {
                     <ChatInput />
                 </Chat>
             </Main>
-        </Root>
+        </MainWrapper>
     );
 };
 

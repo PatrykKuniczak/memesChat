@@ -7,7 +7,6 @@ export const useMenuFunc = () => {
     const dispatch = useAppDispatch();
 
     const username = useAppSelector((state) => state.user.username);
-
     const [newUsername, setNewUsername] = useState(
         useAppSelector((state) => state.user.username)
     );

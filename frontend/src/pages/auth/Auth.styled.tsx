@@ -44,7 +44,7 @@ const ButtonsContainer = styled.div`
     justify-content: center;
     gap: 1.5rem;
 
-    @media screen and (min-width: 50em) {
+    @media screen and (min-width: 800px) {
         flex-direction: row;
         align-items: center;
     }
