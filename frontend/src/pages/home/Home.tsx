@@ -9,7 +9,6 @@ import {
     Label,
     Chat,
     ChatHeader,
-    MessagesWrapper,
     OnlineBadge,
     User,
     UserImage,
@@ -85,9 +84,7 @@ const Home = () => {
                     <ChatHeader>
                         <MessageSearchBar />
                     </ChatHeader>
-                    <MessagesWrapper>
-                        <MessagesBox />
-                    </MessagesWrapper>
+                    <MessagesBox />
                     <ChatInput />
                 </Chat>
             </Main>
