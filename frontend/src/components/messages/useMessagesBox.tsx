@@ -2,6 +2,7 @@ import { SetStateAction, useCallback, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
 import { fetchMessages } from "store/slices/ChatSlice";
 import useMessagesFilter from "hooks/useMessagesFilter";
+import Message from "../message/Message";
 
 const useMessagesBox = () => {
     const dispatch = useAppDispatch();
@@ -36,8 +37,19 @@ const useMessagesBox = () => {
         handleSetFilteredMessages
     });
 
+    const MessagesList = () => {
+        return (
+            <>
+                {filteredMessages.map((message) => (
+                    <Message key={message.id} message={message} />
+                ))}
+            </>
+        );
+    };
+
     return {
-        filteredMessages
+        filteredMessages,
+        MessagesList
     };
 };
 
