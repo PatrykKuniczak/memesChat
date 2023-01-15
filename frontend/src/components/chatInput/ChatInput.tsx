@@ -6,7 +6,7 @@ import {
     MemeGenerateIcon,
     MemeIcon,
     MessageInput
-} from "pages/home/Home.styled";
+} from "./ChatInput.styled";
 import useChatInput from "./useChatInput";
 
 const ChatInput = () => {
