@@ -12,6 +12,14 @@ const MenuWrapper = styled.div`
     transition: opacity 5s;
 `;
 
+const ModalsWrapper = styled.div`
+    display: flex;
+    align-items: center;
+
+    padding: 0.5rem;
+    transition: opacity 5s;
+`;
+
 const MenuUserName = styled.span`
     margin-right: 0.5rem;
 
@@ -287,6 +295,7 @@ const BurgerButton = styled.button`
 
 export {
     MenuWrapper,
+    ModalsWrapper,
     MenuUserName,
     MenuUserImage,
     DropdownButton,
