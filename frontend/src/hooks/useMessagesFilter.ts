@@ -11,15 +11,10 @@ type Messages = { id: string; message: string; author: string }[];
 
 interface Props {
     messages: Messages;
-    searchMode: string;
     handleSetFilteredMessages: Dispatch<SetStateAction<Messages>>;
 }
 
-const useMessagesFilter = ({
-    messages,
-    searchMode,
-    handleSetFilteredMessages
-}: Props) => {
+const useMessagesFilter = ({ messages, handleSetFilteredMessages }: Props) => {
     const [isPending, startTransition] = useTransition();
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -30,13 +25,14 @@ const useMessagesFilter = ({
                 return true;
             }
 
+            const searchMode = searchParams.get("searchMode") || "";
             if (searchMode === "user") {
                 return author.toLowerCase().startsWith(filter.toLowerCase());
             }
 
             return message.toLowerCase().includes(filter.toLowerCase());
         });
-    }, [messages, searchMode, searchParams]);
+    }, [messages, searchParams]);
 
     useEffect(() => {
         startTransition(() => handleSetFilteredMessages(filterMessages));

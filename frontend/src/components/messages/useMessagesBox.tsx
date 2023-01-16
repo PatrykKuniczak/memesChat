@@ -12,7 +12,6 @@ const useMessagesBox = () => {
     }, []);
 
     const messages = useAppSelector((state) => state.chat.messages);
-    const searchMode = useAppSelector((state) => state.search.searchMode);
 
     const [filteredMessages, setFilteredMessages] = useState(messages);
 
@@ -33,7 +32,6 @@ const useMessagesBox = () => {
 
     useMessagesFilter({
         messages,
-        searchMode,
         handleSetFilteredMessages
     });
 

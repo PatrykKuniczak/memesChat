@@ -1,22 +1,23 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
-import { toggleSearchMode } from "store/slices/SearchSlice";
 
 const useMessageSearchBar = () => {
     const [searchParams, setSearchParams] = useSearchParams();
-
-    const searchMode = useAppSelector((state) => state.search.searchMode);
-    const dispatch = useAppDispatch();
+    const [searchMode, setSearchMode] = useState(
+        searchParams.get("searchMode") || "message"
+    );
 
     const handleSetSearchParams = (event: ChangeEvent<HTMLInputElement>) => {
-        setSearchParams({
-            messagesFilter: event.target.value
-        });
+        searchParams.set("messagesFilter", event.target.value);
+        setSearchParams(searchParams);
     };
 
     const handleSetSearchMode = () => {
-        dispatch(toggleSearchMode());
+        const newSearchMode = searchMode === "message" ? "user" : "message";
+        setSearchMode(newSearchMode);
+
+        searchParams.set("searchMode", newSearchMode);
+        setSearchParams(searchParams);
     };
 
     return { handleSetSearchParams, searchMode, handleSetSearchMode };
