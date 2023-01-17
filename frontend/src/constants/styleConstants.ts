@@ -1,13 +1,13 @@
 const COLORS = {
     primary: "#962EFF",
-    white: "#FAFAFA",
+    white: "#D9D1EB",
 
     gray_200: "#2F2F2F",
-    gray_300: "#878787",
-    gray_400: "#1A1A1A",
+    gray_300: "#8e8793",
+    gray_400: "#16131f",
     gray_500: "#161616",
 
-    gray_semitransparent: "#16161688"
+    gray_semitransparent: "#16161650"
 };
 const FONT_SIZES = {
     sm: "1rem",

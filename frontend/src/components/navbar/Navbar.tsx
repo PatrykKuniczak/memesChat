@@ -1,12 +1,12 @@
 import React from "react";
-import Avatar from "components/menu/Menu";
+import Menu from "components/menu/Menu";
 
 import { NavbarWrapper } from "./Navbar.styled";
 
 const Navbar = () => {
     return (
         <NavbarWrapper>
-            <Avatar />
+            <Menu />
         </NavbarWrapper>
     );
 };

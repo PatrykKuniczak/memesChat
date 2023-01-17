@@ -5,11 +5,11 @@ const InputWrapper = styled.header`
     display: flex;
     align-items: center;
     margin: 2rem;
-    padding: 0.5rem;
+    padding: 0.5rem 1rem 0.5rem;
     border-radius: 5px;
 
     background-color: ${(props) => props.theme.gray_400};
-    border: 1px solid #fff;
+    border: 1px solid ${(props) => props.theme.gray_semitransparent};
 `;
 
 const Form = styled.form`

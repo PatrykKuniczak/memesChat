@@ -1,5 +1,3 @@
-import Navbar from "components/navbar/Navbar";
-import Search from "components/search/Search";
 import {
     MainWrapper,
     Main,
@@ -16,10 +14,13 @@ import {
     UsersContainer,
     UserList
 } from "./Home.styled";
-import user from "assets/user.jpg";
+import Navbar from "components/navbar/Navbar";
+import Search from "components/search/Search";
 import MessagesBox from "components/messages/MessagesBox";
 import MessageSearchBar from "components/searchBar/MessageSearchBar";
 import ChatInput from "components/chatInput/ChatInput";
+
+import user from "assets/user.jpg";
 
 const Home = () => {
     return (

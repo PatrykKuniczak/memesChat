@@ -10,6 +10,7 @@ const SearchContainer = styled.div`
 const SearchTypeSwitcher = styled.button`
     padding: 1rem;
     margin-right: 1rem;
+    width: 8rem;
     border: transparent;
     border-radius: 5px;
     outline: transparent;
@@ -19,6 +20,8 @@ const SearchTypeSwitcher = styled.button`
 
     font-size: 1rem;
     text-transform: capitalize;
+
+    cursor: pointer;
 `;
 
 export { SearchContainer, SearchTypeSwitcher };

@@ -1,4 +1,3 @@
-import { BsImage, BsStars } from "react-icons/bs";
 import styled from "styled-components";
 
 const MainWrapper = styled.div`
@@ -59,7 +58,6 @@ const UserList = styled.div`
     overflow-y: auto;
 
     background: ${(props) => props.theme.gray_semitransparent};
-    border: 1px solid ${(props) => props.theme.primary};
     border-radius: 5px;
 
     &::-webkit-scrollbar {
@@ -113,7 +111,7 @@ const UserImage = styled.img`
 `;
 
 const UserName = styled.p`
-    color: #fff;
+    color: ${(props) => props.theme.white};
 
     font-size: 1.25rem;
     font-weight: 500;
@@ -128,8 +126,7 @@ const Chat = styled.main`
     max-height: calc(100vh - 6rem);
     min-height: 400px;
 
-    background: rgba(32, 32, 32, 0.2);
-    border: 1px solid ${(props) => props.theme.primary};
+    background: ${(props) => props.theme.gray_semitransparent};
     backdrop-filter: blur(27px);
 
     @media (max-width: 800px) {
@@ -143,7 +140,6 @@ const ChatHeader = styled.header`
     padding: 1rem;
     border-radius: 5px;
 
-    border: 1px solid ${(props) => props.theme.gray_400};
     background: rgba(22, 22, 22, 0.3);
 `;
 

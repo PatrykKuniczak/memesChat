@@ -8,7 +8,7 @@ const SearchWrapper = styled.div<{ $variant: string }>`
     justify-content: space-between;
     gap: 0.5rem;
     border-radius: 5px;
-    padding: 1rem;
+    padding: 0 1rem 0 0;
 
   ${(props) => {
       if (props.$variant === "dark") {
@@ -17,8 +17,7 @@ const SearchWrapper = styled.div<{ $variant: string }>`
           `;
       }
       return css`
-          background: rgba(112, 112, 112, 0.1);
-          border: 1px solid ${(props) => props.theme.primary};
+          background: ${(props) => props.theme.gray_semitransparent};
           backdrop-filter: blur(27px);
       `;
   }}}
@@ -29,6 +28,10 @@ const SearchInput = styled.input.attrs<InputHTMLAttributes<HTMLInputElement>>(
         type: "search"
     })
 )`
+    padding: 1rem;
+    width: -webkit-calc(100% - 10px);
+    width: -moz-calc(100% - 10px);
+
     border: transparent;
     outline: transparent;
 

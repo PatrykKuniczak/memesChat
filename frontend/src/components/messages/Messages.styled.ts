@@ -5,7 +5,9 @@ const MessagesWrapper = styled.div`
     flex: 1;
     flex-direction: column;
     gap: 1rem;
+
     margin-top: 1rem;
+    margin-left: 1rem;
 
     overflow-y: auto;
 
@@ -14,8 +16,8 @@ const MessagesWrapper = styled.div`
     }
 
     &::-webkit-scrollbar-thumb {
-        background: #313131;
         border-radius: 3px;
+        background: #050050;
     }
 `;
 

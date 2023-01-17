@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const NavbarWrapper = styled.nav`
     position: fixed;
-    z-index: 10;
+    z-index: 4;
 
     display: flex;
     justify-content: flex-end;

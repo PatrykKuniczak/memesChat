@@ -23,7 +23,7 @@ const ModalsWrapper = styled.div`
 const MenuUserName = styled.span`
     margin-right: 0.5rem;
 
-    color: #fff;
+    color: ${(props) => props.theme.white};
 
     font-size: 1.25rem;
     font-weight: 500;
@@ -67,6 +67,11 @@ const ChevronIcon = styled(BsChevronDown)`
 const DropdownWrapper = styled.div`
     position: relative;
     top: 2rem;
+
+    @media (max-width: 800px) {
+        position: absolute;
+        top: 0;
+    }
 `;
 
 const DropdownList = styled.ul`
@@ -86,8 +91,8 @@ const DropdownList = styled.ul`
 
     @media (max-width: 800px) {
         position: fixed;
-        top: 5rem;
         left: 0;
+        padding: 10vh 0 0 0;
 
         height: 100vh;
         width: 100vw;
@@ -143,7 +148,7 @@ const EditNameModal = styled.form`
 const ModalSpan = styled.span`
     white-space: nowrap;
 
-    color: white;
+    color: ${(props) => props.theme.white}
 `;
 
 const TextInput = styled.input`
@@ -272,6 +277,9 @@ const ModalBackgroundHandlerClear = styled.div`
 // burger menu for mobile view
 
 const BurgerIcon = styled(FiAlignJustify)`
+    position: relative;
+    z-index: 3;
+
     width: 50px;
     height: 50px;
 
