@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FONT_SIZES } from "constants/styleConstants";
+import { FONT_SIZES } from "assets/styles/theme";
 
 const SignupContainer = styled.div`
     display: grid;

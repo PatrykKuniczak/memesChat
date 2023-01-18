@@ -5,9 +5,6 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
-    // styling aid, do not delete
-    // outline: 1px solid #ff00ff33;
   }
 
   body {

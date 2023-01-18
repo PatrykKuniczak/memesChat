@@ -204,7 +204,6 @@ const DeleteAccountModal = styled.div`
     border: 1px solid ${({ theme }) => theme.primary};
     border-radius: 0.5rem;
 
-    font-size: 1rem;
     font-weight: 300;
 
     background: ${({ theme }) => theme.gray_500};
@@ -218,7 +217,7 @@ const DeleteAccountModal = styled.div`
 const DeleteAccountModalButtons = styled.div`
     display: flex;
     align-items: center;
-    padding: 2rem 2rem 0rem;
+    padding: 2rem 2rem 0;
     border-radius: 0.5rem;
 
     white-space: nowrap;

@@ -10,8 +10,8 @@ const SearchWrapper = styled.div<{ $variant: string }>`
     border-radius: 5px;
     padding: 0 1rem 0 0;
 
-  ${(props) => {
-      if (props.$variant === "dark") {
+  ${({ $variant }) => {
+      if ($variant === "dark") {
           return css`
               background-color: ${({ theme }) => theme.gray_500};
           `;

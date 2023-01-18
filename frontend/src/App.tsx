@@ -1,16 +1,16 @@
-import GlobalStyles from "./GlobalStyles.styled";
+import GlobalStyles from "./assets/GlobalStyles.styled";
 import React from "react";
 import Auth from "./pages/auth/Auth";
 import { ThemeProvider } from "styled-components";
-import { COLORS } from "./constants/styleConstants";
+import { COLORS } from "./assets/styles/theme";
 import {
-    BrowserRouter, Navigate,
+    BrowserRouter,
+    Navigate,
     Outlet,
     Route,
     Routes
 } from "react-router-dom";
 import Home from "./pages/home/Home";
-
 
 const App: React.FC = () => {
     return (
