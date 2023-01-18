@@ -1,17 +1,14 @@
 import { SetStateAction, useCallback, useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
-import { fetchMessages } from "store/slices/ChatSlice";
 import useMessagesFilter from "hooks/useMessagesFilter";
 import Message from "../message/Message";
+import useMessages from "hooks/useMessages";
 
 const useMessagesBox = () => {
-    const dispatch = useAppDispatch();
+    const { messages, handleSetMessages } = useMessages();
 
     useEffect(() => {
-        dispatch(fetchMessages());
+        // TODO: implement WS listener
     }, []);
-
-    const messages = useAppSelector((state) => state.chat.messages);
 
     const [filteredMessages, setFilteredMessages] = useState(messages);
 

@@ -25,7 +25,8 @@ const Message: FC<{ message: Message }> = (props) => {
         handleSetSelected,
         handleEditMessage,
         handleDeleteMessage,
-        handleAcceptMessage,handleSetCurrentMessage
+        handleAcceptMessage,
+        handleSetCurrentMessage
     } = useMessage();
 
     return (

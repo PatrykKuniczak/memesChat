@@ -1,11 +1,8 @@
 import { ChangeEvent, FormEvent, useRef, useState } from "react";
-import { addMessage } from "store/slices/ChatSlice";
-import { useAppDispatch } from "hooks/reduxHooks";
 
 const useChatInput = () => {
     const chatInput = useRef<HTMLInputElement | null>(null);
     const [currentInputValue, setCurrentInputValue] = useState("");
-    const dispatch = useAppDispatch();
 
     const handleSetCurrentInputValue = (
         event: ChangeEvent<HTMLInputElement>
@@ -17,7 +14,7 @@ const useChatInput = () => {
         event.preventDefault();
 
         if (currentInputValue) {
-            dispatch(addMessage(currentInputValue));
+            // TODO: send request through WS
             setCurrentInputValue("");
             chatInput.current!.value = "";
         }

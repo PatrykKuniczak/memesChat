@@ -1,12 +1,9 @@
 import { KeyboardEvent, useRef, useState } from "react";
-import { deleteMessage, updateMessage } from "store/slices/ChatSlice";
-import { useAppDispatch } from "hooks/reduxHooks";
 
 const useMessage = () => {
     const [selected, setSelected] = useState("");
     const [currentMessage, setCurrentMessage] = useState("");
     const messageInput = useRef<HTMLInputElement | null>(null);
-    const dispatch = useAppDispatch();
 
     const handleSetCurrentMessage = (event: any) => {
         setCurrentMessage(event.currentTarget.textContent);
@@ -17,12 +14,7 @@ const useMessage = () => {
             return;
         }
 
-        dispatch(
-            updateMessage({
-                selected: selected,
-                message: currentMessage
-            })
-        );
+        // TODO: send request through WS
 
         messageInput.current!.contentEditable = "false";
     };
@@ -39,7 +31,7 @@ const useMessage = () => {
     };
 
     const handleDeleteMessage = () => {
-        dispatch(deleteMessage(selected));
+        // TODO: send request through WS
     };
 
     return {
