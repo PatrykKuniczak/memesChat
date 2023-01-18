@@ -11,8 +11,8 @@ const MessageContent = styled.p`
     border-radius: 5px;
     padding: 0.5rem;
 
-    background-color: ${(props) => props.theme.gray_400};
-    color: ${(props) => props.theme.gray_300};
+    background-color: ${({ theme }) => theme.gray_400};
+    color: ${({ theme }) => theme.gray_300};
 
     cursor: pointer;
 `;
@@ -28,7 +28,7 @@ const MessageAuthorImage = styled.img`
 const MessageAuthor = styled.p`
     padding-block: 0.25rem;
 
-    color: ${(props) => props.theme.gray_300};
+    color: ${({ theme }) => theme.gray_300};
 `;
 
 const MessageSettings = styled.div`
@@ -38,8 +38,8 @@ const MessageSettings = styled.div`
     border-radius: 25px;
     padding: 0.5rem 1rem;
 
-    background-color: ${(props) => props.theme.gray_400};
-    color: ${(props) => props.theme.gray_300};
+    background-color: ${({ theme }) => theme.gray_400};
+    color: ${({ theme }) => theme.gray_300};
 `;
 
 export {

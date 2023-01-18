@@ -23,7 +23,7 @@ const ModalsWrapper = styled.div`
 const MenuUserName = styled.span`
     margin-right: 0.5rem;
 
-    color: ${(props) => props.theme.white};
+    color: ${({ theme }) => theme.white};
 
     font-size: 1.25rem;
     font-weight: 500;
@@ -61,7 +61,7 @@ const DropdownButton = styled.button`
 const ChevronIcon = styled(BsChevronDown)`
     width: 16px;
     height: 16px;
-    color: ${(props) => props.theme.white};
+    color: ${({ theme }) => theme.white};
 `;
 
 const DropdownWrapper = styled.div`
@@ -80,11 +80,11 @@ const DropdownList = styled.ul`
     right: 0;
 
     padding: 0.5rem 1rem;
-    border: 1px solid ${(props) => props.theme.primary};
+    border: 1px solid ${({ theme }) => theme.primary};
     border-radius: 0.5rem;
 
-    background-color: ${(props) => props.theme.gray_500};
-    color: ${(props) => props.theme.white};
+    background-color: ${({ theme }) => theme.gray_500};
+    color: ${({ theme }) => theme.white};
 
     white-space: nowrap;
     list-style-type: none;
@@ -98,7 +98,7 @@ const DropdownList = styled.ul`
         width: 100vw;
         border: none;
 
-        background-color: ${(props) => props.theme.gray_semitransparent};
+        background-color: ${({ theme }) => theme.gray_semitransparent};
         backdrop-filter: blur(5px);
     }
 `;
@@ -129,11 +129,11 @@ const EditNameModal = styled.form`
     gap: 1rem;
     align-items: center;
     padding: 3rem 4rem;
-    border: 1px solid ${(props) => props.theme.primary};
+    border: 1px solid ${({ theme }) => theme.primary};
     border-radius: 0.5rem;
 
-    color: ${(props) => props.theme.white};
-    background: ${(props) => props.theme.gray_500};
+    color: ${({ theme }) => theme.white};
+    background: ${({ theme }) => theme.gray_500};
 
     font-size: 1rem;
     font-weight: 300;
@@ -148,17 +148,17 @@ const EditNameModal = styled.form`
 const ModalSpan = styled.span`
     white-space: nowrap;
 
-    color: ${(props) => props.theme.white}
+    color: ${({ theme }) => theme.white};
 `;
 
 const TextInput = styled.input`
     margin: 0 1rem;
     padding: 0.5rem 1rem;
-    border: 1px solid ${(props) => props.theme.primary};
+    border: 1px solid ${({ theme }) => theme.primary};
     border-radius: 0.2rem;
 
-    color: ${(props) => props.theme.white};
-    background: ${(props) => props.theme.gray_semitransparent};
+    color: ${({ theme }) => theme.white};
+    background: ${({ theme }) => theme.gray_semitransparent};
 
     font-size: 1rem;
     font-weight: 300;
@@ -173,11 +173,11 @@ const TextInput = styled.input`
 
 const SubmitButton = styled.button`
     padding: 0.5rem 2rem;
-    border: 1px solid ${(props) => props.theme.gray_500};
+    border: 1px solid ${({ theme }) => theme.gray_500};
     border-radius: 0.2rem;
 
-    color: ${(props) => props.theme.white};
-    background: ${(props) => props.theme.primary};
+    color: ${({ theme }) => theme.white};
+    background: ${({ theme }) => theme.primary};
 
     font-size: 1rem;
     font-weight: 300;
@@ -201,13 +201,13 @@ const DeleteAccountModal = styled.div`
     flex-direction: column;
     align-items: center;
     padding: 2rem 3rem;
-    border: 1px solid ${(props) => props.theme.primary};
+    border: 1px solid ${({ theme }) => theme.primary};
     border-radius: 0.5rem;
 
     font-size: 1rem;
     font-weight: 300;
 
-    background: ${(props) => props.theme.gray_500};
+    background: ${({ theme }) => theme.gray_500};
 
     @media (max-width: 800px) {
         width: 90vw;
@@ -231,11 +231,11 @@ const DeleteAccountModalButtons = styled.div`
 const ButtonPrimary = styled.button`
     margin: 0 1rem;
     padding: 0.5rem 1rem;
-    border: 1px solid ${(props) => props.theme.gray_400};
+    border: 1px solid ${({ theme }) => theme.gray_400};
     border-radius: 0.2rem;
 
-    color: ${(props) => props.theme.white};
-    background: ${(props) => props.theme.primary};
+    color: ${({ theme }) => theme.white};
+    background: ${({ theme }) => theme.primary};
 
     cursor: pointer;
 `;
@@ -243,11 +243,11 @@ const ButtonPrimary = styled.button`
 const ButtonSecondary = styled.button`
     margin: 0 1rem;
     padding: 0.5rem 1rem;
-    border: 1px solid ${(props) => props.theme.gray_200};
+    border: 1px solid ${({ theme }) => theme.gray_200};
     border-radius: 0.2rem;
 
-    color: ${(props) => props.theme.white};
-    background: ${(props) => props.theme.gray_400};
+    color: ${({ theme }) => theme.white};
+    background: ${({ theme }) => theme.gray_400};
 
     cursor: pointer;
 `;
@@ -283,7 +283,7 @@ const BurgerIcon = styled(FiAlignJustify)`
     width: 50px;
     height: 50px;
 
-    color: ${(props) => props.theme.white};
+    color: ${({ theme }) => theme.white};
 `;
 
 const BurgerButton = styled.button`

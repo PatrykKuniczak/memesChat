@@ -33,7 +33,7 @@ const Header = styled.header`
 `;
 
 const Heading = styled.h1`
-    color: ${(props) => props.theme.white};
+    color: ${({ theme }) => theme.white};
 
     font-size: 1.5rem;
     font-weight: 700;
@@ -43,7 +43,7 @@ const OnlineBadge = styled.div`
     border-radius: 5px;
     padding: 0.5rem 1.5rem;
 
-    background-color: ${(props) => props.theme.primary};
+    background-color: ${({ theme }) => theme.primary};
     color: #fff;
 `;
 
@@ -57,7 +57,7 @@ const UserList = styled.div`
     padding: 0.5rem;
     overflow-y: auto;
 
-    background: ${(props) => props.theme.gray_semitransparent};
+    background: ${({ theme }) => theme.gray_semitransparent};
     border-radius: 5px;
 
     &::-webkit-scrollbar {
@@ -66,7 +66,7 @@ const UserList = styled.div`
 
     &::-webkit-scrollbar-thumb {
         border-radius: 3px;
-        background: #050050;
+        background: ${({ theme }) => theme.black};
     }
 
     @media (max-width: 800px) {
@@ -75,7 +75,7 @@ const UserList = styled.div`
 `;
 
 const Label = styled.p`
-    color: ${(props) => props.theme.gray_300};
+    color: ${({ theme }) => theme.gray_300};
 
     margin-top: 1rem;
 `;
@@ -111,7 +111,7 @@ const UserImage = styled.img`
 `;
 
 const UserName = styled.p`
-    color: ${(props) => props.theme.white};
+    color: ${({ theme }) => theme.white};
 
     font-size: 1.25rem;
     font-weight: 500;
@@ -126,7 +126,7 @@ const Chat = styled.main`
     max-height: calc(100vh - 6rem);
     min-height: 400px;
 
-    background: ${(props) => props.theme.gray_semitransparent};
+    background: ${({ theme }) => theme.gray_semitransparent};
     backdrop-filter: blur(27px);
 
     @media (max-width: 800px) {

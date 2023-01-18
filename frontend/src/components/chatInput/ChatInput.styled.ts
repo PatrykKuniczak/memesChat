@@ -8,8 +8,7 @@ const InputWrapper = styled.header`
     padding: 0.5rem 1rem 0.5rem;
     border-radius: 5px;
 
-    background-color: ${(props) => props.theme.gray_400};
-    border: 1px solid ${(props) => props.theme.gray_semitransparent};
+    background-color: ${({ theme }) => theme.gray_400};
 `;
 
 const Form = styled.form`
@@ -22,14 +21,14 @@ const MessageInput = styled.input`
     outline: transparent;
     border: transparent;
 
-    color: ${(props) => props.theme.gray_300};
-    background-color: ${(props) => props.theme.gray_400};
+    color: ${({ theme }) => theme.gray_300};
+    background-color: ${({ theme }) => theme.gray_400};
 `;
 
 const MemeIcon = styled(BsStars)`
     margin: 0 0.5rem;
 
-    fill: ${(props) => props.theme.gray_300};
+    fill: ${({ theme }) => theme.gray_300};
     cursor: pointer;
 `;
 
@@ -42,7 +41,7 @@ const MemeButton = styled.button`
 const MemeGenerateIcon = styled(BsImage)`
     margin: 0 0.5rem;
 
-    fill: ${(props) => props.theme.gray_300};
+    fill: ${({ theme }) => theme.gray_300};
     cursor: pointer;
 `;
 

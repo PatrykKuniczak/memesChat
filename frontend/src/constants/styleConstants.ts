@@ -7,8 +7,11 @@ const COLORS = {
     gray_400: "#16131f",
     gray_500: "#161616",
 
-    gray_semitransparent: "#16161650"
+    gray_semitransparent: "#16161650",
+
+    black: "#050050"
 };
+
 const FONT_SIZES = {
     sm: "1rem",
     md: "1.125rem",

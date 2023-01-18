@@ -13,11 +13,11 @@ const SearchWrapper = styled.div<{ $variant: string }>`
   ${(props) => {
       if (props.$variant === "dark") {
           return css`
-              background-color: ${(props) => props.theme.gray_500};
+              background-color: ${({ theme }) => theme.gray_500};
           `;
       }
       return css`
-          background: ${(props) => props.theme.gray_semitransparent};
+          background: ${({ theme }) => theme.gray_semitransparent};
           backdrop-filter: blur(27px);
       `;
   }}}
@@ -36,13 +36,13 @@ const SearchInput = styled.input.attrs<InputHTMLAttributes<HTMLInputElement>>(
     outline: transparent;
 
     background-color: transparent;
-    color: ${(props) => props.theme.white};
+    color: ${({ theme }) => theme.white};
 
     font-size: 1rem;
 `;
 
 const SearchIcon = styled(BsSearch)`
-    color: ${(props) => props.theme.gray_300};
+    color: ${({ theme }) => theme.gray_300};
 `;
 
 export { SearchWrapper, SearchInput, SearchIcon };

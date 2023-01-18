@@ -17,7 +17,7 @@ const MessagesWrapper = styled.div`
 
     &::-webkit-scrollbar-thumb {
         border-radius: 3px;
-        background: #050050;
+        background: ${({theme}) => theme.black};
     }
 `;
 

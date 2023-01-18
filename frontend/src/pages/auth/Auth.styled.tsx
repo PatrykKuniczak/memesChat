@@ -9,7 +9,7 @@ const SignupContainer = styled.div`
 `;
 
 const Heading = styled.h1`
-    color: #fff;
+    color: ${({ theme }) => theme.white};
     font-size: ${FONT_SIZES.xxl};
     text-align: center;
 `;
@@ -21,7 +21,7 @@ const Form = styled.form`
 `;
 
 const Label = styled.label`
-    color: ${(props) => props.theme.gray_300};
+    color: ${({ theme }) => theme.gray_300};
     font-size: ${FONT_SIZES.md};
     margin-top: 1.5rem;
 `;

@@ -6,15 +6,15 @@ const Button = styled.button`
     border-radius: 5px;
     padding: 1rem 2.5rem;
 
-    color: #fff;
+    color: ${({ theme }) => theme.white};
 `;
 
 const PrimaryButton = styled(Button)`
-    background-color: ${(props) => props.theme.primary};
+    background-color: ${({ theme }) => theme.primary};
 `;
 
 const NavLink = styled(Link)`
-    color: ${(props) => props.theme.gray_300};
+    color: ${({ theme }) => theme.gray_300};
 
     text-decoration: underline;
 `;
