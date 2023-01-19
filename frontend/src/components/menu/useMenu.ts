@@ -1,13 +1,19 @@
 import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
 import { useState, ChangeEvent } from "react";
 import { editUsername } from "store/slices/UserSlice";
+import { fetchUser } from "store/slices/UserSlice";
 
-export const useMenuFunc = () => {
+export const useMenu = () => {
     const dispatch = useAppDispatch();
 
     const [currentModal, setCurrentModal] = useState(0);
 
     const username = useAppSelector((state) => state.user.username);
+
+    const fetchUsernameAsyncThunk = () => {
+        dispatch(fetchUser())
+    }
+
     const [newUsername, setNewUsername] = useState(
         useAppSelector((state) => state.user.username)
     );
@@ -56,6 +62,7 @@ export const useMenuFunc = () => {
     return {
         currentModal,
         username,
+        fetchUsernameAsyncThunk,
         newUsername,
         hideModals,
         toggleDropdown,
