@@ -8,6 +8,7 @@ const MessageContainer = styled.div`
 
 const MessageContent = styled.p`
     flex: 1;
+
     border-radius: 5px;
     padding: 0.5rem;
 
@@ -35,6 +36,7 @@ const MessageSettings = styled.div`
     display: flex;
     align-items: center;
     gap: 0.5rem;
+
     border-radius: 25px;
     padding: 0.5rem 1rem;
 

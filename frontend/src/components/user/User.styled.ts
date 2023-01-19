@@ -4,6 +4,7 @@ const UserContainer = styled.div`
     display: flex;
     gap: 1rem;
     align-items: center;
+
     padding: 1.5rem;
     border-radius: 5px;
 

@@ -9,9 +9,9 @@ const UsersListWrapper = styled.div`
     margin-top: 0.5rem;
     padding: 0.5rem;
     overflow-y: auto;
+    border-radius: 5px;
 
     background: ${({ theme }) => theme.gray_semitransparent};
-    border-radius: 5px;
 
     &::-webkit-scrollbar {
         width: 5px;

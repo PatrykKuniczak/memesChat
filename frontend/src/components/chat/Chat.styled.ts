@@ -3,6 +3,7 @@ import styled from "styled-components";
 const ChatContainer = styled.main`
     display: flex;
     flex-direction: column;
+
     padding: 0.5rem;
     border-radius: 5px;
 

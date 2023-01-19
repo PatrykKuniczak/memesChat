@@ -8,6 +8,7 @@ const Main = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fill);
     gap: 1.5rem;
+
     padding: 1rem;
 
     @media (min-width: 800px) {
@@ -28,7 +29,6 @@ const Aside = styled.aside`
 const Header = styled.header`
     display: flex;
     align-items: center;
-
     gap: 1rem;
 `;
 

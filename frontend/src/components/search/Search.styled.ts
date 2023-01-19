@@ -3,12 +3,13 @@ import { BsSearch } from "react-icons/bs";
 import { InputHTMLAttributes } from "react";
 
 const SearchWrapper = styled.div<{ $variant: string }>`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
-    border-radius: 5px;
-    padding: 0 1rem 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  
+  border-radius: 5px;
+  padding: 0 1rem 0 0;
 
   ${({ $variant }) => {
       if ($variant === "dark") {

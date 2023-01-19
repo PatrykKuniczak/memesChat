@@ -4,6 +4,7 @@ import { BsImage, BsStars } from "react-icons/bs";
 const InputWrapper = styled.header`
     display: flex;
     align-items: center;
+
     margin: 2rem;
     padding: 0.5rem 1rem 0.5rem;
     border-radius: 5px;

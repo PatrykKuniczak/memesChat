@@ -128,6 +128,7 @@ const EditNameModal = styled.form`
     display: flex;
     gap: 1rem;
     align-items: center;
+
     padding: 3rem 4rem;
     border: 1px solid ${({ theme }) => theme.primary};
     border-radius: 0.5rem;
@@ -200,6 +201,7 @@ const DeleteAccountModal = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+
     padding: 2rem 3rem;
     border: 1px solid ${({ theme }) => theme.primary};
     border-radius: 0.5rem;
@@ -217,6 +219,7 @@ const DeleteAccountModal = styled.div`
 const DeleteAccountModalButtons = styled.div`
     display: flex;
     align-items: center;
+
     padding: 2rem 2rem 0;
     border-radius: 0.5rem;
 

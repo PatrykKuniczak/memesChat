@@ -4,10 +4,11 @@ const NavbarWrapper = styled.nav`
     position: fixed;
     z-index: 4;
 
-    display: flex;
-    justify-content: flex-end;
     width: 100%;
     padding: 0.5rem 2.5rem 0;
+
+    display: flex;
+    justify-content: flex-end;
 `;
 
 export { NavbarWrapper };
