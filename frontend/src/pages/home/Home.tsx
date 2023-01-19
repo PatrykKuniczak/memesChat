@@ -4,23 +4,11 @@ import {
     Aside,
     Header,
     Heading,
-    Label,
-    Chat,
-    ChatHeader,
-    OnlineBadge,
-    User,
-    UserImage,
-    UserName,
-    UsersContainer,
-    UserList
+    OnlineBadge
 } from "./Home.styled";
 import Navbar from "components/navbar/Navbar";
-import Search from "components/search/Search";
-import MessagesBox from "components/messages/MessagesBox";
-import MessageSearchBar from "components/searchBar/MessageSearchBar";
-import ChatInput from "components/chatInput/ChatInput";
-
-import user from "assets/user.jpg";
+import Users from "components/users/Users";
+import Chat from "components/chat/Chat";
 
 const Home = () => {
     return (
@@ -34,60 +22,9 @@ const Home = () => {
                             {Math.floor(Math.random() * 100)}
                         </OnlineBadge>
                     </Header>
-                    <UsersContainer>
-                        <Search />
-                        <Label>Online</Label>
-                        <UserList>
-                            <User>
-                                <UserImage src={user} />
-                                <UserName>John Doe</UserName>
-                            </User>
-                            <User>
-                                <UserImage src={user} />
-                                <UserName>John Doe</UserName>
-                            </User>
-                            <User>
-                                <UserImage src={user} />
-                                <UserName>John Doe</UserName>
-                            </User>
-                            <User>
-                                <UserImage src={user} />
-                                <UserName>John Doe</UserName>
-                            </User>
-                            <User>
-                                <UserImage src={user} />
-                                <UserName>John Doe</UserName>
-                            </User>
-                            <User>
-                                <UserImage src={user} />
-                                <UserName>John Doe</UserName>
-                            </User>
-                            <User>
-                                <UserImage src={user} />
-                                <UserName>John Doe</UserName>
-                            </User>
-                            <User>
-                                <UserImage src={user} />
-                                <UserName>John Doe</UserName>
-                            </User>
-                            <User>
-                                <UserImage src={user} />
-                                <UserName>John Doe</UserName>
-                            </User>
-                            <User>
-                                <UserImage src={user} />
-                                <UserName>John Doe</UserName>
-                            </User>
-                        </UserList>
-                    </UsersContainer>
+                    <Users />
                 </Aside>
-                <Chat>
-                    <ChatHeader>
-                        <MessageSearchBar />
-                    </ChatHeader>
-                    <MessagesBox />
-                    <ChatInput />
-                </Chat>
+                <Chat />
             </Main>
         </MainWrapper>
     );
