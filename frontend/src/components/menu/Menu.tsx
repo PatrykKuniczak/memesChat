@@ -1,5 +1,5 @@
-import React from "react";
-import { useMenuFunc } from "./useMenuFunc";
+import React, { useEffect } from "react";
+import { useMenu } from "./useMenu";
 import Modals from "./ModalsWrapper";
 
 import {
@@ -18,8 +18,9 @@ const Menu = () => {
     const {
         currentModal,
         username,
-        toggleDropdown,
+        fetchUsernameAsyncThunk,
         newUsername,
+        toggleDropdown,
         hideModals,
         updateUsername,
         handleNicknameChange,
@@ -27,7 +28,11 @@ const Menu = () => {
         toggleAccountDeleteModal,
         deleteAccountConfirm,
         deleteAccountCancel
-    } = useMenuFunc();
+    } = useMenu();
+
+    useEffect(() => {
+        fetchUsernameAsyncThunk();
+    }, []);
 
     return (
         <>
