@@ -26,7 +26,7 @@ const MenuUserName = styled.span`
     color: ${({ theme }) => theme.white};
 
     font-size: ${({ theme }) => theme.font_lg};
-    font-weight: ${({ theme }) => theme.font_bold};
+    font-weight: ${({ theme }) => theme.font_medium};
 
     @media (max-width: ${({ theme }) => theme.media_md}) {
         display: none;
