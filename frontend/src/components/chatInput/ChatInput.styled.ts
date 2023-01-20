@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { BsImage, BsStars } from "react-icons/bs";
 
 const InputWrapper = styled.header`
@@ -26,11 +26,15 @@ const MessageInput = styled.input`
     background-color: ${({ theme }) => theme.gray_400};
 `;
 
-const MemeIcon = styled(BsStars)`
+const baseIconStyles = css`
     margin: 0 0.5rem;
 
     fill: ${({ theme }) => theme.gray_300};
     cursor: pointer;
+`;
+
+const MemeIcon = styled(BsStars)`
+    ${baseIconStyles}
 `;
 
 const MemeButton = styled.button`
@@ -40,17 +44,10 @@ const MemeButton = styled.button`
 `;
 
 const MemeGenerateIcon = styled(BsImage)`
-    margin: 0 0.5rem;
-
-    fill: ${({ theme }) => theme.gray_300};
-    cursor: pointer;
+    ${baseIconStyles}
 `;
 
-const MemeGenerateButton = styled.button`
-    border: none;
-
-    background-color: transparent;
-`;
+const MemeGenerateButton = styled(MemeButton)``;
 
 export {
     InputWrapper,
