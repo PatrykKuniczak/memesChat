@@ -1,7 +1,7 @@
 import React from "react";
 import { ChatHeader, ChatContainer } from "./Chat.styled";
 import MessageSearchBar from "../searchBar/MessageSearchBar";
-import MessagesBox from "../messages/MessagesBox";
+import MessagesContainer from "../messages/MessagesContainer";
 import ChatInput from "../chatInput/ChatInput";
 
 const Chat = () => {
@@ -10,7 +10,7 @@ const Chat = () => {
             <ChatHeader>
                 <MessageSearchBar />
             </ChatHeader>
-            <MessagesBox />
+            <MessagesContainer />
             <ChatInput />
         </ChatContainer>
     );

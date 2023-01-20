@@ -12,6 +12,8 @@ import {
     BurgerButton
 } from "./Menu.styled";
 
+
+
 import user from "assets/user.jpg";
 
 const Menu = () => {

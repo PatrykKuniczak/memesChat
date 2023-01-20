@@ -35,8 +35,8 @@ const Header = styled.header`
 const Heading = styled.h1`
     color: ${({ theme }) => theme.white};
 
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: ${({ theme }) => theme.font_lg};
+    font-weight: ${({ theme }) => theme.font_black};
 `;
 
 const OnlineBadge = styled.div`

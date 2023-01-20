@@ -1,10 +1,13 @@
 import {
-    DropdownWrapper,
-    DropdownList,
-    DropdownListItem,
     MenuBackgroundHandler,
     ModalBackgroundHandlerClear
 } from "./Menu.styled";
+
+import {
+    DropdownWrapper,
+    DropdownList,
+    DropdownListItem
+} from "./ModalDropdown.styled";
 
 const ModalDropdown = (props: any) => {
     const { toggleAccountDeleteModal, toggleAccountEditModal, hideModals } =

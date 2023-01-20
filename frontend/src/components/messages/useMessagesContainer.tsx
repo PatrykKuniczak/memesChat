@@ -3,7 +3,7 @@ import useMessagesFilter from "hooks/useMessagesFilter";
 import Message from "../message/Message";
 import useMessages from "hooks/useMessages";
 
-const useMessagesBox = () => {
+const useMessagesContainer = () => {
     const { messages, handleSetMessages } = useMessages();
 
     useEffect(() => {
@@ -48,4 +48,4 @@ const useMessagesBox = () => {
     };
 };
 
-export default useMessagesBox;
+export default useMessagesContainer;

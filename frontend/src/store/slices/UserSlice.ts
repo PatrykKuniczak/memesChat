@@ -25,8 +25,7 @@ export const fetchUser = createAsyncThunk(
                 method: "GET"
             }
         );
-        const data = response.json();
-        return data;
+        return response.json();
     }
 );
 

@@ -1,10 +1,11 @@
 import {
     ModalSpan,
-    EditNameModal,
     TextInput,
     SubmitButton,
-    ModalBackgroundHandler,
+    ModalBackgroundHandler
 } from "./Menu.styled";
+
+import { EditNameModal } from "./ModalEditName.styled";
 
 const ModalEditName = (props: any) => {
     const { newUsername, handleNicknameChange, updateUsername, hideModals } =
@@ -26,4 +27,4 @@ const ModalEditName = (props: any) => {
     );
 };
 
-export default ModalEditName
+export default ModalEditName;

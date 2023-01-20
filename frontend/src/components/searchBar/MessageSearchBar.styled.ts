@@ -18,7 +18,7 @@ const SearchTypeSwitcher = styled.button`
     background-color: ${({ theme }) => theme.gray_500};
     color: ${({ theme }) => theme.gray_300};
 
-    font-size: 1rem;
+    font-size: ${({ theme }) => theme.font_sm};
     text-transform: capitalize;
 
     cursor: pointer;

@@ -7,7 +7,7 @@ const SearchWrapper = styled.div<{ $variant: string }>`
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
-  
+
   border-radius: 5px;
   padding: 0 1rem 0 0;
 
@@ -39,7 +39,7 @@ const SearchInput = styled.input.attrs<InputHTMLAttributes<HTMLInputElement>>(
     background-color: transparent;
     color: ${({ theme }) => theme.white};
 
-    font-size: 1rem;
+    font-size: ${({ theme }) => theme.font_sm};
 `;
 
 const SearchIcon = styled(BsSearch)`

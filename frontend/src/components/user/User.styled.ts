@@ -34,8 +34,9 @@ const UserImage = styled.img`
 const UserName = styled.p`
     color: ${({ theme }) => theme.white};
 
-    font-size: 1.25rem;
-    font-weight: 500;
+    font-size: ${({ theme }) => theme.font_md};
+
+    font-weight: ${({ theme }) => theme.font_bold};
 `;
 
 export { UserContainer, UserImage, UserName };
