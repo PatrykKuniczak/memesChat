@@ -1,11 +1,10 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
 import { useSearchParams } from "react-router-dom";
 
 const useMessageSearchBar = () => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const [searchMode, setSearchMode] = useState(
-        searchParams.get("searchMode") || "message"
-    );
+
+    const searchMode = searchParams.get("searchMode") || "message";
 
     const handleSetSearchParams = (event: ChangeEvent<HTMLInputElement>) => {
         searchParams.set("messagesFilter", event.target.value);
@@ -13,10 +12,10 @@ const useMessageSearchBar = () => {
     };
 
     const handleSetSearchMode = () => {
-        const newSearchMode = searchMode === "message" ? "user" : "message";
-        setSearchMode(newSearchMode);
-
-        searchParams.set("searchMode", newSearchMode);
+        searchParams.set(
+            "searchMode",
+            searchMode === "message" ? "user" : "message"
+        );
         setSearchParams(searchParams);
     };
 
