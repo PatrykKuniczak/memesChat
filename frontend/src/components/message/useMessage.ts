@@ -1,12 +1,14 @@
-import { KeyboardEvent, useRef, useState } from "react";
+import { FormEvent, KeyboardEvent, useRef, useState } from "react";
 
 const useMessage = () => {
     const [selected, setSelected] = useState("");
     const [currentMessage, setCurrentMessage] = useState("");
     const messageInput = useRef<HTMLInputElement | null>(null);
 
-    const handleSetCurrentMessage = (event: any) => {
-        setCurrentMessage(event.currentTarget.textContent);
+    const handleSetCurrentMessage = (
+        event: FormEvent<HTMLParagraphElement>
+    ) => {
+        setCurrentMessage(event.currentTarget.textContent || "");
     };
 
     const handleAcceptMessage = (event: KeyboardEvent<HTMLInputElement>) => {
