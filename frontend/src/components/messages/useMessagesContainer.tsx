@@ -1,7 +1,7 @@
 import { SetStateAction, useCallback, useEffect, useState } from "react";
-import useMessagesFilter from "hooks/useMessagesFilter";
+import useMessagesFilter from "components/messages/useMessagesFilter";
 import Message from "../message/Message";
-import useMessages from "hooks/useMessages";
+import useMessages from "components/messages/useMessages";
 
 const useMessagesContainer = () => {
     const { messages, handleSetMessages } = useMessages();
