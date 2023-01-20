@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "store/store";
 import { useState, ChangeEvent } from "react";
 import { editUsername } from "store/slices/UserSlice";
 import { fetchUser } from "store/slices/UserSlice";
