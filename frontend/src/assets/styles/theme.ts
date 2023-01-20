@@ -1,5 +1,7 @@
-const COLORS = {
+const THEME_DARK = {
+    // colors
     primary: "#962EFF",
+
     white: "#D9D1EB",
 
     gray_200: "#2F2F2F",
@@ -9,14 +11,20 @@ const COLORS = {
 
     gray_semitransparent: "#16161650",
 
-    black: "#050050"
+    black: "#050050",
+
+    // font sizes
+    font_sm: "1rem",
+    font_md: "1.125rem",
+    font_lg: "1.5rem",
+    font_xxl: "3rem",
+
+    // media queries
+    media_sm: "640px",
+    media_md: "768px",
+    media_lg: "1024px",
+    media_xl: "1280px",
+    media_xxl: "1536px"
 };
 
-const FONT_SIZES = {
-    sm: "1rem",
-    md: "1.125rem",
-    lg: "1.5rem",
-    xxl: "3rem"
-};
-
-export { COLORS, FONT_SIZES };
+export { THEME_DARK };

@@ -2,6 +2,7 @@ import {
     DropdownWrapper,
     DropdownList,
     DropdownListItem,
+    MenuBackgroundHandler,
     ModalBackgroundHandlerClear
 } from "./Menu.styled";
 
@@ -18,7 +19,7 @@ const ModalDropdown = (props: any) => {
                 <DropdownListItem onClick={toggleAccountDeleteModal}>
                     Usuń konto
                 </DropdownListItem>
-                <ModalBackgroundHandlerClear onClick={hideModals} />
+                <MenuBackgroundHandler onClick={hideModals} />
             </DropdownList>
             <ModalBackgroundHandlerClear onClick={hideModals} />
         </DropdownWrapper>

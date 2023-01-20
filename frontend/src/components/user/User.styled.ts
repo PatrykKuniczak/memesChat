@@ -13,7 +13,7 @@ const UserContainer = styled.div`
         backdrop-filter: blur(27px);
     }
 
-    @media (max-width: 800px) {
+    @media (max-width: ${({ theme }) => theme.media_md}) {
         padding: 0.5rem;
     }
 `;
@@ -25,7 +25,7 @@ const UserImage = styled.img`
 
     object-fit: cover;
 
-    @media (max-width: 800px) {
+    @media (max-width: ${({ theme }) => theme.media_md}) {
         width: 40px;
         height: 40px;
     }

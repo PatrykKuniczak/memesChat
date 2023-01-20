@@ -22,7 +22,7 @@ const UsersListWrapper = styled.div`
         background: ${({ theme }) => theme.black};
     }
 
-    @media (max-width: 800px) {
+    @media (max-width: ${({ theme }) => theme.media_md}) {
         max-height: 200px;
     }
 `;
