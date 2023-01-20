@@ -32,17 +32,16 @@ const Message: FC<{ message: Message }> = (props) => {
     return (
         <MessageContainer>
             <MessageAuthorImage src={user} />
-            <div>
-                <MessageAuthor>{author}</MessageAuthor>
-                <MessageContent
-                    onClick={() => handleSetSelected(id)}
-                    ref={messageInput}
-                    onKeyDown={handleAcceptMessage}
-                    onInput={handleSetCurrentMessage}
-                >
-                    {message}
-                </MessageContent>
-            </div>
+            <MessageAuthor>{author}</MessageAuthor>
+            <MessageContent
+                onClick={() => handleSetSelected(id)}
+                ref={messageInput}
+                onKeyDown={handleAcceptMessage}
+                onInput={handleSetCurrentMessage}
+            >
+                {message}
+            </MessageContent>
+            
             {selected === id && (
                 <MessageSettings>
                     <BsPencilSquare onClick={handleEditMessage} />
