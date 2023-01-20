@@ -20,6 +20,7 @@ const ChatInput = () => {
                 <MessageInput
                     ref={chatInput}
                     onChange={handleSetCurrentInputValue}
+                    autoFocus
                 />
             </Form>
             <MemeButton>
