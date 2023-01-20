@@ -36,7 +36,7 @@ const UserName = styled.p`
 
     font-size: ${({ theme }) => theme.font_md};
 
-    font-weight: ${({ theme }) => theme.font_bold};
+    font-weight: ${({ theme }) => theme.font_medium};
 `;
 
 export { UserContainer, UserImage, UserName };

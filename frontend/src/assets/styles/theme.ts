@@ -19,11 +19,13 @@ const THEME_DARK = {
     font_lg: "1.5rem",
     font_xxl: "3rem",
 
-    //font weights
-    font_light: 200,
-    font_regular: 300,
-    font_bold: 500,
-    font_black: 700,
+    // font weights
+    font_extra_light: 200,
+    font_light: 300,
+    font_regular: 400,
+    font_medium: 500,
+    font_bold: 700,
+    font_black: 900,
 
     // media queries
     media_sm: "640px",
