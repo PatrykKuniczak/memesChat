@@ -16,21 +16,22 @@ interface Props {
 
 const useMessagesFilter = ({ messages, handleSetFilteredMessages }: Props) => {
     const [isPending, startTransition] = useTransition();
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
 
     const filterMessages = useMemo(() => {
         return messages.filter(({ message, author }) => {
-            const filter = searchParams.get("messagesFilter") || "";
-            if (filter === "") {
+            const searchValue = searchParams.get("messagesFilter");
+            if (searchValue === null) {
                 return true;
             }
 
-            const searchMode = searchParams.get("searchMode") || "";
-            if (searchMode === "user") {
-                return author.toLowerCase().startsWith(filter.toLowerCase());
+            if (searchParams.get("searchMode") === "user") {
+                return author
+                    .toLowerCase()
+                    .startsWith(searchValue.toLowerCase());
             }
 
-            return message.toLowerCase().includes(filter.toLowerCase());
+            return message.toLowerCase().includes(searchValue.toLowerCase());
         });
     }, [messages, searchParams]);
 
