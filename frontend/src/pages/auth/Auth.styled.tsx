@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FONT_SIZES } from "assets/styles/theme";
+// import { FONT_SIZES } from "assets/styles/theme";
 
 const SignupContainer = styled.div`
     display: grid;
@@ -10,7 +10,7 @@ const SignupContainer = styled.div`
 
 const Heading = styled.h1`
     color: ${({ theme }) => theme.white};
-    font-size: ${FONT_SIZES.xxl};
+    font-size: ${({ theme }) => theme.font_xxl};
     text-align: center;
 `;
 
@@ -22,7 +22,7 @@ const Form = styled.form`
 
 const Label = styled.label`
     color: ${({ theme }) => theme.gray_300};
-    font-size: ${FONT_SIZES.md};
+    font-size: ${({ theme }) => theme.font_md};
     margin-top: 1.5rem;
 `;
 
@@ -44,7 +44,7 @@ const ButtonsContainer = styled.div`
     justify-content: center;
     gap: 1.5rem;
 
-    @media screen and (min-width: 800px) {
+    @media screen and (min-width: ${({ theme }) => theme.media_md}) {
         flex-direction: row;
         align-items: center;
     }

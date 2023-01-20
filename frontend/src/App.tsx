@@ -2,7 +2,7 @@ import GlobalStyles from "./assets/GlobalStyles.styled";
 import React from "react";
 import Auth from "./pages/auth/Auth";
 import { ThemeProvider } from "styled-components";
-import { COLORS } from "./assets/styles/theme";
+import { THEME_DARK } from "./assets/styles/theme";
 import {
     BrowserRouter,
     Navigate,
@@ -17,7 +17,7 @@ const App: React.FC = () => {
         <>
             <GlobalStyles />
 
-            <ThemeProvider theme={COLORS}>
+            <ThemeProvider theme={THEME_DARK}>
                 <BrowserRouter>
                     <Routes>
                         <Route element={<Outlet />}>

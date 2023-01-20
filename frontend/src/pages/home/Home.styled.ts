@@ -11,7 +11,7 @@ const Main = styled.div`
 
     padding: 1rem;
 
-    @media (min-width: 800px) {
+    @media (min-width: ${({ theme }) => theme.media_md}) {
         grid-template-columns: 1fr 2fr;
 
         padding: 5rem 2.5rem 1rem;
@@ -21,7 +21,7 @@ const Main = styled.div`
 const Aside = styled.aside`
     max-height: calc(100vh - 6rem);
 
-    @media (max-width: 800px) {
+    @media (max-width: ${({ theme }) => theme.media_md}) {
         max-height: 400px;
     }
 `;
@@ -35,8 +35,8 @@ const Header = styled.header`
 const Heading = styled.h1`
     color: ${({ theme }) => theme.white};
 
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: ${({ theme }) => theme.font_lg};
+    font-weight: ${({ theme }) => theme.font_black};
 `;
 
 const OnlineBadge = styled.div`
@@ -44,7 +44,7 @@ const OnlineBadge = styled.div`
     padding: 0.5rem 1.5rem;
 
     background-color: ${({ theme }) => theme.primary};
-    color: #fff;
+    color: ${({ theme }) => theme.white};
 `;
 
 export { MainWrapper, Aside, Main, Header, Heading, OnlineBadge };

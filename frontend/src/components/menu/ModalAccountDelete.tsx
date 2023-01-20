@@ -1,11 +1,14 @@
 import {
     ModalSpan,
-    DeleteAccountModal,
-    DeleteAccountModalButtons,
     ButtonPrimary,
     ButtonSecondary,
     ModalBackgroundHandler
 } from "./Menu.styled";
+
+import {
+    DeleteAccountModal,
+    DeleteAccountModalButtons
+} from "./ModalAccountDelete.styled";
 
 const ModalAccountDelete = (props: any) => {
     const { deleteAccountConfirm, deleteAccountCancel, hideModals } = props;

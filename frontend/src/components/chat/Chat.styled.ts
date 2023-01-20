@@ -13,7 +13,7 @@ const ChatContainer = styled.main`
     background: ${({ theme }) => theme.gray_semitransparent};
     backdrop-filter: blur(27px);
 
-    @media (max-width: 800px) {
+    @media (max-width: ${({ theme }) => theme.media_md}) {
         max-height: calc(100vh - 410px);
     }
 `;

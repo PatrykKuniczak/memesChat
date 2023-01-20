@@ -25,10 +25,10 @@ const MenuUserName = styled.span`
 
     color: ${({ theme }) => theme.white};
 
-    font-size: 1.25rem;
-    font-weight: 500;
+    font-size: ${({ theme }) => theme.font_lg};
+    font-weight: ${({ theme }) => theme.font_bold};
 
-    @media (max-width: 800px) {
+    @media (max-width: ${({ theme }) => theme.media_md}) {
         display: none;
     }
 `;
@@ -40,7 +40,7 @@ const MenuUserImage = styled.img`
 
     object-fit: cover;
 
-    @media (max-width: 800px) {
+    @media (max-width: ${({ theme }) => theme.media_md}) {
         display: none;
     }
 `;
@@ -53,7 +53,7 @@ const DropdownButton = styled.button`
 
     cursor: pointer;
 
-    @media (max-width: 800px) {
+    @media (max-width: ${({ theme }) => theme.media_md}) {
         display: none;
     }
 `;
@@ -62,88 +62,6 @@ const ChevronIcon = styled(BsChevronDown)`
     width: 16px;
     height: 16px;
     color: ${({ theme }) => theme.white};
-`;
-
-const DropdownWrapper = styled.div`
-    position: relative;
-    top: 2rem;
-
-    @media (max-width: 800px) {
-        position: absolute;
-        top: 0;
-    }
-`;
-
-const DropdownList = styled.ul`
-    position: absolute;
-    z-index: 2;
-    right: 0;
-
-    padding: 0.5rem 1rem;
-    border: 1px solid ${({ theme }) => theme.primary};
-    border-radius: 0.5rem;
-
-    background-color: ${({ theme }) => theme.gray_500};
-    color: ${({ theme }) => theme.white};
-
-    white-space: nowrap;
-    list-style-type: none;
-
-    @media (max-width: 800px) {
-        position: fixed;
-        left: 0;
-        padding: 10vh 0 0 0;
-
-        height: 100vh;
-        width: 100vw;
-        border: none;
-
-        background-color: ${({ theme }) => theme.gray_semitransparent};
-        backdrop-filter: blur(5px);
-    }
-`;
-
-const DropdownListItem = styled.li`
-    position: relative;
-
-    padding: 0.8rem;
-
-    cursor: pointer;
-
-    @media (max-width: 800px) {
-        padding: 1.5rem;
-
-        font-size: 1.5rem;
-        text-align: center;
-    }
-`;
-
-const EditNameModal = styled.form`
-    position: absolute;
-    z-index: 2;
-    top: 30vh;
-    left: 50vw;
-    transform: translate(-50%, -50%);
-
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-
-    padding: 3rem 4rem;
-    border: 1px solid ${({ theme }) => theme.primary};
-    border-radius: 0.5rem;
-
-    color: ${({ theme }) => theme.white};
-    background: ${({ theme }) => theme.gray_500};
-
-    font-size: 1rem;
-    font-weight: 300;
-
-    @media (max-width: 800px) {
-        flex-direction: column;
-        width: 80vw;
-        padding: 4rem 2rem;
-    }
 `;
 
 const ModalSpan = styled.span`
@@ -161,12 +79,12 @@ const TextInput = styled.input`
     color: ${({ theme }) => theme.white};
     background: ${({ theme }) => theme.gray_semitransparent};
 
-    font-size: 1rem;
-    font-weight: 300;
+    font-size: ${({ theme }) => theme.font_sm};
+    font-weight: ${({ theme }) => theme.font_regular};
 
     cursor: pointer;
 
-    @media (max-width: 800px) {
+    @media (max-width: ${({ theme }) => theme.media_md}) {
         width: 100%;
         padding: 1rem;
     }
@@ -180,53 +98,14 @@ const SubmitButton = styled.button`
     color: ${({ theme }) => theme.white};
     background: ${({ theme }) => theme.primary};
 
-    font-size: 1rem;
-    font-weight: 300;
+    font-size: ${({ theme }) => theme.font_sm};
+    font-weight: ${({ theme }) => theme.font_regular};
 
     cursor: pointer;
 
-    @media (max-width: 800px) {
+    @media (max-width: ${({ theme }) => theme.media_md}) {
         width: 100%;
         padding: 1rem;
-    }
-`;
-
-const DeleteAccountModal = styled.div`
-    position: absolute;
-    z-index: 2;
-    top: 30vh;
-    left: 50vw;
-    transform: translate(-50%, -50%);
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    padding: 2rem 3rem;
-    border: 1px solid ${({ theme }) => theme.primary};
-    border-radius: 0.5rem;
-
-    font-weight: 300;
-
-    background: ${({ theme }) => theme.gray_500};
-
-    @media (max-width: 800px) {
-        width: 90vw;
-        padding: 3rem 1rem;
-    }
-`;
-
-const DeleteAccountModalButtons = styled.div`
-    display: flex;
-    align-items: center;
-
-    padding: 2rem 2rem 0;
-    border-radius: 0.5rem;
-
-    white-space: nowrap;
-
-    @media (max-width: 800px) {
-        padding: 2rem 0 0 0;
     }
 `;
 
@@ -254,6 +133,23 @@ const ButtonSecondary = styled.button`
     cursor: pointer;
 `;
 
+const MenuBackgroundHandler = styled.div`
+    display: none;
+
+    @media (max-width: ${({ theme }) => theme.media_md}) {
+        display: flex;
+        position: relative;
+        z-index: 1;
+        left: 0;
+        top: 10%;
+
+        width: 100vw;
+        height: 100%;
+
+        backdrop-filter: blur(3px);
+    }
+`;
+
 const ModalBackgroundHandler = styled.div`
     position: fixed;
     z-index: 1;
@@ -261,7 +157,7 @@ const ModalBackgroundHandler = styled.div`
     top: 0;
 
     width: 100vw;
-    height: 200%;
+    height: 100%;
 
     backdrop-filter: blur(3px);
 `;
@@ -270,10 +166,10 @@ const ModalBackgroundHandlerClear = styled.div`
     position: fixed;
     z-index: 1;
     left: 0;
-    top: 1;
+    top: 0;
 
     width: 100vw;
-    height: 200%;
+    height: 100%;
 `;
 
 // burger menu for mobile view
@@ -298,7 +194,7 @@ const BurgerButton = styled.button`
 
     cursor: pointer;
 
-    @media (min-width: 800px) {
+    @media (min-width: ${({ theme }) => theme.media_md}) {
         display: none;
     }
 `;
@@ -309,18 +205,13 @@ export {
     MenuUserName,
     MenuUserImage,
     DropdownButton,
-    DropdownWrapper,
-    DropdownList,
-    DropdownListItem,
     ModalSpan,
-    EditNameModal,
     TextInput,
     SubmitButton,
-    DeleteAccountModal,
-    DeleteAccountModalButtons,
     ButtonPrimary,
     ButtonSecondary,
     ChevronIcon,
+    MenuBackgroundHandler,
     ModalBackgroundHandler,
     ModalBackgroundHandlerClear,
     BurgerIcon,
