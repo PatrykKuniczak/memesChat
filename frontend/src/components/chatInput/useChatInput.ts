@@ -1,7 +1,6 @@
-import { ChangeEvent, FormEvent, useRef, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 const useChatInput = () => {
-    const chatInput = useRef<HTMLInputElement | null>(null);
     const [currentInputValue, setCurrentInputValue] = useState("");
 
     const handleSetCurrentInputValue = (
@@ -16,12 +15,11 @@ const useChatInput = () => {
         if (currentInputValue) {
             // TODO: send request through WS
             setCurrentInputValue("");
-            chatInput.current!.value = "";
         }
     };
 
     return {
-        chatInput,
+        currentInputValue,
         handleSetCurrentInputValue,
         handleSubmit
     };

@@ -11,15 +11,15 @@ import {
 import useChatInput from "./useChatInput";
 
 const ChatInput = () => {
-    const { chatInput, handleSetCurrentInputValue, handleSubmit } =
+    const { currentInputValue, handleSetCurrentInputValue, handleSubmit } =
         useChatInput();
 
     return (
         <InputWrapper>
             <Form onSubmit={handleSubmit}>
                 <MessageInput
-                    ref={chatInput}
                     onChange={handleSetCurrentInputValue}
+                    value={currentInputValue}
                     autoFocus
                 />
             </Form>
