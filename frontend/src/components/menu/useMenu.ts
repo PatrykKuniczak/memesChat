@@ -1,76 +1,43 @@
 import { useAppDispatch, useAppSelector } from "store/store";
-import { useState, ChangeEvent } from "react";
-import { editUsername } from "store/slices/UserSlice";
+import { useState } from "react";
 import { fetchUser } from "store/slices/UserSlice";
 
 export const useMenu = () => {
     const dispatch = useAppDispatch();
 
-    const [currentModal, setCurrentModal] = useState(0);
-
     const username = useAppSelector((state) => state.user.username);
 
+    const [currentModal, setCurrentModal] = useState("modal-none");
+
     const fetchUsernameAsyncThunk = () => {
-        dispatch(fetchUser())
-    }
-
-    const [newUsername, setNewUsername] = useState(
-        useAppSelector((state) => state.user.username)
-    );
-
-    //modal display controls
+        dispatch(fetchUser());
+    };
 
     const hideModals = () => {
-        setCurrentModal(0);
+        setCurrentModal("modal-none");
     };
 
     const toggleDropdown = () => {
-        currentModal !== 1 ? setCurrentModal(1) : setCurrentModal(0);
+        currentModal !== "modal-dropdown"
+            ? setCurrentModal("modal-dropdown")
+            : setCurrentModal("modal-none");
     };
 
-    const toggleAccountEditModal = () => {
-        setCurrentModal(2);
+    const showAccountEditModal = () => {
+        setCurrentModal("modal-edit");
     };
 
-    const toggleAccountDeleteModal = () => {
-        setCurrentModal(3);
-    };
-
-    // nickname change modal
-
-    const handleNicknameChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setNewUsername(event.target.value);
-    };
-
-    const updateUsername = () => {
-        dispatch(editUsername(newUsername));
-        hideModals();
-    };
-
-    // account delete modal
-
-    const deleteAccountConfirm = () => {
-        // todo: miejsce na twoja logike
-        hideModals();
-    };
-
-    const deleteAccountCancel = () => {
-        // todo: miejsce na twoja logike
-        hideModals();
+    const showAccountDeleteModal = () => {
+        setCurrentModal("modal-delete");
     };
 
     return {
         currentModal,
         username,
         fetchUsernameAsyncThunk,
-        newUsername,
         hideModals,
         toggleDropdown,
-        updateUsername,
-        handleNicknameChange,
-        toggleAccountEditModal,
-        toggleAccountDeleteModal,
-        deleteAccountConfirm,
-        deleteAccountCancel
+        showAccountEditModal,
+        showAccountDeleteModal
     };
 };

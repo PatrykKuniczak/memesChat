@@ -2,48 +2,39 @@ import ModalDropdown from "./ModalDropdown";
 import ModalEditName from "./ModalEditName";
 import ModalAccountDelete from "./ModalAccountDelete";
 
-import {
-    ModalsWrapper,
-} from "./Menu.styled";
+import { ModalsWrapper } from "./Menu.styled";
 
-const Modals = (props: any) => {
+interface ModalsProps {
+    currentModal: string;
+    hideModals: () => void;
+    showAccountEditModal: () => void;
+    showAccountDeleteModal: () => void;
+}
+
+const Modals = (props: ModalsProps) => {
     const {
         currentModal,
-        newUsername,
         hideModals,
-        updateUsername,
-        handleNicknameChange,
-        toggleAccountEditModal,
-        toggleAccountDeleteModal,
-        deleteAccountConfirm,
-        deleteAccountCancel
+        showAccountEditModal,
+        showAccountDeleteModal
     } = props;
 
     return (
         <ModalsWrapper>
-            {currentModal === 1 && (
+            {currentModal === "modal-dropdown" && (
                 <ModalDropdown
-                    toggleAccountEditModal={toggleAccountEditModal}
-                    toggleAccountDeleteModal={toggleAccountDeleteModal}
+                    showAccountEditModal={showAccountEditModal}
+                    showAccountDeleteModal={showAccountDeleteModal}
                     hideModals={hideModals}
                 />
             )}
 
-            {currentModal === 2 && (
-                <ModalEditName
-                    newUsername={newUsername}
-                    handleNicknameChange={handleNicknameChange}
-                    updateUsername={updateUsername}
-                    hideModals={hideModals}
-                />
+            {currentModal === "modal-edit" && (
+                <ModalEditName hideModals={hideModals} />
             )}
 
-            {currentModal === 3 && (
-                <ModalAccountDelete
-                    deleteAccountConfirm={deleteAccountConfirm}
-                    deleteAccountCancel={deleteAccountCancel}
-                    hideModals={hideModals}
-                />
+            {currentModal === "modal-delete" && (
+                <ModalAccountDelete hideModals={hideModals} />
             )}
         </ModalsWrapper>
     );

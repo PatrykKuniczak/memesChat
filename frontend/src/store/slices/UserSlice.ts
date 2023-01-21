@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { RootState } from "store/store";
 
 export interface User {
-    username: any;
+    username: string;
     loading: boolean;
     error: string | undefined;
 }
@@ -48,7 +48,6 @@ export const userSlice = createSlice({
         });
         builder.addCase(fetchUser.rejected, (state, action) => {
             state.loading = false;
-            state.username = "error";
             state.error = action.error.message;
         });
     }

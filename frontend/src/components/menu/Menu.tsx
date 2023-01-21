@@ -12,8 +12,6 @@ import {
     BurgerButton
 } from "./Menu.styled";
 
-
-
 import user from "assets/user.jpg";
 
 const Menu = () => {
@@ -21,15 +19,10 @@ const Menu = () => {
         currentModal,
         username,
         fetchUsernameAsyncThunk,
-        newUsername,
-        toggleDropdown,
         hideModals,
-        updateUsername,
-        handleNicknameChange,
-        toggleAccountEditModal,
-        toggleAccountDeleteModal,
-        deleteAccountConfirm,
-        deleteAccountCancel
+        toggleDropdown,
+        showAccountEditModal,
+        showAccountDeleteModal
     } = useMenu();
 
     useEffect(() => {
@@ -53,14 +46,9 @@ const Menu = () => {
 
             <Modals
                 currentModal={currentModal}
-                toggleAccountEditModal={toggleAccountEditModal}
-                toggleAccountDeleteModal={toggleAccountDeleteModal}
                 hideModals={hideModals}
-                newUsername={newUsername}
-                handleNicknameChange={handleNicknameChange}
-                updateUsername={updateUsername}
-                deleteAccountConfirm={deleteAccountConfirm}
-                deleteAccountCancel={deleteAccountCancel}
+                showAccountEditModal={showAccountEditModal}
+                showAccountDeleteModal={showAccountDeleteModal}
             />
         </>
     );
