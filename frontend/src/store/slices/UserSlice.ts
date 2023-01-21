@@ -48,7 +48,6 @@ export const userSlice = createSlice({
         });
         builder.addCase(fetchUser.rejected, (state, action) => {
             state.loading = false;
-            state.username = "error";
             state.error = action.error.message;
         });
     }

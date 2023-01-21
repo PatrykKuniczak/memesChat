@@ -9,18 +9,36 @@ import {
     DeleteAccountModal,
     DeleteAccountModalButtons
 } from "./ModalAccountDelete.styled";
+import { useModalAccountDelete } from "./useModalAccountDelete";
 
-const ModalAccountDelete = (props: any) => {
-    const { deleteAccountConfirm, deleteAccountCancel, hideModals } = props;
+interface ModalAccountDeleteProps {
+    hideModals: () => void;
+}
+
+const ModalAccountDelete = (props: ModalAccountDeleteProps) => {
+    const { hideModals } = props;
+
+    const { deleteAccountConfirm } = useModalAccountDelete();
+
+    const DeleteAccountConfirm = () => {
+        //TODO: account delete logic
+        deleteAccountConfirm();
+        hideModals();
+    };
+
+    const DeleteAccountCancel = () => {
+        hideModals();
+    };
+
     return (
         <>
             <DeleteAccountModal>
                 <ModalSpan>Czy na pewno chcesz usunąć konto?</ModalSpan>
                 <DeleteAccountModalButtons>
-                    <ButtonSecondary onClick={deleteAccountConfirm}>
+                    <ButtonSecondary onClick={DeleteAccountConfirm}>
                         Tak, usuwam konto
                     </ButtonSecondary>
-                    <ButtonPrimary onClick={deleteAccountCancel}>
+                    <ButtonPrimary onClick={DeleteAccountCancel}>
                         Anuluj
                     </ButtonPrimary>
                 </DeleteAccountModalButtons>

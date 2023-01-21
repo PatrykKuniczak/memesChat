@@ -6,10 +6,22 @@ import {
 } from "./Menu.styled";
 
 import { EditNameModal } from "./ModalEditName.styled";
+import { useModalEditName } from "./useModalEditName";
 
-const ModalEditName = (props: any) => {
-    const { newUsername, handleNicknameChange, updateUsername, hideModals } =
-        props;
+interface ModalEditNameProps {
+    hideModals: () => void;
+}
+
+const ModalEditName = (props: ModalEditNameProps) => {
+    const { hideModals } = props;
+
+    const { newUsername, handleNicknameChange, updateUsername } =
+        useModalEditName();
+
+    const EditNameSubmit = (event: any) => {
+        updateUsername(event);
+        hideModals();
+    };
 
     return (
         <>
@@ -20,7 +32,7 @@ const ModalEditName = (props: any) => {
                     value={newUsername}
                     onChange={handleNicknameChange}
                 />
-                <SubmitButton onClick={updateUsername}>Zapisz</SubmitButton>
+                <SubmitButton onClick={EditNameSubmit}>Zapisz</SubmitButton>
             </EditNameModal>
             <ModalBackgroundHandler onClick={hideModals} />
         </>

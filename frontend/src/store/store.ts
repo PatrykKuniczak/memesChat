@@ -2,8 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { userSlice } from "./slices/UserSlice";
 
-type DispatchFunc = () => AppDispatch
-
+export type DispatchFunc = () => AppDispatch
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 

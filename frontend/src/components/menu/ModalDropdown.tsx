@@ -9,17 +9,22 @@ import {
     DropdownListItem
 } from "./ModalDropdown.styled";
 
-const ModalDropdown = (props: any) => {
-    const { toggleAccountDeleteModal, toggleAccountEditModal, hideModals } =
-        props;
+interface ModalDropdownProps {
+    showAccountDeleteModal: () => void;
+    showAccountEditModal: () => void;
+    hideModals: () => void;
+}
+
+const ModalDropdown = (props: ModalDropdownProps) => {
+    const { showAccountDeleteModal, showAccountEditModal, hideModals } = props;
 
     return (
         <DropdownWrapper>
             <DropdownList>
-                <DropdownListItem onClick={toggleAccountEditModal}>
+                <DropdownListItem onClick={showAccountEditModal}>
                     Edytuj konto
                 </DropdownListItem>
-                <DropdownListItem onClick={toggleAccountDeleteModal}>
+                <DropdownListItem onClick={showAccountDeleteModal}>
                     Usuń konto
                 </DropdownListItem>
                 <MenuBackgroundHandler onClick={hideModals} />
