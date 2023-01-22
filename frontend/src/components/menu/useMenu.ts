@@ -1,43 +1,20 @@
 import { useAppDispatch, useAppSelector } from "store/store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchUser } from "store/slices/UserSlice";
 
 export const useMenu = () => {
+    const [showMenu, setShowMenu] = useState(false);
+
     const dispatch = useAppDispatch();
+    const username = useAppSelector(state => state.user.username);
 
-    const username = useAppSelector((state) => state.user.username);
+    const changeMenuVisible = () => {
+        setShowMenu(prevState => !prevState);
+    };
 
-    const [currentModal, setCurrentModal] = useState("modal-none");
-
-    const fetchUsernameAsyncThunk = () => {
+    useEffect(() => {
         dispatch(fetchUser());
-    };
+    }, [dispatch]);
 
-    const hideModals = () => {
-        setCurrentModal("modal-none");
-    };
-
-    const toggleDropdown = () => {
-        currentModal !== "modal-dropdown"
-            ? setCurrentModal("modal-dropdown")
-            : setCurrentModal("modal-none");
-    };
-
-    const showAccountEditModal = () => {
-        setCurrentModal("modal-edit");
-    };
-
-    const showAccountDeleteModal = () => {
-        setCurrentModal("modal-delete");
-    };
-
-    return {
-        currentModal,
-        username,
-        fetchUsernameAsyncThunk,
-        hideModals,
-        toggleDropdown,
-        showAccountEditModal,
-        showAccountDeleteModal
-    };
+    return { username, showMenu, changeMenuVisible };
 };

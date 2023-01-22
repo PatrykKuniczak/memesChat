@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const EditNameModal = styled.form`
+const EditNameWrapper = styled.form`
     position: absolute;
     z-index: 2;
     top: 30vh;
@@ -28,4 +28,4 @@ const EditNameModal = styled.form`
     }
 `;
 
-export { EditNameModal };
+export { EditNameWrapper };

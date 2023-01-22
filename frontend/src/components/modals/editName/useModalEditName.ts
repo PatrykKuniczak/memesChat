@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from "store/store";
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { editUsername } from "store/slices/UserSlice";
 
-export const useModalEditName = () => {
+const useModalEditName = (hideModal: () => void) => {
     const dispatch = useAppDispatch();
 
     const [newUsername, setNewUsername] = useState(
@@ -12,15 +12,19 @@ export const useModalEditName = () => {
     const handleNicknameChange = (event: ChangeEvent<HTMLInputElement>) => {
         setNewUsername(event.target.value);
     };
-
-    const updateUsername = (event: ChangeEvent<HTMLInputElement>) => {
+    const updateUsername = (event: FormEvent) => {
         event.preventDefault();
+        hideModal();
+
         dispatch(editUsername(newUsername));
     };
 
     return {
         newUsername,
         updateUsername,
-        handleNicknameChange
+        handleNicknameChange,
+        hideModal
     };
 };
+
+export default useModalEditName;

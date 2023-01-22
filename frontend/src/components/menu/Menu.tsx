@@ -1,7 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useMenu } from "./useMenu";
-import Modals from "./ModalsWrapper";
-
 import {
     MenuWrapper,
     MenuUserName,
@@ -11,45 +9,28 @@ import {
     BurgerIcon,
     BurgerButton
 } from "./Menu.styled";
-
 import user from "assets/user.jpg";
+import Modals from "../modals/Modals";
 
 const Menu = () => {
-    const {
-        currentModal,
-        username,
-        fetchUsernameAsyncThunk,
-        hideModals,
-        toggleDropdown,
-        showAccountEditModal,
-        showAccountDeleteModal
-    } = useMenu();
-
-    useEffect(() => {
-        fetchUsernameAsyncThunk();
-    }, []);
+    const { username, showMenu, changeMenuVisible } = useMenu();
 
     return (
         <>
             <MenuWrapper>
                 <MenuUserName>{username}</MenuUserName>
-                <MenuUserImage src={user} onClick={toggleDropdown} />
+                <MenuUserImage src={user} onClick={changeMenuVisible} />
                 <>
-                    <DropdownButton onClick={toggleDropdown}>
+                    <DropdownButton onClick={changeMenuVisible}>
                         <ChevronIcon />
                     </DropdownButton>
-                    <BurgerButton onClick={toggleDropdown}>
+                    <BurgerButton onClick={changeMenuVisible}>
                         <BurgerIcon />
                     </BurgerButton>
                 </>
             </MenuWrapper>
 
-            <Modals
-                currentModal={currentModal}
-                hideModals={hideModals}
-                showAccountEditModal={showAccountEditModal}
-                showAccountDeleteModal={showAccountDeleteModal}
-            />
+            <Modals showMenu={showMenu} changeMenuVisible={changeMenuVisible} />
         </>
     );
 };
