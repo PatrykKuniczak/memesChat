@@ -6,6 +6,8 @@ const useMessageSearchBar = () => {
 
     const searchMode = searchParams.get("searchMode") || "message";
 
+    const messagesFilter = searchParams.get("messagesFilter") || "";
+
     const handleSetSearchParams = (event: ChangeEvent<HTMLInputElement>) => {
         searchParams.set("messagesFilter", event.target.value);
         setSearchParams(searchParams);
@@ -19,7 +21,12 @@ const useMessageSearchBar = () => {
         setSearchParams(searchParams);
     };
 
-    return { handleSetSearchParams, searchMode, handleSetSearchMode };
+    return {
+        handleSetSearchParams,
+        searchMode,
+        handleSetSearchMode,
+        messagesFilter
+    };
 };
 
 export default useMessageSearchBar;

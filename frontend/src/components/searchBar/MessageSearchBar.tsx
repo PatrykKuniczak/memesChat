@@ -4,15 +4,23 @@ import Search from "components/search/Search";
 import useMessageSearchBar from "./useMessageSearchBar";
 
 const MessageSearchBar: FC = () => {
-    const { handleSetSearchParams, searchMode, handleSetSearchMode } =
-        useMessageSearchBar();
+    const {
+        handleSetSearchParams,
+        searchMode,
+        handleSetSearchMode,
+        messagesFilter
+    } = useMessageSearchBar();
 
     return (
         <SearchContainer>
             <SearchTypeSwitcher onClick={handleSetSearchMode}>
                 {searchMode}
             </SearchTypeSwitcher>
-            <Search onChange={handleSetSearchParams} variant="dark" />
+            <Search
+                onChange={handleSetSearchParams}
+                value={messagesFilter}
+                variant="dark"
+            />
         </SearchContainer>
     );
 };
