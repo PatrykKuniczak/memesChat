@@ -13,6 +13,16 @@ export const useMenu = () => {
     };
 
     useEffect(() => {
+        const keyDownHandler = (event: KeyboardEvent) => {
+            if (event.key === "Escape") changeMenuVisible();
+        };
+
+        if (showMenu) document.addEventListener("keydown", keyDownHandler);
+
+        return () => document.removeEventListener("keydown", keyDownHandler);
+    }, [showMenu]);
+
+    useEffect(() => {
         dispatch(fetchUser());
     }, [dispatch]);
 
