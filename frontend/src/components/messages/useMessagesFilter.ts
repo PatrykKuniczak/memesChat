@@ -1,6 +1,7 @@
 import {
     Dispatch,
     SetStateAction,
+    useDeferredValue,
     useEffect,
     useMemo,
     useTransition
@@ -17,15 +18,16 @@ interface Props {
 const useMessagesFilter = ({ messages, handleSetFilteredMessages }: Props) => {
     const [isPending, startTransition] = useTransition();
     const [searchParams] = useSearchParams();
+    const deferredValue = useDeferredValue(searchParams);
 
     const filterMessages = useMemo(() => {
         return messages.filter(({ message, author }) => {
-            const searchValue = searchParams.get("messagesFilter");
+            const searchValue = deferredValue.get("messagesFilter");
             if (searchValue === null) {
                 return true;
             }
 
-            if (searchParams.get("searchMode") === "user") {
+            if (deferredValue.get("searchMode") === "user") {
                 return author
                     .toLowerCase()
                     .startsWith(searchValue.toLowerCase());
@@ -33,11 +35,11 @@ const useMessagesFilter = ({ messages, handleSetFilteredMessages }: Props) => {
 
             return message.toLowerCase().includes(searchValue.toLowerCase());
         });
-    }, [messages, searchParams]);
+    }, [messages, deferredValue]);
 
     useEffect(() => {
         startTransition(() => handleSetFilteredMessages(filterMessages));
-    }, [filterMessages, handleSetFilteredMessages, searchParams]);
+    }, [deferredValue, handleSetFilteredMessages, filterMessages]);
 };
 
 export default useMessagesFilter;
