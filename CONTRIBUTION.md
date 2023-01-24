@@ -19,6 +19,7 @@ GO TO FRONTEND AND BACKEND DIRECTORIES, AND DO IT FOR EACH:\
         SERVER_PORT=
         WS_PORT=
         WS_URL=YOURHOST:$WS_PORT
+        JWT_SECRET=
 
         FOR FRONTEND:
 
@@ -47,6 +48,7 @@ FOR DOCKER
         WS_URL=http://localhost:${WS_PORT}
         REACT_APP_PORT=
         REACT_APP_WS_URL=${WS_URL}
+        JWT_SECRET=
 
 RUN ```docker-compose up```
 
