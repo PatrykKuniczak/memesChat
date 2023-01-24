@@ -8,17 +8,21 @@ const useMessageSearchBar = () => {
 
     const messagesFilter = searchParams.get("messagesFilter") || "";
 
+    const updateSearchParams = (params: { [key: string]: string }) => {
+        const allParams: Record<string, string> =
+            Object.fromEntries(searchParams);
+
+        setSearchParams({ ...allParams, ...params });
+    };
+
     const handleSetSearchParams = (event: ChangeEvent<HTMLInputElement>) => {
-        searchParams.set("messagesFilter", event.target.value);
-        setSearchParams(searchParams);
+        updateSearchParams({ messagesFilter: event.target.value });
     };
 
     const handleSetSearchMode = () => {
-        searchParams.set(
-            "searchMode",
-            searchMode === "message" ? "user" : "message"
-        );
-        setSearchParams(searchParams);
+        updateSearchParams({
+            searchMode: searchMode === "message" ? "user" : "message"
+        });
     };
 
     return {
