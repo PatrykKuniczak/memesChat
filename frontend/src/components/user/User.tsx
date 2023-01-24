@@ -1,4 +1,3 @@
-import React from "react";
 import user from "assets/user.jpg";
 import { UserImage, UserName, UserContainer } from "./User.styled";
 

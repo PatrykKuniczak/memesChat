@@ -1,12 +1,12 @@
 import {
-    ButtonPrimary,
-    ButtonSecondary,
     DeleteAccountModal,
     DeleteAccountModalButtons
 } from "./AccountDeleteModal.styled";
+import { ModalSpan } from "../Modals.styled";
+import { PrimaryButton, SecondaryButton } from "../../buttons/Button.styled";
+
 import { useModalAccountDelete } from "./useModalAccountDelete";
-import React from "react";
-import { ModalSpan } from "../../menu/Menu.styled";
+
 import { IModal } from "../modals.interfaces";
 
 const AccountDeleteModal = ({ hideModal }: IModal) => {
@@ -17,12 +17,10 @@ const AccountDeleteModal = ({ hideModal }: IModal) => {
             <DeleteAccountModal>
                 <ModalSpan>Czy na pewno chcesz usunąć konto?</ModalSpan>
                 <DeleteAccountModalButtons>
-                    <ButtonSecondary onClick={deleteAccountConfirm}>
+                    <SecondaryButton onClick={deleteAccountConfirm}>
                         Tak, usuwam konto
-                    </ButtonSecondary>
-                    <ButtonPrimary onClick={hideModal}>
-                        Anuluj
-                    </ButtonPrimary>
+                    </SecondaryButton>
+                    <PrimaryButton onClick={hideModal}>Anuluj</PrimaryButton>
                 </DeleteAccountModalButtons>
             </DeleteAccountModal>
         </>

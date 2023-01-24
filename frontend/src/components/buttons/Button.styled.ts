@@ -2,15 +2,49 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 const Button = styled.button`
-    border: none;
-    border-radius: 5px;
-    padding: 1rem 2.5rem;
+    padding: 0.7rem 2rem;
+    border: 1px solid ${({ theme }) => theme.gray_500};
+    border-radius: 0.2rem;
 
     color: ${({ theme }) => theme.white};
+    background: ${({ theme }) => theme.primary};
+
+    font-size: ${({ theme }) => theme.font_sm};
+    font-weight: ${({ theme }) => theme.font_regular};
+
+    cursor: pointer;
+
+    @media (max-width: ${({ theme }) => theme.media_md}) {
+        width: 100%;
+        padding: 1rem;
+    }
 `;
 
 const PrimaryButton = styled(Button)`
-    background-color: ${({ theme }) => theme.primary};
+    background: ${({ theme }) => theme.primary};
+
+    @media (max-width: ${({ theme }) => theme.media_md}) {
+        width: 100%;
+        padding: 1rem;
+    }
+`;
+
+const SecondaryButton = styled(Button)`
+    background: ${({ theme }) => theme.gray_200};
+
+    @media (max-width: ${({ theme }) => theme.media_md}) {
+        width: 100%;
+        padding: 1rem;
+    }
+`;
+
+const TertiaryButton = styled(Button)`
+    background: ${({ theme }) => theme.gray_500};
+
+    @media (max-width: ${({ theme }) => theme.media_md}) {
+        width: 100%;
+        padding: 1rem;
+    }
 `;
 
 const NavLink = styled(Link)`
@@ -19,4 +53,4 @@ const NavLink = styled(Link)`
     text-decoration: underline;
 `;
 
-export { Button, PrimaryButton, NavLink };
+export { Button, PrimaryButton, SecondaryButton, TertiaryButton, NavLink };

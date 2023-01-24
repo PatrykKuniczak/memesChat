@@ -1,4 +1,3 @@
-import React from "react";
 import Search from "../search/Search";
 import { Label, UsersListWrapper, UsersContainer } from "./Users.styled";
 import useUsers from "./useUsers";

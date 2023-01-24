@@ -3,7 +3,7 @@ import {
     DropdownList,
     DropdownListItem
 } from "./DropdownMenu.styled";
-import React from "react";
+
 import useDropdownMenu from "./useDropdownMenu";
 
 type IDropdownMenu = { showModal: (modalName: string) => void, changeMenuVisible: () => void }

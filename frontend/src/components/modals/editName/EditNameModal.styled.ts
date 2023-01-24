@@ -28,4 +28,24 @@ const EditNameWrapper = styled.form`
     }
 `;
 
-export { EditNameWrapper };
+const TextInput = styled.input`
+    margin: 0 1rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid ${({ theme }) => theme.primary};
+    border-radius: 0.2rem;
+
+    color: ${({ theme }) => theme.white};
+    background: ${({ theme }) => theme.gray_semitransparent};
+
+    font-size: ${({ theme }) => theme.font_sm};
+    font-weight: ${({ theme }) => theme.font_regular};
+
+    cursor: pointer;
+
+    @media (max-width: ${({ theme }) => theme.media_md}) {
+        width: 100%;
+        padding: 1rem;
+    }
+`;
+
+export { EditNameWrapper, TextInput };

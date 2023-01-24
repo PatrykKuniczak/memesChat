@@ -1,5 +1,4 @@
 import GlobalStyles from "./assets/GlobalStyles.styled";
-import React from "react";
 import Auth from "./pages/auth/Auth";
 import { ThemeProvider } from "styled-components";
 import { THEME_DARK } from "./assets/styles/theme";

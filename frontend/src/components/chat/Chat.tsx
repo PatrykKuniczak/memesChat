@@ -1,4 +1,3 @@
-import React from "react";
 import { ChatHeader, ChatContainer } from "./Chat.styled";
 import MessageSearchBar from "../searchBar/MessageSearchBar";
 import MessagesContainer from "../messages/MessagesContainer";

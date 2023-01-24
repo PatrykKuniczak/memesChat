@@ -1,15 +1,14 @@
-import {
-    ModalSpan,
-    TextInput,
-    SubmitButton
-} from "../../menu/Menu.styled";
-import React from "react";
-import { EditNameWrapper } from "./EditNameModal.styled";
+import { EditNameWrapper, TextInput } from "./EditNameModal.styled";
+import { ModalSpan } from "../Modals.styled";
+import { PrimaryButton } from "../../buttons/Button.styled";
+
 import useModalEditName from "./useModalEditName";
+
 import { IModal } from "../modals.interfaces";
 
 const EditNameModal = ({ hideModal }: IModal) => {
-    const { newUsername, handleNicknameChange, updateUsername } = useModalEditName(hideModal);
+    const { newUsername, handleNicknameChange, updateUsername } =
+        useModalEditName(hideModal);
 
     return (
         <>
@@ -19,7 +18,7 @@ const EditNameModal = ({ hideModal }: IModal) => {
                     value={newUsername}
                     onChange={handleNicknameChange}
                 />
-                <SubmitButton onClick={updateUsername}>Zapisz</SubmitButton>
+                <PrimaryButton onClick={updateUsername}>Zapisz</PrimaryButton>
             </EditNameWrapper>
         </>
     );

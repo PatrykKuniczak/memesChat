@@ -1,5 +1,3 @@
-import React from "react";
-import { useMenu } from "./useMenu";
 import {
     MenuWrapper,
     MenuUserName,
@@ -9,8 +7,11 @@ import {
     BurgerIcon,
     BurgerButton
 } from "./Menu.styled";
-import user from "assets/user.jpg";
+
+import { useMenu } from "./useMenu";
+
 import Modals from "../modals/Modals";
+import user from "assets/user.jpg";
 
 const Menu = () => {
     const { username, showMenu, changeMenuVisible } = useMenu();
