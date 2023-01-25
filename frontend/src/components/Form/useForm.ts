@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]/;
 
 const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
     const formik = useFormik({
@@ -15,9 +15,10 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
                 .min(3, "Login jest za krótki")
                 .required("Login jest wymagany"),
             password: Yup.string()
+                .min(8, "Hasło jest za krótkie")
                 .matches(
                     passwordRegex,
-                    "Hasło musi zawierać minimum osiem znaków, co najmniej jedną litere, cyfre i znak specjalny"
+                    "Hasło musi zawierać co najmniej jedną litere, cyfre i znak specjalny"
                 )
                 .required("Hasło jest wymagane"),
             passwordConfirmation: isSignUp
