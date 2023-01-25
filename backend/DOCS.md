@@ -4,11 +4,10 @@ global prefix: ```\api```
 
 ```
     Interfaces: 
-    
         User:
         {@Length(10, 50)
-	    username: string;
-
+        username: string;
+    
         @Length(10, 80)
         password: string}
 
@@ -19,7 +18,7 @@ LOOK INTERFACES SECTION FOR KNOW WHAT'S TYPE OF OBJECTS EACH ENPOINT RETURN
 
 \auth:
     POST \register and \login:
-        payload:
+        payload (User):
         username: string
 
     	password: string}
@@ -28,9 +27,9 @@ LOOK INTERFACES SECTION FOR KNOW WHAT'S TYPE OF OBJECTS EACH ENPOINT RETURN
     
     And login can return 'duplicated user'
     
-    On normal habit both endpoints return JWT token.
+    On valid habit both endpoints return object {accessToken: JWT token}.
     
-FOR ALL REST ENPOINTS U MUST SEND A JWT TOKEN IN HEADERS.Authorization
+FOR ALL REST ENPOINTS JWT TOKEN MUST BE SEND IN HEADERS.Authorization
 
 \user
     GET \:id

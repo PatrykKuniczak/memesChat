@@ -1,6 +1,6 @@
 import { Length } from "class-validator";
 
-export class UserCridentialsDto {
+export class UserCredentialsDto {
 	@Length(10, 50)
 	username: string;
 
