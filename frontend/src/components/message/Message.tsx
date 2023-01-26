@@ -25,8 +25,7 @@ const Message: FC<{ message: Message }> = (props) => {
         handleSetSelected,
         handleEditMessage,
         handleDeleteMessage,
-        handleAcceptMessage,
-        handleSetCurrentMessage
+        handleAcceptMessage
     } = useMessage();
 
     return (
@@ -38,7 +37,6 @@ const Message: FC<{ message: Message }> = (props) => {
                     onClick={() => handleSetSelected(id)}
                     ref={messageInput}
                     onKeyDown={handleAcceptMessage}
-                    onInput={handleSetCurrentMessage}
                 >
                     {message}
                 </MessageContent>
