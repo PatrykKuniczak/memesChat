@@ -1,7 +1,7 @@
 import { ModalsWrapper } from "./Modals.styled";
 
 import DropdownMenu from "./dropdown/DropdownMenu";
-import EditNameModal from "./editName/EditNameModal";
+import EditAccountModal from "./editName/EditAccountModal";
 import AccountDeleteModal from "./accountDelete/AccountDeleteModal";
 
 import useModals from "./useModals";
@@ -19,7 +19,9 @@ const Modals = ({ showMenu, changeMenuVisible }: IModals) => {
                     changeMenuVisible={changeMenuVisible}
                 />
             )}
-            {currentModal === "edit" && <EditNameModal hideModal={hideModal} />}
+            {currentModal === "edit" && (
+                <EditAccountModal hideModal={hideModal} />
+            )}
             {currentModal === "delete" && (
                 <AccountDeleteModal hideModal={hideModal} />
             )}

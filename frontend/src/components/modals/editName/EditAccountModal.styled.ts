@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const EditNameWrapper = styled.form`
+const EditAccountWrapper = styled.form`
     position: absolute;
     z-index: 2;
     top: 30vh;
@@ -8,17 +8,18 @@ const EditNameWrapper = styled.form`
     transform: translate(-50%, -50%);
 
     display: flex;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 2rem;
     align-items: center;
 
-    padding: 3rem 4rem;
+    padding: 2rem 4rem;
     border: 1px solid ${({ theme }) => theme.primary};
     border-radius: 0.5rem;
 
     color: ${({ theme }) => theme.white};
     background: ${({ theme }) => theme.gray_500};
 
-    font-size: ${({ theme }) => theme.font_md};
+    font-size: ${({ theme }) => theme.font_sm};
     font-weight: ${({ theme }) => theme.font_regular};
 
     @media (max-width: ${({ theme }) => theme.media_md}) {
@@ -28,9 +29,26 @@ const EditNameWrapper = styled.form`
     }
 `;
 
+const OptionSeparator = styled.div`
+    height: 2px;
+    width: 100%;
+
+    background-color: ${({ theme }) => theme.gray_200};
+`;
+
+const OptionEditAccount = styled.div`
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+`;
+
 const TextInput = styled.input`
     margin: 0 1rem;
     padding: 0.5rem 1rem;
+    // width: 100px;
+
     border: 1px solid ${({ theme }) => theme.primary};
     border-radius: 0.2rem;
 
@@ -40,7 +58,7 @@ const TextInput = styled.input`
     font-size: ${({ theme }) => theme.font_sm};
     font-weight: ${({ theme }) => theme.font_regular};
 
-    cursor: pointer;
+    cursor: text;
 
     @media (max-width: ${({ theme }) => theme.media_md}) {
         width: 100%;
@@ -48,4 +66,19 @@ const TextInput = styled.input`
     }
 `;
 
-export { EditNameWrapper, TextInput };
+const OptionEditAvatar = styled.div`
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+`;
+
+export {
+    EditAccountWrapper,
+    OptionSeparator,
+    OptionEditAccount,
+    TextInput,
+    OptionEditAvatar
+};

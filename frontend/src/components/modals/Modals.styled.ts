@@ -5,6 +5,7 @@ const ModalsWrapper = styled(Wrapper)``;
 
 const ModalSpan = styled.span`
     white-space: nowrap;
+    width: auto;
 
     color: ${({ theme }) => theme.white};
 `;

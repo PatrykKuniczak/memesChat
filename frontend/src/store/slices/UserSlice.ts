@@ -44,11 +44,11 @@ export const userSlice = createSlice({
         builder.addCase(fetchUser.fulfilled, (state, action) => {
             state.loading = false;
             state.username = action.payload.firstName;
-            state.error = "";
+            // state.error = "";
         });
         builder.addCase(fetchUser.rejected, (state, action) => {
             state.loading = false;
-            state.error = action.error.message;
+            // state.error = action.error.message;
         });
     }
 });
