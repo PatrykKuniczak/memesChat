@@ -1,36 +1,20 @@
-import { SetStateAction, useCallback, useEffect, useState } from "react";
+import { startTransition, useEffect, useState } from "react";
 import useMessagesFilter from "components/messages/useMessagesFilter";
 import Message from "../message/Message";
 import useMessages from "components/messages/useMessages";
 
+type Messages = { id: string; message: string; author: string }[];
+
 const useMessagesContainer = () => {
-    const { messages, handleSetMessages } = useMessages();
+    const [filteredMessages, setFilteredMessages] = useState<Messages>([]);
+
+    const { messages } = useMessages();
+    const { deferredValue, applyMessagesFilter } = useMessagesFilter(messages);
 
     useEffect(() => {
+        startTransition(() => setFilteredMessages(applyMessagesFilter));
         // TODO: implement WS listener
-    }, []);
-
-    const [filteredMessages, setFilteredMessages] = useState(messages);
-
-    useEffect(() => {
-        setFilteredMessages(messages);
-    }, [messages]);
-
-    const handleSetFilteredMessages = useCallback(
-        (
-            filteredMessages: SetStateAction<
-                { id: string; message: string; author: string }[]
-            >
-        ) => {
-            setFilteredMessages(filteredMessages);
-        },
-        []
-    );
-
-    useMessagesFilter({
-        messages,
-        handleSetFilteredMessages
-    });
+    }, [applyMessagesFilter, messages, deferredValue]);
 
     const MessagesList = () => {
         return (

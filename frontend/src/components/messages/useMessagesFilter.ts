@@ -1,26 +1,13 @@
-import {
-    Dispatch,
-    SetStateAction,
-    useDeferredValue,
-    useEffect,
-    useMemo,
-    useTransition
-} from "react";
+import { useDeferredValue, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 
 type Messages = { id: string; message: string; author: string }[];
 
-interface Props {
-    messages: Messages;
-    handleSetFilteredMessages: Dispatch<SetStateAction<Messages>>;
-}
-
-const useMessagesFilter = ({ messages, handleSetFilteredMessages }: Props) => {
-    const [isPending, startTransition] = useTransition();
+const useMessagesFilter = (messages: Messages) => {
     const [searchParams] = useSearchParams();
     const deferredValue = useDeferredValue(searchParams);
 
-    const filterMessages = useMemo(() => {
+    const applyMessagesFilter = useMemo(() => {
         return messages.filter(({ message, author }) => {
             const searchValue = deferredValue.get("messagesFilter");
             if (searchValue === null) {
@@ -37,9 +24,7 @@ const useMessagesFilter = ({ messages, handleSetFilteredMessages }: Props) => {
         });
     }, [messages, deferredValue]);
 
-    useEffect(() => {
-        startTransition(() => handleSetFilteredMessages(filterMessages));
-    }, [deferredValue, handleSetFilteredMessages, filterMessages]);
+    return { deferredValue, applyMessagesFilter };
 };
 
 export default useMessagesFilter;
