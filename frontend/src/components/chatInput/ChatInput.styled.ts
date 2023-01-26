@@ -10,6 +10,10 @@ const InputWrapper = styled.header`
     border-radius: 5px;
 
     background-color: ${({ theme }) => theme.gray_400};
+
+    @media (max-width: ${({ theme }) => theme.media_sm}) {
+        margin: 0;
+    }
 `;
 
 const Form = styled.form`
@@ -22,12 +26,21 @@ const MessageInput = styled.input`
     outline: transparent;
     border: transparent;
 
+    font-size: ${({ theme }) => theme.font_md};
+
     color: ${({ theme }) => theme.gray_300};
     background-color: ${({ theme }) => theme.gray_400};
+
+
+    @media (max-width: ${({ theme }) => theme.media_sm}) {
+        padding: .5rem;
+    }
 `;
 
 const baseIconStyles = css`
-    margin: 0 0.5rem;
+    margin: 0 0 0 1rem;
+    width: 26px;
+    height: 26px;
 
     fill: ${({ theme }) => theme.gray_300};
     cursor: pointer;

@@ -40,6 +40,11 @@ const SearchInput = styled.input.attrs<InputHTMLAttributes<HTMLInputElement>>(
     color: ${({ theme }) => theme.white};
 
     font-size: ${({ theme }) => theme.font_sm};
+
+    @media (max-width: ${({ theme }) => theme.media_sm}) {
+        // background-color: pink;
+    padding: .7rem;
+      }
 `;
 
 const SearchIcon = styled(BsSearch)`

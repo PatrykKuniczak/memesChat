@@ -5,6 +5,8 @@ const SearchContainer = styled.div`
     align-items: center;
     justify-content: space-between;
     gap: 0.5rem;
+
+
 `;
 
 const SearchTypeSwitcher = styled.button`
@@ -22,6 +24,10 @@ const SearchTypeSwitcher = styled.button`
     text-transform: capitalize;
 
     cursor: pointer;
+
+    @media (max-width: ${({ theme }) => theme.media_sm}) {
+        padding: .7rem;
+    }
 `;
 
 export { SearchContainer, SearchTypeSwitcher };

@@ -14,6 +14,7 @@ const THEME_DARK = {
     black: "#050050",
 
     // font sizes
+    font_xs: ".85rem",
     font_sm: "1rem",
     font_md: "1.125rem",
     font_lg: "1.5rem",

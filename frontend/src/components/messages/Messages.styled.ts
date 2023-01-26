@@ -17,7 +17,12 @@ const MessagesWrapper = styled.div`
 
     &::-webkit-scrollbar-thumb {
         border-radius: 3px;
-        background: ${({theme}) => theme.black};
+        background: ${({ theme }) => theme.black};
+    }
+
+    @media (max-width: ${({ theme }) => theme.media_sm}) {
+        gap: 0.5rem;
+        margin: 0.5rem 0;
     }
 `;
 

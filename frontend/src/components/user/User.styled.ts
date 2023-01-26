@@ -16,6 +16,10 @@ const UserContainer = styled.div`
     @media (max-width: ${({ theme }) => theme.media_md}) {
         padding: 0.5rem;
     }
+
+    @media (max-width: ${({ theme }) => theme.media_sm}) {
+        padding: 0.2rem;
+    }
 `;
 
 const UserImage = styled.img`
@@ -29,14 +33,22 @@ const UserImage = styled.img`
         width: 40px;
         height: 40px;
     }
+
+    @media (max-width: ${({ theme }) => theme.media_sm}) {
+        width: 30px;
+        height: 30px;
+    }
 `;
 
 const UserName = styled.p`
     color: ${({ theme }) => theme.white};
 
     font-size: ${({ theme }) => theme.font_md};
-
     font-weight: ${({ theme }) => theme.font_medium};
+
+    @media (max-width: ${({ theme }) => theme.media_sm}) {
+        font-size: ${({ theme }) => theme.font_sm};
+    }
 `;
 
 export { UserContainer, UserImage, UserName };
