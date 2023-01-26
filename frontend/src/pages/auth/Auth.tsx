@@ -9,7 +9,7 @@ import {
 import { NavLink, PrimaryButton } from "components/buttons/Button.styled";
 import { useParams } from "react-router-dom";
 
-const Auth: React.FC = () => {
+const Auth = () => {
     const { eventType } = useParams();
 
     return (

@@ -11,7 +11,7 @@ import {
 } from "react-router-dom";
 import Home from "./pages/home/Home";
 
-const App: React.FC = () => {
+const App = () => {
     return (
         <>
             <GlobalStyles />
