@@ -48,7 +48,7 @@ const EditAccountModal = ({ hideModal }: IModal) => {
                         handleChange={handleChange}
                         name="file"
                         types={fileTypes}
-                        label="Kliknij aby dodać lub upuść nowy avatar. Pliki:"
+                        label="Kliknij aby dodać lub upuść nowy avatar."
                         multiple={false}
                         hoverTitle="Upuść aby dodać"
                         onTypeError={(err: (arg0: string) => void) =>
