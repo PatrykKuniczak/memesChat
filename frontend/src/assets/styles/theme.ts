@@ -1,6 +1,7 @@
 const THEME_DARK = {
     // colors
     primary: "#962EFF",
+    primary_hover: "#700BD4",
 
     white: "#D9D1EB",
 
@@ -8,6 +9,7 @@ const THEME_DARK = {
     gray_300: "#8e8793",
     gray_400: "#16131f",
     gray_500: "#161616",
+    gray_hover: "#242424",
 
     gray_semitransparent: "#16161650",
 
