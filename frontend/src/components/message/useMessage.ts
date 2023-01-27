@@ -2,7 +2,6 @@ import { KeyboardEvent, useRef, useState } from "react";
 
 const useMessage = () => {
     const [selected, setSelected] = useState("");
-    const [isEditing, setEditing] = useState(false);
     const [currentMessage, setCurrentMessage] = useState("");
     const messageInput = useRef<HTMLInputElement>(null!);
 
@@ -24,16 +23,13 @@ const useMessage = () => {
         if (messageHasChanged()) {
             sendRequest();
         }
-
-        setEditing(false);
     };
 
     const handleEditMessage = () => {
         setCurrentMessage(input.textContent || "");
 
-        if (isEditing) {
+        if (input.contentEditable === "true") {
             input.contentEditable = "false";
-            setEditing(false);
 
             if (messageHasChanged()) {
                 sendRequest();
@@ -43,7 +39,6 @@ const useMessage = () => {
 
         input.contentEditable = "true";
         input.focus();
-        setEditing(true);
     };
 
     const handleSetSelected = (id: string) => {
