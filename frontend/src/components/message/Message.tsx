@@ -10,13 +10,13 @@ import { BsPencilSquare, BsTrashFill } from "react-icons/bs";
 import useMessage from "./useMessage";
 import { FC } from "react";
 
-interface Message {
+interface IMessage {
     id: string;
     author: string;
     message: string;
 }
 
-const Message: FC<{ message: Message }> = (props) => {
+const Message: FC<{ message: IMessage }> = (props) => {
     const { id, author, message } = props.message;
 
     const {
