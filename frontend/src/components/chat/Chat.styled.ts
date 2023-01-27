@@ -18,7 +18,7 @@ const ChatContainer = styled.main`
 
     @media (max-width: ${({ theme }) => theme.media_sm}) {
         min-height: calc(100vh - 220px);
-        max-height: calc(100vh);
+        max-height: 100vh;
     }
 `;
 
@@ -31,7 +31,7 @@ const ChatHeader = styled.header`
     background: rgba(22, 22, 22, 0.3);
 
     @media (max-width: ${({ theme }) => theme.media_sm}) {
-        padding: .3rem;
+        padding: 0.3rem;
     }
 `;
 
