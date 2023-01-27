@@ -1,11 +1,8 @@
 import { ModalsWrapper } from "./Modals.styled";
-
 import DropdownMenu from "./dropdown/DropdownMenu";
 import EditAccountModal from "./editName/EditAccountModal";
 import AccountDeleteModal from "./accountDelete/AccountDeleteModal";
-
 import useModals from "./useModals";
-
 import { IModals } from "./modals.interfaces";
 
 const Modals = ({ showMenu, changeMenuVisible }: IModals) => {

@@ -23,14 +23,13 @@ const Form = styled.form`
 const MessageInput = styled.input`
     padding: 1rem;
     width: 100%;
-    outline: transparent;
-    border: transparent;
+    border: none;
+    outline: none;
 
     font-size: ${({ theme }) => theme.font_md};
 
     color: ${({ theme }) => theme.gray_300};
     background-color: ${({ theme }) => theme.gray_400};
-
 
     @media (max-width: ${({ theme }) => theme.media_sm}) {
         padding: .5rem;

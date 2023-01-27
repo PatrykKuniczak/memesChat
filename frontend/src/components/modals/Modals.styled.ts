@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import { Wrapper } from "../wrapper/Wrapper.styled";
 
-const ModalsWrapper = styled(Wrapper)``;
+const ModalsWrapper = styled.div``;
 
 const ModalSpan = styled.span`
     white-space: nowrap;

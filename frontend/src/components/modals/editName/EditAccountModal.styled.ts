@@ -29,25 +29,25 @@ const EditAccountWrapper = styled.form`
     }
 `;
 
-const OptionSeparator = styled.div`
-    height: 2px;
-    width: 100%;
-
-    background-color: ${({ theme }) => theme.gray_200};
-`;
-
 const OptionEditAccount = styled.div`
     display: flex;
     gap: 1rem;
     align-items: center;
     justify-content: space-between;
+
     width: 100%;
+    padding-bottom: 2rem;
+
+    border-bottom: 1px solid ${({ theme }) => theme.gray_200};
+
+    @media (max-width: ${({ theme }) => theme.media_md}) {
+        flex-direction: column;
+    }
 `;
 
 const TextInput = styled.input`
     margin: 0 1rem;
     padding: 0.5rem 1rem;
-    // width: 100px;
 
     border: 1px solid ${({ theme }) => theme.primary};
     border-radius: 0.2rem;
@@ -73,11 +73,14 @@ const OptionEditAvatar = styled.div`
     justify-content: space-between;
 
     width: 100%;
+
+    @media (max-width: ${({ theme }) => theme.media_md}) {
+        flex-direction: column;
+    }
 `;
 
 export {
     EditAccountWrapper,
-    OptionSeparator,
     OptionEditAccount,
     TextInput,
     OptionEditAvatar

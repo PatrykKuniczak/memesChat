@@ -1,11 +1,13 @@
 import styled from "styled-components";
-import { Wrapper } from "../wrapper/Wrapper.styled";
 import { BsChevronDown } from "react-icons/bs";
 import { FiAlignJustify } from "react-icons/fi";
 
 // avatar dropdown for desktop view
 
-const MenuWrapper = styled(Wrapper)`
+const MenuWrapper = styled.div`
+    display: flex;
+    align-items: center;
+
     padding: 0.5rem;
 `;
 

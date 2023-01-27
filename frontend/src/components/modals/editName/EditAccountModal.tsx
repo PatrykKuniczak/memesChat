@@ -1,18 +1,14 @@
 import { FileUploader } from "react-drag-drop-files";
-
 import {
     EditAccountWrapper,
-    OptionSeparator,
     OptionEditAccount,
     TextInput,
     OptionEditAvatar
 } from "./EditAccountModal.styled";
 import { ModalSpan } from "../Modals.styled";
 import { PrimaryButton } from "../../buttons/Button.styled";
-
 import useModalEditUsername from "./useModalEditUsername";
 import useModalEditAvatar from "./useModalEditAvatar";
-
 import { IModal } from "../modals.interfaces";
 
 const EditAccountModal = ({ hideModal }: IModal) => {
@@ -44,7 +40,6 @@ const EditAccountModal = ({ hideModal }: IModal) => {
                         Zapisz
                     </PrimaryButton>
                 </OptionEditAccount>
-                <OptionSeparator />
                 <OptionEditAvatar>
                     <ModalSpan>Nowy avatar:</ModalSpan>
                     <FileUploader
