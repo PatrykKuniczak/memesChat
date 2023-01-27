@@ -24,7 +24,7 @@ const MessageInput = styled.input`
     padding: 1rem;
     width: 100%;
     border: none;
-    outline: none;
+    outline: transparent;
 
     font-size: ${({ theme }) => theme.font_md};
 
