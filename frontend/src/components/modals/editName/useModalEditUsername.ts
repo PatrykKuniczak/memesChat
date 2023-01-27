@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from "store/store";
 import { useState, ChangeEvent, FormEvent } from "react";
 import { editUsername } from "store/slices/UserSlice";
 
-const useModalEditAccount = (hideModal: () => void) => {
+const useModalEditUsername = (hideModal: () => void) => {
     const dispatch = useAppDispatch();
 
     const [newUsername, setNewUsername] = useState(
@@ -27,4 +27,4 @@ const useModalEditAccount = (hideModal: () => void) => {
     };
 };
 
-export default useModalEditAccount;
+export default useModalEditUsername;
