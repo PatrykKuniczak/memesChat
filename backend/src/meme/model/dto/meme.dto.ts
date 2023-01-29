@@ -1,15 +1,20 @@
-import {SourceType} from "../meme.enums";
+import { SourceType } from "../meme.enums";
 
 export class MemeDto {
-    constructor(name: string, sourceType: SourceType, source: string, extension: string) {
-        this.name = name;
-        this.sourceType = sourceType;
-        this.source = source;
-        this.extension = extension;
-    }
+	constructor(
+		name: string,
+		sourceType: SourceType,
+		source: string,
+		extension: string
+	) {
+		this.name = name;
+		this.sourceType = sourceType;
+		this.source = source;
+		this.extension = extension;
+	}
 
-    name: string;
-    sourceType: SourceType;
-    source: string;
-    extension: string;
+	name: string;
+	sourceType: SourceType;
+	source: string;
+	extension: string;
 }
