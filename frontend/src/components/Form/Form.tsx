@@ -39,7 +39,7 @@ const Form: FC<{ isSignUp: boolean }> = ({ isSignUp }) => {
                 />
             )}
             <ButtonsContainer>
-                <PrimaryButton type="submit">
+                <PrimaryButton>
                     {isSignUp ? "Zarejestruj" : "Zaloguj"}
                 </PrimaryButton>
                 {isSignUp ? (

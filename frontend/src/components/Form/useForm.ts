@@ -21,7 +21,7 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
             password: Yup.string()
                 .min(10, "Hasło jest za krótkie")
                 .max(60, "Hasło jest za długie")
-                .matches(passwordRegex, "Hasło musi zawierać jedną małą, jedną dużą litere i znak specjalny")
+                .matches(passwordRegex, "Hasło musi zawierać jedną małą, jedną dużą litere, cyfrę i znak specjalny")
                 .required("Hasło jest wymagane"),
             passwordConfirmation: isSignUp
                 ? Yup.string()
@@ -32,9 +32,8 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
                       .required("Powtórzenie hasła jest wymagane")
                 : Yup.string()
         }),
-        onSubmit: ({ login, password }) => {
+        onSubmit: () => {
             formik.resetForm();
-            console.log(login, password);
         }
     });
     const { handleChange, touched, values, handleSubmit, errors } = formik;
