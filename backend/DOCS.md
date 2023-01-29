@@ -29,11 +29,12 @@ global prefix: ```\api```
         id: number
         
         Length could be from 5 to 30
-        Must be alphanumeric
+        Must be alphanumeric (Can't contain polish letters)
         username: string
     
         Length could be from 10 to 60
-        Must cointain 1 small, 1 big letter and 1 special sign
+        Must cointain 1 small, 1 big letter, 1 number and 1 special sign.
+        Can contain polish letters.
         Regex: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/ - Use it for validate
         password: string
 ```
