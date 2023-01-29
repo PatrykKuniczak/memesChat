@@ -20,6 +20,7 @@ GO TO FRONTEND AND BACKEND DIRECTORIES, AND DO IT FOR EACH:\
         WS_PORT=
         WS_URL=YOURHOST:$WS_PORT
         JWT_SECRET=
+        FILES_DIRECTORY=local/files/ #example 
 
         FOR FRONTEND:
 
@@ -49,6 +50,7 @@ FOR DOCKER
         REACT_APP_PORT=
         REACT_APP_WS_URL=${WS_URL}
         JWT_SECRET=
+        FILES_DIRECTORY=local/files/ #example 
 
 RUN ```docker-compose up```
 
@@ -60,5 +62,7 @@ CONFIGURE PRETTIER IN YOUR IDE:
 
 EP. FOR WEBSTORM:\
 https://blog.jetbrains.com/webstorm/2020/07/webstorm-2020-2/
+
+ADD `FILES_DIRECTORY` DIRECTORY IF YOU WANT TO SAVE LOCAL FILES
 
 ENJOY YOUR TASKS
