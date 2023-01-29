@@ -8,7 +8,7 @@ import { SourceType } from "../model/meme.enums";
 import { ConfigService } from "@nestjs/config";
 import { createReadStream } from "fs";
 import { join } from "path";
-const fs = require("fs");
+import { writeFile } from 'fs';
 @Injectable()
 export class MemeService {
 	constructor(
@@ -21,7 +21,7 @@ export class MemeService {
 		const fileSource = uuidv4() + "." + fileExtension;
 
 		const fileWritePromise = new Promise((resolve, reject) => {
-			fs.writeFile(
+			writeFile(
 				`${this.configService.get("FILES_DIRECTORY")}${fileSource}`,
 				file.buffer,
 				function (error) {
@@ -40,14 +40,7 @@ export class MemeService {
 			fileExtension
 		);
 
-		const addToDbPromise = new Promise(async (resolve, reject) => {
-			try {
-				const file = await this.memeRepository.save(memeDto);
-				resolve(file);
-			} catch (error) {
-				reject(error);
-			}
-		});
+		const addToDbPromise = this.memeRepository.save(memeDto);
 
 		return [addToDbPromise, fileWritePromise];
 	}

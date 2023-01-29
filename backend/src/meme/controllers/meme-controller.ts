@@ -1,9 +1,11 @@
 import {
+	BadRequestException,
 	Body,
 	Controller,
 	Get,
 	HttpException,
 	HttpStatus,
+	InternalServerErrorException,
 	Param,
 	ParseIntPipe,
 	Post,
@@ -19,7 +21,6 @@ import { MemeDto } from "../model/dto/meme.dto";
 class MemeController {
 	constructor(private memeService: MemeService) {}
 
-	@UseGuards(JwtAuthGuard)
 	@Get("random")
 	async getRandomMeme() {
 		const file = await this.memeService.findRandom();
@@ -36,13 +37,7 @@ class MemeController {
 	@UseInterceptors(FileInterceptor("file"))
 	async addMemeByFile(@UploadedFile() file) {
 		if (!file) {
-			throw new HttpException(
-				{
-					status: HttpStatus.BAD_REQUEST,
-					error: "No file given"
-				},
-				HttpStatus.BAD_REQUEST
-			);
+			throw new BadRequestException("No file given");
 		}
 
 		const addFilePromises = await this.memeService.addMemeByFile(file);
@@ -51,13 +46,7 @@ class MemeController {
 			const resolved = await Promise.all(addFilePromises);
 			return resolved[0];
 		} catch (error) {
-			throw new HttpException(
-				{
-					status: HttpStatus.INTERNAL_SERVER_ERROR,
-					error: error
-				},
-				HttpStatus.INTERNAL_SERVER_ERROR
-			);
+			throw new InternalServerErrorException(error);
 		}
 	}
 
@@ -65,44 +54,14 @@ class MemeController {
 	@Post("url")
 	async addMemeByURL(@Body() memeDto: MemeDto) {
 		if (!memeDto.name || !memeDto.extension || !memeDto.source) {
-			throw new HttpException(
-				{
-					status: HttpStatus.BAD_REQUEST,
-					error: "Missing name, extension or source"
-				},
-				HttpStatus.BAD_REQUEST
-			);
+			throw new BadRequestException("Missing name, extension or source");
 		}
 
 		try {
 			return this.memeService.addMemeByUrl(memeDto);
 		} catch (error) {
-			throw new HttpException(
-				{
-					status: HttpStatus.INTERNAL_SERVER_ERROR,
-					error: error
-				},
-				HttpStatus.INTERNAL_SERVER_ERROR
-			);
+			throw new InternalServerErrorException(error);
 		}
-	}
-
-	@UseGuards(JwtAuthGuard)
-	@Get(":id")
-	async getMemeById(@Param("id", ParseIntPipe) id: number) {
-		const file = await this.memeService.findOne(id);
-
-		if (!file) {
-			throw new HttpException("Not found", HttpStatus.NOT_FOUND);
-		}
-
-		return file;
-	}
-
-	@UseGuards(JwtAuthGuard)
-	@Get("local/:name")
-	async getMemeByLocalName(@Param("name") name: string) {
-		return this.memeService.getMemeByLocalName(name);
 	}
 }
 
