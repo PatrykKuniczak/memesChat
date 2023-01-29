@@ -1,7 +1,9 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]/;
+const loginRegex = /^[a-zA-Z0-9]*$/;
+const passwordRegex =
+    /^(?=.*[a-zżźćńółęąś])(?=.*[A-ZŻŹĆĄŚĘŁÓŃ])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ\d!@#$%^&*]*$/;
 
 const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
     const formik = useFormik({
@@ -12,14 +14,14 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
         },
         validationSchema: Yup.object({
             login: Yup.string()
-                .min(3, "Login jest za krótki")
+                .min(5, "Login jest za krótki")
+                .max(30, "Login jest za długi")
+                .matches(loginRegex, "Login może zawierać tylko znaki alfanumeryczne")
                 .required("Login jest wymagany"),
             password: Yup.string()
-                .min(8, "Hasło jest za krótkie")
-                .matches(
-                    passwordRegex,
-                    "Hasło musi zawierać co najmniej jedną litere, cyfre i znak specjalny"
-                )
+                .min(10, "Hasło jest za krótkie")
+                .max(60, "Hasło jest za długie")
+                .matches(passwordRegex, "Hasło musi zawierać jedną małą, jedną dużą litere i znak specjalny")
                 .required("Hasło jest wymagane"),
             passwordConfirmation: isSignUp
                 ? Yup.string()
@@ -30,9 +32,9 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
                       .required("Powtórzenie hasła jest wymagane")
                 : Yup.string()
         }),
-        onSubmit: (values) => {
+        onSubmit: ({ login, password }) => {
             formik.resetForm();
-            console.log(values);
+            console.log(login, password);
         }
     });
     const { handleChange, touched, values, handleSubmit, errors } = formik;
