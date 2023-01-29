@@ -2,12 +2,7 @@ import {
 	BadRequestException,
 	Body,
 	Controller,
-	Get,
-	HttpException,
-	HttpStatus,
 	InternalServerErrorException,
-	Param,
-	ParseIntPipe,
 	Post,
 	UploadedFile,
 	UseGuards,
@@ -20,17 +15,6 @@ import { MemeDto } from "../model/dto/meme.dto";
 @Controller("meme")
 class MemeController {
 	constructor(private memeService: MemeService) {}
-
-	@Get("random")
-	async getRandomMeme() {
-		const file = await this.memeService.findRandom();
-
-		if (!file) {
-			throw new HttpException("Not found", HttpStatus.NOT_FOUND);
-		}
-
-		return file;
-	}
 
 	@UseGuards(JwtAuthGuard)
 	@Post("file")
