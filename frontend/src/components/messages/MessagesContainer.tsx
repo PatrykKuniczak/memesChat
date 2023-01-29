@@ -1,4 +1,4 @@
-import useMessages from "./useMessagesContainer";
+import useMessages from "./hooks/useMessagesContainer";
 import { MessagesWrapper } from "./Messages.styled";
 
 const MessagesContainer = () => {

@@ -7,7 +7,7 @@ const useMessagesFilter = (messages: Messages) => {
     const [searchParams] = useSearchParams();
     const deferredValue = useDeferredValue(searchParams);
 
-    const applyMessagesFilter = useMemo(() => {
+    const messagesAfterFilter = useMemo(() => {
         return messages.filter(({ message, author }) => {
             const searchValue = deferredValue.get("messagesFilter");
             if (searchValue === null) {
@@ -24,7 +24,7 @@ const useMessagesFilter = (messages: Messages) => {
         });
     }, [messages, deferredValue]);
 
-    return { deferredValue, applyMessagesFilter };
+    return { deferredValue, messagesAfterFilter };
 };
 
 export default useMessagesFilter;

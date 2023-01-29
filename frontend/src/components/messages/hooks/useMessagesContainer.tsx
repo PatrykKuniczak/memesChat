@@ -1,7 +1,7 @@
 import { startTransition, useEffect, useState } from "react";
-import useMessagesFilter from "components/messages/useMessagesFilter";
-import Message from "../message/Message";
-import useMessages from "components/messages/useMessages";
+import useMessagesFilter from "components/messages/hooks/useMessagesFilter";
+import Message from "../../message/Message";
+import useMessages from "components/messages/hooks/useMessages";
 
 type Messages = { id: string; message: string; author: string }[];
 
@@ -9,12 +9,12 @@ const useMessagesContainer = () => {
     const [filteredMessages, setFilteredMessages] = useState<Messages>([]);
 
     const { messages } = useMessages();
-    const { deferredValue, applyMessagesFilter } = useMessagesFilter(messages);
+    const { deferredValue, messagesAfterFilter } = useMessagesFilter(messages);
 
     useEffect(() => {
-        startTransition(() => setFilteredMessages(applyMessagesFilter));
+        startTransition(() => setFilteredMessages(messagesAfterFilter));
         // TODO: implement WS listener
-    }, [applyMessagesFilter, messages, deferredValue]);
+    }, [messagesAfterFilter, messages, deferredValue]);
 
     const MessagesList = () => {
         return (

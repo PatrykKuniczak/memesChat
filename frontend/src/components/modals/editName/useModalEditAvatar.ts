@@ -24,8 +24,6 @@ const useModalEditAvatar = () => {
 
     return {
         fileTypes,
-        file,
-        setFile,
         handleChange,
         onTypeError,
         onSizeError,

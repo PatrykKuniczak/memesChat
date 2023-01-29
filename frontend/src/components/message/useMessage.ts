@@ -14,14 +14,12 @@ const useMessage = () => {
     const messageHasChanged = () => input.textContent !== currentMessage;
 
     const handleAcceptMessage = (event: KeyboardEvent<HTMLInputElement>) => {
-        if (!(event.key === "Enter" || event.key === "Escape")) {
-            return;
-        }
+        if (event.key === "Enter" || event.key === "Escape") {
 
-        input.contentEditable = "false";
+            input.contentEditable = "false";
 
-        if (messageHasChanged()) {
-            sendRequest();
+            if (messageHasChanged())
+                sendRequest();
         }
     };
 

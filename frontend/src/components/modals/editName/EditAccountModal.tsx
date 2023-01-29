@@ -17,8 +17,6 @@ const EditAccountModal = ({ hideModal }: IModal) => {
 
     const {
         fileTypes,
-        file,
-        setFile,
         handleChange,
         onTypeError,
         onSizeError,

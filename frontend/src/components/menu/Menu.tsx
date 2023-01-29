@@ -7,9 +7,7 @@ import {
     BurgerIcon,
     BurgerButton
 } from "./Menu.styled";
-
 import { useMenu } from "./useMenu";
-
 import Modals from "../modals/Modals";
 import user from "assets/user.jpg";
 
