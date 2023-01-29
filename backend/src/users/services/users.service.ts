@@ -12,14 +12,14 @@ export class UsersService {
   ) {
   }
 
-  async create(loginRegisterUserDto: UserCredentialsDto) {
+  async create(userCredentialsDto: UserCredentialsDto) {
     const user = await this.userRepository.findOneBy({
-      username: loginRegisterUserDto.username
+      username: userCredentialsDto.username
     });
 
     if (user) throw new ConflictException("Duplicated username");
 
-    return this.userRepository.save(loginRegisterUserDto);
+    return this.userRepository.save(userCredentialsDto);
   }
 
   async findOneBy(valuesObj: object) {
