@@ -26,7 +26,7 @@ export class User {
 
 	@BeforeInsert()
 	@BeforeUpdate()
-	emailAndUsernameToLowerCase?() {
+	usernameToLowerCase?() {
 		this.username = this.username.toLowerCase();
 	}
 }
