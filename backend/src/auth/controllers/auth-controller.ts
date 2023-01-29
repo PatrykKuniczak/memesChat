@@ -8,15 +8,15 @@ class AuthController {
 	constructor(private authService: AuthService) {}
 
 	@Post("register")
-	async register(@Body() loginRegisterUserDto: UserCredentialsDto) {
-		return this.authService.register(loginRegisterUserDto);
-	}
+  async register(@Body() userCredentialsDto: UserCredentialsDto) {
+    return this.authService.register(userCredentialsDto);
+  }
 
-	@UseGuards(LocalAuthGuard)
-	@Post("login")
-	async login(@Body() { username, password }: UserCredentialsDto) {
-		return this.authService.login(username, password);
-	}
+  @UseGuards(LocalAuthGuard)
+  @Post("login")
+  async login(@Body() userCredentialsDto: UserCredentialsDto) {
+    return this.authService.login(userCredentialsDto);
+  }
 }
 
 export default AuthController;
