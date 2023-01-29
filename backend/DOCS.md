@@ -35,7 +35,8 @@ global prefix: ```\api```
         Length could be from 10 to 60
         Must cointain 1 small, 1 big letter, 1 number and 1 special sign.
         Can contain polish letters.
-        Regex: /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/ - Use it for validate
+        Regex: /^(?=.*[a-zżźćńółęąś])(?=.*[A-ZŻŹĆĄŚĘŁÓŃ])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ\d!@#$%^&*]*$/
+         - Use it for validate
         password: string
 ```
 
