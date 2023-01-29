@@ -1,4 +1,4 @@
 export enum SourceType {
-    URL,
-    LOCAL_FILE,
+	URL,
+	LOCAL_FILE
 }
