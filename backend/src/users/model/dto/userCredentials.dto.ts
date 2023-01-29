@@ -7,7 +7,8 @@ export class UserCredentialsDto {
   username: string;
 
   @Length(10, 60)
-  @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, { message: "Password too weak" })
+  @Matches(/^(?=.*[a-zżźćńółęąś])(?=.*[A-ZŻŹĆĄŚĘŁÓŃ])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ\d!@#$%^&*]*$/,
+    { message: "Password is too weak, must contain 1 small, 1 big letter, 1 number and 1 special character" })
   @IsString()
   password: string;
 }
