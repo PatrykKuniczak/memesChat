@@ -15,6 +15,7 @@ import * as dotenvExpand from "dotenv-expand";
   app.setGlobalPrefix("api");
   app.useGlobalPipes(new ValidationPipe());
 
+
   await app.listen(PORT);
   logger.log(`Server running on PORT ${PORT}`);
 })();

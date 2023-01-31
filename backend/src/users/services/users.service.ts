@@ -22,6 +22,15 @@ export class UsersService {
         return this.userRepository.save(userCredentialsDto);
     }
 
+  async findOneBy(valuesObj: object) {
+    return this.userRepository
+        .createQueryBuilder("user")
+        .leftJoinAndSelect("user.userAvatar", "userAvatar")
+        .where(valuesObj)
+        .getOne().catch(() => {
+          throw new NotFoundException();
+        });
+  }
     async update(id: number, userId: number, updateUserDto: UpdateUserDto) {
         updateUserDto.username = updateUserDto.username
             .replace(/\s/g, "").toLowerCase();

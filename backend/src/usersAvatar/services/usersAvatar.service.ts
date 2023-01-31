@@ -1,21 +1,21 @@
 import { Injectable, StreamableFile } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { Meme } from "../model/meme.entity";
 import { v4 as uuidv4 } from "uuid";
-import { MemeDto } from "../model/dto/meme.dto";
-import { SourceType } from "../model/meme.enums";
+import { UsersAvatarDto } from "../model/dto/usersAvatar.dto";
 import { ConfigService } from "@nestjs/config";
 import { createReadStream } from "fs";
 import { join } from "path";
 import { writeFile } from 'fs';
+import {UserAvatar} from "../model/usersAvatar.entity";
+
 @Injectable()
-export class MemeService {
+export class UsersAvatarService {
 	constructor(
-		@InjectRepository(Meme) private memeRepository: Repository<Meme>,
+		@InjectRepository(UserAvatar) private usersAvatarRepository: Repository<UserAvatar>,
 		private configService: ConfigService
 	) {}
-	async addMemeByFile(file): Promise<[Promise<any>, Promise<any>]> {
+	async addUserAvatarFile(file): Promise<[Promise<any>, Promise<any>]> {
 		const fileName = file.originalname;
 		const fileExtension = file.originalname.split(".").pop();
 		const fileSource = uuidv4() + "." + fileExtension;
@@ -33,39 +33,20 @@ export class MemeService {
 			);
 		});
 
-		const memeDto = new MemeDto(
+		const memeDto = new UsersAvatarDto(
 			fileName,
-			SourceType.LOCAL_FILE,
 			fileSource,
 			fileExtension
 		);
 
-		const addToDbPromise = this.memeRepository.save(memeDto);
+		const addToDbPromise = this.usersAvatarRepository.save(memeDto);
 
 		return [addToDbPromise, fileWritePromise];
 	}
 
-	async addMemeByUrl(memeDto: MemeDto) {
-		memeDto.sourceType = SourceType.URL;
-
-		return this.memeRepository.save(memeDto);
-	}
-
-	async getMemeByLocalName(name: string): Promise<StreamableFile> {
-		const file = createReadStream(join(process.cwd() + "/local/files", name));
+	async getUserAvatarBySource(source: string): Promise<StreamableFile> {
+		const file = createReadStream(join(process.cwd() + "/local/files", source));
 
 		return new StreamableFile(file); // TODO: Handle error
-	}
-
-	async findOne(id: number) {
-		return this.memeRepository.findOneBy({ id });
-	}
-
-	async findRandom() {
-		return this.memeRepository
-			.createQueryBuilder("meme")
-			.orderBy("random()")
-			.limit(1)
-			.getOne();
 	}
 }

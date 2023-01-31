@@ -1,12 +1,28 @@
-import {Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, UseGuards} from "@nestjs/common";
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    Param,
+    ParseIntPipe,
+    Patch,
+    UseGuards,
+    InternalServerErrorException,
+    UploadedFile,
+    UseInterceptors
+} from "@nestjs/common";
 import {UsersService} from "users/services/users.service";
 import {JwtAuthGuard} from "auth/guards/jwt-auth.guard";
 import {UpdateUserDto} from "../model/dto/updateUser.dto";
 import {UserReq} from "../user.decorator";
+import {UsersAvatarService} from "../../usersAvatar/services/usersAvatar.service";
+import {FileInterceptor} from "@nestjs/platform-express";
 
 @Controller("users")
 class UsersController {
-    constructor(private readonly userService: UsersService) {
+    constructor(
+        private readonly userService: UsersService,
+        private readonly usersAvatarService: UsersAvatarService) {
     }
 
     @UseGuards(JwtAuthGuard)
@@ -29,11 +45,27 @@ class UsersController {
 
     @UseGuards(JwtAuthGuard)
     @Patch(":id")
+    @UseInterceptors(FileInterceptor('userAvatar'))
     async update(
         @Param("id", ParseIntPipe) id: number,
         @UserReq("id") userId: number,
-        @Body() updateUserDto: UpdateUserDto
+        @Body() updateUserDto: UpdateUserDto,
+        @UploadedFile() file,
     ) {
+        if (file) {
+            const addFilePromises = await this.usersAvatarService.addUserAvatarFile(file);
+
+            try {
+                const result = await Promise.all(addFilePromises);
+                const userAvatar = result[0];
+                if (userAvatar) {
+                    user.userAvatar = userAvatar;
+                }
+            } catch (error) {
+                throw new InternalServerErrorException(error);
+            }
+        }
+
         return this.userService.update(id, userId, updateUserDto);
     }
 }
