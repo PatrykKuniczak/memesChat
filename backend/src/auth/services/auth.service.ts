@@ -22,7 +22,7 @@ export class AuthService {
 
   async validateUser(userCredentialsDto: UserCredentialsDto) {
     const user = await this.userService.passwordSelect({
-      username: userCredentialsDto
+      username: userCredentialsDto.username
     });
 
     if (user) {

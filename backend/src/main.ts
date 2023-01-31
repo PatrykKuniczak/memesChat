@@ -16,6 +16,7 @@ import { GlobalValidatePipe } from "./pipes/GlobalValidate.pipe";
   app.setGlobalPrefix("api");
   app.useGlobalPipes(new GlobalValidatePipe());
 
+
   await app.listen(PORT);
   logger.log(`Server running on PORT ${PORT}`);
 })();

@@ -23,9 +23,13 @@ export class UsersService {
   }
 
   async findOneBy(valuesObj: object) {
-    return this.userRepository.findOneByOrFail(valuesObj).catch(() => {
-      throw new NotFoundException();
-    });
+    return this.userRepository
+        .createQueryBuilder("user")
+        .leftJoinAndSelect("user.userAvatar", "userAvatar")
+        .where(valuesObj)
+        .getOne().catch(() => {
+          throw new NotFoundException();
+        });
   }
 
   async passwordSelect(valuesObj: object) {
