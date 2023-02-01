@@ -3,7 +3,7 @@ import styled from "styled-components";
 const EditAccountWrapper = styled.form`
     position: absolute;
     z-index: 2;
-    top: 30vh;
+    top: 50vh;
     left: 50vw;
     transform: translate(-50%, -50%);
 
@@ -38,7 +38,7 @@ const OptionEditAccount = styled.div`
     width: 100%;
     padding-bottom: 2rem;
 
-    border-bottom: 1px solid ${({ theme }) => theme.gray_200};
+    border-bottom: 1px solid ${({ theme }) => theme.primary};
 
     @media (max-width: ${({ theme }) => theme.media_md}) {
         flex-direction: column;
@@ -46,7 +46,6 @@ const OptionEditAccount = styled.div`
 `;
 
 const TextInput = styled.input`
-    margin: 0 1rem;
     padding: 0.5rem 1rem;
 
     border: 1px solid ${({ theme }) => theme.primary};
@@ -71,17 +70,31 @@ const OptionEditAvatar = styled.div`
     gap: 1rem;
     align-items: center;
     justify-content: space-between;
+    padding-bottom: 2rem;
 
     width: 100%;
+
+    border-bottom: 1px solid ${({ theme }) => theme.primary};
 
     @media (max-width: ${({ theme }) => theme.media_md}) {
         flex-direction: column;
     }
 `;
 
+const Checkbox = styled.input.attrs({ type: "checkbox" })`
+    margin: 0.5rem;
+
+    border: 0;
+    outline: transparent;
+
+    height: 20px;
+    width: 20px;
+`;
+
 export {
     EditAccountWrapper,
     OptionEditAccount,
     TextInput,
-    OptionEditAvatar
+    OptionEditAvatar,
+    Checkbox
 };

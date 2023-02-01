@@ -3,7 +3,7 @@ import styled from "styled-components";
 const DeleteAccountModal = styled.div`
     position: absolute;
     z-index: 2;
-    top: 30vh;
+    top: 50vh;
     left: 50vw;
     transform: translate(-50%, -50%);
 

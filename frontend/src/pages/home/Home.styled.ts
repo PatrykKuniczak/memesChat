@@ -39,6 +39,10 @@ const Header = styled.header`
     display: flex;
     align-items: center;
     gap: 1rem;
+
+    @media (max-width: ${({ theme }) => theme.media_sm}) {
+        padding: 0.3rem;
+    }
 `;
 
 const Heading = styled.h1`

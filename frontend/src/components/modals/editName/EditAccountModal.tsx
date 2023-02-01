@@ -3,13 +3,16 @@ import {
     EditAccountWrapper,
     OptionEditAccount,
     TextInput,
-    OptionEditAvatar
+    OptionEditAvatar,
+    Checkbox
 } from "./EditAccountModal.styled";
 import { ModalSpan } from "../Modals.styled";
 import { PrimaryButton } from "../../buttons/Button.styled";
 import useModalEditUsername from "./useModalEditUsername";
 import useModalEditAvatar from "./useModalEditAvatar";
 import { IModal } from "../modals.interfaces";
+import { useRef } from "react";
+import { useOnClickOutside } from "usehooks-ts";
 
 const EditAccountModal = ({ hideModal }: IModal) => {
     const { newUsername, handleNicknameChange, updateUsername } =
@@ -22,21 +25,24 @@ const EditAccountModal = ({ hideModal }: IModal) => {
         onSizeError,
         onDrop,
         onSelect,
-        onDraggingStateChange
+        onDraggingStateChange,
+        checkboxState,
+        toggleRemoveAvatar,
+        submitChanges
     } = useModalEditAvatar();
+
+    const ref = useRef(null);
+    useOnClickOutside(ref, hideModal);
 
     return (
         <>
-            <EditAccountWrapper>
+            <EditAccountWrapper ref={ref}>
                 <OptionEditAccount>
                     <ModalSpan>Twój nowy nick:</ModalSpan>
                     <TextInput
                         value={newUsername}
                         onChange={handleNicknameChange}
                     />
-                    <PrimaryButton onClick={updateUsername}>
-                        Zapisz
-                    </PrimaryButton>
                 </OptionEditAccount>
                 <OptionEditAvatar>
                     <ModalSpan>Nowy avatar:</ModalSpan>
@@ -55,8 +61,18 @@ const EditAccountModal = ({ hideModal }: IModal) => {
                         onDraggingStateChange={onDraggingStateChange}
                         dropMessageStyle={{ backgroundColor: "fuchsia" }}
                     />
-                    <PrimaryButton onClick={handleChange}>Dodaj</PrimaryButton>
                 </OptionEditAvatar>
+                <OptionEditAvatar>
+                    <ModalSpan>Usuń avatar:</ModalSpan>
+                    <Checkbox
+                        checked={checkboxState}
+                        onChange={toggleRemoveAvatar}
+                    />
+                </OptionEditAvatar>
+
+                <PrimaryButton onClick={updateUsername}>
+                    Zapisz zmiany
+                </PrimaryButton>
             </EditAccountWrapper>
         </>
     );

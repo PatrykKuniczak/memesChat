@@ -6,7 +6,12 @@ import {
     MessageSettings
 } from "./Message.styled";
 import user from "assets/user.jpg";
-import { BsPencilSquare, BsTrashFill } from "react-icons/bs";
+import {
+    BsPencilSquare,
+    BsTrashFill,
+    BsXSquare,
+    BsCheckLg
+} from "react-icons/bs";
 import useMessage from "./useMessage";
 import { FC } from "react";
 
@@ -20,8 +25,12 @@ const Message: FC<{ message: IMessage }> = (props) => {
     const { id, author, message } = props.message;
 
     const {
-        messageInput,
         selected,
+        isBeingEdited,
+        messageInput,
+        outsideRef,
+        messageHasChanged,
+        handleHideEdit,
         handleSetSelected,
         handleEditMessage,
         handleDeleteMessage,
@@ -41,10 +50,19 @@ const Message: FC<{ message: IMessage }> = (props) => {
                     {message}
                 </MessageContent>
             </div>
-            {selected === id && (
-                <MessageSettings>
-                    <BsPencilSquare onClick={handleEditMessage} />
+            {selected === id && isBeingEdited === true && (
+                <MessageSettings
+                    ref={outsideRef}
+                >
+                    <>
+                        {messageHasChanged() ? (
+                            <BsPencilSquare onClick={handleEditMessage} />
+                        ) : (
+                            <BsCheckLg onClick={handleEditMessage} />
+                        )}
+                    </>
                     <BsTrashFill onClick={handleDeleteMessage} />
+                    <BsXSquare onClick={handleHideEdit} />
                 </MessageSettings>
             )}
         </MessageContainer>

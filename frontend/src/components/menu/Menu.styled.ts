@@ -59,13 +59,17 @@ const ChevronIcon = styled(BsChevronDown)`
 
 const BurgerIcon = styled(FiAlignJustify)`
     position: fixed;
-    top: 0px;
+    top: .5rem;
     right: 20px;
 
     width: 50px;
     height: 50px;
 
     color: ${({ theme }) => theme.white};
+
+    @media (max-width: ${({ theme }) => theme.media_sm}) {
+        top: 0;
+    }
 `;
 
 const BurgerButton = styled.button`
