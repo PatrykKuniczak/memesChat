@@ -2,7 +2,6 @@ import { KeyboardEvent, useEffect, useRef, useState } from "react";
 
 const useMessage = () => {
     const [selected, setSelected] = useState("");
-    const [isBeingEdited, setBeingEdited] = useState(false);
     const [currentMessage, setCurrentMessage] = useState("");
     const messageInput = useRef<HTMLInputElement>(null!);
     const outsideRef = useRef<HTMLInputElement>(null!);
@@ -41,22 +40,17 @@ const useMessage = () => {
 
     const handleSetSelected = (id: string) => {
         setSelected(id);
-        setBeingEdited(true);
     };
 
     const handleDeleteMessage = () => {
         // TODO: send request through WS
     };
 
-    const handleHideEdit = () => {
-        setBeingEdited((prevState) => !prevState);
-    };
-
     useEffect(() => {
         const outsideRefHandler = (event: any) => {
             outsideRef.current !== null &&
                 !outsideRef.current.contains(event.target) &&
-                setBeingEdited(false);
+                setSelected("");
         };
         document.addEventListener("mousedown", outsideRefHandler);
 
@@ -67,11 +61,9 @@ const useMessage = () => {
 
     return {
         selected,
-        isBeingEdited,
         messageInput,
         outsideRef,
         messageHasChanged,
-        handleHideEdit,
         handleSetSelected,
         handleEditMessage,
         handleDeleteMessage,

@@ -26,11 +26,9 @@ const Message: FC<{ message: IMessage }> = (props) => {
 
     const {
         selected,
-        isBeingEdited,
         messageInput,
         outsideRef,
         messageHasChanged,
-        handleHideEdit,
         handleSetSelected,
         handleEditMessage,
         handleDeleteMessage,
@@ -50,10 +48,8 @@ const Message: FC<{ message: IMessage }> = (props) => {
                     {message}
                 </MessageContent>
             </div>
-            {selected === id && isBeingEdited === true && (
-                <MessageSettings
-                    ref={outsideRef}
-                >
+            {selected === id && (
+                <MessageSettings ref={outsideRef}>
                     <>
                         {messageHasChanged() ? (
                             <BsPencilSquare onClick={handleEditMessage} />
@@ -62,7 +58,7 @@ const Message: FC<{ message: IMessage }> = (props) => {
                         )}
                     </>
                     <BsTrashFill onClick={handleDeleteMessage} />
-                    <BsXSquare onClick={handleHideEdit} />
+                    <BsXSquare onClick={() => handleSetSelected("")} />
                 </MessageSettings>
             )}
         </MessageContainer>
