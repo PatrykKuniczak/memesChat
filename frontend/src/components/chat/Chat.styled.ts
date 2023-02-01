@@ -17,7 +17,7 @@ const ChatContainer = styled.main`
     }
 
     @media (max-width: ${({ theme }) => theme.media_sm}) {
-        min-height: calc(100vh - 220px);
+        min-height: calc(100vh - 250px);
         max-height: 100vh;
     }
 `;

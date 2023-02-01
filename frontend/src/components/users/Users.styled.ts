@@ -6,6 +6,10 @@ const UsersContainer = styled.section`
     @media (max-width: ${({ theme }) => theme.media_sm}) {
         margin-top: 0.5rem;
     }
+
+    @media (max-height: 600px) {
+        display: none;
+    }
 `;
 
 const UsersListWrapper = styled.div`
