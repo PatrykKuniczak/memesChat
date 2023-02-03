@@ -5,9 +5,10 @@ import { LocalAuthGuard } from "../guards/local-auth.guard";
 
 @Controller("auth")
 class AuthController {
-	constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {
+  }
 
-	@Post("register")
+  @Post("register")
   async register(@Body() userCredentialsDto: UserCredentialsDto) {
     return this.authService.register(userCredentialsDto);
   }

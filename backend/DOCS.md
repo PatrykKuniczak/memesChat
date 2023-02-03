@@ -32,7 +32,7 @@ Length could be from 10 to 60
 (Must cointain 1 small and 1 big letter, 1 number and 1 special sign)
 Can contain polish letters.
 
-Regex: /^(?=.*[a-zżźćńółęąś])(?=.*[A-ZŻŹĆĄŚĘŁÓŃ])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ\d!@#$%^&*]*$/
+Regex: /^(?=.*[a-zżźćńółęąś])(?=.*[A-ZŻŹĆĄŚĘŁÓŃ])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ\d!@#$%^&* ]*$/
 password: string
 
 avatar: Avatar
@@ -72,14 +72,17 @@ source: string
 
 ## API Endpoints:
 
+##### IF TOKEN IS INVALID API RETURN Unauthorized(401).
+
 ```
 \auth:
-    POST \register and \login:
+    POST \register:
     payload: {username, password} Part of User
+        Return {accessToken: JWT token} or Conflict (409) with message 'duplicated user'.
         
-        Register can return Conflict (409) with message 'duplicated user'.
-        
-        On valid habit both endpoints return object {accessToken: JWT token}.
+    POST \login:
+    payload: {username, password} Part of User
+        Return {accessToken: JWT token} or NotFound(404). 
         
 ```
 

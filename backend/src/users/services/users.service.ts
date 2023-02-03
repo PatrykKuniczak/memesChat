@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, NotFoundException } from "@nestjs/common";
+import { ConflictException, ForbiddenException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { User } from "users/model/users.entity";
@@ -22,34 +22,57 @@ export class UsersService {
     return this.userRepository.save(userCredentialsDto);
   }
 
-  async findOneBy(valuesObj: object) {
-    return this.userRepository.findOneByOrFail(valuesObj).catch(() => {
-      throw new NotFoundException();
-    });
+  async update(userId: number, paramId: number, updateUserDto: UpdateUserDto) {
+    updateUserDto.username = updateUserDto.username
+      .replace(/\s/g, "").toLowerCase();
+
+    if (userId !== paramId) throw new ForbiddenException();
+
+    const { username } = await this.findOneById(paramId, userId);
+
+    if (username !== updateUserDto.username) {
+      const { affected } = await this.userRepository.update(paramId, updateUserDto).catch(() => {
+        throw new ConflictException("Duplicated username");
+      });
+
+      return Boolean(affected);
+    }
   }
 
-  async passwordSelect(valuesObj: object) {
-    return this.userRepository.findOne({
-      where: valuesObj,
-      select: ["password"]
-    });
+  async delete(userId: number, paramId: number) {
+    if (userId !== paramId) throw new ForbiddenException();
+
+    const result = Boolean((await this.userRepository.delete(paramId)).affected);
+
+    if (!result) throw new NotFoundException();
+
+    return result;
   }
 
   async findAll() {
     return this.userRepository.find();
   }
 
-  async delete(id: number) {
-    return Boolean((await this.userRepository.delete(id)).affected);
+  async findOneByUsername(username: string) {
+    return this.userRepository.findOneByOrFail({ username }).catch(() => {
+      throw new NotFoundException();
+    });
   }
 
-  async update(id: number, user: UpdateUserDto) {
-    const { username } = await this.findOneBy({ id });
+  async findOneById(paramId: number, userId: number) {
+    if (paramId !== userId) throw new ForbiddenException();
 
-    if (username !== user.username) {
-      const { affected } = await this.userRepository.update(id, user);
+    return this.userRepository.findOneByOrFail({ id: paramId }).catch(() => {
+      throw new NotFoundException();
+    });
+  }
 
-      return Boolean(affected);
-    }
+  async passwordSelect(username: string) {
+    return this.userRepository.findOneOrFail({
+      where: { username },
+      select: ["password"]
+    }).catch(() => {
+      throw new NotFoundException();
+    });
   }
 }
