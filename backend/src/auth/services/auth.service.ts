@@ -1,45 +1,42 @@
-import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import * as bcrypt from "bcrypt";
 import { UsersService } from "users/services/users.service";
 import { UserCredentialsDto } from "users/model/dto/userCredentials.dto";
 import { User } from "users/model/users.entity";
-import { JwtPayload } from "jsonwebtoken";
 
 @Injectable()
 export class AuthService {
   constructor(
-      private readonly userService: UsersService,
-      private readonly jwtService: JwtService
+    private readonly userService: UsersService,
+    private readonly jwtService: JwtService
   ) {
   }
 
   async login({ username }: UserCredentialsDto) {
-    const { id } = await this.userService.findOneBy({ username });
+    username = username.replace(/\s/g, "").toLowerCase();
+
+    const { id } = await this.userService.findOneByUsername(username);
 
     return { accessToken: await this.generateJwt({ id, username }) };
   }
 
   async validateUser(userCredentialsDto: UserCredentialsDto) {
-    const user = await this.userService.passwordSelect({
-      username: userCredentialsDto
-    });
+    const { password } = await this.userService.passwordSelect(userCredentialsDto.username);
 
-    if (user) {
-      const isPasswordValid = await this.comparePasswords(
-          userCredentialsDto.password,
-          user.password
-      );
+    const isPasswordValid = await this.comparePasswords(
+      userCredentialsDto.password,
+      password
+    );
 
-      if (isPasswordValid) {
-        return this.userService.findOneBy({
-          username: userCredentialsDto.username
-        });
-      }
-    }
+    if (isPasswordValid)
+      return userCredentialsDto;
   }
 
   async register(loginRegisterUserDto: UserCredentialsDto) {
+    loginRegisterUserDto.username = loginRegisterUserDto.username
+      .replace(/\s/g, "").toLowerCase();
+
     const hashedPassword = await bcrypt.hash(loginRegisterUserDto.password, 15);
 
     const user = await this.userService.create({
@@ -50,16 +47,6 @@ export class AuthService {
     const { password, ...rest } = user;
 
     return { accessToken: await this.generateJwt(rest) };
-  }
-
-  async verifyJwt(jwtToken: string, paramsId: number): Promise<JwtPayload> {
-    const { id } = await this.jwtService
-        .verifyAsync(jwtToken)
-        .catch(() => {
-          throw new UnauthorizedException();
-        });
-    if (paramsId !== id) throw new UnauthorizedException();
-    return id;
   }
 
   private async generateJwt(user: User) {
