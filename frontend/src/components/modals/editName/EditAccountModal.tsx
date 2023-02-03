@@ -3,22 +3,22 @@ import {
     EditAccountWrapper,
     OptionEditAccount,
     TextInput,
-    OptionEditAvatar,
-    Checkbox
+    OptionEditAvatar
 } from "./EditAccountModal.styled";
-import { ModalSpan } from "../Modals.styled";
 import { PrimaryButton } from "../../buttons/Button.styled";
 import useModalEditUsername from "./useModalEditUsername";
 import useModalEditAvatar from "./useModalEditAvatar";
 import { IModal } from "../modals.interfaces";
 import { useRef } from "react";
 import { useOnClickOutside } from "usehooks-ts";
+import { ModalSpan } from "../GenericModalComponents.styled";
 
 const EditAccountModal = ({ hideModal }: IModal) => {
     const { newUsername, handleNicknameChange, updateUsername } =
         useModalEditUsername(hideModal);
 
     const {
+        file,
         fileTypes,
         handleChange,
         onTypeError,
@@ -26,55 +26,46 @@ const EditAccountModal = ({ hideModal }: IModal) => {
         onDrop,
         onSelect,
         onDraggingStateChange,
-        checkboxState,
-        toggleRemoveAvatar,
         submitChanges
     } = useModalEditAvatar();
 
     const ref = useRef(null);
+
     useOnClickOutside(ref, hideModal);
 
     return (
-        <>
-            <EditAccountWrapper ref={ref}>
-                <OptionEditAccount>
-                    <ModalSpan>Twój nowy nick:</ModalSpan>
-                    <TextInput
-                        value={newUsername}
-                        onChange={handleNicknameChange}
-                    />
-                </OptionEditAccount>
-                <OptionEditAvatar>
-                    <ModalSpan>Nowy avatar:</ModalSpan>
-                    <FileUploader
-                        handleChange={handleChange}
-                        name="file"
-                        types={fileTypes}
-                        label="Kliknij aby dodać lub upuść nowy avatar."
-                        multiple={false}
-                        hoverTitle="Upuść aby dodać"
-                        onTypeError={onTypeError}
-                        maxSize={1}
-                        onSizeError={onSizeError}
-                        onDrop={onDrop}
-                        onSelect={onSelect}
-                        onDraggingStateChange={onDraggingStateChange}
-                        dropMessageStyle={{ backgroundColor: "fuchsia" }}
-                    />
-                </OptionEditAvatar>
-                <OptionEditAvatar>
-                    <ModalSpan>Usuń avatar:</ModalSpan>
-                    <Checkbox
-                        checked={checkboxState}
-                        onChange={toggleRemoveAvatar}
-                    />
-                </OptionEditAvatar>
+        <EditAccountWrapper ref={ref}>
+            <OptionEditAccount>
+                <ModalSpan>Twój nowy nick:</ModalSpan>
+                <TextInput
+                    value={newUsername}
+                    onChange={handleNicknameChange}
+                />
+            </OptionEditAccount>
 
-                <PrimaryButton onClick={updateUsername}>
-                    Zapisz zmiany
-                </PrimaryButton>
-            </EditAccountWrapper>
-        </>
+            <OptionEditAvatar>
+                <ModalSpan>Nowy avatar:</ModalSpan>
+                <FileUploader
+                    handleChange={handleChange}
+                    name="file"
+                    types={fileTypes}
+                    label="Kliknij aby dodać lub upuść nowy avatar."
+                    multiple={false}
+                    hoverTitle="Upuść aby dodać"
+                    onTypeError={onTypeError}
+                    maxSize={1}
+                    onSizeError={onSizeError}
+                    onDrop={onDrop}
+                    onSelect={onSelect}
+                    onDraggingStateChange={onDraggingStateChange}
+                    dropMessageStyle={{ backgroundColor: "fuchsia" }}
+                />
+            </OptionEditAvatar>
+
+            <PrimaryButton onClick={updateUsername}>
+                Zapisz zmiany
+            </PrimaryButton>
+        </EditAccountWrapper>
     );
 };
 

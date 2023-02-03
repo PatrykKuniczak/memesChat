@@ -9,6 +9,7 @@ import {
 } from "./ChatInput.styled";
 import useChatInput from "./useChatInput";
 
+
 const ChatInput = () => {
     const { currentInputValue, handleSetCurrentInputValue, handleSubmit } =
         useChatInput();

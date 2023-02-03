@@ -1,9 +1,10 @@
-import { ModalsWrapper } from "./Modals.styled";
 import DropdownMenu from "./dropdown/DropdownMenu";
 import EditAccountModal from "./editName/EditAccountModal";
-import AccountDeleteModal from "./accountDelete/AccountDeleteModal";
+import DeleteAccountModal from "./accountDelete/DeleteAccountModal";
 import useModals from "./useModals";
 import { IModals } from "./modals.interfaces";
+import { ModalsWrapper } from "./Modals.styled";
+import DeleteAvatarModal from "./removeAvatar/DeleteAvatarModal";
 
 const Modals = ({ showMenu, changeMenuVisible }: IModals) => {
     const { currentModal, hideModal, showModal } = useModals(changeMenuVisible);
@@ -16,11 +17,17 @@ const Modals = ({ showMenu, changeMenuVisible }: IModals) => {
                     changeMenuVisible={changeMenuVisible}
                 />
             )}
+
             {currentModal === "edit" && (
                 <EditAccountModal hideModal={hideModal} />
             )}
-            {currentModal === "delete" && (
-                <AccountDeleteModal hideModal={hideModal} />
+
+            {currentModal === "deleteAccount" && (
+                <DeleteAccountModal hideModal={hideModal} />
+            )}
+
+            {currentModal === "deleteAvatar" && (
+                <DeleteAvatarModal hideModal={hideModal} />
             )}
         </ModalsWrapper>
     );

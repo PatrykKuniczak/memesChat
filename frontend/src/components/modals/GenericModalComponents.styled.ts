@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const DeleteAccountModal = styled.div`
+const ModalWrapper = styled.form`
     position: absolute;
     z-index: 2;
     top: 50vh;
@@ -11,13 +11,15 @@ const DeleteAccountModal = styled.div`
     flex-direction: column;
     align-items: center;
 
-    padding: 2rem 3rem;
+    padding: 2rem 4rem;
     border: 1px solid ${({ theme }) => theme.primary};
     border-radius: 0.5rem;
 
-    font-weight: ${({ theme }) => theme.font_regular};
-
+    color: ${({ theme }) => theme.white};
     background: ${({ theme }) => theme.gray_500};
+
+    font-size: ${({ theme }) => theme.font_sm};
+    font-weight: ${({ theme }) => theme.font_regular};
 
     @media (max-width: ${({ theme }) => theme.media_md}) {
         width: 90vw;
@@ -25,7 +27,14 @@ const DeleteAccountModal = styled.div`
     }
 `;
 
-const DeleteAccountModalButtons = styled.div`
+const ModalSpan = styled.span`
+    white-space: nowrap;
+    width: auto;
+
+    color: ${({ theme }) => theme.white};
+`;
+
+const ButtonsWrapper = styled.div`
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -42,4 +51,4 @@ const DeleteAccountModalButtons = styled.div`
     }
 `;
 
-export { DeleteAccountModal, DeleteAccountModalButtons };
+export { ModalWrapper, ModalSpan, ButtonsWrapper };

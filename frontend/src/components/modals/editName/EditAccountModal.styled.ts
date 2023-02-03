@@ -1,26 +1,8 @@
 import styled from "styled-components";
+import { ModalWrapper } from "../GenericModalComponents.styled";
 
-const EditAccountWrapper = styled.form`
-    position: absolute;
-    z-index: 2;
-    top: 50vh;
-    left: 50vw;
-    transform: translate(-50%, -50%);
-
-    display: flex;
-    flex-direction: column;
+const EditAccountWrapper = styled(ModalWrapper)`
     gap: 2rem;
-    align-items: center;
-
-    padding: 2rem 4rem;
-    border: 1px solid ${({ theme }) => theme.primary};
-    border-radius: 0.5rem;
-
-    color: ${({ theme }) => theme.white};
-    background: ${({ theme }) => theme.gray_500};
-
-    font-size: ${({ theme }) => theme.font_sm};
-    font-weight: ${({ theme }) => theme.font_regular};
 
     @media (max-width: ${({ theme }) => theme.media_md}) {
         flex-direction: column;
@@ -81,20 +63,4 @@ const OptionEditAvatar = styled.div`
     }
 `;
 
-const Checkbox = styled.input.attrs({ type: "checkbox" })`
-    margin: 0.5rem;
-
-    border: 0;
-    outline: transparent;
-
-    height: 20px;
-    width: 20px;
-`;
-
-export {
-    EditAccountWrapper,
-    OptionEditAccount,
-    TextInput,
-    OptionEditAvatar,
-    Checkbox
-};
+export { EditAccountWrapper, OptionEditAccount, TextInput, OptionEditAvatar };

@@ -3,7 +3,7 @@ import { useState } from "react";
 const useModalEditAvatar = () => {
     const fileTypes = ["JPG", "PNG"];
     const [file, setFile] = useState(null);
-    const [checkboxState, setCheckboxState] = useState(false);
+
     const handleChange = (file: File | any) => {
         setFile(file);
         // TODO: send image file to backend
@@ -23,18 +23,15 @@ const useModalEditAvatar = () => {
 
     const onDraggingStateChange = (dragging: boolean) => console.log(dragging);
 
-    const toggleRemoveAvatar = () => {
-        setCheckboxState(prevState => !prevState)
-    }
-
     const submitChanges = () => {
         // TODO: submit changes to backend:
         // handle name change
         // handle new avatar submitted
         // handle checkboxState === true
-    }
+    };
 
     return {
+        file,
         fileTypes,
         handleChange,
         onTypeError,
@@ -42,8 +39,6 @@ const useModalEditAvatar = () => {
         onDrop,
         onSelect,
         onDraggingStateChange,
-        checkboxState,
-        toggleRemoveAvatar,
         submitChanges
     };
 };
