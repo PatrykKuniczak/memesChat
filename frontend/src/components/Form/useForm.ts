@@ -3,7 +3,7 @@ import * as Yup from "yup";
 
 const loginRegex = /^[a-zA-Z0-9]*$/;
 const passwordRegex =
-    /^(?=.*[a-zżźćńółęąś])(?=.*[A-ZŻŹĆĄŚĘŁÓŃ])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ\d!@#$%^&*]*$/;
+    /^(?=.*[a-zżźćńółęąś])(?=.*[A-ZŻŹĆĄŚĘŁÓŃ])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ\d!@#$%^&* ]*$/;
 
 const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
     const formik = useFormik({
