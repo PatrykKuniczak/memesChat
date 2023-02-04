@@ -1,12 +1,12 @@
 import { startTransition, useEffect, useState } from "react";
 import useMessagesFilter from "components/messages/hooks/useMessagesFilter";
-import Message from "../../message/Message";
+import Message, { IMessage } from "../../message/Message";
 import useMessages from "components/messages/hooks/useMessages";
 
-type Messages = { id: string; message: string; author: string }[];
+export type TMessages = IMessage[];
 
 const useMessagesContainer = () => {
-    const [filteredMessages, setFilteredMessages] = useState<Messages>([]);
+    const [filteredMessages, setFilteredMessages] = useState<TMessages>([]);
 
     const { messages } = useMessages();
     const { deferredValue, messagesAfterFilter } = useMessagesFilter(messages);

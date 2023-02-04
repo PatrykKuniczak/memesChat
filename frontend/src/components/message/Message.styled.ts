@@ -6,20 +6,20 @@ const MessageContainer = styled.div`
     gap: 1rem;
 
     @media (max-width: ${({ theme }) => theme.media_sm}) {
-        gap: .5rem;
+        gap: 0.5rem;
     }
 `;
 
 const MessageContent = styled.p`
-    flex: 1;
+  flex: 1;
 
-    border-radius: 5px;
-    padding: 0.5rem;
+  border-radius: 5px;
+  padding: 0.5rem;
 
-    background-color: ${({ theme }) => theme.gray_400};
-    color: ${({ theme }) => theme.gray_300};
+  background-color: ${({ theme }) => theme.gray_400};
+  color: ${({ theme }) => theme.gray_300};
 
-    cursor: pointer;
+  cursor: pointer;
 `;
 
 const MessageAuthorImage = styled.img`

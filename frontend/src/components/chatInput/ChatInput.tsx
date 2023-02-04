@@ -2,13 +2,10 @@ import {
     Form,
     InputWrapper,
     MemeButton,
-    MemeGenerateButton,
     MemeGenerateIcon,
-    MemeIcon,
     MessageInput
 } from "./ChatInput.styled";
 import useChatInput from "./useChatInput";
-
 
 const ChatInput = () => {
     const { currentInputValue, handleSetCurrentInputValue, handleSubmit } =
@@ -24,11 +21,8 @@ const ChatInput = () => {
                 />
             </Form>
             <MemeButton>
-                <MemeIcon />
-            </MemeButton>
-            <MemeGenerateButton>
                 <MemeGenerateIcon />
-            </MemeGenerateButton>
+            </MemeButton>
         </InputWrapper>
     );
 };

@@ -1,74 +1,61 @@
-import { KeyboardEvent, useEffect, useRef, useState } from "react";
+import { KeyboardEvent, useRef, useState } from "react";
+import { useOnClickOutside } from "usehooks-ts";
+import { IMessage } from "./Message";
 
-const useMessage = () => {
-    const [selected, setSelected] = useState("");
+const useMessage = (message: IMessage) => {
+    const { id, content, author } = message;
+
+    const messageInput = useRef<HTMLInputElement>(null);
+    const outsideRef = useRef<HTMLDivElement>(null);
+    const currentMessageInput = messageInput.current!;
+
     const [currentMessage, setCurrentMessage] = useState("");
-    const messageInput = useRef<HTMLInputElement>(null!);
-    const outsideRef = useRef<HTMLInputElement>(null!);
-
-    const input = messageInput.current;
+    const [inputIsOpen, setInputIsOpen] = useState(false);
 
     const sendRequest = () => {
         //TODO: implement
     };
 
-    const messageHasChanged = () => input.textContent !== currentMessage;
+    const showInputEdit = async () => {
+        await setInputIsOpen(true);
+        currentMessageInput.focus();
+    };
+
+    const closeInputEdit = () => setInputIsOpen(false);
+
+    const messageHasChanged = () =>
+        currentMessageInput.textContent !== currentMessage;
 
     const handleAcceptMessage = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === "Enter" || event.key === "Escape") {
-            input.contentEditable = "false";
+            closeInputEdit();
 
             if (messageHasChanged()) sendRequest();
         }
     };
 
     const handleEditMessage = () => {
-        setCurrentMessage(input.textContent || "");
+        setCurrentMessage(currentMessageInput.textContent || "");
 
-        if (input.contentEditable === "true") {
-            input.contentEditable = "false";
+        if (messageHasChanged()) sendRequest();
 
-            if (messageHasChanged()) {
-                sendRequest();
-            }
-            return;
-        }
-
-        input.contentEditable = "true";
-        input.focus();
-    };
-
-    const handleSetSelected = (id: string) => {
-        setSelected(id);
+        closeInputEdit();
     };
 
     const handleDeleteMessage = () => {
         // TODO: send request through WS
     };
 
-    useEffect(() => {
-        const outsideRefHandler = (event: any) => {
-            outsideRef.current !== null &&
-                !outsideRef.current.contains(event.target) &&
-                setSelected("");
-        };
-        document.addEventListener("mousedown", outsideRefHandler);
-
-        return () => {
-            document.removeEventListener("mousedown", outsideRefHandler);
-        };
-    }, []);
+    useOnClickOutside(outsideRef, closeInputEdit);
 
     return {
-        selected,
         messageInput,
         outsideRef,
-        messageHasChanged,
-        handleSetSelected,
         handleEditMessage,
         handleDeleteMessage,
-        handleAcceptMessage
+        handleAcceptMessage,
+        inputIsOpen,
+        showInputEdit
     };
 };
-
 export default useMessage;

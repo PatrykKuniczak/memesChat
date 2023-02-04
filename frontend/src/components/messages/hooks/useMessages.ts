@@ -1,9 +1,8 @@
 import { SetStateAction, useEffect, useState } from "react";
+import { TMessages } from "./useMessagesContainer";
 
 const UseMessages = () => {
-    const [messages, setMessages] = useState<
-        { id: string; message: string; author: string }[]
-    >([]);
+    const [messages, setMessages] = useState<TMessages>([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -19,7 +18,7 @@ const UseMessages = () => {
                     }) => {
                         return {
                             id: comment.id,
-                            message: comment.body,
+                            content: comment.body,
                             author: comment.user.username
                         };
                     }
@@ -30,11 +29,7 @@ const UseMessages = () => {
         fetchData().catch(console.error);
     }, []);
 
-    const handleSetMessages = (
-        messages: SetStateAction<
-            { id: string; message: string; author: string }[]
-        >
-    ) => {
+    const handleSetMessages = (messages: SetStateAction<TMessages>) => {
         setMessages(messages);
     };
 

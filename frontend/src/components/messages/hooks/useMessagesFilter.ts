@@ -1,14 +1,13 @@
 import { useDeferredValue, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
+import { TMessages } from "./useMessagesContainer";
 
-type Messages = { id: string; message: string; author: string }[];
-
-const useMessagesFilter = (messages: Messages) => {
+const useMessagesFilter = (messages: TMessages) => {
     const [searchParams] = useSearchParams();
     const deferredValue = useDeferredValue(searchParams);
 
     const messagesAfterFilter = useMemo(() => {
-        return messages.filter(({ message, author }) => {
+        return messages.filter(({ content, author }) => {
             const searchValue = deferredValue.get("messagesFilter");
             if (searchValue === null) {
                 return true;
@@ -20,7 +19,7 @@ const useMessagesFilter = (messages: Messages) => {
                     .startsWith(searchValue.toLowerCase());
             }
 
-            return message.toLowerCase().includes(searchValue.toLowerCase());
+            return content.toLowerCase().includes(searchValue.toLowerCase());
         });
     }, [messages, deferredValue]);
 

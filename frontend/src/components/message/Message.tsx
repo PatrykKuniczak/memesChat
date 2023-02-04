@@ -6,59 +6,67 @@ import {
     MessageSettings
 } from "./Message.styled";
 import user from "assets/user.jpg";
-import {
-    BsPencilSquare,
-    BsTrashFill,
-    BsXSquare,
-    BsCheckLg
-} from "react-icons/bs";
+import { BsPencilSquare, BsTrashFill, BsCheckLg } from "react-icons/bs";
 import useMessage from "./useMessage";
 import { FC } from "react";
+import useOnHover from "./hooks/useOnHover";
 
-interface IMessage {
+export interface IMessage {
     id: string;
     author: string;
-    message: string;
+    content: string;
 }
 
-const Message: FC<{ message: IMessage }> = (props) => {
-    const { id, author, message } = props.message;
+const Message: FC<{ message: IMessage }> = ({ message }) => {
+    const { id, author, content } = message;
 
     const {
-        selected,
         messageInput,
         outsideRef,
-        messageHasChanged,
-        handleSetSelected,
         handleEditMessage,
         handleDeleteMessage,
-        handleAcceptMessage
-    } = useMessage();
+        handleAcceptMessage,
+        inputIsOpen,
+        showInputEdit
+    } = useMessage(message);
+
+    const { isHovering, handleMouseOut, handleMouseOver } = useOnHover();
 
     return (
-        <MessageContainer>
+        <MessageContainer
+            ref={outsideRef}
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
+        >
             <MessageAuthorImage src={user} />
             <div>
                 <MessageAuthor>{author}</MessageAuthor>
                 <MessageContent
-                    onClick={() => handleSetSelected(id)}
                     ref={messageInput}
                     onKeyDown={handleAcceptMessage}
+                    contentEditable={inputIsOpen}
+                    suppressContentEditableWarning={true}
                 >
-                    {message}
+                    {content}
                 </MessageContent>
             </div>
-            {selected === id && (
-                <MessageSettings ref={outsideRef}>
-                    <>
-                        {messageHasChanged() ? (
-                            <BsPencilSquare onClick={handleEditMessage} />
-                        ) : (
-                            <BsCheckLg onClick={handleEditMessage} />
-                        )}
-                    </>
-                    <BsTrashFill onClick={handleDeleteMessage} />
-                    <BsXSquare onClick={() => handleSetSelected("")} />
+            {isHovering && (
+                <MessageSettings>
+                    {inputIsOpen ? (
+                        <BsCheckLg
+                            onClick={handleEditMessage}
+                            cursor={"pointer"}
+                        />
+                    ) : (
+                        <BsPencilSquare
+                            onClick={showInputEdit}
+                            cursor={"pointer"}
+                        />
+                    )}
+                    <BsTrashFill
+                        onClick={handleDeleteMessage}
+                        cursor={"pointer"}
+                    />
                 </MessageSettings>
             )}
         </MessageContainer>
