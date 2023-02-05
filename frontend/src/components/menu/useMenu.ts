@@ -6,10 +6,10 @@ export const useMenu = () => {
     const [showMenu, setShowMenu] = useState(false);
 
     const dispatch = useAppDispatch();
-    const username = useAppSelector(state => state.user.username);
+    const username = useAppSelector((state) => state.user.username);
 
     const changeMenuVisible = () => {
-        setShowMenu(prevState => !prevState);
+        setShowMenu((prevState) => !prevState);
     };
 
     useEffect(() => {

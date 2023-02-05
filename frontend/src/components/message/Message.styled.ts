@@ -11,15 +11,15 @@ const MessageContainer = styled.div`
 `;
 
 const MessageContent = styled.p`
-  flex: 1;
+    flex: 1;
 
-  border-radius: 5px;
-  padding: 0.5rem;
+    border-radius: 5px;
+    padding: 0.5rem;
 
-  background-color: ${({ theme }) => theme.gray_400};
-  color: ${({ theme }) => theme.gray_300};
+    background-color: ${({ theme }) => theme.gray_400};
+    color: ${({ theme }) => theme.gray_300};
 
-  cursor: pointer;
+    cursor: pointer;
 `;
 
 const MessageAuthorImage = styled.img`

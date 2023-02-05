@@ -38,4 +38,4 @@ const THEME_DARK = {
     media_xxl: "1536px"
 };
 
-export { THEME_DARK };
+export {THEME_DARK};

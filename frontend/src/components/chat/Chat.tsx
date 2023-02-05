@@ -4,15 +4,15 @@ import MessagesContainer from "../messages/MessagesContainer";
 import ChatInput from "../chatInput/ChatInput";
 
 const Chat = () => {
-    return (
-        <ChatContainer>
-            <ChatHeader>
-                <MessageSearchBar />
-            </ChatHeader>
-            <MessagesContainer />
-            <ChatInput />
-        </ChatContainer>
-    );
+	return (
+		<ChatContainer>
+			<ChatHeader>
+				<MessageSearchBar />
+			</ChatHeader>
+			<MessagesContainer />
+			<ChatInput />
+		</ChatContainer>
+	);
 };
 
 export default Chat;

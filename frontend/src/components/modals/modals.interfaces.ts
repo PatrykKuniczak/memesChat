@@ -1,8 +1,8 @@
 export type IModal = {
-    hideModal: () => void
-}
+	hideModal: () => void;
+};
 
 export interface IModals {
-    showMenu: boolean,
-    changeMenuVisible: () => void
+	showMenu: boolean;
+	changeMenuVisible: () => void;
 }

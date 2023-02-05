@@ -37,10 +37,10 @@ const MessageInput = styled.input`
 `;
 
 const MemeButton = styled.button`
-  border: none;
+    border: none;
 
-  background-color: transparent;
-  cursor: pointer;
+    background-color: transparent;
+    cursor: pointer;
 `;
 
 const MemeGenerateIcon = styled(BsImage)`

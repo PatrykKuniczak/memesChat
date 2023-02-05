@@ -1,26 +1,26 @@
 import styled from "styled-components";
 
 const MessagesWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  
-  padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 
-  overflow-y: auto;
+    padding: 1rem;
 
-  &::-webkit-scrollbar {
-    width: 5px;
-  }
+    overflow-y: auto;
 
-  &::-webkit-scrollbar-thumb {
-    border-radius: 3px;
-    background: ${({ theme }) => theme.black};
-  }
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
 
-  @media (max-width: ${({ theme }) => theme.media_sm}) {
-    gap: 0.5rem;
-  }
+    &::-webkit-scrollbar-thumb {
+        border-radius: 3px;
+        background: ${({ theme }) => theme.black};
+    }
+
+    @media (max-width: ${({ theme }) => theme.media_sm}) {
+        gap: 0.5rem;
+    }
 `;
 
 export { MessagesWrapper };

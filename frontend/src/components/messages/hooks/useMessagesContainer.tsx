@@ -1,7 +1,7 @@
 import { startTransition, useEffect, useState } from "react";
-import useMessagesFilter from "components/messages/hooks/useMessagesFilter";
 import Message, { IMessage } from "../../message/Message";
-import useMessages from "components/messages/hooks/useMessages";
+import useMessagesFilter from "./useMessagesFilter";
+import useMessages from "./useMessages";
 
 export type TMessages = IMessage[];
 

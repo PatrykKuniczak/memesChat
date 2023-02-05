@@ -1,12 +1,12 @@
 const useDeleteAvatar = (hideModal: () => void) => {
-    const deleteAvatarHandler = () => {
-        //TODO: IMPLEMENT BACKEND LOGIC
-        hideModal();
-    };
+	const deleteAvatarHandler = () => {
+		//TODO: IMPLEMENT BACKEND LOGIC
+		hideModal();
+	};
 
-    return {
-        deleteAvatarHandler
-    };
+	return {
+		deleteAvatarHandler
+	};
 };
 
 export default useDeleteAvatar;
