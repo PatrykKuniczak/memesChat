@@ -34,23 +34,28 @@ const DropdownList = styled.ul`
 `;
 
 const DropdownListItem = styled.li`
-  position: relative;
+    display: block;
+    position: relative;
 
-  padding: 0.8rem;
+    padding: 1rem;
 
-  cursor: pointer;
+    cursor: pointer;
 
-  &:focus-visible {
-    border: 1px solid ${({ theme }) => theme.primary};
-    border-radius: 0.5rem;
-  }
+    &:focus-visible {
+        border: 1px solid ${({ theme }) => theme.primary};
+        border-radius: 0.5rem;
+    }
 
-  @media (max-width: ${({ theme }) => theme.media_md}) {
-    padding: 1.5rem;
+    &:hover {
+        background-color: #16161699;
+    }
 
-    font-size: ${({ theme }) => theme.font_lg};
-    text-align: center;
-  }
+    @media (max-width: ${({ theme }) => theme.media_md}) {
+        padding: 1.5rem;
+
+        font-size: ${({ theme }) => theme.font_lg};
+        text-align: center;
+    }
 `;
 
 export { DropdownWrapper, DropdownList, DropdownListItem };
