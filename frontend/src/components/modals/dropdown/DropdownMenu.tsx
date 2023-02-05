@@ -3,7 +3,6 @@ import {
     DropdownList,
     DropdownListItem
 } from "./DropdownMenu.styled";
-
 import useDropdownMenu from "./useDropdownMenu";
 
 type IDropdownMenu = {
@@ -22,14 +21,14 @@ const DropdownMenu = ({ showModal, changeMenuVisible }: IDropdownMenu) => {
                         Edytuj konto
                     </DropdownListItem>
 
+                    <DropdownListItem onClick={() => showModal("deleteAvatar")}>
+                        Usuń Avatar
+                    </DropdownListItem>
+
                     <DropdownListItem
                         onClick={() => showModal("deleteAccount")}
                     >
                         Usuń konto
-                    </DropdownListItem>
-
-                    <DropdownListItem onClick={() => showModal("deleteAvatar")}>
-                        Usuń Avatar
                     </DropdownListItem>
                 </DropdownList>
             </DropdownWrapper>

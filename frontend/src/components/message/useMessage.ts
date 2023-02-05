@@ -1,4 +1,4 @@
-import { KeyboardEvent, useRef, useState } from "react";
+import { ChangeEvent, KeyboardEvent, useRef, useState } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 import { IMessage } from "./Message";
 
@@ -9,7 +9,7 @@ const useMessage = (message: IMessage) => {
     const outsideRef = useRef<HTMLDivElement>(null);
     const currentMessageInput = messageInput.current!;
 
-    const [currentMessage, setCurrentMessage] = useState("");
+    const [currentMessage, setCurrentMessage] = useState(content);
     const [inputIsOpen, setInputIsOpen] = useState(false);
 
     const sendRequest = () => {
@@ -21,16 +21,19 @@ const useMessage = (message: IMessage) => {
         currentMessageInput.focus();
     };
 
-    const closeInputEdit = () => setInputIsOpen(false);
+    const closeEditableInput = () => setInputIsOpen(false);
 
     const messageHasChanged = () =>
         currentMessageInput.textContent !== currentMessage;
 
-    const handleAcceptMessage = (event: KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === "Enter" || event.key === "Escape") {
-            closeInputEdit();
+    const handleMessageChange = (event: KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === "Enter") {
+            closeEditableInput();
 
             if (messageHasChanged()) sendRequest();
+        } else if (event.key === "Escape") {
+            setCurrentMessage(content);
+            closeEditableInput();
         }
     };
 
@@ -39,23 +42,24 @@ const useMessage = (message: IMessage) => {
 
         if (messageHasChanged()) sendRequest();
 
-        closeInputEdit();
+        closeEditableInput();
     };
 
     const handleDeleteMessage = () => {
         // TODO: send request through WS
     };
 
-    useOnClickOutside(outsideRef, closeInputEdit);
+    useOnClickOutside(outsideRef, closeEditableInput);
 
     return {
         messageInput,
         outsideRef,
         handleEditMessage,
         handleDeleteMessage,
-        handleAcceptMessage,
+        handleMessageChange,
         inputIsOpen,
-        showInputEdit
+        showInputEdit,
+        currentMessage
     };
 };
 export default useMessage;

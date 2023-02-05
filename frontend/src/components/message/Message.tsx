@@ -25,9 +25,10 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
         outsideRef,
         handleEditMessage,
         handleDeleteMessage,
-        handleAcceptMessage,
+        handleMessageChange,
         inputIsOpen,
-        showInputEdit
+        showInputEdit,
+        currentMessage
     } = useMessage(message);
 
     const { isHovering, handleMouseOut, handleMouseOver } = useOnHover();
@@ -43,11 +44,11 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
                 <MessageAuthor>{author}</MessageAuthor>
                 <MessageContent
                     ref={messageInput}
-                    onKeyDown={handleAcceptMessage}
+                    onKeyDown={handleMessageChange}
                     contentEditable={inputIsOpen}
                     suppressContentEditableWarning={true}
                 >
-                    {content}
+                    {currentMessage}
                 </MessageContent>
             </div>
             {isHovering && (

@@ -1,5 +1,5 @@
 import { ChatHeader, ChatContainer } from "./Chat.styled";
-import MessageSearchBar from "../searchBar/MessageSearchBar";
+import MessageSearchBar from "../messageSearchBar/MessageSearchBar";
 import MessagesContainer from "../messages/MessagesContainer";
 import ChatInput from "../chatInput/ChatInput";
 

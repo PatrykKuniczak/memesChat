@@ -22,12 +22,12 @@ const Modals = ({ showMenu, changeMenuVisible }: IModals) => {
                 <EditAccountModal hideModal={hideModal} />
             )}
 
-            {currentModal === "deleteAccount" && (
-                <DeleteAccountModal hideModal={hideModal} />
-            )}
-
             {currentModal === "deleteAvatar" && (
                 <DeleteAvatarModal hideModal={hideModal} />
+            )}
+
+            {currentModal === "deleteAccount" && (
+                <DeleteAccountModal hideModal={hideModal} />
             )}
         </ModalsWrapper>
     );
