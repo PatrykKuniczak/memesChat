@@ -2,7 +2,7 @@ export class UsersAvatarDto {
 	constructor(
 		name: string,
 		source: string,
-		extension: string
+		extension: string,
 	) {
 		this.name = name;
 		this.source = source;

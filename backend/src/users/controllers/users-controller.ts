@@ -9,7 +9,9 @@ import {
     UseGuards,
     InternalServerErrorException,
     UploadedFile,
-    UseInterceptors
+    UseInterceptors,
+    FileTypeValidator,
+    ParseFilePipe
 } from "@nestjs/common";
 import {UsersService} from "users/services/users.service";
 import {JwtAuthGuard} from "auth/guards/jwt-auth.guard";
@@ -50,21 +52,24 @@ class UsersController {
         @Param("id", ParseIntPipe) id: number,
         @UserReq("id") userId: number,
         @Body() updateUserDto: UpdateUserDto,
-        @UploadedFile() file,
+        @UploadedFile(new ParseFilePipe({
+                validators: [new FileTypeValidator({fileType: /(jpg|jpeg|png)$/})]
+            })
+        ) file,
     ) {
         if (file) {
             const addFilePromises = await this.usersAvatarService.addUserAvatarFile(file);
 
-            try {
-                const result = await Promise.all(addFilePromises);
-                const userAvatar = result[0];
-                if (userAvatar) {
-                    user.userAvatar = userAvatar;
-                }
-            } catch (error) {
-                throw new InternalServerErrorException(error);
-            }
-        }
+		try {
+			const result = await Promise.all(addFilePromises);
+			const userAvatar = result[0];
+
+			if (userAvatar) {
+				updateUserDto.userAvatar = userAvatar;
+			}
+		} catch (error) {
+			throw new InternalServerErrorException(error);
+		}
 
         return this.userService.update(id, userId, updateUserDto);
     }

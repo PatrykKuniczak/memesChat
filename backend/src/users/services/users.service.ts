@@ -64,13 +64,18 @@ export class UsersService {
         });
     }
 
-    async findOneById(id: number, userId: number) {
-        if (id !== userId) throw new ForbiddenException();
+	async findOneById(id: number, userId: number) {
+		if (id !== userId) throw new ForbiddenException();
 
-        return this.userRepository.findOneByOrFail({id}).catch(() => {
-            throw new NotFoundException();
-        });
-    }
+		return this.userRepository
+			.createQueryBuilder("user")
+			.leftJoinAndSelect("user.userAvatar", "userAvatar")
+			.where({ id: paramId })
+			.getOne()
+			.catch(() => {
+				throw new NotFoundException();
+			});
+	}
 
     async passwordSelect(username: string) {
         return this.userRepository.findOneOrFail({

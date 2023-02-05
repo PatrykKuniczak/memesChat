@@ -6,13 +6,14 @@ import { UsersAvatarDto } from "../model/dto/usersAvatar.dto";
 import { ConfigService } from "@nestjs/config";
 import { createReadStream } from "fs";
 import { join } from "path";
-import { writeFile } from 'fs';
-import {UserAvatar} from "../model/usersAvatar.entity";
+import { writeFile, unlink } from "fs";
+import { UserAvatar } from "../model/usersAvatar.entity";
 
 @Injectable()
 export class UsersAvatarService {
 	constructor(
-		@InjectRepository(UserAvatar) private usersAvatarRepository: Repository<UserAvatar>,
+		@InjectRepository(UserAvatar)
+		private usersAvatarRepository: Repository<UserAvatar>,
 		private configService: ConfigService
 	) {}
 	async addUserAvatarFile(file): Promise<[Promise<any>, Promise<any>]> {
@@ -33,20 +34,49 @@ export class UsersAvatarService {
 			);
 		});
 
-		const memeDto = new UsersAvatarDto(
-			fileName,
-			fileSource,
-			fileExtension
-		);
+		const memeDto = new UsersAvatarDto(fileName, fileSource, fileExtension);
 
 		const addToDbPromise = this.usersAvatarRepository.save(memeDto);
 
 		return [addToDbPromise, fileWritePromise];
 	}
 
-	async getUserAvatarBySource(source: string): Promise<StreamableFile> {
-		const file = createReadStream(join(process.cwd() + "/local/files", source));
+	getUserAvatarFileBySource(source: string) {
+		const file = createReadStream(
+			join(process.cwd() + "/" + this.configService.get("FILES_DIRECTORY"), source)
+		);
 
 		return new StreamableFile(file); // TODO: Handle error
+	}
+
+	removeUserAvatarFileBySource(source: string) {
+		return new Promise((resolve, reject) => {
+			unlink(
+				`${this.configService.get("FILES_DIRECTORY")}${source}`,
+				function (error) {
+					if (error) {
+						reject(error);
+					}
+					resolve(true);
+				}
+			);
+		});
+	}
+
+	async getUserAvatarByIdAndUserId(userId: number, userAvatarId: number) {
+		return this.usersAvatarRepository
+			.createQueryBuilder("userAvatar")
+			.innerJoin("userAvatar.user", "user")
+			.where({
+				id: userAvatarId,
+				user: {
+					id: userId
+				}
+			})
+			.getOne();
+	}
+
+	removeUserAvatarById(userAvatarId) {
+		return this.usersAvatarRepository.delete(userAvatarId);
 	}
 }

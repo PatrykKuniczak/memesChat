@@ -5,7 +5,7 @@ import {
 	OneToOne,
 	PrimaryGeneratedColumn
 } from "typeorm";
-import { UserAvatar } from "../../usersAvatar/model/usersAvatar.entity";
+import { UserAvatar } from "usersAvatar/model/usersAvatar.entity";
 
 @Entity("User")
 export class User {
@@ -18,7 +18,9 @@ export class User {
 	@Column({ select: false })
 	password?: string;
 
-	@OneToOne(() => UserAvatar, userAvatar => userAvatar.user)
+	@OneToOne(() => UserAvatar, userAvatar => userAvatar.user, {
+		onDelete: "SET NULL"
+	})
 	@JoinColumn()
 	userAvatar?: UserAvatar;
 }
