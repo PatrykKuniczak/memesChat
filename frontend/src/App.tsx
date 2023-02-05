@@ -1,39 +1,43 @@
-import GlobalStyles from "./GlobalStyles.styled";
-import React, {useEffect, useState} from "react";
-import {io} from "socket.io-client";
+import { THEME_DARK } from "assets/styles/theme";
+import GlobalStyles from "./assets/GlobalStyles.styled";
+import Auth from "./pages/auth/Auth";
+import { ThemeProvider } from "styled-components";
+import {
+	BrowserRouter,
+	Navigate,
+	Outlet,
+	Route,
+	Routes
+} from "react-router-dom";
+import Home from "./pages/home/Home";
 
+const App = () => {
+	return (
+		<>
+			<GlobalStyles />
 
-const socket = io(`${process.env.REACT_APP_WS_URL}`);
-
-const App: React.FC = () => {
-    const [isConnected, setIsConnected] = useState(socket.connected);
-
-    useEffect(() => {
-        socket.on('connect', () => {
-            setIsConnected(true);
-        });
-
-        socket.on('disconnect', () => {
-            setIsConnected(false);
-        });
-
-        return () => {
-            socket.off('connect');
-            socket.off('disconnect');
-        };
-    }, []);
-
-    return (<>
-            <GlobalStyles/>
-            {isConnected ?
-                <div>
-                    Połączono
-                </div> :
-                <div>
-                    Nie połączono, ładuję
-                </div>}
-        </>
-    );
-}
+			<ThemeProvider theme={THEME_DARK}>
+				<BrowserRouter>
+					<Routes>
+						<Route element={<Outlet />}>
+							<Route
+								path="/"
+								element={<Home />}
+							/>
+							<Route
+								path="/auth/:eventType"
+								element={<Auth />}
+							/>
+						</Route>
+						<Route
+							path="*"
+							element={<Navigate to={"/"} />}
+						/>
+					</Routes>
+				</BrowserRouter>
+			</ThemeProvider>
+		</>
+	);
+};
 
 export default App;
