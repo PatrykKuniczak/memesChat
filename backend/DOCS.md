@@ -35,7 +35,7 @@ Can contain polish letters.
 Regex: /^(?=.*[a-zżźćńółęąś])(?=.*[A-ZŻŹĆĄŚĘŁÓŃ])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ\d!@#$%^&* ]*$/
 password: string
 
-avatar: Avatar
+userAvatar: UserAvatar
 
 message: Message[]
 ```     
@@ -66,8 +66,16 @@ authorId: number
 Automatic generated
 id: number
 
-Must contain regex: #FOR CREATE#
+Get from passed file
+name: string
+
+Source is given by uuid
 source: string
+
+Get from passed file
+extension: string
+
+user: User
 ```
 
 ## API Endpoints:
@@ -103,6 +111,15 @@ source: string
     Payload body: {username, avatar}
         Return true, null(When data didn't change), Not Found(404),
         Conflict (409) when username is duplicated or Bad Request (400).
+```
+
+```
+\usersAvatar
+    GET \:source
+        Return file as a binary object
+        
+    DELETE \:id
+        Return true or 403 if token is not valid for given userAvatarId
 ```
 
 ```
