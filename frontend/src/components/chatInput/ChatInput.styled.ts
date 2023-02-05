@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { BsImage } from "react-icons/bs";
 
-const InputWrapper = styled.header`
+const InputWrapper = styled.div`
     display: flex;
     align-items: center;
 
