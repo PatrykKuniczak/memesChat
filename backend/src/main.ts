@@ -1,10 +1,9 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "app.module";
 import { ConfigService } from "@nestjs/config";
-import { Logger } from "@nestjs/common";
+import { Logger, ValidationPipe } from "@nestjs/common";
 import * as dotenv from "dotenv";
 import * as dotenvExpand from "dotenv-expand";
-import { GlobalValidatePipe } from "./pipes/GlobalValidate.pipe";
 
 (async () => {
   const logger = new Logger("Main");
@@ -14,7 +13,7 @@ import { GlobalValidatePipe } from "./pipes/GlobalValidate.pipe";
   const PORT = +configService.get("SERVER_PORT");
 
   app.setGlobalPrefix("api");
-  app.useGlobalPipes(new GlobalValidatePipe());
+  app.useGlobalPipes(new ValidationPipe());
 
 
   await app.listen(PORT);
