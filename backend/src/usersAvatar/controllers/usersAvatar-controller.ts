@@ -19,11 +19,11 @@ class UsersAvatarController {
 	@UseGuards(JwtAuthGuard)
 	@Delete(":id")
 	async removeUserAvatarById(
-		@UserReq() user: AuthJwtPayload,
+		@UserReq() jwtUser: AuthJwtPayload,
 		@Param("id", ParseIntPipe) id: number
 	) {
 		const userAvatar = await this.usersAvatarService.getUserAvatarByIdAndUserId(
-			user.id,
+			jwtUser.id,
 			id
 		);
 
