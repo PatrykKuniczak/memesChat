@@ -1,0 +1,59 @@
+version: "3.9"
+
+services:
+  db:
+    container_name: db
+    restart: unless-stopped
+    env_file:
+      - .env
+    image: "${DB_TYPE}:15.1"
+    ports:
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+    networks:
+      - memesChat
+
+  backend:
+    container_name: backend
+    restart: unless-stopped
+    env_file:
+      - .env
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    command: npm start
+    volumes:
+      - ./backend:/backend
+      - /backend/node_modules
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
+      - "${WS_PORT}:${WS_PORT}"
+    depends_on:
+      - db
+    links:
+      - db
+    networks:
+      - memesChat
+
+  frontend:
+    container_name: frontend
+    restart: unless-stopped
+    env_file:
+      - .env
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    command: npm start
+    volumes:
+      - ./frontend:/frontend
+      - /frontend/node_modules
+    ports:
+      - "${REACT_APP_PORT}:${REACT_APP_PORT}"
+    depends_on:
+      - backend
+    links:
+      - backend
+    networks:
+      - memesChat
+
+networks:
+  memesChat:
