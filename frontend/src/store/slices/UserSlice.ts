@@ -2,55 +2,51 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { RootState } from "store/store";
 
 export interface User {
-    username: string;
-    loading: boolean;
-    error: string | undefined;
+	username: string;
+	loading: boolean;
+	error: string | undefined;
 }
 
 const initialState: User = {
-    username: "",
-    loading: false,
-    error: ""
+	username: "",
+	loading: false,
+	error: ""
 };
 
-export const fetchUser = createAsyncThunk(
-    "user/fetchUser",
-    async (thunkAPI) => {
-        const getRandomArbitrary = (min: number, max: number) => {
-            return Math.ceil(Math.random() * (max - min) + min);
-        };
-        const response = await fetch(
-            `https://dummyjson.com/users/${getRandomArbitrary(30, 1)}`,
-            {
-                method: "GET"
-            }
-        );
-        return response.json();
-    }
-);
+export const fetchUser = createAsyncThunk("user/fetchUser", async thunkAPI => {
+	const getRandomArbitrary = (min: number, max: number) => {
+		return Math.ceil(Math.random() * (max - min) + min);
+	};
+	const response = await fetch(
+		`https://dummyjson.com/users/${getRandomArbitrary(30, 1)}`,
+		{
+			method: "GET"
+		}
+	);
+	return response.json();
+});
 
 export const userSlice = createSlice({
-    name: "user",
-    initialState,
-    reducers: {
-        editUsername: (state, action) => {
-            state.username = action.payload;
-        }
-    },
-    extraReducers: (builder) => {
-        builder.addCase(fetchUser.pending, (state) => {
-            state.loading = true;
-        });
-        builder.addCase(fetchUser.fulfilled, (state, action) => {
-            state.loading = false;
-            state.username = action.payload.firstName;
-            state.error = "";
-        });
-        builder.addCase(fetchUser.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.error.message;
-        });
-    }
+	name: "user",
+	initialState,
+	reducers: {
+		editUsername: (state, action) => {
+			state.username = action.payload;
+		}
+	},
+	extraReducers: builder => {
+		builder.addCase(fetchUser.pending, state => {
+			state.loading = true;
+		});
+		builder.addCase(fetchUser.fulfilled, (state, action) => {
+			state.loading = false;
+			state.username = action.payload.firstName;
+		});
+		builder.addCase(fetchUser.rejected, (state, action) => {
+			state.loading = false;
+			state.error = action.error.message;
+		});
+	}
 });
 
 export const { editUsername } = userSlice.actions;

@@ -2,15 +2,15 @@ import { useRef } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 
 const useDropdownMenu = (changeMenuVisible: () => void) => {
-    const ref = useRef(null);
+	const ref = useRef(null);
 
-    const handleClickOutside = () => {
-        changeMenuVisible();
-    };
+	const handleClickOutside = () => {
+		changeMenuVisible();
+	};
 
-    useOnClickOutside(ref, handleClickOutside);
+	useOnClickOutside(ref, handleClickOutside);
 
-    return { ref };
+	return { ref };
 };
 
 export default useDropdownMenu;

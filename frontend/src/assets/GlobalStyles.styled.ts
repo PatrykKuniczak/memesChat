@@ -16,15 +16,14 @@ const GlobalStyles = createGlobalStyle`
 
     height: 100vh;
 
-    background-color: hsla(240,100%,13%,1);
-    background-image:
-            radial-gradient(at 40% 20%, hsla(264,71%,28%,1) 0px, transparent 50%),
-            radial-gradient(at 80% 0%, hsla(264,80%,52%,1) 0px, transparent 50%),
-            radial-gradient(at 0% 50%, hsla(264,74%,60%,1) 0px, transparent 50%),
-            radial-gradient(at 73% 53%, hsla(264,58%,17%,1) 0px, transparent 50%),
-            radial-gradient(at 0% 100%, hsla(264,90%,61%,1) 0px, transparent 50%),
-            radial-gradient(at 80% 100%, hsla(265,100%,21%,1) 0px, transparent 50%),
-            radial-gradient(at 0% 0%, hsla(264,94%,35%,1) 0px, transparent 50%);
+    background-color: hsla(240, 100%, 13%, 1);
+    background-image: radial-gradient(at 40% 20%, hsla(264, 71%, 28%, 1) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, hsla(264, 80%, 52%, 1) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, hsla(264, 74%, 60%, 1) 0px, transparent 50%),
+    radial-gradient(at 73% 53%, hsla(264, 58%, 17%, 1) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, hsla(264, 90%, 61%, 1) 0px, transparent 50%),
+    radial-gradient(at 80% 100%, hsla(265, 100%, 21%, 1) 0px, transparent 50%),
+    radial-gradient(at 0% 0%, hsla(264, 94%, 35%, 1) 0px, transparent 50%);
   }
 
   code {

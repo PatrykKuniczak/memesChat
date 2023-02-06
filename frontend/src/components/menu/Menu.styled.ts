@@ -1,11 +1,13 @@
 import styled from "styled-components";
-import { Wrapper } from "../wrapper/Wrapper.styled";
 import { BsChevronDown } from "react-icons/bs";
 import { FiAlignJustify } from "react-icons/fi";
 
 // avatar dropdown for desktop view
 
-const MenuWrapper = styled(Wrapper)`
+const MenuWrapper = styled.div`
+    display: flex;
+    align-items: center;
+
     padding: 0.5rem;
 `;
 
@@ -56,12 +58,18 @@ const ChevronIcon = styled(BsChevronDown)`
 // burger menu for mobile view
 
 const BurgerIcon = styled(FiAlignJustify)`
-    position: relative;
+    position: fixed;
+    top: 0.5rem;
+    right: 20px;
 
     width: 50px;
     height: 50px;
 
     color: ${({ theme }) => theme.white};
+
+    @media (max-width: ${({ theme }) => theme.media_sm}) {
+        top: 0;
+    }
 `;
 
 const BurgerButton = styled.button`

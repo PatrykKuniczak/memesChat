@@ -1,17 +1,62 @@
-import { Heading, SignupContainer } from "./Auth.styled";
+import {
+	ButtonsContainer,
+	Form,
+	Heading,
+	Input,
+	Label,
+	SignupContainer
+} from "./Auth.styled";
+import { NavLink, PrimaryButton } from "components/buttons/Button.styled";
 import { useParams } from "react-router-dom";
-import Form from "components/Form/Form";
 
 const Auth = () => {
-    const { eventType } = useParams();
-    const isSignUp = eventType === "signUp";
+	const { eventType } = useParams();
 
-    return (
-        <SignupContainer>
-            <Heading>{isSignUp ? "Rejestracja" : "Logowanie"}</Heading>
-            <Form isSignUp={isSignUp} />
-        </SignupContainer>
-    );
+	return (
+		<SignupContainer>
+			<>
+				<Heading>
+					{eventType === "signUp" ? "Rejestracja" : "Logowanie"}
+				</Heading>
+
+				<Form action="">
+					<Label htmlFor="login">Login</Label>
+					<Input
+						type="text"
+						id="login"
+						name="login"
+					/>
+					<Label htmlFor="password">Hasło</Label>
+					<Input
+						type="text"
+						id="password"
+						name="password"
+					/>
+					{eventType === "signUp" && (
+						<>
+							<Label htmlFor="password">Powtórz hasło</Label>
+							<Input
+								type="text"
+								id="password"
+								name="password"
+							/>
+						</>
+					)}
+				</Form>
+
+				<ButtonsContainer>
+					<PrimaryButton>
+						{eventType === "signUp" ? "Zarejestruj" : "Zaloguj"}
+					</PrimaryButton>
+					{eventType === "signUp" ? (
+						<NavLink to="/auth/signIn">Mam juz konto</NavLink>
+					) : (
+						<NavLink to="/auth/signUp">Nie mam jeszcze konta</NavLink>
+					)}
+				</ButtonsContainer>
+			</>
+		</SignupContainer>
+	);
 };
 
 export default Auth;

@@ -1,56 +1,75 @@
 import {
-    MessageAuthor,
-    MessageAuthorImage,
-    MessageContainer,
-    MessageContent,
-    MessageSettings
+	MessageAuthor,
+	MessageAuthorImage,
+	MessageContainer,
+	MessageContent,
+	MessageSettings
 } from "./Message.styled";
 import user from "assets/user.jpg";
-import { BsPencilSquare, BsTrashFill } from "react-icons/bs";
+import { BsPencilSquare, BsTrashFill, BsCheckLg } from "react-icons/bs";
 import useMessage from "./useMessage";
 import { FC } from "react";
+import useOnHover from "./hooks/useOnHover";
 
-interface Message {
-    id: string;
-    author: string;
-    message: string;
+export interface IMessage {
+	id: string;
+	author: string;
+	content: string;
 }
 
-const Message: FC<{ message: Message }> = (props) => {
-    const { id, author, message } = props.message;
+const Message: FC<{ message: IMessage }> = ({ message }) => {
+	const { id, author, content } = message;
 
-    const {
-        messageInput,
-        selected,
-        handleSetSelected,
-        handleEditMessage,
-        handleDeleteMessage,
-        handleAcceptMessage,
-        handleSetCurrentMessage
-    } = useMessage();
+	const {
+		messageInput,
+		outsideRef,
+		handleEditMessage,
+		handleDeleteMessage,
+		handleMessageChange,
+		inputIsOpen,
+		showInputEdit,
+		currentMessage
+	} = useMessage(message);
 
-    return (
-        <MessageContainer>
-            <MessageAuthorImage src={user} />
-            <div>
-                <MessageAuthor>{author}</MessageAuthor>
-                <MessageContent
-                    onClick={() => handleSetSelected(id)}
-                    ref={messageInput}
-                    onKeyDown={handleAcceptMessage}
-                    onInput={handleSetCurrentMessage}
-                >
-                    {message}
-                </MessageContent>
-            </div>
-            {selected === id && (
-                <MessageSettings>
-                    <BsPencilSquare onClick={handleEditMessage} />
-                    <BsTrashFill onClick={handleDeleteMessage} />
-                </MessageSettings>
-            )}
-        </MessageContainer>
-    );
+	const { isHovering, handleMouseOut, handleMouseOver } = useOnHover();
+
+	return (
+		<MessageContainer
+			ref={outsideRef}
+			onMouseOver={handleMouseOver}
+			onMouseOut={handleMouseOut}>
+			<MessageAuthorImage src={user} />
+			<div>
+				<MessageAuthor>{author}</MessageAuthor>
+				<MessageContent
+					ref={messageInput}
+					onKeyDown={handleMessageChange}
+					contentEditable={inputIsOpen}
+					suppressContentEditableWarning={true}>
+					{currentMessage}
+				</MessageContent>
+			</div>
+			{isHovering && (
+				<MessageSettings>
+					{inputIsOpen ? (
+						<BsCheckLg
+							onClick={handleEditMessage}
+							cursor={"pointer"}
+						/>
+					) : (
+						<BsPencilSquare
+							onClick={showInputEdit}
+							cursor={"pointer"}
+						/>
+					)}
+					<BsTrashFill
+						onClick={handleDeleteMessage}
+						cursor={"pointer"}
+					/>
+				</MessageSettings>
+			)}
+		</MessageContainer>
+	);
 };
 
 export default Message;

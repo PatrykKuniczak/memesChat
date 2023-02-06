@@ -7,12 +7,12 @@ const Button = styled.button`
     border-radius: 0.2rem;
 
     color: ${({ theme }) => theme.white};
-    background: ${({ theme }) => theme.primary};
 
     font-size: ${({ theme }) => theme.font_sm};
     font-weight: ${({ theme }) => theme.font_regular};
 
     cursor: pointer;
+    transition: all 0.2s;
 
     @media (max-width: ${({ theme }) => theme.media_md}) {
         width: 100%;
@@ -23,27 +23,16 @@ const Button = styled.button`
 const PrimaryButton = styled(Button)`
     background: ${({ theme }) => theme.primary};
 
-    @media (max-width: ${({ theme }) => theme.media_md}) {
-        width: 100%;
-        padding: 1rem;
+    &:hover {
+        background: ${({ theme }) => theme.primary_hover};
     }
 `;
 
 const SecondaryButton = styled(Button)`
     background: ${({ theme }) => theme.gray_200};
 
-    @media (max-width: ${({ theme }) => theme.media_md}) {
-        width: 100%;
-        padding: 1rem;
-    }
-`;
-
-const TertiaryButton = styled(Button)`
-    background: ${({ theme }) => theme.gray_500};
-
-    @media (max-width: ${({ theme }) => theme.media_md}) {
-        width: 100%;
-        padding: 1rem;
+    &:hover {
+        background: ${({ theme }) => theme.gray_hover};
     }
 `;
 
@@ -53,4 +42,4 @@ const NavLink = styled(Link)`
     text-decoration: underline;
 `;
 
-export { Button, PrimaryButton, SecondaryButton, TertiaryButton, NavLink };
+export { Button, PrimaryButton, SecondaryButton, NavLink };

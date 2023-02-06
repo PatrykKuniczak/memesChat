@@ -22,6 +22,10 @@ const SearchTypeSwitcher = styled.button`
     text-transform: capitalize;
 
     cursor: pointer;
+
+    @media (max-width: ${({ theme }) => theme.media_sm}) {
+        padding: 0.7rem;
+    }
 `;
 
 export { SearchContainer, SearchTypeSwitcher };

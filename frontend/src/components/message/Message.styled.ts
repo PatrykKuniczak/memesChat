@@ -4,6 +4,10 @@ const MessageContainer = styled.div`
     display: flex;
     align-items: start;
     gap: 1rem;
+
+    @media (max-width: ${({ theme }) => theme.media_sm}) {
+        gap: 0.5rem;
+    }
 `;
 
 const MessageContent = styled.p`

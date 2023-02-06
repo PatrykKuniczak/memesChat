@@ -1,6 +1,7 @@
 const THEME_DARK = {
     // colors
     primary: "#962EFF",
+    primary_hover: "#700BD4",
 
     white: "#D9D1EB",
 
@@ -8,12 +9,14 @@ const THEME_DARK = {
     gray_300: "#8e8793",
     gray_400: "#16131f",
     gray_500: "#161616",
+    gray_hover: "#242424",
 
     gray_semitransparent: "#16161650",
 
     black: "#050050",
 
     // font sizes
+    font_xs: ".85rem",
     font_sm: "1rem",
     font_md: "1.125rem",
     font_lg: "1.5rem",
@@ -35,4 +38,4 @@ const THEME_DARK = {
     media_xxl: "1536px"
 };
 
-export { THEME_DARK };
+export {THEME_DARK};
