@@ -26,7 +26,6 @@ services:
       - /backend/node_modules
     ports:
       - "${SERVER_PORT}:${SERVER_PORT}"
-      - "${WS_PORT}:${WS_PORT}"
     depends_on:
       - db
     links:
