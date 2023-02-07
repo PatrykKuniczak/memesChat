@@ -5,7 +5,7 @@ import { LocalAuthGuard } from "../guards/local-auth.guard";
 
 @Controller("auth")
 class AuthController {
-  constructor(private authService: AuthService) {
+  constructor(private readonly authService: AuthService) {
   }
 
   @Post("register")

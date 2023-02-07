@@ -82,7 +82,7 @@ source: string
         
     POST \login:
     payload: {username, password} Part of User
-        Return {accessToken: JWT token} or NotFound(404). 
+        Return {accessToken: JWT token} or 404. 
         
 ```
 
@@ -94,14 +94,14 @@ source: string
         Return Array with all users.
          
     GET \:id
-        Return User object without password or Not Found(404).         
+        Return User object without password or 404.         
         
     DELETE \:id
-        Return true or Not Found(404).
+        Return 200 or 404.
        
     PATCH \:id
     Payload body: {username, avatar}
-        Return true, null(When data didn't change), Not Found(404),
+        Return 200 or 404,
         Conflict (409) when username is duplicated or Bad Request (400).
 ```
 
@@ -111,14 +111,14 @@ source: string
         Return Array with all messages.
         
     DELETE \:id
-        Return true or Not Found(404).
+        Return 200 or 404.
         
     POST \
         Return Messsage object. 
         
     PUT \:id
     Payload body: {Message}
-        Return true, null(When data didn't change), Not Found(404).
+        Return 200 or 404.
 ```
 
 ## Web Socket:
