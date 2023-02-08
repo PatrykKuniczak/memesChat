@@ -41,7 +41,7 @@ export class AuthService {
         loginRegisterUserDto.username = loginRegisterUserDto.username
             .replace(/\s/g, "").toLowerCase();
 
-        const hashedPassword = await bcrypt.hash(loginRegisterUserDto.password, 15);
+        const hashedPassword = await bcrypt.hash(loginRegisterUserDto.password, 10);
 
         const user = await this.userService.create({
             ...loginRegisterUserDto,
@@ -59,7 +59,7 @@ export class AuthService {
         return {accessToken: jwtToken}
     }
 
-    private comparePasswords(password: string, storedPasswordHash: string) {
+    private async comparePasswords(password: string, storedPasswordHash: string) {
         return bcrypt.compare(password, storedPasswordHash);
     }
 }
