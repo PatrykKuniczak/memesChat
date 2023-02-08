@@ -1,17 +1,17 @@
-import { Module } from "@nestjs/common";
-import { TypeOrmModule } from "@nestjs/typeorm";
+import {Module} from "@nestjs/common";
+import {TypeOrmModule} from "@nestjs/typeorm";
+import {ConfigModule} from "@nestjs/config";
 import typeOrmConfig from "database/config/typeorm.config";
-import { ConfigModule } from "@nestjs/config";
-import { MessageModule } from "message/message.module";
-import { UserModule } from "user/user.module";
+import {AuthModule} from "auth/auth.module";
+import {UsersModule} from "users/users.module";
 
 @Module({
-	imports: [
-		ConfigModule.forRoot({ isGlobal: true }),
-		TypeOrmModule.forRootAsync(typeOrmConfig),
-		MessageModule,
-		UserModule
-	],
-	exports: [TypeOrmModule]
+    imports: [
+        ConfigModule.forRoot({isGlobal: true}),
+        TypeOrmModule.forRootAsync(typeOrmConfig),
+        AuthModule,
+        UsersModule
+    ],
 })
-export class AppModule {}
+export class AppModule {
+}
