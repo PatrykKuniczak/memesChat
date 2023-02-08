@@ -83,13 +83,12 @@ source: string
     POST \login:
     payload: {username, password} Part of User
         Return {accessToken: JWT token} or 404. 
-        
 ```
 
 #### FOR ALL REST ENDPOINTS JWT TOKEN NEED TO BE SEND IN HEADERS.Authorization
 
 ```
-\user
+\users
     GET \
         Return Array with all users.
          
@@ -106,7 +105,7 @@ source: string
 ```
 
 ```
-\message
+\messages
     GET \
         Return Array with all messages.
         
