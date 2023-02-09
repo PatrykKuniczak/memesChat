@@ -3,7 +3,7 @@ import styled from "styled-components";
 const FormWrapper = styled.form`
 	display: flex;
 	flex-direction: column;
-	margin-top: 2.5rem;
+	margin-top: 2rem;
 `;
 
 const ButtonsContainer = styled.div`
