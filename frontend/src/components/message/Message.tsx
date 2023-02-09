@@ -38,7 +38,9 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
 			ref={outsideRef}
 			onMouseOver={handleMouseOver}
 			onMouseOut={handleMouseOut}>
-			<MessageAuthorImage src={user} />
+			<MessageAuthorImage
+				src={user}
+			/>
 			<div>
 				<MessageAuthor>{author}</MessageAuthor>
 				<MessageContent
