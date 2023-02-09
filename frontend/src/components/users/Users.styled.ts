@@ -7,7 +7,9 @@ const UsersContainer = styled.section`
 		margin-top: 0.5rem;
 	}
 
-	@media (max-height: 600px) {
+	@media (max-width: ${({ theme }) => theme.media_sm}) and (max-height: ${({
+			theme
+		}) => theme.media_sm}) {
 		display: none;
 	}
 `;
