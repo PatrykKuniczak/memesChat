@@ -1,5 +1,5 @@
 import { IsAlphanumeric, IsString, Length } from "class-validator";
-import {UserAvatar} from "../../../usersAvatar/model/usersAvatar.entity";
+import {UserAvatar} from "usersAvatar/model/usersAvatar.entity";
 import { Transform } from "class-transformer";
 
 export class UpdateUserDto {

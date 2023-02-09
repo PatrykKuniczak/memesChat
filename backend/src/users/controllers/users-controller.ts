@@ -17,7 +17,7 @@ import {UsersService} from "users/services/users.service";
 import {JwtAuthGuard} from "auth/guards/jwt-auth.guard";
 import {UpdateUserDto} from "../model/dto/updateUser.dto";
 import {UserReq} from "../user.decorator";
-import {UsersAvatarService} from "../../usersAvatar/services/usersAvatar.service";
+import {UsersAvatarService} from "usersAvatar/services/usersAvatar.service";
 import {FileInterceptor} from "@nestjs/platform-express";
 
 @Controller("users")
@@ -60,18 +60,19 @@ class UsersController {
         if (file) {
             const addFilePromises = await this.usersAvatarService.addUserAvatarFile(file);
 
-		try {
-			const result = await Promise.all(addFilePromises);
-			const userAvatar = result[0];
+            try {
+                const result = await Promise.all(addFilePromises);
+                const userAvatar = result[0];
 
-			if (userAvatar) {
-				updateUserDto.userAvatar = userAvatar;
-			}
-		} catch (error) {
-			throw new InternalServerErrorException(error);
-		}
+                if (userAvatar) {
+                    updateUserDto.userAvatar = userAvatar;
+                }
+            } catch (error) {
+                throw new InternalServerErrorException(error);
+            }
 
-        return this.userService.update(id, userId, updateUserDto);
+            return this.userService.update(id, userId, updateUserDto);
+        }
     }
 }
 
