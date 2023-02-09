@@ -36,9 +36,10 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
 			formik.resetForm();
 		}
 	});
-	const { handleChange, touched, values, handleSubmit, errors } = formik;
+	const { handleChange, touched, values, handleSubmit, errors, resetForm } =
+		formik;
 
-	return { handleChange, touched, values, handleSubmit, errors };
+	return { handleChange, touched, values, handleSubmit, errors, resetForm };
 };
 
 export default useForm;
