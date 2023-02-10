@@ -20,10 +20,10 @@ const DeleteAvatarModal = ({ hideModal }: IModal) => {
 		<DeleteAvatarWrapper ref={ref}>
 			<ModalSpan>Czy na pewno chcesz usunąć avatar?</ModalSpan>
 			<DeleteAvatarButtonsWrapper>
-				<SecondaryButton onClick={deleteAvatarHandler}>
+				<SecondaryButton type="submit" onClick={deleteAvatarHandler}>
 					Tak, usuwam avatar
 				</SecondaryButton>
-				<PrimaryButton onClick={hideModal}>Anuluj</PrimaryButton>
+				<PrimaryButton type="button" onClick={hideModal}>Anuluj</PrimaryButton>
 			</DeleteAvatarButtonsWrapper>
 		</DeleteAvatarWrapper>
 	);

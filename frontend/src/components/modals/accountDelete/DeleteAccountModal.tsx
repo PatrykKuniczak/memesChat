@@ -20,10 +20,10 @@ const DeleteAccountModal = ({ hideModal }: IModal) => {
 		<DeleteAccountWrapper ref={ref}>
 			<ModalSpan>Czy na pewno chcesz usunąć konto?</ModalSpan>
 			<DeleteAccountButtonsWrapper>
-				<SecondaryButton onClick={deleteAccountConfirm}>
+				<SecondaryButton type="submit" onClick={deleteAccountConfirm} >
 					Tak, usuwam konto
 				</SecondaryButton>
-				<PrimaryButton onClick={hideModal}>Anuluj</PrimaryButton>
+				<PrimaryButton type="button" onClick={hideModal} >Anuluj</PrimaryButton>
 			</DeleteAccountButtonsWrapper>
 		</DeleteAccountWrapper>
 	);

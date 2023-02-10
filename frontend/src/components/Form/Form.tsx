@@ -1,13 +1,16 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { NavLink, PrimaryButton } from "components/buttons/Button.styled";
 import FormField from "components/FormField/FormField";
 import useForm from "../../components/Form/useForm";
 import { ButtonsContainer, FormWrapper } from "./Form.styled";
 
 const Form: FC<{ isSignUp: boolean }> = ({ isSignUp }) => {
-	const { handleChange, values, handleSubmit, errors, touched } = useForm({
-		isSignUp
-	});
+	const { handleChange, values, handleSubmit, errors, touched, resetForm } =
+		useForm({
+			isSignUp
+		});
+
+	useEffect(() => resetForm(), [isSignUp, resetForm]);
 
 	return (
 		<FormWrapper onSubmit={handleSubmit}>
