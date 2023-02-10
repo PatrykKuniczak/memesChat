@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import User from "../user/User";
+import { SetStateAction, useEffect, useState } from "react";
 
 export interface IUser {
 	username: string;
@@ -7,46 +6,40 @@ export interface IUser {
 }
 
 const useUsers = () => {
-	const [users, setUsers] = useState<[]>([]);
-	console.log(users.length);
+	const [users, setUsers] = useState([]);
+	const [filteredUsers, setFilteredUsers] = useState<[] | {}[]>([]);
+	const [searchUsersQuery, setSearchUsersQuery] = useState("");
+
+	const handleChange = (event: {
+		target: { value: SetStateAction<string> };
+	}) => {
+		setSearchUsersQuery(event.target.value);
+	};
+
+	useEffect(() => {
+		const filterUsers = (users: {}[], searchUsersQuery: string) => {
+			const filtered = users.filter((user: any) =>
+				user.username.toLowerCase().includes(searchUsersQuery.toLowerCase())
+			);
+			setFilteredUsers(filtered);
+		};
+		filterUsers(users, searchUsersQuery);
+	}, [searchUsersQuery, users]);
 
 	useEffect(() => {
 		fetch(`https://dummyjson.com/users/`)
 			.then(response => response.json())
-			.then(data =>
-				setUsers(
-					data.users.sort(function (a: any, b: any) {
-						if (a.username < b.username) {
-							return -1;
-						}
-						if (a.username > b.username) {
-							return 1;
-						}
-						return 0;
-					})
-				)
-			);
+			.then(data => setUsers(data.users));
 	}, []);
 
-	const UsersList = () => {
-		return (
-			<>
-				{!users ? (
-					<span style={{ color: "white" }}>Loading...</span>
-				) : (
-					users.map((user: IUser) => (
-						<User
-							key={user.id}
-							id={user.id}
-							username={user.username}
-						/>
-					))
-				)}
-			</>
-		);
+	return {
+		searchUsersQuery,
+		setSearchUsersQuery,
+		handleChange,
+		users,
+		setUsers,
+		filteredUsers
 	};
-
-	return { UsersList };
 };
 
 export default useUsers;
