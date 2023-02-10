@@ -1,11 +1,14 @@
 import user from "assets/user.jpg";
 import { UserImage, UserName, UserContainer } from "./User.styled";
+import { IUser } from '../users/useUsers'
 
-const User = ({ userId }: { userId: number }) => {
+const User = ({ username, id }: IUser) => {
 	return (
 		<UserContainer>
 			<UserImage src={user} />
-			<UserName>{userId % 2 === 0 ? "John Doe" : "Else"}</UserName>
+			<UserName>
+				{username}
+			</UserName>
 		</UserContainer>
 	);
 };

@@ -1,17 +1,46 @@
+import { Key, useEffect, useState } from "react";
 import User from "../user/User";
 
+export interface IUser {
+	username: string;
+	id: number;
+}
+
 const useUsers = () => {
-	const usersIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+	const [users, setUsers] = useState<any>([]);
+
+	useEffect(() => {
+		fetch(`https://dummyjson.com/users/`)
+			.then(response => response.json())
+			.then(data =>
+				setUsers(
+					data.users.sort(function (a: any, b: any) {
+						if (a.username < b.username) {
+							return -1;
+						}
+						if (a.username > b.username) {
+							return 1;
+						}
+						return 0;
+					})
+				)
+			);
+	}, []);
 
 	const UsersList = () => {
 		return (
 			<>
-				{usersIds.map(userId => (
-					<User
-						key={userId}
-						userId={userId}
-					/>
-				))}
+				{users.length === 0 ? (
+					<span style={{ color: "white" }}>Loading...</span>
+				) : (
+					users.map((user: IUser) => (
+						<User
+							key={user.id}
+							id={user.id}
+							username={user.username}
+						/>
+					))
+				)}
 			</>
 		);
 	};
