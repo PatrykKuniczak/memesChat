@@ -1,4 +1,4 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 export interface IUser {
 	username: string;
@@ -10,13 +10,9 @@ const useUsers = () => {
 	const [filteredUsers, setFilteredUsers] = useState<[] | {}[]>([]);
 	const [searchUsersQuery, setSearchUsersQuery] = useState("");
 
-	const handleChange = (event: {
-		target: { value: SetStateAction<string> };
-	}) => {
+	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
 		setSearchUsersQuery(event.target.value);
-	};
 
-	useEffect(() => {
 		const filterUsers = (users: {}[], searchUsersQuery: string) => {
 			const filtered = users.filter((user: any) =>
 				user.username.toLowerCase().includes(searchUsersQuery.toLowerCase())
@@ -24,7 +20,7 @@ const useUsers = () => {
 			setFilteredUsers(filtered);
 		};
 		filterUsers(users, searchUsersQuery);
-	}, [searchUsersQuery, users]);
+	};
 
 	useEffect(() => {
 		fetch(`https://dummyjson.com/users/`)
