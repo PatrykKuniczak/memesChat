@@ -1,11 +1,6 @@
 import { Label, UsersListWrapper, UsersContainer } from "./Users.styled";
 import useUsers from "./useUsers";
 import User from "../user/User";
-import {
-	SearchIcon,
-	SearchInput,
-	SearchWrapper
-} from "../search/Search.styled";
 import Search from "components/search/Search";
 
 export interface IUser {
