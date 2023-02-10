@@ -31,6 +31,8 @@ const MenuUserImage = styled.img`
 
     object-fit: cover;
 
+    cursor: pointer;
+
     @media (max-width: ${({ theme }) => theme.media_md}) {
         display: none;
     }

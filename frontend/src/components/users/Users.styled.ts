@@ -4,6 +4,7 @@ const UsersContainer = styled.section`
 	@media (max-width: ${({ theme }) => theme.media_sm}) {
 		margin-top: 0.5rem;
 	}
+  
 	@media (max-width: ${({ theme }) => theme.media_sm}) and (max-height: ${({
 			theme
 		}) => theme.media_sm}) {
