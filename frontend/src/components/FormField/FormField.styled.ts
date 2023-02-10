@@ -4,7 +4,6 @@ const Label = styled.label`
 	color: ${({ theme }) => theme.gray_300};
 	font-size: ${({ theme }) => theme.font_md};
 	margin-top: 1.5rem;
-
 `;
 
 const Input = styled.input`
