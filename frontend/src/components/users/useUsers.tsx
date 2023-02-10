@@ -1,4 +1,4 @@
-import { Key, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import User from "../user/User";
 
 export interface IUser {
@@ -8,6 +8,7 @@ export interface IUser {
 
 const useUsers = () => {
 	const [users, setUsers] = useState<[]>([]);
+	console.log(users.length);
 
 	useEffect(() => {
 		fetch(`https://dummyjson.com/users/`)
@@ -30,7 +31,7 @@ const useUsers = () => {
 	const UsersList = () => {
 		return (
 			<>
-				{users.length === 0 ? (
+				{!users ? (
 					<span style={{ color: "white" }}>Loading...</span>
 				) : (
 					users.map((user: IUser) => (
