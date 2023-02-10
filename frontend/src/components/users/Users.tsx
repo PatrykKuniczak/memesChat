@@ -6,6 +6,7 @@ import {
 	SearchInput,
 	SearchWrapper
 } from "../search/Search.styled";
+import Search from "components/search/Search";
 
 export interface IUser {
 	username: string;
@@ -50,14 +51,11 @@ const Users = () => {
 		<UsersContainer>
 			<Label>Online</Label>
 			<UsersListWrapper>
-				<SearchWrapper $variant={""}>
-					<SearchInput
-						placeholder="Find user"
-						value={searchUsersQuery}
-						onChange={handleChange}
-					/>
-					<SearchIcon />
-				</SearchWrapper>
+				<Search
+					placeholder="Find user"
+					value={searchUsersQuery}
+					onChange={handleChange}
+				/>
 				<UsersList />
 			</UsersListWrapper>
 		</UsersContainer>
