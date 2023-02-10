@@ -7,19 +7,19 @@ export interface IUser {
 
 const useUsers = () => {
 	const [users, setUsers] = useState([]);
-	const [filteredUsers, setFilteredUsers] = useState<[] | {}[]>([]);
+	const [filteredUsers, setFilteredUsers] = useState([]);
 	const [searchUsersQuery, setSearchUsersQuery] = useState("");
 
 	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
 		setSearchUsersQuery(event.target.value);
 
-		const filterUsers = (users: {}[], searchUsersQuery: string) => {
-			const filtered = users.filter((user: any) =>
+		const filterUsers = (searchUsersQuery: string) => {
+			const filtered = users.filter((user: IUser) =>
 				user.username.toLowerCase().includes(searchUsersQuery.toLowerCase())
 			);
 			setFilteredUsers(filtered);
 		};
-		filterUsers(users, searchUsersQuery);
+		filterUsers(searchUsersQuery);
 	};
 
 	useEffect(() => {
