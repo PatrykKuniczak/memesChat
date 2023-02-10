@@ -7,7 +7,7 @@ export interface IUser {
 }
 
 const useUsers = () => {
-	const [users, setUsers] = useState<any>([]);
+	const [users, setUsers] = useState<[]>([]);
 
 	useEffect(() => {
 		fetch(`https://dummyjson.com/users/`)
