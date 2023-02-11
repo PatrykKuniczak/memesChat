@@ -19,7 +19,7 @@ const useUsers = () => {
 			);
 			setFilteredUsers(filtered);
 		};
-		filterUsers(searchUsersQuery);
+		filterUsers(event.target.value);
 	};
 
 	useEffect(() => {
