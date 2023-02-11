@@ -71,4 +71,4 @@ const OnlineBadge = styled.div`
 	}
 `;
 
-export {MainWrapper, Aside, Main, Header, Heading, OnlineBadge};
+export { MainWrapper, Aside, Main, Header, Heading, OnlineBadge };

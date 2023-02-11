@@ -11,7 +11,7 @@ const THEME_DARK = {
     gray_500: "#161616",
     gray_hover: "#242424",
 
-    gray_semitransparent: "#16161650",
+    gray_semitransparent: "#14141470",
 
     black: "#050050",
 
