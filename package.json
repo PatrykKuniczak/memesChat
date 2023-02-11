@@ -1,6 +1,6 @@
 {
   "name": "memes_chat",
   "devDependencies": {
-    "prettier": "^2.8.2"
+    "prettier": "^2.8.4"
   }
 }
