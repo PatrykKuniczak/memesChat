@@ -1,25 +1,16 @@
-import {
-	Column,
-	Entity,
-	OneToOne,
-	PrimaryGeneratedColumn
-} from "typeorm";
-import { User } from "users/model/users.entity";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("UserAvatar")
 export class UserAvatar {
-	@PrimaryGeneratedColumn()
-	id: number;
+    @PrimaryGeneratedColumn()
+    id: number;
 
-	@Column({ length: 50, select: false })
-	name: string;
+    @Column({ length: 50, select: false })
+    name: string;
 
-	@Column({ length: 255 })
-	source: string;
+    @Column()
+    sourcePath: string;
 
-	@Column()
-	extension: string;
-
-	@OneToOne(() => User, user => user.userAvatar)
-	user?: User;
+    @Column()
+    extension: string;
 }

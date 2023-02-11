@@ -1,16 +1,21 @@
-import {ConflictException, ForbiddenException, Injectable, NotFoundException} from "@nestjs/common";
-import {InjectRepository} from "@nestjs/typeorm";
-import {Repository} from "typeorm";
-import {User} from "users/model/users.entity";
-import {UserCredentialsDto} from "../model/dto/userCredentials.dto";
-import {UpdateUserDto} from "../model/dto/updateUser.dto";
+import {
+    ConflictException,
+    ForbiddenException,
+    Injectable,
+    NotFoundException
+} from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { User } from "users/model/users.entity";
+import { UserCredentialsDto } from "users/model/dto/user-credentials.dto";
+import { UpdateUserDto } from "users/model/dto/update-user.dto";
 
 @Injectable()
 export class UsersService {
     constructor(
-        @InjectRepository(User) private readonly userRepository: Repository<User>
-    ) {
-    }
+        @InjectRepository(User)
+        private readonly userRepository: Repository<User>
+    ) {}
 
     async create(userCredentialsDto: UserCredentialsDto) {
         const user = await this.userRepository.findOneBy({
@@ -24,17 +29,18 @@ export class UsersService {
 
     async update(id: number, userId: number, updateUserDto: UpdateUserDto) {
         updateUserDto.username = updateUserDto.username
-            .replace(/\s/g, "").toLowerCase();
+            .replace(/\s/g, "")
+            .toLowerCase();
 
         if (userId !== id) throw new ForbiddenException();
 
-        const {username} = await this.findOneById(id, userId);
+        const user = await this.userRepository.findOneBy({
+            username: updateUserDto.username
+        });
 
-        if (username !== updateUserDto.username) {
-            await this.userRepository.update(id, updateUserDto).catch(() => {
-                throw new ConflictException("Duplicated username");
-            });
-        }
+        if (user) throw new ConflictException("Duplicated username");
+
+        await this.userRepository.save({ id, ...updateUserDto });
     }
 
     async delete(userId: number, id: number) {
@@ -50,7 +56,7 @@ export class UsersService {
     }
 
     async findOneByUsername(username: string) {
-        return this.userRepository.findOneByOrFail({username}).catch(() => {
+        return this.userRepository.findOneByOrFail({ username }).catch(() => {
             throw new NotFoundException();
         });
     }
@@ -58,22 +64,20 @@ export class UsersService {
     async findOneById(id: number, userId: number) {
         if (id !== userId) throw new ForbiddenException();
 
-        return this.userRepository
-            .createQueryBuilder("user")
-            .leftJoinAndSelect("user.userAvatar", "userAvatar")
-            .where({id})
-            .getOne()
-            .catch(() => {
-                throw new NotFoundException();
-            });
+        return this.userRepository.findOne({
+            where: { id },
+            relations: { userAvatar: true }
+        });
     }
 
     async passwordSelect(username: string) {
-        return this.userRepository.findOneOrFail({
-            where: {username},
-            select: ["password"]
-        }).catch(() => {
-            throw new NotFoundException();
-        });
+        return this.userRepository
+            .findOneOrFail({
+                where: { username },
+                select: ["password"]
+            })
+            .catch(() => {
+                throw new NotFoundException();
+            });
     }
 }

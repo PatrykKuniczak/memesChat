@@ -2,30 +2,32 @@ import {
     Body,
     Controller,
     Delete,
+    FileTypeValidator,
     Get,
     Param,
+    ParseFilePipe,
     ParseIntPipe,
     Patch,
-    UseGuards,
-    InternalServerErrorException,
     UploadedFile,
-    UseInterceptors,
-    FileTypeValidator,
-    ParseFilePipe
+    UseFilters,
+    UseGuards,
+    UseInterceptors
 } from "@nestjs/common";
-import {UsersService} from "users/services/users.service";
-import {JwtAuthGuard} from "auth/guards/jwt-auth.guard";
-import {UpdateUserDto} from "../model/dto/updateUser.dto";
-import {UserReq} from "../user.decorator";
-import {UsersAvatarService} from "usersAvatar/services/usersAvatar.service";
-import {FileInterceptor} from "@nestjs/platform-express";
+import { UsersService } from "users/services/users.service";
+import { JwtAuthGuard } from "auth/guards/jwt-auth.guard";
+import { UpdateUserDto } from "users/model/dto/update-user.dto";
+import { UserReq } from "../user.decorator";
+import { UsersAvatarService } from "usersAvatar/services/usersAvatar.service";
+import { FileInterceptor } from "@nestjs/platform-express";
+import { diskStorage } from "multer";
+import { DeleteFileOnErrorFilter } from "filters/delete-file-on-error-filter";
 
 @Controller("users")
 class UsersController {
     constructor(
         private readonly userService: UsersService,
-        private readonly usersAvatarService: UsersAvatarService) {
-    }
+        private readonly usersAvatarService: UsersAvatarService
+    ) {}
 
     @UseGuards(JwtAuthGuard)
     @Get()
@@ -35,44 +37,55 @@ class UsersController {
 
     @UseGuards(JwtAuthGuard)
     @Get(":id")
-    async findOne(@UserReq("id") userId: number, @Param("id", ParseIntPipe) id: number) {
+    async findOne(
+        @Param("id", ParseIntPipe) id: number,
+        @UserReq("id") userId: number
+    ) {
         return this.userService.findOneById(id, userId);
     }
 
     @UseGuards(JwtAuthGuard)
     @Delete(":id")
-    async delete(@UserReq("id") userId: number, @Param("id", ParseIntPipe) paramId: number) {
+    async delete(
+        @Param("id", ParseIntPipe) paramId: number,
+        @UserReq("id") userId: number
+    ) {
         return this.userService.delete(userId, paramId);
     }
 
     @UseGuards(JwtAuthGuard)
     @Patch(":id")
-    @UseInterceptors(FileInterceptor('userAvatar'))
+    @UseFilters(new DeleteFileOnErrorFilter())
+    @UseInterceptors(
+        FileInterceptor("userAvatar", {
+            storage: diskStorage({
+                destination: "./avatars"
+            })
+        })
+    )
     async update(
         @Param("id", ParseIntPipe) id: number,
         @UserReq("id") userId: number,
         @Body() updateUserDto: UpdateUserDto,
-        @UploadedFile(new ParseFilePipe({
-                validators: [new FileTypeValidator({fileType: /(jpg|jpeg|png)$/})]
+        @UploadedFile(
+            new ParseFilePipe({
+                validators: [
+                    new FileTypeValidator({ fileType: /(jpg|jpeg|png)$/ })
+                ],
+                fileIsRequired: false
             })
-        ) file,
+        )
+        file: Express.Multer.File
     ) {
-        if (file) {
-            const addFilePromises = await this.usersAvatarService.addUserAvatarFile(file);
-
-            try {
-                const result = await Promise.all(addFilePromises);
-                const userAvatar = result[0];
-
-                if (userAvatar) {
-                    updateUserDto.userAvatar = userAvatar;
-                }
-            } catch (error) {
-                throw new InternalServerErrorException(error);
-            }
-
-            return this.userService.update(id, userId, updateUserDto);
-        }
+        if (file)
+            updateUserDto.userAvatar =
+                await this.usersAvatarService.addUserAvatarFile(
+                    id,
+                    userId,
+                    file
+                );
+        else delete updateUserDto.userAvatar;
+        return this.userService.update(id, userId, updateUserDto);
     }
 }
 

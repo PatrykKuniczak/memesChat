@@ -1,82 +1,48 @@
-import { Injectable, StreamableFile } from "@nestjs/common";
+import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { v4 as uuidv4 } from "uuid";
-import { UsersAvatarDto } from "../model/dto/usersAvatar.dto";
 import { ConfigService } from "@nestjs/config";
-import { createReadStream } from "fs";
-import { join } from "path";
-import { writeFile, unlink } from "fs";
 import { UserAvatar } from "../model/usersAvatar.entity";
+import { UsersService } from "users/services/users.service";
+import { unlinkSync } from "fs";
+import { dirname, join } from "path";
 
 @Injectable()
 export class UsersAvatarService {
-	constructor(
-		@InjectRepository(UserAvatar)
-		private usersAvatarRepository: Repository<UserAvatar>,
-		private configService: ConfigService
-	) {}
-	async addUserAvatarFile(file): Promise<[Promise<any>, Promise<any>]> {
-		const fileName = file.originalname;
-		const fileExtension = file.originalname.split(".").pop();
-		const fileSource = uuidv4() + "." + fileExtension;
+    constructor(
+        @InjectRepository(UserAvatar)
+        private readonly usersAvatarRepository: Repository<UserAvatar>,
+        private readonly configService: ConfigService,
+        private readonly usersService: UsersService
+    ) {}
 
-		const fileWritePromise = new Promise((resolve, reject) => {
-			writeFile(
-				`${this.configService.get("FILES_DIRECTORY")}${fileSource}`,
-				file.buffer,
-				function (error) {
-					if (error) {
-						reject(error);
-					}
-					resolve(true);
-				}
-			);
-		});
+    async addUserAvatarFile(
+        id: number,
+        userId: number,
+        file: Express.Multer.File
+    ) {
+        const name = file.originalname;
+        const extension = file.originalname.split(".").pop();
+        const sourcePath = file.path;
+        const { userAvatar } = await this.usersService.findOneById(id, userId);
 
-		const memeDto = new UsersAvatarDto(fileName, fileSource, fileExtension);
+        userAvatar && (await this.remove(userAvatar.id, userAvatar.sourcePath));
+        return this.usersAvatarRepository.save({ name, sourcePath, extension });
+    }
 
-		const addToDbPromise = this.usersAvatarRepository.save(memeDto);
+    async remove(id: number, sourcePath: string) {
+        if (id) {
+            const appDir = dirname(require.main.filename);
 
-		return [addToDbPromise, fileWritePromise];
-	}
+            try {
+                unlinkSync(join(appDir, `../${sourcePath}`));
+            } catch (err) {
+                throw new InternalServerErrorException(err.message);
+            }
 
-	getUserAvatarFileBySource(source: string) {
-		const file = createReadStream(
-			join(process.cwd() + "/" + this.configService.get("FILES_DIRECTORY"), source)
-		);
-
-		return new StreamableFile(file); // TODO: Handle error
-	}
-
-	removeUserAvatarFileBySource(source: string) {
-		return new Promise((resolve, reject) => {
-			unlink(
-				`${this.configService.get("FILES_DIRECTORY")}${source}`,
-				function (error) {
-					if (error) {
-						reject(error);
-					}
-					resolve(true);
-				}
-			);
-		});
-	}
-
-	async getUserAvatarByIdAndUserId(userId: number, userAvatarId: number) {
-		return this.usersAvatarRepository
-			.createQueryBuilder("userAvatar")
-			.innerJoin("userAvatar.user", "user")
-			.where({
-				id: userAvatarId,
-				user: {
-					id: userId
-				}
-			})
-			.getOne();
-	}
-
-	removeUserAvatarById(userAvatarId) {
-		return this.usersAvatarRepository.delete(userAvatarId);
-	}
+            await this.usersAvatarRepository.delete(id).catch(err => {
+                throw new InternalServerErrorException(err);
+            });
+        }
+    }
 }

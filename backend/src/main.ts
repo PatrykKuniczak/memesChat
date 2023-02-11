@@ -6,16 +6,17 @@ import * as dotenv from "dotenv";
 import * as dotenvExpand from "dotenv-expand";
 
 (async () => {
-  const logger = new Logger("Main");
-  dotenvExpand.expand(dotenv.config({ path: "./.env" }));
-  const app = await NestFactory.create(AppModule);
-  const configService = app.get(ConfigService);
-  const PORT = +configService.get("SERVER_PORT");
+    const logger = new Logger("Main");
+    dotenvExpand.expand(dotenv.config({ path: "./.env" }));
 
-  app.setGlobalPrefix("api");
-  app.useGlobalPipes(new ValidationPipe());
+    const app = await NestFactory.create(AppModule);
+    const configService = app.get(ConfigService);
+    const PORT = +configService.get("SERVER_PORT");
 
 
-  await app.listen(PORT);
-  logger.log(`Server running on PORT ${PORT}`);
+    app.setGlobalPrefix("api");
+    app.useGlobalPipes(new ValidationPipe());
+
+    await app.listen(PORT);
+    logger.log(`Server running on PORT ${PORT}`);
 })();
