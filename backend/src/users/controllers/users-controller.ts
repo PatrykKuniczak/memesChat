@@ -1,17 +1,17 @@
 import {
-    Body,
-    Controller,
-    Delete,
-    FileTypeValidator,
-    Get,
-    Param,
-    ParseFilePipe,
-    ParseIntPipe,
-    Patch,
-    UploadedFile,
-    UseFilters,
-    UseGuards,
-    UseInterceptors
+	Body,
+	Controller,
+	Delete,
+	FileTypeValidator,
+	Get,
+	Param,
+	ParseFilePipe,
+	ParseIntPipe,
+	Patch,
+	UploadedFile,
+	UseFilters,
+	UseGuards,
+	UseInterceptors
 } from "@nestjs/common";
 import { UsersService } from "users/services/users.service";
 import { JwtAuthGuard } from "auth/guards/jwt-auth.guard";
@@ -24,69 +24,72 @@ import { DeleteFileOnErrorFilter } from "filters/delete-file-on-error-filter";
 
 @Controller("users")
 class UsersController {
-    constructor(
-        private readonly userService: UsersService,
-        private readonly usersAvatarService: UsersAvatarService
-    ) {}
+	constructor(
+		private readonly userService: UsersService,
+		private readonly usersAvatarService: UsersAvatarService
+	) {}
 
-    @UseGuards(JwtAuthGuard)
-    @Get()
-    async findAll() {
-        return this.userService.findAll();
-    }
+	@UseGuards(JwtAuthGuard)
+	@Get()
+	async findAll() {
+		return this.userService.findAll();
+	}
 
-    @UseGuards(JwtAuthGuard)
-    @Get(":id")
-    async findOne(
-        @Param("id", ParseIntPipe) id: number,
-        @UserReq("id") userId: number
-    ) {
-        return this.userService.findOneById(id, userId);
-    }
+	@UseGuards(JwtAuthGuard)
+	@Get(":id")
+	async findOne(
+		@Param("id", ParseIntPipe) id: number,
+		@UserReq("id") userId: number
+	) {
+		return this.userService.findOneById(id, userId);
+	}
 
-    @UseGuards(JwtAuthGuard)
-    @Delete(":id")
-    async delete(
-        @Param("id", ParseIntPipe) paramId: number,
-        @UserReq("id") userId: number
-    ) {
-        return this.userService.delete(userId, paramId);
-    }
+	@UseGuards(JwtAuthGuard)
+	@Delete(":id")
+	async delete(
+		@Param("id", ParseIntPipe) paramId: number,
+		@UserReq("id") userId: number
+	) {
+		return this.userService.delete(userId, paramId);
+	}
 
-    @UseGuards(JwtAuthGuard)
-    @Patch(":id")
-    @UseFilters(new DeleteFileOnErrorFilter())
-    @UseInterceptors(
-        FileInterceptor("userAvatar", {
-            storage: diskStorage({
-                destination: "./avatars"
-            })
-        })
-    )
-    async update(
-        @Param("id", ParseIntPipe) id: number,
-        @UserReq("id") userId: number,
-        @Body() updateUserDto: UpdateUserDto,
-        @UploadedFile(
-            new ParseFilePipe({
-                validators: [
-                    new FileTypeValidator({ fileType: /(jpg|jpeg|png)$/ })
-                ],
-                fileIsRequired: false
-            })
-        )
-        file: Express.Multer.File
-    ) {
-        if (file)
-            updateUserDto.userAvatar =
-                await this.usersAvatarService.addUserAvatarFile(
-                    id,
-                    userId,
-                    file
-                );
-        else delete updateUserDto.userAvatar;
-        return this.userService.update(id, userId, updateUserDto);
-    }
+	@UseGuards(JwtAuthGuard)
+	@Patch(":id")
+	@UseFilters(new DeleteFileOnErrorFilter())
+	@UseInterceptors(
+		FileInterceptor("userAvatar", {
+			storage: diskStorage({
+				destination: "./avatars"
+			})
+		})
+	)
+	async update(
+		@Param("id", ParseIntPipe) id: number,
+		@UserReq("id") userId: number,
+		@Body() updateUserDto: UpdateUserDto,
+		@UploadedFile(
+			new ParseFilePipe({
+				validators: [new FileTypeValidator({ fileType: /(jpg|jpeg|png)$/ })],
+				fileIsRequired: false
+			})
+		)
+		file: Express.Multer.File
+	) {
+		if (file)
+			updateUserDto.userAvatar =
+				await this.usersAvatarService.addUserAvatarFile(id, userId, file);
+		else {
+			updateUserDto.userAvatar = null;
+			const { userAvatar } = await this.userService.findOneById(id, userId);
+
+			if (userAvatar)
+				await this.usersAvatarService.remove(
+					userAvatar.id,
+					userAvatar.sourcePath
+				);
+		}
+		return this.userService.update(id, userId, updateUserDto);
+	}
 }
 
 export default UsersController;
