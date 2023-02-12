@@ -44,9 +44,7 @@ export class UsersService {
 		await this.userRepository.save({ id, ...updateUserDto });
 	}
 
-	async delete(userId: number, id: number) {
-		if (userId !== id) throw new ForbiddenException();
-
+	async delete(id: number) {
 		const result = (await this.userRepository.delete(id)).affected;
 
 		if (!result) throw new NotFoundException();
@@ -62,13 +60,22 @@ export class UsersService {
 		});
 	}
 
-	async findOneById(id: number, userId: number) {
-		if (id !== userId) throw new ForbiddenException();
-
+	async findOneById(id: number) {
 		return this.userRepository.findOne({
 			where: { id },
 			relations: { userAvatar: true }
 		});
+	}
+
+	async findOneByAvatarId(id: number) {
+		return this.userRepository
+			.findOneOrFail({
+				where: { userAvatar: { id } },
+				relations: { userAvatar: true }
+			})
+			.catch(() => {
+				throw new NotFoundException();
+			});
 	}
 
 	async passwordSelect(username: string) {

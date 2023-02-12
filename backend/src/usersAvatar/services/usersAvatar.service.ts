@@ -16,15 +16,12 @@ export class UsersAvatarService {
 		private readonly usersService: UsersService
 	) {}
 
-	async addUserAvatarFile(
-		id: number,
-		userId: number,
-		file: Express.Multer.File
-	) {
+	async addUserAvatarFile(id: number, file: Express.Multer.File) {
 		const name = file.originalname;
 		const extension = file.originalname.split(".").pop();
 		const sourcePath = file.path;
-		const { userAvatar } = await this.usersService.findOneById(id, userId);
+
+		const { userAvatar } = await this.usersService.findOneById(id);
 
 		userAvatar && (await this.remove(userAvatar.id, userAvatar.sourcePath));
 		return this.usersAvatarRepository.save({ name, sourcePath, extension });

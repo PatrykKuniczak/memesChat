@@ -3,6 +3,7 @@ import {
 	Controller,
 	Delete,
 	FileTypeValidator,
+	ForbiddenException,
 	Get,
 	Param,
 	ParseFilePipe,
@@ -41,16 +42,20 @@ class UsersController {
 		@Param("id", ParseIntPipe) id: number,
 		@UserReq("id") userId: number
 	) {
-		return this.userService.findOneById(id, userId);
+		if (id !== userId) throw new ForbiddenException();
+
+		return this.userService.findOneById(id);
 	}
 
 	@UseGuards(JwtAuthGuard)
 	@Delete(":id")
 	async delete(
-		@Param("id", ParseIntPipe) paramId: number,
+		@Param("id", ParseIntPipe) id: number,
 		@UserReq("id") userId: number
 	) {
-		return this.userService.delete(userId, paramId);
+		if (userId !== id) throw new ForbiddenException();
+
+		return this.userService.delete(id);
 	}
 
 	@UseGuards(JwtAuthGuard)
@@ -75,12 +80,14 @@ class UsersController {
 		)
 		file: Express.Multer.File
 	) {
+		if (id !== userId) throw new ForbiddenException();
+
 		if (file)
 			updateUserDto.userAvatar =
-				await this.usersAvatarService.addUserAvatarFile(id, userId, file);
+				await this.usersAvatarService.addUserAvatarFile(id, file);
 		else {
 			updateUserDto.userAvatar = null;
-			const { userAvatar } = await this.userService.findOneById(id, userId);
+			const { userAvatar } = await this.userService.findOneById(id);
 
 			if (userAvatar)
 				await this.usersAvatarService.remove(
