@@ -10,7 +10,6 @@ const useMessageSearchBar = () => {
 
 	const updateSearchParams = (params: { [key: string]: string }) => {
 		const allParams: Record<string, string> = Object.fromEntries(searchParams);
-		console.log(allParams);
 		setSearchParams({ ...allParams, ...params });
 	};
 
