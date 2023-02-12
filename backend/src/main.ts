@@ -13,6 +13,7 @@ import * as dotenvExpand from "dotenv-expand";
     const configService = app.get(ConfigService);
     const PORT = +configService.get("SERVER_PORT");
 
+    app.enableCors();
     app.setGlobalPrefix("api");
     app.useGlobalPipes(new ValidationPipe());
 
