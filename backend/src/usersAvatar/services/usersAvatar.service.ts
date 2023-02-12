@@ -9,35 +9,35 @@ import { dirname, join } from "path";
 
 @Injectable()
 export class UsersAvatarService {
-	constructor(
-		@InjectRepository(UserAvatar)
-		private readonly usersAvatarRepository: Repository<UserAvatar>,
-		private readonly configService: ConfigService,
-		private readonly usersService: UsersService
-	) {}
+    constructor(
+        @InjectRepository(UserAvatar)
+        private readonly usersAvatarRepository: Repository<UserAvatar>,
+        private readonly configService: ConfigService,
+        private readonly usersService: UsersService
+    ) {}
 
-	async addUserAvatarFile(id: number, file: Express.Multer.File) {
-		const name = file.originalname;
-		const extension = file.originalname.split(".").pop();
-		const sourcePath = file.path;
+    async addUserAvatarFile(id: number, file: Express.Multer.File) {
+        const name = file.originalname;
+        const extension = file.originalname.split(".").pop();
+        const sourcePath = file.path;
 
-		const { userAvatar } = await this.usersService.findOneById(id);
+        const { userAvatar } = await this.usersService.findOneById(id);
 
-		userAvatar && (await this.remove(userAvatar.id, userAvatar.sourcePath));
-		return this.usersAvatarRepository.save({ name, sourcePath, extension });
-	}
+        userAvatar && (await this.remove(userAvatar.id, userAvatar.sourcePath));
+        return this.usersAvatarRepository.save({ name, sourcePath, extension });
+    }
 
-	async remove(id: number, sourcePath: string) {
-		const appDir = dirname(require.main.filename);
+    async remove(id: number, sourcePath: string) {
+        const appDir = dirname(require.main.filename);
 
-		try {
-			unlinkSync(join(appDir, `../${sourcePath}`));
-		} catch (err) {
-			throw new InternalServerErrorException(err.message);
-		}
+        try {
+            unlinkSync(join(appDir, `../${sourcePath}`));
+        } catch (err) {
+            throw new InternalServerErrorException(err.message);
+        }
 
-		await this.usersAvatarRepository.delete(id).catch(err => {
-			throw new InternalServerErrorException(err);
-		});
-	}
+        await this.usersAvatarRepository.delete(id).catch(err => {
+            throw new InternalServerErrorException(err);
+        });
+    }
 }
