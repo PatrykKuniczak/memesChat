@@ -6,6 +6,7 @@ import { UserAvatar } from "../model/usersAvatar.entity";
 import { UsersService } from "users/services/users.service";
 import { unlinkSync } from "fs";
 import { dirname, join } from "path";
+import IUploadedFile from "users/types/uploaded-file.interface";
 
 @Injectable()
 export class UsersAvatarService {
@@ -16,7 +17,7 @@ export class UsersAvatarService {
         private readonly usersService: UsersService
     ) {}
 
-    async addUserAvatarFile(id: number, file: Express.Multer.File) {
+    async addUserAvatarFile(id: number, file: IUploadedFile) {
         const name = file.originalname;
         const extension = file.originalname.split(".").pop();
         const sourcePath = file.path;
