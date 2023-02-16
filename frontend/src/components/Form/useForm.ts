@@ -23,8 +23,9 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
 
         login(username, password).then(
             () => {
-                navigate("/"); // go to main page (chat)
-                window.location.reload();
+                // navigate("/"); // go to main page (chat)
+                // window.location.reload();
+								console.log('logged in')
             },
             error => {
                 const resMessage =
@@ -63,9 +64,9 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
 
     const formik = useFormik({
         initialValues: {
-            login: "",
-            password: "",
-            passwordConfirmation: ""
+            login: "abcabcabc",
+            password: "aA1!A1!aA1!A1!",
+            passwordConfirmation: "aA1!A1!aA1!A1!"
         },
         validationSchema: Yup.object({
             login: Yup.string()
