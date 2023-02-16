@@ -129,7 +129,7 @@ class UsersController {
                     userAvatar.sourcePath
                 );
         }
-        return this.userService.update(id, userId, updateUserDto);
+        return this.userService.update(id, updateUserDto);
     }
 }
 
