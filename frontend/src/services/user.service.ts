@@ -3,20 +3,24 @@
 import axios from "axios";
 import authHeader from "./auth.header";
 
-const API_URL = "http://memeschat.com/api/user/";
+interface IUser {
+    userId: any;
+}
+
+const API_URL = "http://localhost:3030/api/";
 
 export const getPublicContent = () => {
-  return axios.get(API_URL + "all");
+    return axios.get(API_URL);
 };
 
-export const getUserBoard = () => {
-  return axios.get(API_URL + "user", { headers: authHeader() });
+export const getUserObject = (userId: IUser) => {
+    return axios.get(API_URL + `${userId}`, { headers: authHeader() });
 };
 
-export const getModeratorBoard = () => {
-  return axios.get(API_URL + "mod", { headers: authHeader() });
+export const deleteUser = (userId: IUser) => {
+    return axios.delete(API_URL + `${userId}`, { headers: authHeader() });
 };
 
-export const getAdminBoard = () => {
-  return axios.get(API_URL + "admin", { headers: authHeader() });
+export const updateUser = (userId: IUser) => {
+    return axios.patch(API_URL + `${userId}`, { headers: authHeader() });
 };

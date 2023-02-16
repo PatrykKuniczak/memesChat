@@ -7,8 +7,8 @@ import { NavigateFunction, useNavigate } from "react-router-dom";
 const loginRegex = /^[a-zA-Z0-9]*$/;
 const passwordRegex =
     /^(?=.*[a-zżźćńółęąś])(?=.*[A-ZŻŹĆĄŚĘŁÓŃ])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ\d!@#$%^&* ]*$/;
-// abcabcabc
-// aA1!A1!aA1!A1!
+    // abcabcabc
+    // aA1!A1!aA1!
 
 const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
     const [loading, setLoading] = useState<boolean>(false);
@@ -17,15 +17,15 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
     let navigate: NavigateFunction = useNavigate();
 
     const handleLogin = (username: string, password: string) => {
-        console.log("login", username, password);
+        console.log("login data:", username, password);
         setMessage("");
         setLoading(true);
 
         login(username, password).then(
             () => {
-                // navigate("/"); // go to main page (chat)
+                navigate("/"); // go to main page (chat)
                 // window.location.reload();
-								console.log('logged in')
+                console.log("logged in");
             },
             error => {
                 const resMessage =
@@ -64,9 +64,9 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
 
     const formik = useFormik({
         initialValues: {
-            login: "abcabcabc",
-            password: "aA1!A1!aA1!A1!",
-            passwordConfirmation: "aA1!A1!aA1!A1!"
+            login: "",
+            password: "",
+            passwordConfirmation: ""
         },
         validationSchema: Yup.object({
             login: Yup.string()

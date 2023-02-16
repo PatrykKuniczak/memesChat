@@ -23,8 +23,12 @@ export const login = (username: string, password: string) => {
             password
         })
         .then(response => {
-            console.log("login res", response);
+            console.log("login response:", response);
             if (response.data.accessToken) {
+                console.table(
+                    "set access token:",
+                    response.data.accessToken.split(".")
+                );
                 localStorage.setItem("user", JSON.stringify(response.data));
             }
 
