@@ -38,7 +38,7 @@ export class UsersService {
 			username: updateUserDto.username
 		});
 
-		if (user && user.id !== userId)
+		if (user)
 			throw new ConflictException("Duplicated username");
 
 		await this.userRepository.save({ id, ...updateUserDto });

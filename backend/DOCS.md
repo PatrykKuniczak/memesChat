@@ -33,6 +33,10 @@ authorId: number
 
     All schemas from backend, are located at the bottom of the page
 
+    For get avatar hit:
+        For default host and port: "http://localhost:3030/avatars/${sourcePath}"
+        'sourcePath' u can take from User object(Look on swagger schemas), when you login/register. 
+
 ##### IF TOKEN IS INVALID API RETURN Unauthorized(401).
 
 ## Web Socket:
