@@ -2,7 +2,7 @@
 
 ### Message:
 
-// THAT WILL BE MIGRATED BE MIGRATED TO SWAGGER IN THE FUTURE
+// THAT WILL BE MIGRATED TO SWAGGER IN THE FUTURE
 
 ```
 Automatic generated
@@ -36,6 +36,7 @@ authorId: number
 ##### IF TOKEN IS INVALID API RETURN Unauthorized(401).
 
 ## Web Socket:
+
 // THAT WILL BE MIGRATED TO WS APP IN THE FUTURE
 
 ```
