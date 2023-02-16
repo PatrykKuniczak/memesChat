@@ -1,46 +1,8 @@
 ### __global prefix__: ```\api```
 
-# **Interfaces:**
-
-### JWT token:
-
-```
-Length could be from 5 to 30
-Must be alphanumeric
-username: string
-
-id: number
-
-Identifies the time at which the JWT was issued
-iat: number
-
-Identifies the expiration time
-exp: number
-```
-
-### User:
-
-```
-Automatic generated
-id: number
-
-Length could be from 5 to 30
-Must be alphanumeric (Can't contain polish letters)
-username: string
-
-Length could be from 10 to 60
-(Must cointain 1 small and 1 big letter, 1 number and 1 special sign)
-Can contain polish letters.
-
-Regex: /^(?=.*[a-zżźćńółęąś])(?=.*[A-ZŻŹĆĄŚĘŁÓŃ])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ\d!@#$%^&* ]*$/
-password: string
-
-userAvatar: UserAvatar
-
-message: Message[]
-```     
-
 ### Message:
+
+// THAT WILL BE MIGRATED BE MIGRATED TO SWAGGER IN THE FUTURE
 
 ```
 Automatic generated
@@ -60,84 +22,21 @@ updatedAt: number
 authorId: number
 ```
 
-### Avatar:
-
-```
-Automatic generated
-id: number
-
-Get from passed file
-name: string
-
-Source is given by uuid
-source: string
-
-Get from passed file
-extension: string
-
-user: User
-```
-
 ## API Endpoints:
+
+    run backend: npm run start:dev
+    open localhost(or other your host):YOUR PORT/docs for default "localhost:3030/docs"
+    
+    And here u have all endpoints, can be tested like in postman, remember to save Bearer token in "Authorize" hint
+    
+    Endpoints with "padlock" icon, require BearerAuth
+
+    All schemas from backend, are located at the bottom of the page
 
 ##### IF TOKEN IS INVALID API RETURN Unauthorized(401).
 
-```
-\auth:
-    POST \register:
-    payload: {username, password} Part of User
-        Return {accessToken: JWT token} or Conflict (409) with message 'duplicated user'.
-        
-    POST \login:
-    payload: {username, password} Part of User
-        Return {accessToken: JWT token} or 404. 
-```
-
-#### FOR ALL REST ENDPOINTS JWT TOKEN NEED TO BE SEND IN HEADERS.Authorization
-
-```
-\users
-    GET \
-        Return Array with all users.
-         
-    GET \:id
-        Return User object without password or 404.         
-        
-    DELETE \:id
-        Return 200 or 404.
-       
-    PATCH \:id
-    Payload body: {username, avatar}
-        Return 200 or 404,
-        Conflict (409) when username is duplicated or Bad Request (400).
-```
-
-```
-\usersAvatar
-    GET \:source
-        Return file as a binary object
-        
-    DELETE \:id
-        Return true or 403 if token is not valid for given userAvatarId
-```
-
-```
-\messages
-    GET \
-        Return Array with all messages.
-        
-    DELETE \:id
-        Return 200 or 404.
-        
-    POST \
-        Return Messsage object. 
-        
-    PUT \:id
-    Payload body: {Message}
-        Return 200 or 404.
-```
-
 ## Web Socket:
+// THAT WILL BE MIGRATED TO WS APP IN THE FUTURE
 
 ```
 emit -> "findAllMessages"

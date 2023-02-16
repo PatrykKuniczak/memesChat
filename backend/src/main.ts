@@ -1,13 +1,15 @@
-import {NestFactory} from "@nestjs/core";
-import {AppModule} from "app.module";
-import {ConfigService} from "@nestjs/config";
-import {Logger, ValidationPipe} from "@nestjs/common";
+import { NestFactory } from "@nestjs/core";
+import { AppModule } from "app.module";
+import { ConfigService } from "@nestjs/config";
+import { Logger, ValidationPipe } from "@nestjs/common";
 import * as dotenv from "dotenv";
 import * as dotenvExpand from "dotenv-expand";
+import { SwaggerModule } from "@nestjs/swagger";
+import { createDocumentWrapper } from "swagger/swagger.document";
 
 (async () => {
     const logger = new Logger("Main");
-    dotenvExpand.expand(dotenv.config({path: "./.env"}));
+    dotenvExpand.expand(dotenv.config({ path: "./.env" }));
 
     const app = await NestFactory.create(AppModule);
     const configService = app.get(ConfigService);
@@ -16,6 +18,10 @@ import * as dotenvExpand from "dotenv-expand";
     app.enableCors();
     app.setGlobalPrefix("api");
     app.useGlobalPipes(new ValidationPipe());
+
+    const { document } = createDocumentWrapper(app);
+
+    SwaggerModule.setup("docs", app, document);
 
     await app.listen(PORT);
     logger.log(`Server running on PORT ${PORT}`);

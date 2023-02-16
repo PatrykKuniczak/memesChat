@@ -8,9 +8,19 @@ import {
 } from "@nestjs/common";
 import { UsersAvatarService } from "../services/usersAvatar.service";
 import { JwtAuthGuard } from "auth/guards/jwt-auth.guard";
-import { UserReq } from "users/user.decorator";
+import { UserReq } from "users/decorators/user.decorator";
 import { UsersService } from "users/services/users.service";
+import {
+	ApiBearerAuth,
+	ApiForbiddenResponse,
+	ApiNotFoundResponse,
+	ApiOkResponse,
+	ApiTags,
+	ApiUnauthorizedResponse
+} from "@nestjs/swagger";
 
+@ApiBearerAuth()
+@ApiTags("users-avatar")
 @Controller("users-avatar")
 class UsersAvatarController {
 	constructor(
@@ -18,6 +28,10 @@ class UsersAvatarController {
 		private readonly userService: UsersService
 	) {}
 
+	@ApiForbiddenResponse()
+	@ApiUnauthorizedResponse()
+	@ApiOkResponse()
+	@ApiNotFoundResponse()
 	@UseGuards(JwtAuthGuard)
 	@Delete(":id")
 	async delete(

@@ -7,7 +7,7 @@ import {
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { User } from "users/model/users.entity";
-import { UserCredentialsDto } from "users/model/dto/user-credentials.dto";
+import { UserCredentialsDto } from "auth/model/dto/user-credentials.dto";
 import { UpdateUserDto } from "users/model/dto/update-user.dto";
 
 @Injectable()
