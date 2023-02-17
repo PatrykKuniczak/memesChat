@@ -1,24 +1,27 @@
-// authentication service
-// login(): POST {username, password} & save JWT to Local Storage
-// logout(): remove JWT from Local Storage
-// register(): POST {username, email, password}
-// getCurrentUser(): get stored user information (including JWT)
+/**
+ * authentication service
+ */
 
 import axios from "axios";
 
-const API_URL = "http://localhost:3030/api/auth/";
+const API_URL = process.env.REACT_APP_API_URL;
 
+/**
+ * register(): POST {username, email, password}
+ */
 export const register = (username: string, password: string) => {
-    console.log(API_URL + "register");
-    return axios.post(API_URL + "register", {
+    return axios.post(API_URL + "api/auth/register", {
         username,
         password
     });
 };
 
+/**
+ * login(): POST {username, password} & save JWT to Local Storage
+ */
 export const login = (username: string, password: string) => {
     return axios
-        .post(API_URL + "login", {
+        .post(API_URL + "api/auth/login", {
             username,
             password
         })
@@ -29,20 +32,24 @@ export const login = (username: string, password: string) => {
                     "set access token:",
                     response.data.accessToken.split(".")
                 );
-                localStorage.setItem("user", JSON.stringify(response.data));
+                localStorage.setItem("userJwtToken", JSON.stringify(response.data));
             }
 
             return response.data;
         });
 };
 
+/**
+ * logout(): remove JWT from Local Storage
+ */
 export const logout = () => {
-    localStorage.removeItem("user");
+    localStorage.removeItem("userJwtToken");
 };
 
+/**
+ * getCurrentUser(): get stored user information (including JWT)
+ */
 export const getCurrentUser = () => {
-    const userStr = localStorage.getItem("user");
+    const userStr = localStorage.getItem("userJwtToken");
     if (userStr) return JSON.parse(userStr);
-
-    return null;
 };

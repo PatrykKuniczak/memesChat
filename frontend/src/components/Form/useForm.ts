@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
 import { login, register } from "services/auth.service";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const loginRegex = /^[a-zA-Z0-9]*$/;
 const passwordRegex =
@@ -14,7 +14,7 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [successful, setSuccessful] = useState<boolean>(false);
     const [message, setMessage] = useState<string>("");
-    let navigate: NavigateFunction = useNavigate();
+    let navigate = useNavigate();
 
     const handleLogin = (username: string, password: string) => {
         console.log("login data:", username, password);
@@ -23,8 +23,7 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
 
         login(username, password).then(
             () => {
-                navigate("/"); // go to main page (chat)
-                // window.location.reload();
+                navigate("/"); 
                 console.log("logged in");
             },
             error => {
