@@ -14,7 +14,7 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [successful, setSuccessful] = useState<boolean>(false);
     const [message, setMessage] = useState<string>("");
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     const handleLogin = (username: string, password: string) => {
         console.log("login data:", username, password);
@@ -23,7 +23,7 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
 
         login(username, password).then(
             () => {
-                navigate("/"); 
+                navigate("/");
                 console.log("logged in");
             },
             error => {
