@@ -1,20 +1,14 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsNumber, Length } from "class-validator";
+import { IsNumber } from "class-validator";
+import { PickType } from "@nestjs/swagger";
+import { UserCredentialsDto } from "auth/model/dto/user-credentials.dto";
 
-export class JwtToken {
-    @ApiProperty()
-    @Length(5, 30)
-    username: string;
-
+export class JwtToken extends PickType(UserCredentialsDto, ["username"]) {
     @IsNumber()
-    @ApiProperty()
     id: number;
 
-    @ApiProperty()
     @IsNumber()
     iat: number;
 
-    @ApiProperty()
     @IsNumber()
     exp: number;
 }

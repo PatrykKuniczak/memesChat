@@ -1,7 +1,10 @@
-import { Injectable, InternalServerErrorException } from "@nestjs/common";
+import {
+    Injectable,
+    InternalServerErrorException,
+    NotFoundException
+} from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { ConfigService } from "@nestjs/config";
 import { UserAvatar } from "../model/usersAvatar.entity";
 import { UsersService } from "users/services/users.service";
 import { unlinkSync } from "fs";
@@ -13,7 +16,6 @@ export class UsersAvatarService {
     constructor(
         @InjectRepository(UserAvatar)
         private readonly usersAvatarRepository: Repository<UserAvatar>,
-        private readonly configService: ConfigService,
         private readonly usersService: UsersService
     ) {}
 
@@ -22,10 +24,16 @@ export class UsersAvatarService {
         const extension = file.originalname.split(".").pop();
         const sourcePath = file.path;
 
-        const { userAvatar } = await this.usersService.findOneById(id);
+        const { userAvatar } = await this.usersService.findOne(id);
 
         userAvatar && (await this.remove(userAvatar.id, userAvatar.sourcePath));
         return this.usersAvatarRepository.save({ name, sourcePath, extension });
+    }
+
+    async findOne(id: number) {
+        return this.usersAvatarRepository.findOneByOrFail({ id }).catch(() => {
+            throw new NotFoundException();
+        });
     }
 
     async remove(id: number, sourcePath: string) {

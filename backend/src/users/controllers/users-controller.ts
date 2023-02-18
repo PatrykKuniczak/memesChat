@@ -3,11 +3,9 @@ import {
     Controller,
     Delete,
     FileTypeValidator,
-    ForbiddenException,
     Get,
     Param,
     ParseFilePipe,
-    ParseIntPipe,
     Patch,
     UploadedFile,
     UseFilters,
@@ -17,7 +15,6 @@ import {
 import { UsersService } from "users/services/users.service";
 import { JwtAuthGuard } from "auth/guards/jwt-auth.guard";
 import { UpdateUserDto } from "users/model/dto/update-user.dto";
-import { UserReq } from "users/decorators/user.decorator";
 import { UsersAvatarService } from "usersAvatar/services/usersAvatar.service";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { diskStorage } from "multer";
@@ -25,9 +22,8 @@ import { DeleteFileOnErrorFilter } from "filters/delete-file-on-error-filter";
 import {
     ApiBadRequestResponse,
     ApiBearerAuth,
-    ApiBody,
     ApiConsumes,
-    ApiForbiddenResponse,
+    ApiInternalServerErrorResponse,
     ApiNotFoundResponse,
     ApiOkResponse,
     ApiTags,
@@ -35,7 +31,7 @@ import {
 } from "@nestjs/swagger";
 import IUploadedFile from "users/types/uploaded-file.interface";
 
-@ApiBearerAuth()
+@ApiBearerAuth("defaultBearerAuth")
 @ApiTags("users")
 @Controller("users")
 class UsersController {
@@ -44,7 +40,6 @@ class UsersController {
         private readonly usersAvatarService: UsersAvatarService
     ) {}
 
-    @ApiForbiddenResponse()
     @ApiUnauthorizedResponse()
     @ApiOkResponse()
     @UseGuards(JwtAuthGuard)
@@ -53,43 +48,30 @@ class UsersController {
         return this.userService.findAll();
     }
 
-    @ApiForbiddenResponse()
     @ApiUnauthorizedResponse()
     @ApiOkResponse()
     @ApiNotFoundResponse()
     @UseGuards(JwtAuthGuard)
     @Get(":id")
-    async findOne(
-        @Param("id", ParseIntPipe) id: number,
-        @UserReq("id") userId: number
-    ) {
-        if (id !== userId) throw new ForbiddenException();
-
-        return this.userService.findOneById(id);
+    async findOne(@Param("id") id: number) {
+        return this.userService.findOne(id);
     }
 
-    @ApiForbiddenResponse()
     @ApiUnauthorizedResponse()
     @ApiOkResponse()
     @ApiNotFoundResponse()
     @UseGuards(JwtAuthGuard)
     @Delete(":id")
-    async delete(
-        @Param("id", ParseIntPipe) id: number,
-        @UserReq("id") userId: number
-    ) {
-        if (userId !== id) throw new ForbiddenException();
-
+    async delete(@Param("id") id: number) {
         return this.userService.delete(id);
     }
 
-    @ApiForbiddenResponse()
     @ApiUnauthorizedResponse()
     @ApiOkResponse()
     @ApiNotFoundResponse()
     @ApiBadRequestResponse()
+    @ApiInternalServerErrorResponse()
     @ApiConsumes("multipart/form-data")
-    @ApiBody({ type: UpdateUserDto })
     @UseGuards(JwtAuthGuard)
     @Patch(":id")
     @UseFilters(new DeleteFileOnErrorFilter())
@@ -101,8 +83,7 @@ class UsersController {
         })
     )
     async update(
-        @Param("id", ParseIntPipe) id: number,
-        @UserReq("id") userId: number,
+        @Param("id") id: number,
         @Body() updateUserDto: UpdateUserDto,
         @UploadedFile(
             new ParseFilePipe({
@@ -114,14 +95,12 @@ class UsersController {
         )
         file: IUploadedFile
     ) {
-        if (id !== userId) throw new ForbiddenException();
-
         if (file)
             updateUserDto.userAvatar =
                 await this.usersAvatarService.addUserAvatarFile(id, file);
         else {
             updateUserDto.userAvatar = null;
-            const { userAvatar } = await this.userService.findOneById(id);
+            const { userAvatar } = await this.userService.findOne(id);
 
             if (userAvatar)
                 await this.usersAvatarService.remove(
@@ -129,7 +108,8 @@ class UsersController {
                     userAvatar.sourcePath
                 );
         }
-        return this.userService.update(id, userId, updateUserDto);
+
+        return this.userService.update(id, updateUserDto);
     }
 }
 
