@@ -5,11 +5,13 @@ import { Logger, ValidationPipe } from "@nestjs/common";
 import * as dotenv from "dotenv";
 import * as dotenvExpand from "dotenv-expand";
 import { SwaggerModule } from "@nestjs/swagger";
-import { createDocumentWrapper } from "swagger/swagger.document";
+import swaggerConfig, { swaggerOptions } from "swagger/swagger.config";
+import { JwtToken } from "swagger/jwt-token.property.dto";
+import { User } from "users/model/users.entity";
 
 (async () => {
     const logger = new Logger("Main");
-    dotenvExpand.expand(dotenv.config({ path: "./.env" }));
+    dotenvExpand.expand(dotenv.config({ path: ".env" }));
 
     const app = await NestFactory.create(AppModule);
     const configService = app.get(ConfigService);
@@ -17,11 +19,23 @@ import { createDocumentWrapper } from "swagger/swagger.document";
 
     app.enableCors();
     app.setGlobalPrefix("api");
-    app.useGlobalPipes(new ValidationPipe());
 
-    const { document } = createDocumentWrapper(app);
+    if (configService.get("DEVELOPMENT") !== "true")
+        app.useGlobalPipes(
+            new ValidationPipe({
+                transform: true,
+                whitelist: true,
+                forbidNonWhitelisted: true
+            })
+        );
 
-    SwaggerModule.setup("docs", app, document);
+    const document = SwaggerModule.createDocument(app, swaggerConfig, {
+        extraModels: [JwtToken, User]
+    });
+
+    const defaultJwtToken = configService.get("DEFAULT_JWT_TOKEN");
+
+    SwaggerModule.setup("docs", app, document, swaggerOptions(defaultJwtToken));
 
     await app.listen(PORT);
     logger.log(`Server running on PORT ${PORT}`);

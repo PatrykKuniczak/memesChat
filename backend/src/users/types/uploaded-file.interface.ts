@@ -1,4 +1,3 @@
-interface IUploadedFile extends Express.Multer.File{
-}
+interface IUploadedFile extends Partial<Express.Multer.File> {}
 
 export default IUploadedFile;

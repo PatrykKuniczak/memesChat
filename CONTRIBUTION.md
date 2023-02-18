@@ -17,7 +17,9 @@ GIT CLONE: https://github.com/PatrykKuniczak/memesChat.git
         DB_URL=$DB_TYPE://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST:$POSTGRES_PORT/$POSTGRES_DB # DON'T CHANGE IT #
         SERVER_PORT=3030 (If u have something on that, change it)
         JWT_SECRET=randomSecret
-    
+        DEVELOPMENT=true - if it's true, then validation is OFF, leave empty for default validation
+        DEFAULT_JWT_TOKEN= Default token for swagger for development operation, leave empty for default app behavior 
+
         ### THE DB CREDENTIALS IS DEFAULT, YOU MAY HAVE OTHER ###
 
         FOR FRONTEND:
@@ -29,6 +31,7 @@ GIT CLONE: https://github.com/PatrykKuniczak/memesChat.git
         START FRONTEND: 'npm start'
 
 FOR DOCKER
+    The hints for env values it's the same as in standalone envs config
 
     CREATE ".env" FILE IN ROOT (OUTSIDE OF APPS), VALUES:
 
@@ -37,13 +40,15 @@ FOR DOCKER
         POSTGRES_PASSWORD=postgres
         POSTGRES_HOST=db # DON'T CHANGE IT #
         POSTGRES_PORT=5432
-        POSTGRES_DB=live_chat_dev # DON'T CHANGE IT #
-        DB_URL=$DB_TYPE://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST:$POSTGRES_PORT/$POSTGRES_DB # DON'T CHANGE IT #
+        POSTGRES_DB=live_chat_dev
+        DB_URL=$DB_TYPE://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST:$POSTGRES_PORT/$POSTGRES_DB
         SERVER_PORT=3030 (If u have something on that, change it)
         JWT_SECRET=randomSecret
-        REACT_APP_PORT=3000 (If u have something on that, change it)
+        REACT_APP_PORT=3000
+        DEVELOPMENT=
+        DEFAULT_JWT_TOKEN=
 
-        # IF U HAVE 3030 AND 3000 EMPTY, USE DEFAULT VALUES #
+##### IF U HAVE PORTS: 3030 AND 3000 EMPTY, USE DEFAULT VALUES
 
 RUN ```docker-compose up```
 
