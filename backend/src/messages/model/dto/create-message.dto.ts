@@ -1,4 +1,4 @@
-import { IsBoolean, Min } from "class-validator";
+import {IsBoolean, IsOptional, Min} from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 import MessageLengthValidator from "messages/model/custom-validators/message-length.validator";
 import UrlValidator from "messages/model/custom-validators/url-validator";
@@ -16,8 +16,9 @@ export class CreateMessageDto {
     })
     content: string;
 
+    @IsOptional()
     @IsBoolean()
-    isImage: boolean;
+    isImage?: boolean;
 
     @Min(1)
     authorId: number;
