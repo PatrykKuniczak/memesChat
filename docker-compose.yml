@@ -12,18 +12,18 @@ services:
     networks:
       - memesChat
 
-  backend:
-    container_name: backend
+  api:
+    container_name: api
     restart: unless-stopped
     env_file:
       - .env
     build:
-      context: backend
+      context: api
       dockerfile: Dockerfile
     command: npm start
     volumes:
-      - ./backend:/backend
-      - /backend/node_modules
+      - ./api:/api
+      - /api/node_modules
     ports:
       - "${SERVER_PORT}:${SERVER_PORT}"
     depends_on:
@@ -48,9 +48,9 @@ services:
     ports:
       - "${REACT_APP_PORT}:${REACT_APP_PORT}"
     depends_on:
-      - backend
+      - api
     links:
-      - backend
+      - api
     networks:
       - memesChat
 
