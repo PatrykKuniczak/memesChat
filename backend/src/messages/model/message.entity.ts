@@ -16,7 +16,7 @@ export class Message {
     content: string;
 
     @Column({ default: false })
-    isImage: boolean;
+    isImage?: boolean;
 
     @CreateDateColumn()
     createdAt: number;
