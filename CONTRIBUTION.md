@@ -23,7 +23,7 @@ GIT CLONE: https://github.com/PatrykKuniczak/memesChat.git
         ### THE DB CREDENTIALS IS DEFAULT, YOU MAY HAVE OTHER ###
 
         FOR FRONTEND:
-            NOTHING FOR NOW
+            REACT_APP_API_URL=http://localhost:3030/api/ (or other youre host/port)
 
         RUN NPM I FOR EACH
         
@@ -45,6 +45,7 @@ FOR DOCKER
         SERVER_PORT=3030 (If u have something on that, change it)
         JWT_SECRET=randomSecret
         REACT_APP_PORT=3000
+        REACT_APP_API_URL=http://localhost:3030/api/
         DEVELOPMENT=
         DEFAULT_JWT_TOKEN=
 

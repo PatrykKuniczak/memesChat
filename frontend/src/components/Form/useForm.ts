@@ -1,62 +1,33 @@
+import useAxios from "hooks/useAxios";
+import useSaveToken from "hooks/useSaveToken";
 import { useFormik } from "formik";
-import { useState } from "react";
 import * as Yup from "yup";
-import { login, register } from "services/auth.service";
 import { useNavigate } from "react-router-dom";
 
 const loginRegex = /^[a-zA-Z0-9]*$/;
 const passwordRegex =
     /^(?=.*[a-zżźćńółęąś])(?=.*[A-ZŻŹĆĄŚĘŁÓŃ])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ\d!@#$%^&* ]*$/;
-    // abcabcabc
-    // aA1!A1!aA1!
+
+// todo: REMOVE IT AFTER CREATE SHUT DOWN VALIDATION
+// abcabcabc
+// aA1!A1!aA1!
 
 const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
-    const [loading, setLoading] = useState<boolean>(false);
-    const [successful, setSuccessful] = useState<boolean>(false);
-    const [message, setMessage] = useState<string>("");
+    const { sendRequest, error } = useAxios();
     const navigate = useNavigate();
+    const { setAccessToken } = useSaveToken();
 
-    const handleLogin = (username: string, password: string) => {
-        console.log("login data:", username, password);
-        setMessage("");
-        setLoading(true);
-
-        login(username, password).then(
-            () => {
-                navigate("/");
-                console.log("logged in");
-            },
-            error => {
-                const resMessage =
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString();
-
-                setLoading(false);
-                setMessage(resMessage);
-            }
-        );
-    };
-
-    const handleRegister = (username: string, password: string) => {
-        console.log("register", username, password);
-        register(username, password).then(
-            response => {
-                setMessage(response.data.message);
-                setSuccessful(true);
-            },
-            error => {
-                const resMessage =
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString();
-
-                setMessage(resMessage);
-                setSuccessful(false);
+    const handleAuthEvent = (
+        username: string,
+        password: string,
+        event: "register" | "login"
+    ) => {
+        sendRequest(`/auth/${event}`, "POST", { username, password }).then(
+            res => {
+                if (!error) {
+                    setAccessToken(res.accessToken);
+                    navigate("/");
+                }
             }
         );
     };
@@ -95,8 +66,16 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
         }),
         onSubmit: () => {
             isSignUp
-                ? handleRegister(formik.values.login, formik.values.password)
-                : handleLogin(formik.values.login, formik.values.password);
+                ? handleAuthEvent(
+                      formik.values.login,
+                      formik.values.password,
+                      "register"
+                  )
+                : handleAuthEvent(
+                      formik.values.login,
+                      formik.values.password,
+                      "login"
+                  );
             formik.resetForm();
         }
     });
