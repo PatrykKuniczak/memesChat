@@ -27,7 +27,11 @@ export class UsersService {
     }
 
     async findAll() {
-        return this.userRepository.find();
+        return this.userRepository.find({
+            relations: {
+                userAvatar: true
+            }
+        });
     }
 
     async findOne(id: number) {

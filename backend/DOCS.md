@@ -9,4 +9,5 @@
         For default host and port: "http://localhost:3030/avatars/${sourcePath}"
         'sourcePath' u can take from User object(Look on swagger schemas). 
 
-##### IF TOKEN IS INVALID API RETURN Unauthorized(401).
+##### IF TOKEN IS INVALID API RETURN Unauthorized(401),
+##### BUT IF TOKEN IS EXPIRED THEN RETURN NOT FOUND(404) FOR ALL COVERAGE ENDPOINTS.
