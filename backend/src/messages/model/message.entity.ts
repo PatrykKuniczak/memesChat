@@ -19,7 +19,7 @@ export class Message {
     isImage?: boolean;
 
     @CreateDateColumn()
-    createdAt: number;
+    readonly createdAt: number;
 
     @ManyToOne(() => User, user => user.messages, {
         onDelete: "SET NULL"

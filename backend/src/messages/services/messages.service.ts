@@ -47,6 +47,7 @@ export class MessagesService {
 
     async update(id: number, updateMessageDto: UpdateMessageDto) {
         const message = await this.findOne(id);
+
         if (!message.isImage)
             return this.messageRepository.update(id, updateMessageDto);
         else throw new ForbiddenException();
