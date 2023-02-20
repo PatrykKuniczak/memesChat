@@ -1,8 +1,8 @@
 import {
     Column,
     CreateDateColumn,
-    Entity,
-    ManyToOne,
+    Entity, JoinColumn,
+    OneToOne,
     PrimaryGeneratedColumn
 } from "typeorm";
 import { User } from "users/model/users.entity";
@@ -21,8 +21,9 @@ export class Message {
     @CreateDateColumn()
     readonly createdAt: number;
 
-    @ManyToOne(() => User, user => user.messages, {
+    @OneToOne(() => User, {
         onDelete: "SET NULL"
     })
+    @JoinColumn()
     author: User;
 }
