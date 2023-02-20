@@ -2,12 +2,10 @@ import {
     Column,
     Entity,
     JoinColumn,
-    OneToMany,
     OneToOne,
     PrimaryGeneratedColumn
 } from "typeorm";
 import { UserAvatar } from "usersAvatar/model/usersAvatar.entity";
-import { Message } from "messages/model/message.entity";
 
 @Entity("User")
 export class User {
@@ -25,7 +23,4 @@ export class User {
     })
     @JoinColumn()
     userAvatar?: UserAvatar;
-
-    @OneToMany(() => Message, message => message.author)
-    messages?: Message[];
 }
