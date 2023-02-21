@@ -1,4 +1,4 @@
-import useAxios from "hooks/useAxios";
+import axios from "axios";
 import useSaveToken from "hooks/useSaveToken";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -13,7 +13,6 @@ const passwordRegex =
 // aA1!A1!aA1!
 
 const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
-    const { sendRequest, error } = useAxios();
     const navigate = useNavigate();
     const { setAccessToken } = useSaveToken();
 
@@ -22,14 +21,18 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
         password: string,
         event: "register" | "login"
     ) => {
-        sendRequest(`/auth/${event}`, "POST", { username, password }).then(
-            res => {
-                if (!error) {
-                    setAccessToken(res.accessToken);
-                    navigate("/");
-                }
-            }
-        );
+        axios
+            .post<{ accessToken: string }>(`/auth/${event}`, {
+                username,
+                password
+            })
+            .then(res => {
+                setAccessToken(res.data.accessToken);
+                navigate("/");
+            })
+            .catch(err => {
+                console.log(err.message);
+            });
     };
 
     const formik = useFormik({
