@@ -33,7 +33,7 @@ GIT CLONE: https://github.com/PatrykKuniczak/memesChat.git
 
 FOR DOCKER
 
-The hints for env values it's the same as in standalone envs config
+The hints for env values are the same as in standalone envs config
 
 ### DON'T CHANGE ALL CREDENTIALS EXCEPT PORTS(IF NEEDED) AND DEVELOPMENT AND DEFAULT_JWT_TOKEN
 
