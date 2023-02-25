@@ -1,35 +1,46 @@
-import { startTransition, useEffect, useState } from "react";
+import { startTransition, useDeferredValue, useEffect, useState } from "react";
 import Message, { IMessage } from "../../message/Message";
-import useMessagesFilter from "./useMessagesFilter";
 import useMessages from "./useMessages";
+import { messagesAfterFilter } from "helpers/messagesFiltering";
 
 export type TMessages = IMessage[];
 
-const useMessagesContainer = () => {
-    const [filteredMessages, setFilteredMessages] = useState<TMessages>([]);
+interface IChat {
+	searchValue: string;
+	searchMode: "user" | "message";
+}
 
-    const { messages } = useMessages();
-    const { deferredValue, messagesAfterFilter } = useMessagesFilter(messages);
+const useMessagesContainer = ({ searchValue, searchMode }: IChat) => {
+	const [filteredMessages, setFilteredMessages] = useState<TMessages>([]);
+	const deferredSearchValue = useDeferredValue(searchValue);
 
-    useEffect(() => {
-        startTransition(() => setFilteredMessages(messagesAfterFilter));
-        // TODO: implement WS listener
-    }, [messagesAfterFilter, messages, deferredValue]);
+	const { messages } = useMessages();
 
-    const MessagesList = () => {
-        return (
-            <>
-                {filteredMessages.map((message) => (
-                    <Message key={message.id} message={message} />
-                ))}
-            </>
-        );
-    };
+	useEffect(() => {
+		startTransition(() => {
+			setFilteredMessages(
+				messagesAfterFilter(messages, searchMode, deferredSearchValue)
+			);
+		});
+	}, [messages, searchMode, deferredSearchValue]);
 
-    return {
-        filteredMessages,
-        MessagesList
-    };
+	const MessagesList = () => {
+		return (
+			<>
+				{filteredMessages.map(message => (
+					<Message
+						key={message.id}
+						message={message}
+					/>
+				))}
+			</>
+		);
+	};
+
+	return {
+		filteredMessages,
+		MessagesList
+	};
 };
 
 export default useMessagesContainer;

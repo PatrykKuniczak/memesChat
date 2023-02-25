@@ -9,7 +9,7 @@ export interface IUser {
 }
 
 const Users = () => {
-	const { searchUsersQuery, handleChange, users, filteredUsers } = useUsers();
+	const { handleChange, filteredUsers, users } = useUsers();
 
 	const UsersList = () => {
 		return (
@@ -23,24 +23,17 @@ const Users = () => {
 		);
 	};
 
-	const Users: Function = (groups: {}[]): React.ReactElement[] =>
-		searchUsersQuery === ""
-			? users.map((user: IUser) => (
-					<User
-						key={user.id}
-						id={user.id}
-						username={user.username}
-					/>
-			  ))
-			: filteredUsers.map(
-					(user: any): JSX.Element => (
-						<User
-							key={user.id}
-							id={user.id}
-							username={user.username}
-						/>
-					)
-			  );
+	const Users = () => (
+		<>
+			{filteredUsers.map(({ id, username }: IUser) => (
+				<User
+					key={id}
+					id={id}
+					username={username}
+				/>
+			))}
+		</>
+	);
 
 	return (
 		<UsersContainer>
@@ -48,7 +41,6 @@ const Users = () => {
 			<UsersListWrapper>
 				<Search
 					placeholder="Find user"
-					value={searchUsersQuery}
 					onChange={handleChange}
 				/>
 				<UsersList />

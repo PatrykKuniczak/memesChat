@@ -1,4 +1,5 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useDeferredValue, useEffect, useState } from "react";
+import { usersAfterFilter } from "helpers/onlineUsersFiltering";
 
 export interface IUser {
 	username: string;
@@ -7,20 +8,17 @@ export interface IUser {
 
 const useUsers = () => {
 	const [users, setUsers] = useState([]);
-	const [filteredUsers, setFilteredUsers] = useState([]);
+	const [filteredUsers, setFilteredUsers] = useState<IUser[]>([]);
 	const [searchUsersQuery, setSearchUsersQuery] = useState("");
+	const deferredSearchUsersQuery = useDeferredValue(searchUsersQuery);
 
 	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
 		setSearchUsersQuery(event.target.value);
-
-		const filterUsers = (searchUsersQuery: string) => {
-			const filtered = users.filter((user: IUser) =>
-				user.username.toLowerCase().includes(searchUsersQuery.toLowerCase())
-			);
-			setFilteredUsers(filtered);
-		};
-		filterUsers(event.target.value);
 	};
+
+	useEffect(() => {
+		setFilteredUsers(usersAfterFilter(users, deferredSearchUsersQuery));
+	}, [deferredSearchUsersQuery, users]);
 
 	useEffect(() => {
 		fetch(`https://dummyjson.com/users/`)
