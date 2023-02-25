@@ -3,6 +3,7 @@ import {
     Controller,
     Delete,
     FileTypeValidator,
+    ForbiddenException,
     Get,
     Param,
     ParseFilePipe,
@@ -23,6 +24,7 @@ import {
     ApiBadRequestResponse,
     ApiBearerAuth,
     ApiConsumes,
+    ApiForbiddenResponse,
     ApiInternalServerErrorResponse,
     ApiNotFoundResponse,
     ApiOkResponse,
@@ -30,15 +32,22 @@ import {
     ApiUnauthorizedResponse
 } from "@nestjs/swagger";
 import IUploadedFile from "users/types/uploaded-file.interface";
+import { UserReq } from "users/decorators/user.decorator";
+import { ConfigService } from "@nestjs/config";
 
 @ApiBearerAuth("defaultBearerAuth")
 @ApiTags("users")
 @Controller("users")
 class UsersController {
+    private readonly isDevelopment: boolean;
+
     constructor(
         private readonly userService: UsersService,
-        private readonly usersAvatarService: UsersAvatarService
-    ) {}
+        private readonly usersAvatarService: UsersAvatarService,
+        private readonly configService: ConfigService
+    ) {
+        this.isDevelopment = configService.get("DEVELOPMENT") === "true";
+    }
 
     @ApiUnauthorizedResponse()
     @ApiOkResponse()
@@ -49,24 +58,33 @@ class UsersController {
     }
 
     @ApiUnauthorizedResponse()
+    @ApiForbiddenResponse()
     @ApiOkResponse()
     @ApiNotFoundResponse()
     @UseGuards(JwtAuthGuard)
     @Get(":id")
-    async findOne(@Param("id") id: number) {
+    async findOne(@Param("id") id: number, @UserReq("id") userId: number) {
+        if (!this.isDevelopment && id !== userId)
+            throw new ForbiddenException();
+
         return this.userService.findOne(id);
     }
 
     @ApiUnauthorizedResponse()
+    @ApiForbiddenResponse()
     @ApiOkResponse()
     @ApiNotFoundResponse()
     @UseGuards(JwtAuthGuard)
     @Delete(":id")
-    async delete(@Param("id") id: number) {
-        return this.userService.delete(id);
+    async delete(@Param("id") id: number, @UserReq("id") userId: number) {
+        if (!this.isDevelopment && id !== userId)
+            throw new ForbiddenException();
+
+        await this.userService.delete(id);
     }
 
     @ApiUnauthorizedResponse()
+    @ApiForbiddenResponse()
     @ApiOkResponse()
     @ApiNotFoundResponse()
     @ApiBadRequestResponse()
@@ -84,6 +102,7 @@ class UsersController {
     )
     async update(
         @Param("id") id: number,
+        @UserReq("id") userId: number,
         @Body() updateUserDto: UpdateUserDto,
         @UploadedFile(
             new ParseFilePipe({
@@ -95,6 +114,9 @@ class UsersController {
         )
         file: IUploadedFile
     ) {
+        if (!this.isDevelopment && id !== userId)
+            throw new ForbiddenException();
+
         if (file)
             updateUserDto.userAvatar =
                 await this.usersAvatarService.addUserAvatarFile(id, file);
@@ -109,7 +131,7 @@ class UsersController {
                 );
         }
 
-        return this.userService.update(id, updateUserDto);
+        await this.userService.update(id, updateUserDto);
     }
 }
 

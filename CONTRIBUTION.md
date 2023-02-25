@@ -18,7 +18,8 @@ GIT CLONE: https://github.com/PatrykKuniczak/memesChat.git
         SERVER_PORT=3030 (If u have something on that, change it)
         JWT_SECRET=randomSecret
         DEVELOPMENT=true - if it's true, then validation is OFF, leave empty for default validation
-        DEFAULT_JWT_TOKEN= Default token for swagger for development operation, leave empty for default app behavior 
+        DEFAULT_JWT_TOKEN= Default token for swagger for development operation, leave empty for default app behavior, 
+        work only if "DEVELOPMENT=true"
 
         ### THE DB CREDENTIALS IS DEFAULT, YOU MAY HAVE OTHER ###
 
@@ -31,18 +32,21 @@ GIT CLONE: https://github.com/PatrykKuniczak/memesChat.git
         START FRONTEND: 'npm start'
 
 FOR DOCKER
-    The hints for env values it's the same as in standalone envs config
+
+The hints for env values it's the same as in standalone envs config
+
+### DON'T CHANGE ALL CREDENTIALS EXCEPT PORTS(IF NEEDED) AND DEVELOPMENT AND DEFAULT_JWT_TOKEN
 
     CREATE ".env" FILE IN ROOT (OUTSIDE OF APPS), VALUES:
 
         DB_TYPE=postgres
         POSTGRES_USER=postgres
         POSTGRES_PASSWORD=postgres
-        POSTGRES_HOST=db # DON'T CHANGE IT #
+        POSTGRES_HOST=db
         POSTGRES_PORT=5432
-        POSTGRES_DB=live_chat_dev
+        POSTGRES_DB=live_chat
         DB_URL=$DB_TYPE://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST:$POSTGRES_PORT/$POSTGRES_DB
-        SERVER_PORT=3030 (If u have something on that, change it)
+        SERVER_PORT=3030
         JWT_SECRET=randomSecret
         REACT_APP_PORT=3000
         REACT_APP_API_URL=http://localhost:3030/api/

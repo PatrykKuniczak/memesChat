@@ -21,22 +21,13 @@ export class MessagesService {
     }
 
     async findAll() {
-        return this.messageRepository.find({
-            relations: {
-                author: true
-            }
-        });
+        return this.messageRepository.find();
     }
 
     async findOne(id: number) {
-        return this.messageRepository
-            .findOneOrFail({
-                where: { id },
-                relations: { author: true }
-            })
-            .catch(() => {
-                throw new NotFoundException();
-            });
+        return this.messageRepository.findOneByOrFail({ id }).catch(() => {
+            throw new NotFoundException();
+        });
     }
 
     async delete(id: number) {
@@ -45,11 +36,19 @@ export class MessagesService {
         if (!result) throw new NotFoundException();
     }
 
-    async update(id: number, updateMessageDto: UpdateMessageDto) {
-        const message = await this.findOne(id);
+    async update(
+        id: number,
+        updateMessageDto: UpdateMessageDto,
+        isImage: boolean
+    ) {
+        const messageIsImage = updateMessageDto.isImage;
 
-        if (!message.isImage)
+        if (!isImage && !messageIsImage)
             return this.messageRepository.update(id, updateMessageDto);
-        else throw new ForbiddenException();
+        else if (messageIsImage)
+            throw new ForbiddenException(
+                "You can't change message type to image"
+            );
+        else throw new ForbiddenException("You can't update an image");
     }
 }

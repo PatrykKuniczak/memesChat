@@ -1,12 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { ApiProperty } from "@nestjs/swagger";
+import { User } from "users/model/users.entity";
 
 @Entity("UserAvatar")
 export class UserAvatar {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ length: 50, select: false })
+    @Column({ length: 50 })
     name: string;
 
     @Column()
@@ -15,4 +16,7 @@ export class UserAvatar {
     @ApiProperty({ description: "Must be .jpg/.jpeg/.png" })
     @Column()
     extension: string;
+
+    @OneToOne(() => User, user => user.userAvatar)
+    user?: User;
 }

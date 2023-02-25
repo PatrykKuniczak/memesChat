@@ -3,10 +3,10 @@ import { DocumentBuilder } from "@nestjs/swagger";
 const description = `
     U have here all endpoints which can be tested like in postman/insomnia.
     
-    In the "Authorize" hint token is stored by default, it's taken from env,
-    you must generate one token and paste it to DEFAULT_JWT_TOKEN,
-     
-    notice: that token expire in 7 days
+    In the "Authorize" hint token is stored, you must generate one of it and paste it here,
+    
+    notice: that token expire in 7 days, and it's validation on API, if u try to use Token
+    from 1 user, and try to hit endpoint with other user id, that throw Forbidden Exception.   
     
     Endpoints with "padlock" icon, require BearerAuth
 

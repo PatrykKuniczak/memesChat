@@ -12,6 +12,26 @@ export class AuthService {
         private readonly jwtService: JwtService
     ) {}
 
+    async register(userCredentialsDto: UserCredentialsDto) {
+        userCredentialsDto.username = userCredentialsDto.username
+            .replace(/\s/g, "")
+            .toLowerCase();
+
+        const hashedPassword = await bcrypt.hash(
+            userCredentialsDto.password,
+            10
+        );
+
+        const user = await this.userService.create({
+            ...userCredentialsDto,
+            password: hashedPassword
+        });
+
+        const { password, ...rest } = user;
+
+        return this.generateJwt(rest);
+    }
+
     async login(userCredentialsDto: UserCredentialsDto) {
         const { id } = await this.userService
             .findOneByUsername(userCredentialsDto.username)
@@ -37,26 +57,6 @@ export class AuthService {
         if (!isPasswordValid) throw new UnauthorizedException();
 
         return userCredentialsDto;
-    }
-
-    async register(userCredentialsDto: UserCredentialsDto) {
-        userCredentialsDto.username = userCredentialsDto.username
-            .replace(/\s/g, "")
-            .toLowerCase();
-
-        const hashedPassword = await bcrypt.hash(
-            userCredentialsDto.password,
-            10
-        );
-
-        const user = await this.userService.create({
-            ...userCredentialsDto,
-            password: hashedPassword
-        });
-
-        const { password, ...rest } = user;
-
-        return this.generateJwt(rest);
     }
 
     private generateJwt(user: User) {

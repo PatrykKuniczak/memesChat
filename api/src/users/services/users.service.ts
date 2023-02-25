@@ -27,22 +27,13 @@ export class UsersService {
     }
 
     async findAll() {
-        return this.userRepository.find({
-            relations: {
-                userAvatar: true
-            }
-        });
+        return this.userRepository.find();
     }
 
     async findOne(id: number) {
-        return this.userRepository
-            .findOneOrFail({
-                where: { id },
-                relations: { userAvatar: true }
-            })
-            .catch(() => {
-                throw new NotFoundException();
-            });
+        return this.userRepository.findOneByOrFail({ id }).catch(() => {
+            throw new NotFoundException();
+        });
     }
 
     async findOneByUsername(username: string) {

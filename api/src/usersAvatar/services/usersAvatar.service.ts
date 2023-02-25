@@ -31,9 +31,11 @@ export class UsersAvatarService {
     }
 
     async findOne(id: number) {
-        return this.usersAvatarRepository.findOneByOrFail({ id }).catch(() => {
-            throw new NotFoundException();
-        });
+        return this.usersAvatarRepository
+            .findOneOrFail({ where: { id }, relations: { user: true } })
+            .catch(() => {
+                throw new NotFoundException();
+            });
     }
 
     async remove(id: number, sourcePath: string) {
