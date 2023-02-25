@@ -17,12 +17,11 @@ export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
     const getRandomArbitrary = (min: number, max: number) => {
         return Math.ceil(Math.random() * (max - min) + min);
     };
+
     const response = await fetch(
-        `https://dummyjson.com/users/${getRandomArbitrary(30, 1)}`,
-        {
-            method: "GET"
-        }
+        `https://dummyjson.com/users/${getRandomArbitrary(30, 1)}`
     );
+
     return response.json();
 });
 
