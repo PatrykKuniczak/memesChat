@@ -25,19 +25,18 @@ export class MessagesService {
     }
 
     async findOne(id: number, authorId: number) {
-        return this.messageRepository.findOneByOrFail({ id, authorId }).catch((error) => {
+        const message = await this.messageRepository.findOneByOrFail({ id }).catch((error) => {
             if(error instanceof EntityNotFoundError){
-                return this.messageRepository.findOneByOrFail({ id }).then(() => {
-                    throw new ForbiddenException("You are not author of the message");
-                }).catch((error) => {
-                    if(error instanceof EntityNotFoundError){
-                        throw new NotFoundException("This message don't exist");
-                    }
-                    throw error;
-                })
+                throw new NotFoundException("This message don't exist");
             }
             throw error;
         });
+
+        if(message.authorId !== authorId){
+            throw new ForbiddenException("You are not author of the message");
+        }
+
+        return message;
     }
 
     async delete(id: number) {
