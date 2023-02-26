@@ -6,7 +6,7 @@ import {
 import { CreateMessageDto } from "messages/model/dto/create-message.dto";
 import { UpdateMessageDto } from "messages/model/dto/update-message.dto";
 import { InjectRepository } from "@nestjs/typeorm";
-import {EntityNotFoundError, Repository} from "typeorm";
+import { EntityNotFoundError, Repository } from "typeorm";
 import { Message } from "messages/model/message.entity";
 
 @Injectable()
