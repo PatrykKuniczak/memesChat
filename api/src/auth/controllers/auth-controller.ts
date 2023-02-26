@@ -31,7 +31,6 @@ class AuthController {
     @HttpCode(200)
     @Post("login")
     async login(@Body() userCredentialsDto: UserCredentialsDto) {
-        console.log(99);
         return this.authService.login(userCredentialsDto);
     }
 }
