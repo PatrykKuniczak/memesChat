@@ -46,7 +46,7 @@ export class UsersService {
         return this.userRepository
             .findOneOrFail({
                 where: { username },
-                select: ["password"]
+                select: ["id", "password"]
             })
             .catch(() => {
                 throw new NotFoundException();
