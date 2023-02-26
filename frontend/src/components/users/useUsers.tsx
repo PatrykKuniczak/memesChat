@@ -5,16 +5,16 @@ import { usersAfterFilter } from "helpers/onlineUsersFiltering";
 const useUsers = () => {
 	const [users, setUsers] = useState<IUsers>([]);
 	const [filteredUsers, setFilteredUsers] = useState<IUsers>([]);
-	const [searchUsersQuery, setSearchUsersQuery] = useState("");
-	const deferredSearchUsersQuery = useDeferredValue(searchUsersQuery);
+	const [searchValue, setSearchValue] = useState("");
+	const deferredSearchValue = useDeferredValue(searchValue);
 
 	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-		setSearchUsersQuery(event.target.value);
+		setSearchValue(event.target.value);
 	};
 
 	useEffect(() => {
-		setFilteredUsers(usersAfterFilter(users, deferredSearchUsersQuery));
-	}, [deferredSearchUsersQuery, users]);
+		setFilteredUsers(usersAfterFilter(users, deferredSearchValue));
+	}, [deferredSearchValue, users]);
 
 	useEffect(() => {
 		fetch(`https://dummyjson.com/users/`)
@@ -23,8 +23,6 @@ const useUsers = () => {
 	}, []);
 
 	return {
-		searchUsersQuery,
-		setSearchUsersQuery,
 		handleChange,
 		users,
 		setUsers,
