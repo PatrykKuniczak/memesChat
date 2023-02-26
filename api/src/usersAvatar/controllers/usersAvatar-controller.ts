@@ -40,9 +40,7 @@ class UsersAvatarController {
         @Param("id", ParseIntPipe) id: number,
         @UserReq("id") userId: number
     ) {
-        const avatar = await this.usersAvatarService.findOne(id).catch(() => {
-            throw new ForbiddenException();
-        });
+        const avatar = await this.usersAvatarService.findOne(id);
 
         if (!this.isDevelopment && avatar.user.id != userId)
             throw new ForbiddenException();

@@ -33,11 +33,9 @@ export class AuthService {
     }
 
     async login(userCredentialsDto: UserCredentialsDto) {
-        const { id } = await this.userService
-            .findOneByUsername(userCredentialsDto.username)
-            .catch(() => {
-                throw new UnauthorizedException();
-            });
+        const { id } = await this.userService.findOneByUsername(
+            userCredentialsDto.username
+        );
 
         return this.generateJwt({ ...userCredentialsDto, id });
     }
