@@ -1,12 +1,10 @@
 import styled from "styled-components";
 
 const UsersContainer = styled.section`
-	margin-top: 1.5rem;
-
 	@media (max-width: ${({ theme }) => theme.media_sm}) {
 		margin-top: 0.5rem;
 	}
-
+  
 	@media (max-width: ${({ theme }) => theme.media_sm}) and (max-height: ${({
 			theme
 		}) => theme.media_sm}) {
@@ -15,7 +13,7 @@ const UsersContainer = styled.section`
 `;
 
 const UsersListWrapper = styled.div`
-	max-height: calc(100vh - 15rem);
+	max-height: calc(100vh - 172px);
 	margin-top: 0.5rem;
 	padding: 0.5rem;
 	overflow-y: auto;
@@ -38,7 +36,7 @@ const UsersListWrapper = styled.div`
 
 	@media (max-width: ${({ theme }) => theme.media_sm}) {
 		padding: 0.5rem;
-		max-height: 100px;
+		height: 160px;
 	}
 `;
 

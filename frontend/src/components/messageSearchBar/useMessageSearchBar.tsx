@@ -1,36 +1,22 @@
-import { ChangeEvent } from "react";
-import { useSearchParams } from "react-router-dom";
+import { IUseChat } from "components/chat/useChat";
 
-const useMessageSearchBar = () => {
-    const [searchParams, setSearchParams] = useSearchParams();
+type IUseMessagesSearchBar = Pick<
+	IUseChat,
+	"searchMode" | "handleSetSearchMode"
+>;
 
-    const searchMode = searchParams.get("searchMode") || "message";
+const useMessageSearchBar = ({
+	searchMode,
+	handleSetSearchMode
+}: IUseMessagesSearchBar) => {
+	const handleSwitchSearchMode = () => {
+		handleSetSearchMode(searchMode === "message" ? "user" : "message");
+	};
 
-    const messagesFilter = searchParams.get("messagesFilter") || "";
-
-    const updateSearchParams = (params: { [key: string]: string }) => {
-        const allParams: Record<string, string> =
-            Object.fromEntries(searchParams);
-
-        setSearchParams({ ...allParams, ...params });
-    };
-
-    const handleSetSearchParams = (event: ChangeEvent<HTMLInputElement>) => {
-        updateSearchParams({ messagesFilter: event.target.value });
-    };
-
-    const handleSetSearchMode = () => {
-        updateSearchParams({
-            searchMode: searchMode === "message" ? "user" : "message"
-        });
-    };
-
-    return {
-        handleSetSearchParams,
-        searchMode,
-        handleSetSearchMode,
-        messagesFilter
-    };
+	return {
+		searchMode,
+		handleSwitchSearchMode
+	};
 };
 
 export default useMessageSearchBar;

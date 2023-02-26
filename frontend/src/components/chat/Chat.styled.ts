@@ -4,7 +4,7 @@ const ChatContainer = styled.main`
     display: flex;
     flex-direction: column;
 
-    padding: 0.5rem;
+    padding: .5rem;
     border-radius: 5px;
 
     min-height: 400px;

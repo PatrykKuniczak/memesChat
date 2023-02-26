@@ -1,22 +1,33 @@
-import User from "../user/User";
+import { IUsers } from "components/users/Users";
+import { ChangeEvent, useDeferredValue, useEffect, useState } from "react";
+import { usersAfterFilter } from "helpers/onlineUsersFiltering";
 
 const useUsers = () => {
-	const usersIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+	const [users, setUsers] = useState<IUsers>([]);
+	const [filteredUsers, setFilteredUsers] = useState<IUsers>([]);
+	const [searchValue, setSearchValue] = useState("");
+	const deferredSearchValue = useDeferredValue(searchValue);
 
-	const UsersList = () => {
-		return (
-			<>
-				{usersIds.map(userId => (
-					<User
-						key={userId}
-						userId={userId}
-					/>
-				))}
-			</>
-		);
+	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+		setSearchValue(event.target.value);
 	};
 
-	return { UsersList };
+	useEffect(() => {
+		setFilteredUsers(usersAfterFilter(users, deferredSearchValue));
+	}, [deferredSearchValue, users]);
+
+	useEffect(() => {
+		fetch(`https://dummyjson.com/users/`)
+			.then(response => response.json())
+			.then(data => setUsers(data.users));
+	}, []);
+
+	return {
+		handleChange,
+		users,
+		setUsers,
+		filteredUsers
+	};
 };
 
 export default useUsers;

@@ -1,23 +1,27 @@
+import { IUseChat } from "components/chat/useChat";
 import { SearchContainer, SearchTypeSwitcher } from "./MessageSearchBar.styled";
 import useMessageSearchBar from "./useMessageSearchBar";
 import Search from "../search/Search";
 
-const MessageSearchBar = () => {
-	const {
-		handleSetSearchParams,
+const MessageSearchBar = ({
+	searchValue,
+	handleSetSearchValue,
+	searchMode,
+	handleSetSearchMode
+}: IUseChat) => {
+	const { handleSwitchSearchMode } = useMessageSearchBar({
 		searchMode,
-		handleSetSearchMode,
-		messagesFilter
-	} = useMessageSearchBar();
+		handleSetSearchMode
+	});
 
 	return (
 		<SearchContainer>
-			<SearchTypeSwitcher onClick={handleSetSearchMode}>
+			<SearchTypeSwitcher onClick={handleSwitchSearchMode}>
 				{searchMode}
 			</SearchTypeSwitcher>
 			<Search
-				onChange={handleSetSearchParams}
-				value={messagesFilter}
+				onChange={handleSetSearchValue}
+				value={searchValue}
 				variant="dark"
 			/>
 		</SearchContainer>
