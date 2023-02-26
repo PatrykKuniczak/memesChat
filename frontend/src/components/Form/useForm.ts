@@ -27,8 +27,10 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
                 password
             })
             .then(res => {
-                setAccessToken(res.data.accessToken);
-                navigate("/");
+                if (res.status === 200) {
+                    setAccessToken(res.data.accessToken);
+                    navigate("/");
+                }
             })
             .catch(err => {
                 console.log(err.message);
