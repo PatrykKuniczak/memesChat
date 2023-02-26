@@ -5,7 +5,7 @@ const description = `
     
     In the "Authorize" hint token is stored, you must generate one of it and paste it here,
     
-    notice: that token expire in 7 days, and it's validation on API, if u try to use Token
+    notice: that token expire in 7 days, and is validated on API, if u try to use Token
     from 1 user, and try to hit endpoint with other user id, that throw Forbidden Exception.   
     
     Endpoints with "padlock" icon, require BearerAuth
