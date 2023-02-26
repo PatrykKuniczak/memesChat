@@ -1,12 +1,11 @@
+import { IUseChat } from "components/chat/useChat";
 import useMessages from "./hooks/useMessagesContainer";
 import { MessagesWrapper } from "./Messages.styled";
 
-interface IChat {
-	searchValue: string;
-	searchMode: "user" | "message";
-}
+export interface IMessagesContainer
+	extends Pick<IUseChat, "searchValue" | "searchMode"> {}
 
-const MessagesContainer = ({ searchValue, searchMode }: IChat) => {
+const MessagesContainer = ({ searchValue, searchMode }: IMessagesContainer) => {
 	const { MessagesList } = useMessages({ searchValue, searchMode });
 
 	return (

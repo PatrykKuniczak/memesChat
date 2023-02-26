@@ -1,3 +1,4 @@
+import { IMessagesContainer } from "components/messages/MessagesContainer";
 import { startTransition, useDeferredValue, useEffect, useState } from "react";
 import Message, { IMessage } from "../../message/Message";
 import useMessages from "./useMessages";
@@ -5,12 +6,10 @@ import { messagesAfterFilter } from "helpers/messagesFiltering";
 
 export type TMessages = IMessage[];
 
-interface IChat {
-	searchValue: string;
-	searchMode: "user" | "message";
-}
-
-const useMessagesContainer = ({ searchValue, searchMode }: IChat) => {
+const useMessagesContainer = ({
+	searchValue,
+	searchMode
+}: IMessagesContainer) => {
 	const [filteredMessages, setFilteredMessages] = useState<TMessages>([]);
 	const deferredSearchValue = useDeferredValue(searchValue);
 

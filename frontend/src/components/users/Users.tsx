@@ -1,12 +1,9 @@
 import { Label, UsersListWrapper, UsersContainer } from "./Users.styled";
 import useUsers from "./useUsers";
-import User from "../user/User";
+import User, { IUser } from "../user/User";
 import Search from "components/search/Search";
 
-export interface IUser {
-	username: string;
-	id: number;
-}
+export type IUsers = IUser[];
 
 const Users = () => {
 	const { handleChange, filteredUsers, users } = useUsers();

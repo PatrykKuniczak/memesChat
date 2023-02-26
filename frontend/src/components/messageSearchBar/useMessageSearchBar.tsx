@@ -1,9 +1,12 @@
-interface IChat {
-	searchMode: "user" | "message";
-	handleSetSearchMode: (searchMode: "user" | "message") => void;
-}
+import { IUseChat } from "components/chat/useChat";
 
-const useMessageSearchBar = ({ searchMode, handleSetSearchMode }: IChat) => {
+interface IUseMessagesSearchBar
+	extends Pick<IUseChat, "searchMode" | "handleSetSearchMode"> {}
+
+const useMessageSearchBar = ({
+	searchMode,
+	handleSetSearchMode
+}: IUseMessagesSearchBar) => {
 	const handleSwitchSearchMode = () => {
 		handleSetSearchMode(searchMode === "message" ? "user" : "message");
 	};

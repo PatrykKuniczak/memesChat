@@ -1,8 +1,9 @@
+import { TSearchMode } from "components/chat/useChat";
 import { TMessages } from "components/messages/hooks/useMessagesContainer";
 
 export const messagesAfterFilter = (
 	messages: TMessages,
-	searchMode: string,
+	searchMode: TSearchMode,
 	searchValue: string
 ) => {
 	return messages.filter(({ author, content }) => {

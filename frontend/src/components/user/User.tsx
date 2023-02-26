@@ -1,14 +1,16 @@
 import user from "assets/user.jpg";
 import { UserImage, UserName, UserContainer } from "./User.styled";
-import { IUser } from '../users/useUsers'
 
-const User = ({ username, id }: IUser) => {
+export interface IUser {
+	username: string;
+	id: number;
+}
+
+const User = ({ username }: IUser) => {
 	return (
 		<UserContainer>
 			<UserImage src={user} />
-			<UserName>
-				{username}
-			</UserName>
+			<UserName>{username}</UserName>
 		</UserContainer>
 	);
 };

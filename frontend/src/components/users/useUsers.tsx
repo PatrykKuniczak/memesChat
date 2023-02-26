@@ -1,14 +1,10 @@
+import { IUsers } from "components/users/Users";
 import { ChangeEvent, useDeferredValue, useEffect, useState } from "react";
 import { usersAfterFilter } from "helpers/onlineUsersFiltering";
 
-export interface IUser {
-	username: string;
-	id: number;
-}
-
 const useUsers = () => {
-	const [users, setUsers] = useState([]);
-	const [filteredUsers, setFilteredUsers] = useState<IUser[]>([]);
+	const [users, setUsers] = useState<IUsers>([]);
+	const [filteredUsers, setFilteredUsers] = useState<IUsers>([]);
 	const [searchUsersQuery, setSearchUsersQuery] = useState("");
 	const deferredSearchUsersQuery = useDeferredValue(searchUsersQuery);
 

@@ -1,21 +1,14 @@
+import { IUseChat } from "components/chat/useChat";
 import { SearchContainer, SearchTypeSwitcher } from "./MessageSearchBar.styled";
 import useMessageSearchBar from "./useMessageSearchBar";
 import Search from "../search/Search";
-import { ChangeEvent } from "react";
-
-interface IChat {
-	searchValue: string;
-	handleSetSearchValue: (event: ChangeEvent<HTMLInputElement>) => void;
-	searchMode: "user" | "message";
-	handleSetSearchMode: (searchMode: "user" | "message") => void;
-}
 
 const MessageSearchBar = ({
 	searchValue,
 	handleSetSearchValue,
 	searchMode,
 	handleSetSearchMode
-}: IChat) => {
+}: IUseChat) => {
 	const { handleSwitchSearchMode } = useMessageSearchBar({
 		searchMode,
 		handleSetSearchMode
