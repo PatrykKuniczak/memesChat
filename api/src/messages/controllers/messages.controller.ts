@@ -65,19 +65,9 @@ export class MessagesController {
     @ApiOkResponse()
     @ApiNotFoundResponse()
     @UseGuards(JwtAuthGuard)
-    @Get(":id")
-    async findOne(@Param("id") id: number, @UserReq("id") userId: number) {
-        return this.messagesService.findOne(id, userId);
-    }
-
-    @ApiUnauthorizedResponse()
-    @ApiForbiddenResponse()
-    @ApiOkResponse()
-    @ApiNotFoundResponse()
-    @UseGuards(JwtAuthGuard)
     @Delete(":id")
     async delete(@Param("id") id: number, @UserReq("id") userId: number) {
-        await this.messagesService.findOne(id, userId);
+        await this.messagesService.findOneByIdAndAuthorId(id, userId);
         await this.messagesService.delete(id);
     }
 
@@ -93,7 +83,7 @@ export class MessagesController {
         @Param("id") id: number,
         @UserReq("id") userId: number
     ) {
-        const currentMessage = await this.messagesService.findOne(id, userId);
+        const currentMessage = await this.messagesService.findOneByIdAndAuthorId(id, userId);
 
         if (currentMessage.isImage && updateMessageDto.isImage){
             throw new ForbiddenException(

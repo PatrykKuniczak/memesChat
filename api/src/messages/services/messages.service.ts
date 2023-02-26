@@ -24,7 +24,7 @@ export class MessagesService {
         return this.messageRepository.find();
     }
 
-    async findOne(id: number, authorId: number) {
+    async findOneByIdAndAuthorId(id: number, authorId: number) {
         const message = await this.messageRepository.findOneByOrFail({ id }).catch((error) => {
             if(error instanceof EntityNotFoundError){
                 throw new NotFoundException("This message don't exist");
