@@ -1,7 +1,9 @@
 import { IUseChat } from "components/chat/useChat";
 
-interface IUseMessagesSearchBar
-	extends Pick<IUseChat, "searchMode" | "handleSetSearchMode"> {}
+type IUseMessagesSearchBar = Pick<
+	IUseChat,
+	"searchMode" | "handleSetSearchMode"
+>;
 
 const useMessageSearchBar = ({
 	searchMode,
