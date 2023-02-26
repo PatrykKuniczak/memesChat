@@ -3,6 +3,7 @@ import {
     Delete,
     Get,
     Param,
+    ParseIntPipe,
     StreamableFile,
     UseGuards
 } from "@nestjs/common";
@@ -29,12 +30,10 @@ class UsersAvatarController {
     @ApiOkResponse()
     @ApiNotFoundResponse()
     @Get(":id")
-    async getFile(@Param("id") id: number): Promise<StreamableFile> {
-        const avatar = await this.usersAvatarService.findOne(id);
-
-        const file = createReadStream(process.cwd() + "\\" + avatar.sourcePath);
-
-        return new StreamableFile(file);
+    async getFile(
+        @Param("id", ParseIntPipe) id: number
+    ): Promise<StreamableFile> {
+        return this.usersAvatarService.getFile(id);
     }
 
     @ApiUnauthorizedResponse()
