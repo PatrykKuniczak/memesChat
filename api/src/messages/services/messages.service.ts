@@ -6,7 +6,7 @@ import {
 import { CreateMessageDto } from "messages/model/dto/create-message.dto";
 import { UpdateMessageDto } from "messages/model/dto/update-message.dto";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { EntityNotFoundError, Repository } from "typeorm";
 import { Message } from "messages/model/message.entity";
 
 @Injectable()
@@ -24,10 +24,19 @@ export class MessagesService {
         return this.messageRepository.find();
     }
 
-    async findOne(id: number) {
-        return this.messageRepository.findOneByOrFail({ id }).catch(() => {
-            throw new NotFoundException();
+    async findOneByIdAndAuthorId(id: number, authorId: number) {
+        const message = await this.messageRepository.findOneByOrFail({ id }).catch((error) => {
+            if(error instanceof EntityNotFoundError){
+                throw new NotFoundException("This message don't exist");
+            }
+            throw error;
         });
+
+        if(message.authorId !== authorId){
+            throw new ForbiddenException("You are not author of the message");
+        }
+
+        return message;
     }
 
     async delete(id: number) {
@@ -39,16 +48,7 @@ export class MessagesService {
     async update(
         id: number,
         updateMessageDto: UpdateMessageDto,
-        isImage: boolean
     ) {
-        const messageIsImage = updateMessageDto.isImage;
-
-        if (!isImage && !messageIsImage)
-            return this.messageRepository.update(id, updateMessageDto);
-        else if (messageIsImage)
-            throw new ForbiddenException(
-                "You can't change message type to image"
-            );
-        else throw new ForbiddenException("You can't update an image");
+        return this.messageRepository.update(id, updateMessageDto);
     }
 }

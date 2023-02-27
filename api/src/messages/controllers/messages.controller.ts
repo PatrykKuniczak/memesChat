@@ -65,32 +65,9 @@ export class MessagesController {
     @ApiOkResponse()
     @ApiNotFoundResponse()
     @UseGuards(JwtAuthGuard)
-    @Get(":id")
-    async findOne(@Param("id") id: number, @UserReq("id") userId: number) {
-        const user = await this.messagesService.findOne(id).catch(() => {
-            throw new ForbiddenException();
-        });
-
-        if (!this.isDevelopment && user.author.id !== userId)
-            throw new ForbiddenException();
-
-        return this.messagesService.findOne(id);
-    }
-
-    @ApiUnauthorizedResponse()
-    @ApiForbiddenResponse()
-    @ApiOkResponse()
-    @ApiNotFoundResponse()
-    @UseGuards(JwtAuthGuard)
     @Delete(":id")
     async delete(@Param("id") id: number, @UserReq("id") userId: number) {
-        const user = await this.messagesService.findOne(id).catch(() => {
-            throw new ForbiddenException();
-        });
-
-        if (!this.isDevelopment && user.author.id !== userId)
-            throw new ForbiddenException();
-
+        await this.messagesService.findOneByIdAndAuthorId(id, userId);
         await this.messagesService.delete(id);
     }
 
@@ -106,17 +83,20 @@ export class MessagesController {
         @Param("id") id: number,
         @UserReq("id") userId: number
     ) {
-        const message = await this.messagesService.findOne(id).catch(() => {
-            throw new ForbiddenException();
-        });
+        const currentMessage = await this.messagesService.findOneByIdAndAuthorId(id, userId);
 
-        if (!this.isDevelopment && message.author.id !== userId)
-            throw new ForbiddenException();
+        if (currentMessage.isImage && updateMessageDto.isImage){
+            throw new ForbiddenException(
+                "You can't change image"
+            );
+        }
 
-        await this.messagesService.update(
-            id,
-            updateMessageDto,
-            message.isImage
-        );
+        if (!currentMessage.isImage && updateMessageDto.isImage){
+            throw new ForbiddenException(
+                "You can't change message type to image"
+            );
+        }
+
+        return this.messagesService.update(id, updateMessageDto);
     }
 }
