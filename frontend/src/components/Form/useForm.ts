@@ -4,8 +4,15 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 
-const loginRegex = /^[a-zA-Z0-9]*$/;
-const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).+$/;
+export const loginRegex = /^[a-zA-Z0-9]*$/;
+const passwordRegex =
+    /^(?=.*[a-zżźćńółęąś])(?=.*[A-ZŻŹĆĄŚĘŁÓŃ])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ\d!@#$%^&* ]*$/;
+
+export const loginSchema = Yup.string()
+    .min(5, "Login jest za krótki")
+    .max(30, "Login jest za długi")
+    .matches(loginRegex, "Login może zawierać tylko znaki alfanumeryczne")
+    .required("Login jest wymagany");
 
 // todo: REMOVE IT AFTER CREATE SHUT DOWN VALIDATION
 // abcabcabc
@@ -43,14 +50,7 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
             passwordConfirmation: ""
         },
         validationSchema: Yup.object({
-            login: Yup.string()
-                .min(5, "Login jest za krótki")
-                .max(30, "Login jest za długi")
-                .matches(
-                    loginRegex,
-                    "Login może zawierać tylko znaki alfanumeryczne"
-                )
-                .required("Login jest wymagany"),
+            login: loginSchema,
             password: Yup.string()
                 .min(8, "Hasło jest za krótkie")
                 .max(60, "Hasło jest za długie")
