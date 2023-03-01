@@ -1,7 +1,6 @@
 import {
     Controller,
     Delete,
-    ForbiddenException,
     Param,
     ParseIntPipe,
     UseGuards
@@ -11,28 +10,22 @@ import { JwtAuthGuard } from "auth/guards/jwt-auth.guard";
 import {
     ApiBearerAuth,
     ApiForbiddenResponse,
+    ApiNotFoundResponse,
     ApiOkResponse,
     ApiTags,
     ApiUnauthorizedResponse
 } from "@nestjs/swagger";
 import { UserReq } from "users/decorators/user.decorator";
-import { ConfigService } from "@nestjs/config";
 
 @ApiBearerAuth("defaultBearerAuth")
 @ApiTags("users-avatar")
 @Controller("users-avatar")
 class UsersAvatarController {
-    private readonly isDevelopment: boolean;
-
-    constructor(
-        private readonly usersAvatarService: UsersAvatarService,
-        private readonly configService: ConfigService
-    ) {
-        this.isDevelopment = configService.get("DEVELOPMENT") === "true";
-    }
+    constructor(private readonly usersAvatarService: UsersAvatarService) {}
 
     @ApiUnauthorizedResponse()
     @ApiForbiddenResponse()
+    @ApiNotFoundResponse()
     @ApiOkResponse()
     @UseGuards(JwtAuthGuard)
     @Delete(":id")
@@ -40,12 +33,12 @@ class UsersAvatarController {
         @Param("id", ParseIntPipe) id: number,
         @UserReq("id") userId: number
     ) {
-        const avatar = await this.usersAvatarService.findOne(id);
+        const avatar = await this.usersAvatarService.findOneByIdAndUserId(
+            id,
+            userId
+        );
 
-        if (!this.isDevelopment && avatar.user.id != userId)
-            throw new ForbiddenException();
-
-        await this.usersAvatarService.remove(avatar.id, avatar.sourcePath);
+        await this.usersAvatarService.delete(avatar.id, avatar.sourcePath);
     }
 }
 

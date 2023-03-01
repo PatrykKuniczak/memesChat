@@ -23,21 +23,13 @@ import {
     ApiUnauthorizedResponse
 } from "@nestjs/swagger";
 import { JwtAuthGuard } from "auth/guards/jwt-auth.guard";
-import { ConfigService } from "@nestjs/config";
 import { UserReq } from "users/decorators/user.decorator";
 
 @ApiBearerAuth("defaultBearerAuth")
 @ApiTags("messages")
 @Controller("messages")
 export class MessagesController {
-    private readonly isDevelopment: boolean;
-
-    constructor(
-        private readonly messagesService: MessagesService,
-        private readonly configService: ConfigService
-    ) {
-        this.isDevelopment = configService.get("DEVELOPMENT") === "true";
-    }
+    constructor(private readonly messagesService: MessagesService) {}
 
     @ApiUnauthorizedResponse()
     @ApiCreatedResponse()
@@ -83,19 +75,11 @@ export class MessagesController {
         @Param("id") id: number,
         @UserReq("id") userId: number
     ) {
-        const currentMessage = await this.messagesService.findOneByIdAndAuthorId(id, userId);
+        const currentMessage =
+            await this.messagesService.findOneByIdAndAuthorId(id, userId);
 
-        if (currentMessage.isImage && updateMessageDto.isImage){
-            throw new ForbiddenException(
-                "You can't change image"
-            );
-        }
-
-        if (!currentMessage.isImage && updateMessageDto.isImage){
-            throw new ForbiddenException(
-                "You can't change message type to image"
-            );
-        }
+        if (currentMessage.isImage !== updateMessageDto.isImage)
+            throw new ForbiddenException("You can't change message type");
 
         return this.messagesService.update(id, updateMessageDto);
     }

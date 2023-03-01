@@ -43,9 +43,6 @@ export class AuthService {
     async validateUser(userCredentialsDto: UserCredentialsDto) {
         const { password } = await this.userService
             .selectPassword(userCredentialsDto.username)
-            .catch(() => {
-                throw new UnauthorizedException();
-            });
 
         const isPasswordValid = await this.comparePasswords(
             userCredentialsDto.password,

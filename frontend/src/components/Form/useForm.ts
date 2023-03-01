@@ -5,8 +5,7 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 
 const loginRegex = /^[a-zA-Z0-9]*$/;
-const passwordRegex =
-    /^(?=.*[a-zżźćńółęąś])(?=.*[A-ZŻŹĆĄŚĘŁÓŃ])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ\d!@#$%^&* ]*$/;
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).+$/;
 
 // todo: REMOVE IT AFTER CREATE SHUT DOWN VALIDATION
 // abcabcabc
@@ -52,7 +51,7 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
                 .max(60, "Hasło jest za długie")
                 .matches(
                     passwordRegex,
-                    "Hasło musi zawierać jedną małą, jedną dużą literę, cyfrę i znak specjalny"
+                    "Hasło musi zawierać jedną małą, jedną dużą literę, cyfrę lub znak specjalny"
                 )
                 .required("Hasło jest wymagane"),
             passwordConfirmation: isSignUp

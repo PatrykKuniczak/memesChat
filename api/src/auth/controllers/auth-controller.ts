@@ -8,7 +8,8 @@ import {
     ApiCreatedResponse,
     ApiUnauthorizedResponse,
     ApiOkResponse,
-    ApiTags
+    ApiTags,
+    ApiNotFoundResponse
 } from "@nestjs/swagger";
 
 @ApiTags("auth")
@@ -27,6 +28,7 @@ class AuthController {
     @ApiOkResponse({ description: "Return JWT token" })
     @ApiBadRequestResponse()
     @ApiUnauthorizedResponse()
+    @ApiNotFoundResponse()
     @UseGuards(LocalAuthGuard)
     @HttpCode(200)
     @Post("login")
