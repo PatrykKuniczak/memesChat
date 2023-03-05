@@ -1,30 +1,35 @@
 import {
-	Form,
-	InputWrapper,
-	MemeButton,
-	MemeGenerateIcon,
-	MessageInput
+    Counter,
+    Form,
+    InputWrapper,
+    MemeButton,
+    MemeGenerateIcon,
+    MessageInput
 } from "./ChatInput.styled";
-import useChatInput from "./useChatInput";
+import useChatInput, { maxCount } from "./useChatInput";
 
 const ChatInput = () => {
-	const { currentInputValue, handleSetCurrentInputValue, handleSubmit } =
-		useChatInput();
+    const { handleSubmit, handleChange, values } = useChatInput();
 
-	return (
-		<InputWrapper>
-			<Form onSubmit={handleSubmit}>
-				<MessageInput
-					onChange={handleSetCurrentInputValue}
-					value={currentInputValue}
-					autoFocus
-				/>
-			</Form>
-			<MemeButton>
-				<MemeGenerateIcon />
-			</MemeButton>
-		</InputWrapper>
-	);
+    return (
+        <InputWrapper>
+            <Form onSubmit={handleSubmit}>
+                <MessageInput
+                    id="message"
+                    name="message"
+                    onChange={handleChange}
+                    value={values.message}
+                    autoFocus
+                />
+            </Form>
+            <Counter isError={values.message.length > maxCount}>
+                {values.message.length} / {maxCount}
+            </Counter>
+            <MemeButton>
+                <MemeGenerateIcon />
+            </MemeButton>
+        </InputWrapper>
+    );
 };
 
 export default ChatInput;

@@ -19,7 +19,7 @@ const Input = styled.input`
 `;
 
 const Error = styled.p`
-    color: #e34a4a;
+    color: ${({ theme }) => theme.red};
 `;
 
 export { Label, Input, Error };

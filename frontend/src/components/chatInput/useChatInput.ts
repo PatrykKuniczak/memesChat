@@ -1,28 +1,32 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
-const useChatInput = () => {
-    const [currentInputValue, setCurrentInputValue] = useState("");
+const regExp =
+    /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.\S{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.\S{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.\S{2,}|www\.[a-zA-Z0-9]+\.\S{2,})/;
+export const maxCount = 500;
 
-    const handleSetCurrentInputValue = (
-        event: ChangeEvent<HTMLInputElement>
-    ) => {
-        setCurrentInputValue(event.target.value);
-    };
-
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-
-        if (currentInputValue) {
-            // TODO: send request through WS
-            setCurrentInputValue("");
+const useChatInput = (imageUrl = "https://images.com/hbg23vhgvansd") => {
+    const formik = useFormik({
+        initialValues: {
+            message: "",
+            imageUrl
+        },
+        validationSchema: Yup.object({
+            message: Yup.string().max(maxCount).required(),
+            imageUrl: Yup.string().matches(regExp)
+        }),
+        onSubmit: ({ message, imageUrl }) => {
+            const newMessage = message.trim();
+            if (!newMessage) {
+                formik.resetForm();
+                return;
+            }
+            // TODO: create function which will be send message using WS
+            formik.resetForm();
         }
-    };
+    });
 
-    return {
-        currentInputValue,
-        handleSetCurrentInputValue,
-        handleSubmit
-    };
+    return formik;
 };
 
 export default useChatInput;

@@ -32,7 +32,7 @@ const InputWrapper = styled.div`
 const Error = styled.p`
     margin-top: 1rem;
 
-    color: #e34a4a;
+    color: ${({ theme }) => theme.red};
 
     text-align: center;
 `;
