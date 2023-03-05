@@ -6,9 +6,10 @@ import {
     ApiBadRequestResponse,
     ApiConflictResponse,
     ApiCreatedResponse,
+    ApiUnauthorizedResponse,
     ApiOkResponse,
     ApiTags,
-    ApiUnauthorizedResponse
+    ApiNotFoundResponse
 } from "@nestjs/swagger";
 
 @ApiTags("auth")
@@ -24,10 +25,11 @@ class AuthController {
         return this.authService.register(userCredentialsDto);
     }
 
-    @ApiUnauthorizedResponse()
     @ApiOkResponse({ description: "Return JWT token" })
-    @UseGuards(LocalAuthGuard)
     @ApiBadRequestResponse()
+    @ApiUnauthorizedResponse()
+    @ApiNotFoundResponse()
+    @UseGuards(LocalAuthGuard)
     @HttpCode(200)
     @Post("login")
     async login(@Body() userCredentialsDto: UserCredentialsDto) {

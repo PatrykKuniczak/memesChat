@@ -1,10 +1,9 @@
-import {IsBoolean, IsOptional, Min} from "class-validator";
-import { ApiProperty } from "@nestjs/swagger";
+import { IsBoolean, IsOptional, Min } from "class-validator";
+import { ApiHideProperty, ApiProperty } from "@nestjs/swagger";
 import MessageLengthValidator from "messages/model/custom-validators/message-length.validator";
 import UrlValidator from "messages/model/custom-validators/url-validator";
 
-const regExp =
-    /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.\S{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.\S{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.\S{2,}|www\.[a-zA-Z0-9]+\.\S{2,})/;
+const regExp = /^(https?):\/\/(?:www\.)?[a-zA-Z]{2,}\.[a-z]{2,5}(?!.*(\/{2}|https?|:|\.| )).*$/;
 
 export class CreateMessageDto {
     @MessageLengthValidator("isImage", 1, 500)
@@ -18,8 +17,10 @@ export class CreateMessageDto {
 
     @IsOptional()
     @IsBoolean()
-    isImage?: boolean;
+    readonly isImage?: boolean;
 
+    @ApiHideProperty()
+    @IsOptional()
     @Min(1)
     authorId: number;
 }

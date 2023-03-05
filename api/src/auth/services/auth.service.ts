@@ -12,33 +12,6 @@ export class AuthService {
         private readonly jwtService: JwtService
     ) {}
 
-    async login(userCredentialsDto: UserCredentialsDto) {
-        const { id } = await this.userService
-            .findOneByUsername(userCredentialsDto.username)
-            .catch(() => {
-                throw new UnauthorizedException();
-            });
-
-        return this.generateJwt({ ...userCredentialsDto, id });
-    }
-
-    async validateUser(userCredentialsDto: UserCredentialsDto) {
-        const { password } = await this.userService
-            .selectPassword(userCredentialsDto.username)
-            .catch(() => {
-                throw new UnauthorizedException();
-            });
-
-        const isPasswordValid = await this.comparePasswords(
-            userCredentialsDto.password,
-            password
-        );
-
-        if (!isPasswordValid) throw new UnauthorizedException();
-
-        return userCredentialsDto;
-    }
-
     async register(userCredentialsDto: UserCredentialsDto) {
         userCredentialsDto.username = userCredentialsDto.username
             .replace(/\s/g, "")
@@ -57,6 +30,28 @@ export class AuthService {
         const { password, ...rest } = user;
 
         return this.generateJwt(rest);
+    }
+
+    async login(userCredentialsDto: UserCredentialsDto) {
+        const { id } = await this.userService.findOneByUsername(
+            userCredentialsDto.username
+        );
+
+        return this.generateJwt({ ...userCredentialsDto, id });
+    }
+
+    async validateUser(userCredentialsDto: UserCredentialsDto) {
+        const { password } = await this.userService
+            .selectPassword(userCredentialsDto.username)
+
+        const isPasswordValid = await this.comparePasswords(
+            userCredentialsDto.password,
+            password
+        );
+
+        if (!isPasswordValid) throw new UnauthorizedException();
+
+        return userCredentialsDto;
     }
 
     private generateJwt(user: User) {

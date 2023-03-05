@@ -19,8 +19,9 @@ import { User } from "users/model/users.entity";
 
     app.enableCors();
     app.setGlobalPrefix("api");
+    const isDevelopment = configService.get("DEVELOPMENT") === "true";
 
-    if (configService.get("DEVELOPMENT") !== "true")
+    if (!isDevelopment)
         app.useGlobalPipes(
             new ValidationPipe({
                 transform: true,
@@ -35,7 +36,12 @@ import { User } from "users/model/users.entity";
 
     const defaultJwtToken = configService.get("DEFAULT_JWT_TOKEN");
 
-    SwaggerModule.setup("docs", app, document, swaggerOptions(defaultJwtToken));
+    SwaggerModule.setup(
+        "docs",
+        app,
+        document,
+        isDevelopment && swaggerOptions(defaultJwtToken)
+    );
 
     await app.listen(PORT);
     logger.log(`Server running on PORT ${PORT}`);

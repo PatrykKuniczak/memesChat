@@ -21,8 +21,12 @@ export class Message {
     @CreateDateColumn()
     readonly createdAt: number;
 
+    @Column({ select: false, nullable: true })
+    authorId: number;
+
     @ManyToOne(() => User, user => user.messages, {
+        eager: true,
         onDelete: "SET NULL"
     })
-    author: User;
+    readonly author: User;
 }

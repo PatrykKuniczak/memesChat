@@ -20,8 +20,9 @@ export class User {
     @Column({ select: false })
     password?: string;
 
-    @OneToOne(() => UserAvatar, {
-        onDelete: "SET NULL"
+    @OneToOne(() => UserAvatar, userAvatar => userAvatar.user, {
+        onDelete: "SET NULL",
+        eager: true
     })
     @JoinColumn()
     userAvatar?: UserAvatar;
