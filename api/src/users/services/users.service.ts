@@ -2,7 +2,8 @@ import {
     Injectable,
     ConflictException,
     NotFoundException,
-    ForbiddenException
+    ForbiddenException,
+    UnauthorizedException
 } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { EntityNotFoundError, QueryFailedError, Repository } from "typeorm";
@@ -45,10 +46,10 @@ export class UsersService {
         return this.userRepository.find();
     }
 
-    async findOne(id: number) {
+    async findOneForValidate(id: number) {
         return this.userRepository.findOneByOrFail({ id }).catch(error => {
             if (error instanceof EntityNotFoundError)
-                throw new NotFoundException();
+                throw new UnauthorizedException();
 
             throw error;
         });
@@ -107,27 +108,15 @@ export class UsersService {
     ) {
         const user = await this.findOneByIdAndUserJwtId(id, userId);
 
-        updateUserDto.username = updateUserDto.username
-            .replace(/\s/g, "")
-            .toLowerCase();
-
         const avatar = user.userAvatar;
 
-        if (file)
-            updateUserDto.userAvatar =
-                await this.usersAvatarService.addUserAvatarFile(
-                    id,
-                    file,
-                    avatar
-                );
-        else {
-            updateUserDto.userAvatar = null;
+        if (avatar) await this.usersAvatarService.delete(avatar);
 
-            if (avatar)
-                await this.usersAvatarService.delete(
-                    avatar.id,
-                    avatar.sourcePath
-                );
+        if (file) {
+            updateUserDto.userAvatar =
+                await this.usersAvatarService.addUserAvatarFile(id, file);
+        } else {
+            updateUserDto.userAvatar = null;
         }
 
         await this.userRepository.update(id, updateUserDto).catch(error => {

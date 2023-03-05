@@ -27,13 +27,11 @@ export class UsersAvatarService {
     async addUserAvatarFile(
         id: number,
         file: IUploadedFile,
-        userAvatar: UserAvatar
     ) {
         const name = file.originalname;
         const extension = file.originalname.split(".").pop();
         const sourcePath = file.path;
 
-        userAvatar && (await this.delete(userAvatar.id, userAvatar.sourcePath));
         return this.usersAvatarRepository.save({ name, sourcePath, extension });
     }
 
@@ -53,17 +51,17 @@ export class UsersAvatarService {
         return avatar;
     }
 
-    async delete(id: number, sourcePath: string) {
+    async delete(avatar: UserAvatar) {
         const appDir = dirname(require.main.filename);
 
         try {
-            unlinkSync(join(appDir, `../${sourcePath}`));
+            unlinkSync(join(appDir, `../${avatar.sourcePath}`));
         } catch (err) {
             throw new InternalServerErrorException(err.message);
         }
 
-        await this.usersAvatarRepository.delete(id).catch(error => {
-            throw error
+        await this.usersAvatarRepository.delete(avatar.id).catch(error => {
+            throw error;
         });
     }
 }

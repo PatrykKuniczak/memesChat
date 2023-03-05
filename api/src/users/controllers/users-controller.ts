@@ -39,8 +39,8 @@ import { UsersAvatarService } from "usersAvatar/services/usersAvatar.service";
 @Controller("users")
 class UsersController {
     constructor(
-        private readonly userService: UsersService,
-        private readonly userAvatarService: UsersAvatarService
+        private readonly usersService: UsersService,
+        private readonly usersAvatarService: UsersAvatarService
     ) {}
 
     @ApiUnauthorizedResponse()
@@ -48,7 +48,7 @@ class UsersController {
     @UseGuards(JwtAuthGuard)
     @Get()
     async findAll() {
-        return this.userService.findAll();
+        return this.usersService.findAll();
     }
 
     @ApiUnauthorizedResponse()
@@ -58,7 +58,7 @@ class UsersController {
     @UseGuards(JwtAuthGuard)
     @Get(":id")
     async findOne(@Param("id") id: number, @UserReq("id") userId: number) {
-        return this.userService.findOneByIdAndUserJwtId(id, userId);
+        return this.usersService.findOneByIdAndUserJwtId(id, userId);
     }
 
     @ApiUnauthorizedResponse()
@@ -68,16 +68,15 @@ class UsersController {
     @UseGuards(JwtAuthGuard)
     @Delete(":id")
     async delete(@Param("id") id: number, @UserReq("id") userId: number) {
-        const user = await this.userService.findOneByIdAndUserJwtId(id, userId);
-
-        const userAvatar = user.userAvatar;
-
-        userAvatar && await this.userAvatarService.delete(
-            userAvatar.id,
-            userAvatar.sourcePath
+        const user = await this.usersService.findOneByIdAndUserJwtId(
+            id,
+            userId
         );
 
-        await this.userService.delete(id);
+        if (user.userAvatar)
+            await this.usersAvatarService.delete(user.userAvatar);
+
+        await this.usersService.delete(id);
     }
 
     @ApiUnauthorizedResponse()
@@ -112,7 +111,7 @@ class UsersController {
         )
         file: IUploadedFile
     ) {
-        await this.userService.update(id, userId, updateUserDto, file);
+        await this.usersService.update(id, userId, updateUserDto, file);
     }
 }
 

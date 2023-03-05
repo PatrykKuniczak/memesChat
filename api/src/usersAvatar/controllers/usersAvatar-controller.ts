@@ -38,7 +38,7 @@ class UsersAvatarController {
             userId
         );
 
-        await this.usersAvatarService.delete(avatar.id, avatar.sourcePath);
+        await this.usersAvatarService.delete(avatar);
     }
 }
 
