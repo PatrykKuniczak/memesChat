@@ -17,7 +17,6 @@ import {
     ApiTags,
     ApiUnauthorizedResponse
 } from "@nestjs/swagger";
-import { createReadStream } from "fs";
 import { UserReq } from "users/decorators/user.decorator";
 
 @ApiBearerAuth("defaultBearerAuth")
@@ -31,9 +30,15 @@ class UsersAvatarController {
     @ApiNotFoundResponse()
     @Get(":id")
     async getFile(
-        @Param("id", ParseIntPipe) id: number
+        @Param("id", ParseIntPipe) id: number,
+        @UserReq("id") userId: number
     ): Promise<StreamableFile> {
-        return this.usersAvatarService.getFile(id);
+        const avatar = await this.usersAvatarService.findOneByIdAndUserId(
+            id,
+            userId
+        );
+
+        return this.usersAvatarService.getFile(avatar);
     }
 
     @ApiUnauthorizedResponse()
