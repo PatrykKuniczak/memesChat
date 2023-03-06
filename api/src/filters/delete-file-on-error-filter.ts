@@ -1,29 +1,36 @@
 import {
-	ExceptionFilter,
-	Catch,
-	ArgumentsHost,
-	BadRequestException,
-	InternalServerErrorException,
-	ForbiddenException
+    ExceptionFilter,
+    Catch,
+    ArgumentsHost,
+    BadRequestException,
+    InternalServerErrorException,
+    ForbiddenException,
+    ConflictException,
+    NotFoundException
 } from "@nestjs/common";
 import { Request, Response } from "express";
 import { unlinkSync } from "fs";
 
-@Catch(BadRequestException, ForbiddenException)
+@Catch(
+    BadRequestException,
+    ForbiddenException,
+    ConflictException,
+    NotFoundException
+)
 export class DeleteFileOnErrorFilter implements ExceptionFilter {
-	catch(exception: BadRequestException, host: ArgumentsHost) {
-		const ctx = host.switchToHttp();
-		const response = ctx.getResponse<Response>();
-		const request = ctx.getRequest<Request>();
-		const status = exception.getStatus();
+    catch(exception: BadRequestException, host: ArgumentsHost) {
+        const ctx = host.switchToHttp();
+        const response = ctx.getResponse<Response>();
+        const request = ctx.getRequest<Request>();
+        const status = exception.getStatus();
 
-		if (request.file)
-			try {
-				unlinkSync(request.file.path);
-			} catch (err) {
-				throw new InternalServerErrorException(err);
-			}
+        if (request.file)
+            try {
+                unlinkSync(request.file.path);
+            } catch (err) {
+                throw new InternalServerErrorException(err);
+            }
 
-		response.status(status).json(exception.getResponse());
-	}
+        response.status(status).json(exception.getResponse());
+    }
 }
