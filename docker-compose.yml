@@ -5,27 +5,30 @@ services:
     container_name: db
     restart: unless-stopped
     env_file:
-      - .env
-    image: "${DB_TYPE}:15.1"
+      - api/config/env/prod.env
+    environment:
+      - NODE_ENV=prod
+    image: "postgres:15.1"
     ports:
-      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+      - "5432:5432"
     networks:
       - memesChat
 
   api:
     container_name: api
     restart: unless-stopped
-    env_file:
-      - .env
     build:
       context: api
       dockerfile: Dockerfile
+    env_file:
+      - api/config/env/prod.env
+    environment:
+      - NODE_ENV=prod
     command: npm start
     volumes:
       - ./api:/api
-      - /api/node_modules
     ports:
-      - "${SERVER_PORT}:${SERVER_PORT}"
+      - "3030:3030"
     depends_on:
       - db
     links:
@@ -36,17 +39,16 @@ services:
   frontend:
     container_name: frontend
     restart: unless-stopped
-    env_file:
-      - .env
     build:
       context: frontend
       dockerfile: Dockerfile
+    env_file:
+      - frontend/config/env/prod.env
     command: npm start
     volumes:
       - ./frontend:/frontend
-      - /frontend/node_modules
     ports:
-      - "${REACT_APP_PORT}:${REACT_APP_PORT}"
+      - "3000:3000"
     depends_on:
       - api
     links:

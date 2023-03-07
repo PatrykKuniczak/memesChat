@@ -25,10 +25,12 @@
     "@types/node": "^18.11.19",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
-    "@types/styled-components": "^5.1.26"
+    "@types/styled-components": "^5.1.26",
+    "env-cmd": "^10.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:dev": "env-cmd -f config/env/dev.env react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
