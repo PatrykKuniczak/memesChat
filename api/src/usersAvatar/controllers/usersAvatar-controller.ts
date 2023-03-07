@@ -4,7 +4,6 @@ import {
     Get,
     Param,
     ParseIntPipe,
-    StreamableFile,
     UseGuards
 } from "@nestjs/common";
 import { UsersAvatarService } from "../services/usersAvatar.service";
@@ -32,7 +31,7 @@ class UsersAvatarController {
     async getFile(
         @Param("id", ParseIntPipe) id: number,
         @UserReq("id") userId: number
-    ): Promise<StreamableFile> {
+    ) {
         const avatar = await this.usersAvatarService.findOneByIdAndUserId(
             id,
             userId

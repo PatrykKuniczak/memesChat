@@ -25,7 +25,7 @@ export class UsersAvatarService {
         this.isDevelopment = configService.get("DEVELOPMENT") === "true";
     }
 
-    async getFile(avatar: UserAvatar) {
+    getFile(avatar: UserAvatar) {
         const file = createReadStream(process.cwd() + "\\" + avatar.sourcePath);
 
         return new StreamableFile(file);
