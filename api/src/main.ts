@@ -21,7 +21,7 @@ import { User } from "users/model/users.entity";
     });
 
     const configService = app.get(ConfigService);
-    const PORT = +configService.get("PORT");
+    const PORT = +configService.get("port");
 
     app.setGlobalPrefix("api");
 
@@ -38,7 +38,7 @@ import { User } from "users/model/users.entity";
         extraModels: [JwtToken, User]
     });
 
-    const defaultJwtToken = configService.get("DEFAULT_JWT_TOKEN");
+    const defaultJwtToken = configService.get("devOptions.defaultJwtToken");
 
     SwaggerModule.setup(
         "docs",
