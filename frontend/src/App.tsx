@@ -3,13 +3,7 @@ import axios from "axios";
 import GlobalStyles from "./assets/GlobalStyles.styled";
 import Auth from "./pages/auth/Auth";
 import { ThemeProvider } from "styled-components";
-import {
-    BrowserRouter,
-    Navigate,
-    Outlet,
-    Route,
-    Routes
-} from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/home/Home";
 import ProtectedPage from "./ProtectedRoute";
 
@@ -25,7 +19,7 @@ const App = () => {
             <ThemeProvider theme={THEME_DARK}>
                 <BrowserRouter>
                     <Routes>
-                        <Route element={<Outlet />}>
+                        <Route>
                             <Route
                                 path="/"
                                 element={
