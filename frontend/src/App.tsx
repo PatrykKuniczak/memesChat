@@ -11,6 +11,7 @@ import {
     Routes
 } from "react-router-dom";
 import Home from "./pages/home/Home";
+import ProtectedPage from "./ProtectedRoute";
 
 //USE THAT IT IF U WANT TO CREATE REQUEST FOR OTHER THAN /API PATH EP. FOR GET AVATAR use join( "/..") from path-browserify
 export const API_URL = process.env.REACT_APP_API_URL;
@@ -27,7 +28,11 @@ const App = () => {
                         <Route element={<Outlet />}>
                             <Route
                                 path="/"
-                                element={<Home />}
+                                element={
+                                    <ProtectedPage>
+                                        <Home />
+                                    </ProtectedPage>
+                                }
                             />
                             <Route
                                 path="/auth/:eventType"

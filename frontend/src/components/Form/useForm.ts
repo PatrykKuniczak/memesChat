@@ -1,5 +1,5 @@
 import axios from "axios";
-import useSaveToken from "hooks/useSaveToken";
+import useToken from "hooks/useToken";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +13,7 @@ const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).+$/;
 
 const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
     const navigate = useNavigate();
-    const { setAccessToken } = useSaveToken();
+    const { setAccessToken } = useToken();
 
     const handleAuthEvent = (
         username: string,
