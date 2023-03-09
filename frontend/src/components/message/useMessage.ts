@@ -1,65 +1,73 @@
 import { KeyboardEvent, useRef, useState } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 import { IMessage } from "./Message";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { maxCount, messageRegExp } from "components/chatInput/useChatInput";
 
-const useMessage = (message: IMessage) => {
+const useMessage = (
+    message: IMessage,
+    imageUrl = "https://images.com/hbg23vhgvansd"
+) => {
     const { id, content, author } = message;
+    const formik = useFormik({
+        initialValues: {
+            message: content,
+            imageUrl
+        },
+        validationSchema: Yup.object({
+            message: Yup.string()
+                .max(maxCount, "Wiadomość może mieć maksymalnie 500 znaków")
+                .required("Wiadomość nie może być pusta"),
+            imageUrl: Yup.string().matches(messageRegExp)
+        }),
+        onSubmit: ({ message, imageUrl }) => {
+            const newMessage = message.trim();
+            if (!newMessage) {
+                formik.resetForm();
+                closeInputEdit();
+                return;
+            }
+            // TODO: create function which will be edit message using WS
+            closeInputEdit();
+        }
+    });
 
-    const messageInput = useRef<HTMLInputElement>(null);
     const outsideRef = useRef<HTMLDivElement>(null);
-    const currentMessageInput = messageInput.current!;
-
-    const [currentMessage, setCurrentMessage] = useState(content);
     const [inputIsOpen, setInputIsOpen] = useState(false);
 
-    const sendRequest = () => {
-        //TODO: implement
-    };
+    const showInputEdit = () => setInputIsOpen(true);
 
-    const showInputEdit = async () => {
-        await setInputIsOpen(true);
-        currentMessageInput.focus();
-    };
-
-    const closeEditableInput = () => setInputIsOpen(false);
-
-    const messageHasChanged = () =>
-        currentMessageInput.textContent !== currentMessage;
-
-    const handleMessageChange = (event: KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === "Enter") {
-            closeEditableInput();
-
-            if (messageHasChanged()) sendRequest();
-        } else if (event.key === "Escape") {
-            setCurrentMessage(content);
-            closeEditableInput();
+    const closeInputEdit = () => {
+        if (formik.errors.message) {
+            formik.resetForm();
         }
+        setInputIsOpen(false);
     };
 
-    const handleEditMessage = () => {
-        setCurrentMessage(currentMessageInput.textContent || "");
-
-        if (messageHasChanged()) sendRequest();
-
-        closeEditableInput();
+    const closeInputEditByEscape = (event: KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === "Escape") {
+            formik.resetForm();
+            closeInputEdit();
+        }
     };
 
     const handleDeleteMessage = () => {
         // TODO: send request through WS
     };
 
-    useOnClickOutside(outsideRef, closeEditableInput);
+    const handleEditMessage = () => formik.handleSubmit();
+
+    useOnClickOutside(outsideRef, closeInputEdit);
 
     return {
-        messageInput,
+        formik,
         outsideRef,
-        handleEditMessage,
         handleDeleteMessage,
-        handleMessageChange,
+        closeInputEditByEscape,
         inputIsOpen,
         showInputEdit,
-        currentMessage
+        handleEditMessage
     };
 };
 export default useMessage;
