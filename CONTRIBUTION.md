@@ -23,9 +23,16 @@ GIT CLONE: https://github.com/PatrykKuniczak/memesChat.git
         work only if "DEVELOPMENT=true"
         ### THE DB CREDENTIALS IS DEFAULT, YOU MAY HAVE OTHER ###
 
-        FOR WS:
-            WS_SERVER_PORT=3040 (If u have something on that, change it)
-            WS_GATEWAY_PORT=3050 (If u have something on that, change it)
+        FOR WS: ### CREATE IT IN ROOT/CONFIG/ENV ### THAT'S SOLUTION FOR CURRENT DEVELOPMENT STATUS
+            dev.env:
+                PORT=3040
+                GATEWAY_PORT=3050
+                API_URL=http://localhost:3030/api (YOU MAY HAVE OTHER PORT)
+                CLIENT_URL=http://localhost:3000 (YOU MAY HAVE OTHER PORT)
+                DEVELOPMENT=true - if it's true, then you can create request from any host,
+                leave empty for default behavior, accept only specific CORS
+    
+            U CAN TAKE DATA FROM "example.env"
 
         FOR FRONTEND:
             REACT_APP_API_URL=http://localhost:3030/api/ (or other youre host/port)

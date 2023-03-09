@@ -1,6 +1,6 @@
-import { PartialType } from "@nestjs/mapped-types";
 import { CreateMessageDto } from "chat/dto/create-message.dto";
+import { PickType } from "@nestjs/mapped-types";
 
-export class UpdateMessageDto extends PartialType(CreateMessageDto) {
+export class UpdateMessageDto extends PickType(CreateMessageDto, ["content"]) {
     id: number;
 }
