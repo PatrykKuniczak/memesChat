@@ -19,9 +19,9 @@ const App = () => {
             <ThemeProvider theme={THEME_DARK}>
                 <BrowserRouter>
                     <Routes>
-                        <Route>
+                        <Route path="/">
                             <Route
-                                path="/"
+                                index
                                 element={
                                     <ProtectedPage>
                                         <Home />
@@ -32,11 +32,11 @@ const App = () => {
                                 path="/auth/:eventType"
                                 element={<Auth />}
                             />
+                            <Route
+                                path="*"
+                                element={<Navigate to={"/"} />}
+                            />
                         </Route>
-                        <Route
-                            path="*"
-                            element={<Navigate to={"/"} />}
-                        />
                     </Routes>
                 </BrowserRouter>
             </ThemeProvider>
