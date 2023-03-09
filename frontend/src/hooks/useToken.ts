@@ -1,9 +1,8 @@
 import axios from "axios";
 import { useLocalStorage } from "usehooks-ts";
 
-const useSaveToken = () => {
-    // eslint-disable-next-line
-    const [_, setUserToken] = useLocalStorage("userToken", "");
+const useToken = () => {
+    const [userToken, setUserToken] = useLocalStorage("userToken", "");
     const setAccessToken = (accessToken: string) => {
         setUserToken(accessToken);
         axios.defaults.headers.common[
@@ -11,7 +10,7 @@ const useSaveToken = () => {
         ] = `Bearer ${accessToken}`;
     };
 
-    return { setAccessToken };
+    return { userToken, setAccessToken };
 };
 
-export default useSaveToken;
+export default useToken;
