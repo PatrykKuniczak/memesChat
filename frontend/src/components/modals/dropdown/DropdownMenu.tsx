@@ -4,8 +4,6 @@ import {
     DropdownListItem
 } from "./DropdownMenu.styled";
 import useDropdownMenu from "./useDropdownMenu";
-import { useNavigate } from "react-router-dom";
-import useToken from "../../../hooks/useToken";
 
 type IDropdownMenu = {
     showModal: (modalName: string) => void;
@@ -13,14 +11,7 @@ type IDropdownMenu = {
 };
 
 const DropdownMenu = ({ showModal, changeMenuVisible }: IDropdownMenu) => {
-    const { ref } = useDropdownMenu(changeMenuVisible);
-    const navigate = useNavigate();
-    const { setAccessToken } = useToken();
-
-    const handleLogout = () => {
-        setAccessToken("");
-        navigate("auth/signIn");
-    };
+    const { ref, handleLogout } = useDropdownMenu(changeMenuVisible);
 
     return (
         <>
