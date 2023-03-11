@@ -1,6 +1,7 @@
 import {
     Controller,
     Delete,
+    Get,
     Param,
     ParseIntPipe,
     UseGuards
@@ -22,6 +23,22 @@ import { UserReq } from "users/decorators/user.decorator";
 @Controller("users-avatar")
 class UsersAvatarController {
     constructor(private readonly usersAvatarService: UsersAvatarService) {}
+
+    @ApiUnauthorizedResponse()
+    @ApiOkResponse()
+    @ApiNotFoundResponse()
+    @Get(":id")
+    async getFile(
+        @Param("id", ParseIntPipe) id: number,
+        @UserReq("id") userId: number
+    ) {
+        const avatar = await this.usersAvatarService.findOneByIdAndUserId(
+            id,
+            userId
+        );
+
+        return this.usersAvatarService.getFile(avatar);
+    }
 
     @ApiUnauthorizedResponse()
     @ApiForbiddenResponse()

@@ -2,12 +2,13 @@ import {
     ForbiddenException,
     Injectable,
     InternalServerErrorException,
-    NotFoundException
+    NotFoundException,
+    StreamableFile
 } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { EntityNotFoundError, Repository } from "typeorm";
 import { UserAvatar } from "../model/usersAvatar.entity";
-import { unlinkSync } from "fs";
+import { createReadStream, unlinkSync } from "fs";
 import { dirname, join } from "path";
 import IUploadedFile from "users/types/uploaded-file.interface";
 import { ConfigService } from "@nestjs/config";
@@ -24,10 +25,13 @@ export class UsersAvatarService {
         this.isDevelopment = configService.get("DEVELOPMENT") === "true";
     }
 
-    async addUserAvatarFile(
-        id: number,
-        file: IUploadedFile,
-    ) {
+    getFile(avatar: UserAvatar) {
+        const file = createReadStream(process.cwd() + "\\" + avatar.sourcePath);
+
+        return new StreamableFile(file);
+    }
+
+    async addUserAvatarFile(id: number, file: IUploadedFile) {
         const name = file.originalname;
         const extension = file.originalname.split(".").pop();
         const sourcePath = file.path;
