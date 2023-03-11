@@ -12,12 +12,12 @@ const useDropdownMenu = (changeMenuVisible: () => void) => {
         changeMenuVisible();
     };
 
-    useOnClickOutside(ref, handleClickOutside);
-
     const handleLogout = () => {
         setAccessToken("");
         navigate("auth/signIn");
     };
+
+    useOnClickOutside(ref, handleClickOutside);
 
     return { ref, handleLogout };
 };
