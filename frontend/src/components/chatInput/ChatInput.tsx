@@ -18,9 +18,7 @@ const ChatInput = () => {
         setGifWidgetVisible(prevState => !prevState);
     };
 
-    const GifWidgetContainer = () => {
-        return gifWidgetVisible ? <GifWidget /> : null;
-    };
+    const GifWidgetContainer = (): any => gifWidgetVisible && <GifWidget />;
 
     const {
         handleSubmitForm,

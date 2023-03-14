@@ -1,7 +1,6 @@
 import { SetStateAction, useEffect, useState } from "react";
 import {
     GifWidgetStyled,
-    GifWidgetContent,
     GifWidgetSearch,
     GifList,
     GifListImage,
@@ -16,18 +15,22 @@ const GifWidget = () => {
     const [gifList, setGifList] = useState<any[]>([]);
     const [gifSearchInput, setGifSearchInput] = useState("");
 
-    const findGif = (e: { target: { value: SetStateAction<string> } }) => {
-        setGifSearchInput(e.target.value);
+    const findGif = (event: { target: { value: SetStateAction<string> } }) => {
+        setGifSearchInput(event.target.value);
         setGifsLoading(true);
     };
 
     const getGifUrl = (fullGifUrl: string) => {
         // image url which should be passed into chat box
-        console.log("image url", fullGifUrl);
+        const gifObject = {
+            content: fullGifUrl,
+            isImage: true
+        };
+        console.log("gif object", gifObject);
     };
 
     const renderGifs = () => (
-        <GifWidgetContent>
+        <>
             <GifWidgetSearch
                 type="text"
                 value={gifSearchInput}
@@ -38,7 +41,7 @@ const GifWidget = () => {
                 {!gifsLoading &&
                     gifList.map((item, index) => (
                         <GifListImage
-                            key={index}
+                            key={item.images.preview_gif.url}
                             src={item.images.preview_gif.url}
                             onClick={() =>
                                 getGifUrl(item.images.downsized_large.url)
@@ -46,23 +49,23 @@ const GifWidget = () => {
                         />
                     ))}
             </GifList>
-        </GifWidgetContent>
+        </>
     );
 
     useEffect(() => {
         gifSearchInput.length > 2 &&
             axios
                 .get(
-                    `https://api.giphy.com/v1/gifs/search?api_key=0kVBw2UV1wx2rzelZSio79c1iKQqdZpt&q=${gifSearchInput}&limit=18&offset=0&rating=g&lang=en`
+                    `https://api.giphy.com/v1/gifs/search?api_key=${process.env.REACT_APP_API_GIPHY_KEY}&q=${gifSearchInput}&limit=18&rating=g&lang=en`
                 )
-                .then(function (response) {
+                .then(response => {
                     setGifList(response.data.data);
                     setGifsLoading(false);
-                    // gifList.map(gif => console.log(gif));
+                    console.log("res", response);
                 })
-                .catch(function (error) {
-                    console.log(error);
-                })
+                .catch(error => {
+                    console.log("giphy api error: ", error);
+                });
     }, [gifSearchInput]);
 
     return (

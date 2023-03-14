@@ -23,8 +23,6 @@ const GifWidgetStyled = styled.div`
     }
 `;
 
-const GifWidgetContent = styled.div``;
-
 const GifWidgetSearch = styled.input`
     all: unset;
 
@@ -35,17 +33,17 @@ const GifWidgetSearch = styled.input`
 
     color: ${({ theme }) => theme.white};
     background-color: ${({ theme }) => theme.gray_400};
-    border: 1px solid ${({ theme }) => theme.primary};;
+    border: 1px solid ${({ theme }) => theme.primary};
     border-radius: 0.2rem;
     box-shadow: 5px 10px 25px #000000bb;
 `;
 
 const GifList = styled.div`
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 0.8rem;
     height: auto;
-    justify-content: center;
 `;
 
 const GifListImage = styled.img`
@@ -59,14 +57,14 @@ const GifListImage = styled.img`
 const GifWidgetAtrtibutionSection = styled.div`
     display: flex;
     align-items: center;
-    gap: .5rem;
+    gap: 0.5rem;
     bottom: 7rem;
 
     position: fixed;
     width: 30rem;
     padding: 0.7rem 1rem;
 
-    font-size: 13px;
+    font-size: ${({ theme }) => theme.font_xs};
 
     color: ${({ theme }) => theme.white};
     background-color: ${({ theme }) => theme.gray_400};
@@ -80,7 +78,6 @@ const GiphyAttributionLogo = styled.img`
 
 export {
     GifWidgetStyled,
-    GifWidgetContent,
     GifWidgetSearch,
     GifList,
     GifListImage,
