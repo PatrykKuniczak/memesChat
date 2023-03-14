@@ -1,4 +1,4 @@
-import {maxCount} from "hooks/useMessageValidation";
+import { maxCount } from "hooks/useMessageValidation";
 import {
     Counter,
     Form,
@@ -9,7 +9,7 @@ import {
 } from "./ChatInput.styled";
 import useChatInput from "./useChatInput";
 import GifWidget from "components/GifWidget/GifWidget";
-import {useState} from "react";
+import { useState } from "react";
 
 const ChatInput = () => {
     const [gifWidgetVisible, setGifWidgetVisible] = useState(false);
@@ -18,9 +18,13 @@ const ChatInput = () => {
         setGifWidgetVisible(prevState => !prevState);
     };
 
+    const GifWidgetContainer = () => {
+        return gifWidgetVisible ? <GifWidget /> : null;
+    };
+
     const {
         handleSubmitForm,
-        formik: {handleChange, values}
+        formik: { handleChange, values }
     } = useChatInput();
 
     return (
@@ -35,12 +39,12 @@ const ChatInput = () => {
                     autoFocus
                 />
             </Form>
-            {gifWidgetVisible ? <GifWidget/> : <></>}
+            <GifWidgetContainer />
             <Counter isError={values.content.length > maxCount}>
                 {values.content.length} / {maxCount}
             </Counter>
             <MemeButton>
-                <MemeGenerateIcon onClick={toggleGifWidgetVisibility}/>
+                <MemeGenerateIcon onClick={toggleGifWidgetVisibility} />
             </MemeButton>
         </InputWrapper>
     );
