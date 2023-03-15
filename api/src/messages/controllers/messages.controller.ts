@@ -7,7 +7,8 @@ import {
     Delete,
     UseGuards,
     Param,
-    ForbiddenException
+    ForbiddenException,
+    ParseIntPipe
 } from "@nestjs/common";
 import { MessagesService } from "messages/services/messages.service";
 import { CreateMessageDto } from "messages/model/dto/create-message.dto";
@@ -38,7 +39,7 @@ export class MessagesController {
     @Post()
     async create(
         @Body() createMessageDto: CreateMessageDto,
-        @UserReq("id") userId: number
+        @UserReq("id", ParseIntPipe) userId: number
     ) {
         createMessageDto.authorId = userId;
         return this.messagesService.create(createMessageDto);
@@ -58,7 +59,10 @@ export class MessagesController {
     @ApiNotFoundResponse()
     @UseGuards(JwtAuthGuard)
     @Delete(":id")
-    async delete(@Param("id") id: number, @UserReq("id") userId: number) {
+    async delete(
+        @Param("id", ParseIntPipe) id: number,
+        @UserReq("id", ParseIntPipe) userId: number
+    ) {
         await this.messagesService.findOneByIdAndAuthorId(id, userId);
         await this.messagesService.delete(id);
     }
@@ -72,15 +76,17 @@ export class MessagesController {
     @Patch(":id")
     async update(
         @Body() updateMessageDto: UpdateMessageDto,
-        @Param("id") id: number,
-        @UserReq("id") userId: number
+        @Param("id", ParseIntPipe) id: number,
+        @UserReq("id", ParseIntPipe) userId: number
     ) {
-        const currentMessage =
-            await this.messagesService.findOneByIdAndAuthorId(id, userId);
+        const currentMessage = await this.messagesService.findOneByIdAndAuthorId(
+            id,
+            userId
+        );
 
-        if (currentMessage.isImage !== updateMessageDto.isImage)
-            throw new ForbiddenException("You can't change message type");
+        if (currentMessage.isImage)
+            throw new ForbiddenException("You can't update image.");
 
-        return this.messagesService.update(id, updateMessageDto);
+        await this.messagesService.update(id, updateMessageDto);
     }
 }

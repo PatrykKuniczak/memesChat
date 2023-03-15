@@ -41,6 +41,11 @@ export class MessagesService {
                 throw error;
             });
 
+        if (!message.author)
+            throw new ForbiddenException(
+                "You can't manipulate message with no author"
+            );
+
         if (!this.isDevelopment && message.author.id !== authorId)
             throw new ForbiddenException("You are not author of the message");
 
