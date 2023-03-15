@@ -1,45 +1,30 @@
 import { KeyboardEvent, useRef, useState } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 import { IMessage } from "./Message";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { maxCount, messageRegExp } from "components/chatInput/useChatInput";
+import useMessageVal from "hooks/useMessageValidation";
 
-const useMessage = (
-    message: IMessage,
-    imageUrl = "https://images.com/hbg23vhgvansd"
-) => {
-    const { id, content, author } = message;
-    const formik = useFormik({
-        initialValues: {
-            message: content,
-            imageUrl
-        },
-        validationSchema: Yup.object({
-            message: Yup.string()
-                .max(maxCount, "Wiadomość może mieć maksymalnie 500 znaków")
-                .required("Wiadomość nie może być pusta"),
-            imageUrl: Yup.string().matches(messageRegExp)
-        }),
-        onSubmit: ({ message, imageUrl }) => {
-            const newMessage = message.trim();
-            if (!newMessage) {
-                formik.resetForm();
-                closeInputEdit();
-                return;
-            }
-            // TODO: create function which will be edit message using WS
+const useMessage = (message: IMessage) => {
+    const { content } = message;
+
+    const handleSubmitForm = (content: string) => {
+        const newMessage = content.trim();
+        if (!newMessage) {
+            formik.resetForm();
             closeInputEdit();
+            return;
         }
-    });
+        // TODO: create function which will be edit message using WS
+        closeInputEdit();
+    };
 
+    const formik = useMessageVal({ handleSubmitForm, defaultContent: content });
     const outsideRef = useRef<HTMLDivElement>(null);
     const [inputIsOpen, setInputIsOpen] = useState(false);
 
     const showInputEdit = () => setInputIsOpen(true);
 
     const closeInputEdit = () => {
-        if (formik.errors.message) {
+        if (formik.errors.content) {
             formik.resetForm();
         }
         setInputIsOpen(false);

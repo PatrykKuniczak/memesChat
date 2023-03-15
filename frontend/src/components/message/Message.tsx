@@ -20,7 +20,7 @@ export interface IMessage {
 }
 
 const Message: FC<{ message: IMessage }> = ({ message }) => {
-    const { id, author, content } = message;
+    const { author } = message;
     const {
         formik,
         outsideRef,
@@ -42,24 +42,24 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
             <div>
                 <Wrapper>
                     <MessageAuthor>{author}</MessageAuthor>
-                    {errors.message && (
-                        <MessageError>{errors.message}</MessageError>
+                    {errors.content && (
+                        <MessageError>{errors.content}</MessageError>
                     )}
                 </Wrapper>
                 {inputIsOpen ? (
                     <form onSubmit={handleSubmit}>
                         <MessageContent
                             type="text"
-                            id="message"
-                            name="message"
+                            id="content"
+                            name="content"
                             onChange={handleChange}
-                            value={values.message}
+                            value={values.content}
                             onKeyDown={closeInputEditByEscape}
                             autoFocus
                         />
                     </form>
                 ) : (
-                    <MessageContent as="p">{values.message}</MessageContent>
+                    <MessageContent as="p">{values.content}</MessageContent>
                 )}
             </div>
             {isHovering && (

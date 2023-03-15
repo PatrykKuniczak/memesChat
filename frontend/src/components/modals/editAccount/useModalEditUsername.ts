@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { loginSchema } from "components/Form/useForm";
 
-const useModalEditUsername = (hideModal: () => void, avatar: File | any) => {
+const useModalEditUsername = (hideModal: () => void, avatar: File | null) => {
     const dispatch = useAppDispatch();
     const username = useAppSelector(state => state.user.username);
     const formik = useFormik({

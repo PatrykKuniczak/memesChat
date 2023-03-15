@@ -54,9 +54,7 @@ const EditAccountModal = ({ hideModal }: IModal) => {
                         value={values.login}
                     />
                 </InputWrapper>
-                {errors.login && touched.login ? (
-                    <Error>{errors.login}</Error>
-                ) : null}
+                {errors.login && touched.login && <Error>{errors.login}</Error>}
             </OptionEditAccount>
             <OptionEditAvatar>
                 <ModalSpan>Nowy avatar:</ModalSpan>

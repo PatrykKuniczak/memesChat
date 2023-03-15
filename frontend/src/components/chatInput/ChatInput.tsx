@@ -1,3 +1,4 @@
+import { maxCount } from "hooks/useMessageValidation";
 import {
     Counter,
     Form,
@@ -6,7 +7,7 @@ import {
     MemeGenerateIcon,
     MessageInput
 } from "./ChatInput.styled";
-import useChatInput, { maxCount } from "./useChatInput";
+import useChatInput from "./useChatInput";
 
 const ChatInput = () => {
     const { handleSubmit, handleChange, values } = useChatInput();
@@ -15,15 +16,15 @@ const ChatInput = () => {
         <InputWrapper>
             <Form onSubmit={handleSubmit}>
                 <MessageInput
-                    id="message"
-                    name="message"
+                    id="content"
+                    name="content"
                     onChange={handleChange}
-                    value={values.message}
+                    value={values.content}
                     autoFocus
                 />
             </Form>
-            <Counter isError={values.message.length > maxCount}>
-                {values.message.length} / {maxCount}
+            <Counter isError={values.content.length > maxCount}>
+                {values.content.length} / {maxCount}
             </Counter>
             <MemeButton>
                 <MemeGenerateIcon />

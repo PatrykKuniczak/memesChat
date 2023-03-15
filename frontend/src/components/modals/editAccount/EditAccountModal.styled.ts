@@ -14,15 +14,14 @@ const EditAccountWrapper = styled(ModalWrapper)`
 const OptionEditAccount = styled.div`
     width: 100%;
     padding-bottom: 2rem;
-
     border-bottom: 1px solid ${({ theme }) => theme.primary};
 `;
 
 const InputWrapper = styled.div`
     display: flex;
-    gap: 1rem;
     align-items: center;
     justify-content: space-between;
+    gap: 1rem;
 
     @media (max-width: ${({ theme }) => theme.media_md}) {
         flex-direction: column;
