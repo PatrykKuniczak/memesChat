@@ -23,7 +23,7 @@ function UrlValidator(
                         relatedPropertyName
                     ];
 
-                    if (relatedValue) return regExp.test(value);
+                    if (relatedValue && value) return regExp.test(value);
                     return true;
                 },
                 defaultMessage() {

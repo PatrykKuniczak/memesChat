@@ -25,10 +25,11 @@ function MessageLengthValidator(
                     ];
 
                     if (!relatedValue)
-                        return (
-                            value.length >= minLength &&
-                            value.length <= maxLength
-                        );
+                        if (value)
+                            return (
+                                value.length >= minLength &&
+                                value.length <= maxLength
+                            );
                     return true;
                 },
                 defaultMessage() {

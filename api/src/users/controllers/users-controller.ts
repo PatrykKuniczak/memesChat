@@ -6,6 +6,7 @@ import {
     Get,
     Param,
     ParseFilePipe,
+    ParseIntPipe,
     Patch,
     UploadedFile,
     UseFilters,
@@ -57,7 +58,10 @@ class UsersController {
     @ApiNotFoundResponse()
     @UseGuards(JwtAuthGuard)
     @Get(":id")
-    async findOne(@Param("id") id: number, @UserReq("id") userId: number) {
+    async findOne(
+        @Param("id", ParseIntPipe) id: number,
+        @UserReq("id", ParseIntPipe) userId: number
+    ) {
         return this.usersService.findOneByIdAndUserJwtId(id, userId);
     }
 
@@ -67,7 +71,10 @@ class UsersController {
     @ApiNotFoundResponse()
     @UseGuards(JwtAuthGuard)
     @Delete(":id")
-    async delete(@Param("id") id: number, @UserReq("id") userId: number) {
+    async delete(
+        @Param("id", ParseIntPipe) id: number,
+        @UserReq("id", ParseIntPipe) userId: number
+    ) {
         const user = await this.usersService.findOneByIdAndUserJwtId(
             id,
             userId
@@ -98,8 +105,8 @@ class UsersController {
         })
     )
     async update(
-        @Param("id") id: number,
-        @UserReq("id") userId: number,
+        @Param("id", ParseIntPipe) id: number,
+        @UserReq("id", ParseIntPipe) userId: number,
         @Body() updateUserDto: UpdateUserDto,
         @UploadedFile(
             new ParseFilePipe({
