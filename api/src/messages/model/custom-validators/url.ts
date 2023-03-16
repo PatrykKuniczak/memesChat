@@ -1,30 +1,23 @@
 import {
     registerDecorator,
-    ValidationOptions,
     ValidationArguments
 } from "class-validator";
 
-function UrlValidator(
+
+function UrlCustomValidator(
     property: string,
     regExp: RegExp,
-    validationOptions?: ValidationOptions
 ) {
     return function (object: Object, propertyName: string) {
         registerDecorator({
             name: "urlValidator",
             target: object.constructor,
             propertyName: propertyName,
-            constraints: [property],
-            options: validationOptions,
             validator: {
                 validate(value: string, args: ValidationArguments) {
-                    const [relatedPropertyName] = args.constraints;
-                    const relatedValue = (args.object as any)[
-                        relatedPropertyName
-                    ];
+                    const propertyValue = args.object[property];
 
-                    if (relatedValue && value) return regExp.test(value);
-                    return true;
+                    return propertyValue ? regExp.test(value) : true;
                 },
                 defaultMessage() {
                     return `Message must be URL`;
@@ -34,4 +27,4 @@ function UrlValidator(
     };
 }
 
-export default UrlValidator;
+export default UrlCustomValidator;

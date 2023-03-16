@@ -1,17 +1,17 @@
 import {IsBoolean, IsOptional, IsString, Min} from "class-validator";
 import { ApiHideProperty, ApiProperty } from "@nestjs/swagger";
-import MessageLengthValidator from "messages/model/custom-validators/message-length.validator";
-import UrlValidator from "messages/model/custom-validators/url-validator";
+import MessageLength from "messages/model/custom-validators/message-length";
+import Url from "messages/model/custom-validators/url";
 
-const regExp =
+const urlRegExp =
     /^(https?):\/\/(?:www\.)?[a-zA-Z]{2,}\.[a-z]{2,5}(?!.*(\/{2}|https?|:|\.| )).*$/;
 
 export class CreateMessageDto {
-    @MessageLengthValidator("isImage", 1, 500)
-    @UrlValidator("isImage", regExp)
+    @MessageLength("isImage", 1, 500)
+    @Url("isImage", urlRegExp)
     @IsString()
     @ApiProperty({
-        pattern: regExp.toString(),
+        pattern: urlRegExp.toString(),
         description:
             "If isImage is true, then pattern must be use, otherwise it must be greater than 1 and less than 500"
     })
