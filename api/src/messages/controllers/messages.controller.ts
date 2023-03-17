@@ -79,10 +79,8 @@ export class MessagesController {
         @Param("id", ParseIntPipe) id: number,
         @UserReq("id", ParseIntPipe) userId: number
     ) {
-        const currentMessage = await this.messagesService.findOneByIdAndAuthorId(
-            id,
-            userId
-        );
+        const currentMessage =
+            await this.messagesService.findOneByIdAndAuthorId(id, userId);
 
         if (currentMessage.isImage)
             throw new ForbiddenException("You can't update image.");

@@ -13,13 +13,12 @@ import { User } from "users/model/users.entity";
     const logger = new Logger("Main");
     dotenvExpand.expand(dotenv.config({ path: ".env" }));
 
-    const app = await NestFactory.create(AppModule);
+    const app = await NestFactory.create(AppModule, { cors: true });
     const configService = app.get(ConfigService);
     const PORT = +configService.get("SERVER_PORT");
-
-    app.enableCors();
-    app.setGlobalPrefix("api");
     const isDevelopment = configService.get("DEVELOPMENT") === "true";
+
+    app.setGlobalPrefix("api");
 
     if (!isDevelopment)
         app.useGlobalPipes(
