@@ -1,4 +1,4 @@
-import {IsBoolean, IsOptional, IsString, Min} from "class-validator";
+import { IsBoolean, IsOptional, IsString, Min } from "class-validator";
 import { ApiHideProperty, ApiProperty } from "@nestjs/swagger";
 import MessageLengthCustomValidator from "messages/model/custom-validators/message-length";
 import UrlCustomValidator from "messages/model/custom-validators/url";
