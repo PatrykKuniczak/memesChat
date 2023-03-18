@@ -14,13 +14,17 @@ import * as process from "process";
     const logger = new Logger("Main");
     dotenvExpand.expand(dotenv.config({ path: ".env" }));
 
+    const isDevelopment = process.env.DEVELOPMENT === "true";
+    const corsOptions = isDevelopment
+        ? true
+        : { origin: process.env.CLIENT_URL };
+
     const app = await NestFactory.create(AppModule, {
-        cors: { origin: process.env.CLIENT_URL }
+        cors: corsOptions
     });
 
     const configService = app.get(ConfigService);
     const PORT = +configService.get("SERVER_PORT");
-    const isDevelopment = configService.get("DEVELOPMENT") === "true";
 
     app.setGlobalPrefix("api");
 
