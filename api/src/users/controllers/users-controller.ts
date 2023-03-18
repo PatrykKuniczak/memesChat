@@ -18,7 +18,7 @@ import { JwtAuthGuard } from "auth/guards/jwt-auth.guard";
 import { UpdateUserDto } from "users/model/dto/update-user.dto";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { diskStorage } from "multer";
-import { DeleteFileOnErrorFilter } from "filters/delete-file-on-error-filter";
+import { DeleteFileOnErrorFilter } from "exceptions/delete-file-on-error.filter";
 import {
     ApiBadRequestResponse,
     ApiBearerAuth,
@@ -60,7 +60,7 @@ class UsersController {
     @Get(":id")
     async findOne(
         @Param("id", ParseIntPipe) id: number,
-        @UserReq("id", ParseIntPipe) userId: number
+        @UserReq("id") userId: number
     ) {
         return this.usersService.findOneByIdAndUserJwtId(id, userId);
     }
@@ -73,7 +73,7 @@ class UsersController {
     @Delete(":id")
     async delete(
         @Param("id", ParseIntPipe) id: number,
-        @UserReq("id", ParseIntPipe) userId: number
+        @UserReq("id") userId: number
     ) {
         const user = await this.usersService.findOneByIdAndUserJwtId(
             id,
@@ -106,7 +106,7 @@ class UsersController {
     )
     async update(
         @Param("id", ParseIntPipe) id: number,
-        @UserReq("id", ParseIntPipe) userId: number,
+        @UserReq("id") userId: number,
         @Body() updateUserDto: UpdateUserDto,
         @UploadedFile(
             new ParseFilePipe({

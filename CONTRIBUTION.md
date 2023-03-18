@@ -17,10 +17,10 @@ GIT CLONE: https://github.com/PatrykKuniczak/memesChat.git
         DB_URL=$DB_TYPE://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST:$POSTGRES_PORT/$POSTGRES_DB # DON'T CHANGE IT #
         SERVER_PORT=3030 (If u have something on that, change it)
         JWT_SECRET=randomSecret
+        CLIENT_URL=http://localhost:3000 (If u use other port, remeber to change it here)
         DEVELOPMENT=true - if it's true, then validation is OFF, leave empty for default validation
         DEFAULT_JWT_TOKEN= Default token for swagger for development operation, leave empty for default app behavior,
         work only if "DEVELOPMENT=true"
-
         ### THE DB CREDENTIALS IS DEFAULT, YOU MAY HAVE OTHER ###
 
         FOR FRONTEND:
@@ -51,6 +51,7 @@ The hints for env values are the same as in standalone envs config
         JWT_SECRET=randomSecret
         REACT_APP_PORT=3000
         REACT_APP_API_URL=http://localhost:3030/api/
+        CLIENT_URL=http://localhost:3000
         DEVELOPMENT=
         DEFAULT_JWT_TOKEN=
 

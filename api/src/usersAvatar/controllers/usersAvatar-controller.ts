@@ -30,7 +30,7 @@ class UsersAvatarController {
     @Get(":id")
     async getFile(
         @Param("id", ParseIntPipe) id: number,
-        @UserReq("id", ParseIntPipe) userId: number
+        @UserReq("id") userId: number
     ) {
         const avatar = await this.usersAvatarService.findOneByIdAndUserId(
             id,
@@ -48,7 +48,7 @@ class UsersAvatarController {
     @Delete(":id")
     async delete(
         @Param("id", ParseIntPipe) id: number,
-        @UserReq("id", ParseIntPipe) userId: number
+        @UserReq("id") userId: number
     ) {
         const avatar = await this.usersAvatarService.findOneByIdAndUserId(
             id,

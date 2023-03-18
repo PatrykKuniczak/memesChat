@@ -15,7 +15,7 @@ function MessageLengthCustomValidator(
                     const relatedPropertyValue = args.object[property];
 
                     return !relatedPropertyValue
-                        ? value.length >= minLength && value.length <= maxLength
+                        ? value?.length >= minLength && value?.length <= maxLength
                         : true;
                 },
                 defaultMessage() {

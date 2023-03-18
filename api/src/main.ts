@@ -8,12 +8,16 @@ import { SwaggerModule } from "@nestjs/swagger";
 import swaggerConfig, { swaggerOptions } from "swagger/swagger.config";
 import { JwtToken } from "swagger/jwt-token.property.dto";
 import { User } from "users/model/users.entity";
+import * as process from "process";
 
 (async () => {
     const logger = new Logger("Main");
     dotenvExpand.expand(dotenv.config({ path: ".env" }));
 
-    const app = await NestFactory.create(AppModule, { cors: true });
+    const app = await NestFactory.create(AppModule, {
+        cors: { origin: process.env.CLIENT_URL }
+    });
+
     const configService = app.get(ConfigService);
     const PORT = +configService.get("SERVER_PORT");
     const isDevelopment = configService.get("DEVELOPMENT") === "true";

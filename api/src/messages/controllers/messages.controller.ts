@@ -39,7 +39,7 @@ export class MessagesController {
     @Post()
     async create(
         @Body() createMessageDto: CreateMessageDto,
-        @UserReq("id", ParseIntPipe) userId: number
+        @UserReq("id") userId: number
     ) {
         createMessageDto.authorId = userId;
         return this.messagesService.create(createMessageDto);
@@ -61,7 +61,7 @@ export class MessagesController {
     @Delete(":id")
     async delete(
         @Param("id", ParseIntPipe) id: number,
-        @UserReq("id", ParseIntPipe) userId: number
+        @UserReq("id") userId: number
     ) {
         await this.messagesService.findOneByIdAndAuthorId(id, userId);
         await this.messagesService.delete(id);
@@ -77,7 +77,7 @@ export class MessagesController {
     async update(
         @Body() updateMessageDto: UpdateMessageDto,
         @Param("id", ParseIntPipe) id: number,
-        @UserReq("id", ParseIntPipe) userId: number
+        @UserReq("id") userId: number
     ) {
         const currentMessage =
             await this.messagesService.findOneByIdAndAuthorId(id, userId);
