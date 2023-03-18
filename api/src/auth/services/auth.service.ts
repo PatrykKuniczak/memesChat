@@ -33,16 +33,17 @@ export class AuthService {
     }
 
     async login(userCredentialsDto: UserCredentialsDto) {
-        const { id } = await this.userService.findOneByUsername(
+        const { id, username } = await this.userService.findOneByUsername(
             userCredentialsDto.username
         );
 
-        return this.generateJwt({ ...userCredentialsDto, id });
+        return this.generateJwt({ id, username });
     }
 
     async validateUser(userCredentialsDto: UserCredentialsDto) {
-        const { password } = await this.userService
-            .selectPassword(userCredentialsDto.username)
+        const { password } = await this.userService.selectPassword(
+            userCredentialsDto.username
+        );
 
         const isPasswordValid = await this.comparePasswords(
             userCredentialsDto.password,
