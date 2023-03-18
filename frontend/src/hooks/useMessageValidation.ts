@@ -5,7 +5,7 @@ const regExp =
     /^(https?):\/\/(?:www\.)?[a-zA-Z]{2,}\.[a-z]{2,5}(?!.*(\/{2}|https?|:|\.| )).*$/;
 export const maxCount = 500;
 
-const useMessageValidation = (content?: string) => {
+const useMessageValidation = (content?: string | null) => {
     const isImage = false;
     return useFormik({
         initialValues: {

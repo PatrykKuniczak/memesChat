@@ -23,6 +23,7 @@ const ChatInput = () => {
                     name="content"
                     onChange={handleChange}
                     value={values.content}
+                    autoComplete="off"
                     autoFocus
                 />
             </Form>

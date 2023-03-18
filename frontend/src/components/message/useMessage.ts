@@ -16,6 +16,7 @@ const useMessage = (message: IMessage) => {
         if (formik.errors.content) return;
 
         const newContent = formik.values.content.trim();
+
         if (!newContent) {
             formik.resetForm();
             closeInputEdit();
