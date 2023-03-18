@@ -5,19 +5,11 @@ const regExp =
     /^(https?):\/\/(?:www\.)?[a-zA-Z]{2,}\.[a-z]{2,5}(?!.*(\/{2}|https?|:|\.| )).*$/;
 export const maxCount = 500;
 
-interface IMessageVal {
-    handleSubmitForm: (content: string) => void;
-    defaultContent?: string;
-}
-
-const useMessageValidation = ({
-    handleSubmitForm,
-    defaultContent
-}: IMessageVal) => {
+const useMessageValidation = (content?: string) => {
     const isImage = false;
-    const formik = useFormik({
+    return useFormik({
         initialValues: {
-            content: defaultContent ? defaultContent : ""
+            content: content ? content : ""
         },
         validationSchema: Yup.object({
             content: isImage
@@ -29,10 +21,8 @@ const useMessageValidation = ({
                       )
                       .required("Wiadomość nie może być pusta")
         }),
-        onSubmit: ({ content }) => handleSubmitForm(content)
+        onSubmit: () => {}
     });
-
-    return formik;
 };
 
 export default useMessageValidation;

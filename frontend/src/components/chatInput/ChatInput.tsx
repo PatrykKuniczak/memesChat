@@ -10,11 +10,14 @@ import {
 import useChatInput from "./useChatInput";
 
 const ChatInput = () => {
-    const { handleSubmit, handleChange, values } = useChatInput();
+    const {
+        handleSubmitForm,
+        formik: { handleChange, values }
+    } = useChatInput();
 
     return (
         <InputWrapper>
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmitForm}>
                 <MessageInput
                     id="content"
                     name="content"

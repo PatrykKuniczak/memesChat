@@ -7,7 +7,12 @@ import { loginSchema } from "components/Form/useForm";
 const useModalEditUsername = (hideModal: () => void, avatar: File | null) => {
     const dispatch = useAppDispatch();
     const username = useAppSelector(state => state.user.username);
-    const formik = useFormik({
+
+    const updateUsername = (login: string) => {
+        dispatch(editUsername(login));
+    };
+
+    return useFormik({
         initialValues: {
             login: username
         },
@@ -20,12 +25,6 @@ const useModalEditUsername = (hideModal: () => void, avatar: File | null) => {
             // TODO: create function which will be send login and avatar to api
         }
     });
-
-    const updateUsername = (login: string) => {
-        dispatch(editUsername(login));
-    };
-
-    return formik;
 };
 
 export default useModalEditUsername;

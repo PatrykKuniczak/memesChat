@@ -1,58 +1,60 @@
-import { KeyboardEvent, useRef, useState } from "react";
+import { KeyboardEvent, useRef, useState, FormEvent } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 import { IMessage } from "./Message";
-import useMessageVal from "hooks/useMessageValidation";
+import useMessageValidation from "hooks/useMessageValidation";
 
 const useMessage = (message: IMessage) => {
     const { content } = message;
+    const outsideRef = useRef<HTMLDivElement>(null);
+    const [prevContent, setPrevContent] = useState(content);
+    const [inputIsOpen, setInputIsOpen] = useState(false);
+    const formik = useMessageValidation(content);
 
-    const handleSubmitForm = (content: string) => {
-        const newMessage = content.trim();
-        if (!newMessage) {
+    const handleSubmitForm = (event: FormEvent) => {
+        event.preventDefault();
+
+        if (formik.errors.content) return;
+
+        const newContent = formik.values.content.trim();
+        if (!newContent) {
             formik.resetForm();
             closeInputEdit();
             return;
         }
+
+        setPrevContent(newContent);
+        formik.setFieldValue("content", newContent);
         // TODO: create function which will be edit message using WS
         closeInputEdit();
     };
 
-    const formik = useMessageVal({ handleSubmitForm, defaultContent: content });
-    const outsideRef = useRef<HTMLDivElement>(null);
-    const [inputIsOpen, setInputIsOpen] = useState(false);
-
     const showInputEdit = () => setInputIsOpen(true);
 
-    const closeInputEdit = () => {
-        if (formik.errors.content) {
-            formik.resetForm();
-        }
-        setInputIsOpen(false);
+    const closeInputEdit = () => setInputIsOpen(false);
+
+    const cancelEditing = () => {
+        formik.setFieldValue("content", prevContent);
+        closeInputEdit();
     };
 
-    const closeInputEditByEscape = (event: KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === "Escape") {
-            formik.resetForm();
-            closeInputEdit();
-        }
+    const closeInputEditByEscape = (event: KeyboardEvent) => {
+        if (event.key === "Escape") cancelEditing();
     };
 
     const handleDeleteMessage = () => {
         // TODO: send request through WS
     };
 
-    const handleEditMessage = () => formik.handleSubmit();
-
-    useOnClickOutside(outsideRef, closeInputEdit);
+    useOnClickOutside(outsideRef, cancelEditing);
 
     return {
+        handleSubmitForm,
         formik,
         outsideRef,
         handleDeleteMessage,
         closeInputEditByEscape,
         inputIsOpen,
-        showInputEdit,
-        handleEditMessage
+        showInputEdit
     };
 };
 export default useMessage;

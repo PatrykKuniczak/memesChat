@@ -1,8 +1,15 @@
-import useMessageVal from "hooks/useMessageValidation";
+import { FormEvent } from "react";
+import useMessageValidation from "hooks/useMessageValidation";
 
 const useChatInput = () => {
-    const handleSubmitForm = (content: string) => {
-        const newContent = content.trim();
+    const formik = useMessageValidation();
+
+    const handleSubmitForm = (event: FormEvent) => {
+        event.preventDefault();
+
+        if (formik.errors.content) return;
+
+        const newContent = formik.values.content.trim();
         if (!newContent) {
             formik.resetForm();
             return;
@@ -11,8 +18,9 @@ const useChatInput = () => {
         formik.resetForm();
     };
 
-    const formik = useMessageVal({ handleSubmitForm });
-
-    return formik;
+    return {
+        handleSubmitForm,
+        formik
+    };
 };
 export default useChatInput;

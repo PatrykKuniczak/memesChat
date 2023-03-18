@@ -47,10 +47,17 @@ const MessageAuthor = styled.p`
     padding-block: 0.25rem;
 
     color: ${({ theme }) => theme.gray_300};
-    user-select: none;
+`;
+
+const MessageContentWrapper = styled.div`
+    position: relative;
 `;
 
 const MessageSettings = styled.div`
+    position: absolute;
+    right: -80px;
+    top: -35px;
+
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -69,5 +76,6 @@ export {
     MessageAuthor,
     MessageSettings,
     MessageError,
-    Wrapper
+    Wrapper,
+    MessageContentWrapper
 };

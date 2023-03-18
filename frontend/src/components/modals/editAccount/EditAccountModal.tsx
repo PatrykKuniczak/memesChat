@@ -16,6 +16,7 @@ import { useOnClickOutside } from "usehooks-ts";
 import { ModalSpan } from "../GenericModalComponents.styled";
 
 const EditAccountModal = ({ hideModal }: IModal) => {
+    const ref = useRef(null);
     const {
         file,
         fileTypes,
@@ -35,8 +36,6 @@ const EditAccountModal = ({ hideModal }: IModal) => {
         touched
     } = useModalEditUsername(hideModal, file);
 
-    const ref = useRef(null);
-
     useOnClickOutside(ref, hideModal);
 
     return (
@@ -47,7 +46,6 @@ const EditAccountModal = ({ hideModal }: IModal) => {
                 <InputWrapper>
                     <ModalSpan>Twój nowy nick:</ModalSpan>
                     <TextInput
-                        type="text"
                         id="login"
                         name="login"
                         onChange={handleInputChange}

@@ -3,6 +3,7 @@ import {
     MessageAuthorImage,
     MessageContainer,
     MessageContent,
+    MessageContentWrapper,
     MessageError,
     MessageSettings,
     Wrapper
@@ -22,20 +23,19 @@ export interface IMessage {
 const Message: FC<{ message: IMessage }> = ({ message }) => {
     const { author } = message;
     const {
+        handleSubmitForm,
         formik,
         outsideRef,
         handleDeleteMessage,
         closeInputEditByEscape,
         inputIsOpen,
-        showInputEdit,
-        handleEditMessage
+        showInputEdit
     } = useMessage(message);
-    const { errors, handleSubmit, handleChange, values } = formik;
+    const { errors, handleChange, values } = formik;
     const { isHovering, handleMouseOut, handleMouseOver } = useOnHover();
 
     return (
         <MessageContainer
-            ref={outsideRef}
             onMouseOver={handleMouseOver}
             onMouseOut={handleMouseOut}>
             <MessageAuthorImage src={user} />
@@ -46,41 +46,44 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
                         <MessageError>{errors.content}</MessageError>
                     )}
                 </Wrapper>
-                {inputIsOpen ? (
-                    <form onSubmit={handleSubmit}>
-                        <MessageContent
-                            type="text"
-                            id="content"
-                            name="content"
-                            onChange={handleChange}
-                            value={values.content}
-                            onKeyDown={closeInputEditByEscape}
-                            autoFocus
-                        />
-                    </form>
-                ) : (
-                    <MessageContent as="p">{values.content}</MessageContent>
-                )}
-            </div>
-            {isHovering && (
-                <MessageSettings>
+                <MessageContentWrapper ref={outsideRef}>
                     {inputIsOpen ? (
-                        <BsCheckLg
-                            onClick={handleEditMessage}
-                            cursor={"pointer"}
-                        />
+                        <form onSubmit={handleSubmitForm}>
+                            <MessageContent
+                                type="text"
+                                id="content"
+                                name="content"
+                                onChange={handleChange}
+                                value={values.content}
+                                onKeyDown={closeInputEditByEscape}
+                                autoComplete="off"
+                                autoFocus
+                            />
+                        </form>
                     ) : (
-                        <BsPencilSquare
-                            onClick={showInputEdit}
-                            cursor={"pointer"}
-                        />
+                        <MessageContent as="p">{values.content}</MessageContent>
                     )}
-                    <BsTrashFill
-                        onClick={handleDeleteMessage}
-                        cursor={"pointer"}
-                    />
-                </MessageSettings>
-            )}
+                    {isHovering && (
+                        <MessageSettings>
+                            {inputIsOpen ? (
+                                <BsCheckLg
+                                    onClick={handleSubmitForm}
+                                    cursor={"pointer"}
+                                />
+                            ) : (
+                                <BsPencilSquare
+                                    onClick={showInputEdit}
+                                    cursor={"pointer"}
+                                />
+                            )}
+                            <BsTrashFill
+                                onClick={handleDeleteMessage}
+                                cursor={"pointer"}
+                            />
+                        </MessageSettings>
+                    )}
+                </MessageContentWrapper>
+            </div>
         </MessageContainer>
     );
 };
