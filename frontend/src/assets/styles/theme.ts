@@ -19,7 +19,7 @@ const THEME_DARK = {
     font_xs: ".85rem",
     font_sm: "1rem",
     font_md: "1.125rem",
-    font_lg: "1.5rem",
+    font_lg: "1.75rem",
     font_xxl: "3rem",
 
     // font weights
@@ -38,4 +38,4 @@ const THEME_DARK = {
     media_xxl: "1536px"
 };
 
-export {THEME_DARK};
+export { THEME_DARK };
