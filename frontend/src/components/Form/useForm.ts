@@ -14,10 +14,6 @@ export const loginSchema = Yup.string()
     .matches(loginRegex, "Login może zawierać tylko znaki alfanumeryczne")
     .required("Login jest wymagany");
 
-// todo: REMOVE IT AFTER CREATE SHUT DOWN VALIDATION
-// abcabcabc
-// aA1!A1!aA1!
-
 const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
     const navigate = useNavigate();
     const { setAccessToken } = useToken();
