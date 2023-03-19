@@ -11,16 +11,18 @@ const useMessageValidation = (content?: string | null) => {
         initialValues: {
             content: content ? content : ""
         },
-        validationSchema: Yup.object({
-            content: isImage
-                ? Yup.string().matches(regExp)
-                : Yup.string()
-                      .max(
-                          maxCount,
-                          "Wiadomość może mieć maksymalnie 500 znaków"
-                      )
-                      .required("Wiadomość nie może być pusta")
-        }),
+        validationSchema:
+            process.env.REACT_APP_DEVELOPMENT !== "true" &&
+            Yup.object({
+                content: isImage
+                    ? Yup.string().matches(regExp)
+                    : Yup.string()
+                          .max(
+                              maxCount,
+                              "Wiadomość może mieć maksymalnie 500 znaków"
+                          )
+                          .required("Wiadomość nie może być pusta")
+            }),
         onSubmit: () => {}
     });
 };

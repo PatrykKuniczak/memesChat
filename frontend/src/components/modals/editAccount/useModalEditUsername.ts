@@ -16,9 +16,11 @@ const useModalEditUsername = (hideModal: () => void, avatar: File | null) => {
         initialValues: {
             login: username
         },
-        validationSchema: Yup.object({
-            login: loginSchema
-        }),
+        validationSchema:
+            process.env.REACT_APP_DEVELOPMENT !== "true" &&
+            Yup.object({
+                login: loginSchema
+            }),
         onSubmit: ({ login }) => {
             updateUsername(login);
             hideModal();

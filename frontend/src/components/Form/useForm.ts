@@ -49,25 +49,27 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
             password: "",
             passwordConfirmation: ""
         },
-        validationSchema: Yup.object({
-            login: loginSchema,
-            password: Yup.string()
-                .min(8, "Hasło jest za krótkie")
-                .max(60, "Hasło jest za długie")
-                .matches(
-                    passwordRegex,
-                    "Hasło musi zawierać jedną małą, jedną dużą literę, cyfrę lub znak specjalny"
-                )
-                .required("Hasło jest wymagane"),
-            passwordConfirmation: isSignUp
-                ? Yup.string()
-                      .oneOf(
-                          [Yup.ref("password")],
-                          "Hasła muszą być takie same"
-                      )
-                      .required("Powtórzenie hasła jest wymagane")
-                : Yup.string()
-        }),
+        validationSchema:
+            process.env.REACT_APP_DEVELOPMENT !== "true" &&
+            Yup.object({
+                login: loginSchema,
+                password: Yup.string()
+                    .min(8, "Hasło jest za krótkie")
+                    .max(60, "Hasło jest za długie")
+                    .matches(
+                        passwordRegex,
+                        "Hasło musi zawierać jedną małą, jedną dużą literę, cyfrę lub znak specjalny"
+                    )
+                    .required("Hasło jest wymagane"),
+                passwordConfirmation: isSignUp
+                    ? Yup.string()
+                          .oneOf(
+                              [Yup.ref("password")],
+                              "Hasła muszą być takie same"
+                          )
+                          .required("Powtórzenie hasła jest wymagane")
+                    : Yup.string()
+            }),
         onSubmit: () => {
             isSignUp
                 ? handleAuthEvent(
