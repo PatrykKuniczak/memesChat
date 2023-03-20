@@ -1,28 +1,26 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { FormEvent } from "react";
+import useMessageValidation from "hooks/useMessageValidation";
 
 const useChatInput = () => {
-    const [currentInputValue, setCurrentInputValue] = useState("");
+    const formik = useMessageValidation();
 
-    const handleSetCurrentInputValue = (
-        event: ChangeEvent<HTMLInputElement>
-    ) => {
-        setCurrentInputValue(event.target.value);
-    };
-
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const handleSubmitForm = (event: FormEvent) => {
         event.preventDefault();
 
-        if (currentInputValue) {
-            // TODO: send request through WS
-            setCurrentInputValue("");
+        if (formik.errors.content) return;
+
+        const newContent = formik.values.content.trim();
+        if (!newContent) {
+            formik.resetForm();
+            return;
         }
+        // TODO: create function which will be send message using WS
+        formik.resetForm();
     };
 
     return {
-        currentInputValue,
-        handleSetCurrentInputValue,
-        handleSubmit
+        handleSubmitForm,
+        formik
     };
 };
-
 export default useChatInput;

@@ -4,6 +4,7 @@ const THEME_DARK = {
     primary_hover: "#700BD4",
 
     white: "#D9D1EB",
+    red: "#e34a4a",
 
     gray_200: "#2F2F2F",
     gray_300: "#8e8793",
@@ -38,4 +39,4 @@ const THEME_DARK = {
     media_xxl: "1536px"
 };
 
-export {THEME_DARK};
+export { THEME_DARK };

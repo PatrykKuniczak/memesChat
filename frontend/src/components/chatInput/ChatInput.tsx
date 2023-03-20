@@ -1,30 +1,40 @@
+import { maxCount } from "hooks/useMessageValidation";
 import {
-	Form,
-	InputWrapper,
-	MemeButton,
-	MemeGenerateIcon,
-	MessageInput
+    Counter,
+    Form,
+    InputWrapper,
+    MemeButton,
+    MemeGenerateIcon,
+    MessageInput
 } from "./ChatInput.styled";
 import useChatInput from "./useChatInput";
 
 const ChatInput = () => {
-	const { currentInputValue, handleSetCurrentInputValue, handleSubmit } =
-		useChatInput();
+    const {
+        handleSubmitForm,
+        formik: { handleChange, values }
+    } = useChatInput();
 
-	return (
-		<InputWrapper>
-			<Form onSubmit={handleSubmit}>
-				<MessageInput
-					onChange={handleSetCurrentInputValue}
-					value={currentInputValue}
-					autoFocus
-				/>
-			</Form>
-			<MemeButton>
-				<MemeGenerateIcon />
-			</MemeButton>
-		</InputWrapper>
-	);
+    return (
+        <InputWrapper>
+            <Form onSubmit={handleSubmitForm}>
+                <MessageInput
+                    id="content"
+                    name="content"
+                    onChange={handleChange}
+                    value={values.content}
+                    autoComplete="off"
+                    autoFocus
+                />
+            </Form>
+            <Counter isError={values.content.length > maxCount}>
+                {values.content.length} / {maxCount}
+            </Counter>
+            <MemeButton>
+                <MemeGenerateIcon />
+            </MemeButton>
+        </InputWrapper>
+    );
 };
 
 export default ChatInput;
