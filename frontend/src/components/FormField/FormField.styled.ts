@@ -16,6 +16,14 @@ const Input = styled.input`
     background: rgba(112, 112, 112, 0.1);
     backdrop-filter: blur(27px);
     font-size: ${({ theme }) => theme.font_md};
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus {
+        border: 1px solid purple;
+        -webkit-text-fill-color: ${({ theme }) => theme.white};
+        -webkit-box-shadow: 0 0 0 100px ${({ theme }) => theme.gray_200} inset;
+    }
 `;
 
 const Error = styled.p`
