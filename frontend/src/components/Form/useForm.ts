@@ -5,8 +5,7 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 
 export const loginRegex = /^[a-zA-Z0-9]*$/;
-const passwordRegex =
-    /^(?=.*[a-zżźćńółęąś])(?=.*[A-ZŻŹĆĄŚĘŁÓŃ])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ\d!@#$%^&* ]*$/;
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).+$/;
 
 export const loginSchema = Yup.string()
     .min(5, "Login jest za krótki")
