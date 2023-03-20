@@ -8,18 +8,6 @@ export type IUsers = IUser[];
 const Users = () => {
     const { handleChange, filteredUsers, users } = useUsers();
 
-    const UsersList = () => {
-        return (
-            <>
-                {users.length === 0 ? (
-                    <span style={{ color: "mediumpurple" }}>Ładowanie...</span>
-                ) : (
-                    <Users />
-                )}
-            </>
-        );
-    };
-
     const Users = () => (
         <>
             {filteredUsers.map(({ id, username }: IUser) => (
@@ -31,6 +19,20 @@ const Users = () => {
             ))}
         </>
     );
+
+    const UsersList = () => {
+        return (
+            <>
+                {users.length === 0 ? (
+                    <div style={{ color: "mediumpurple", paddingTop: "1rem" }}>
+                        Ładowanie..
+                    </div>
+                ) : (
+                    <Users />
+                )}
+            </>
+        );
+    };
 
     return (
         <UsersContainer>

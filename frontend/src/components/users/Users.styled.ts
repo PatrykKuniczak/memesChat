@@ -1,3 +1,4 @@
+import { scrollBar } from "assets/styles/theme";
 import styled from "styled-components";
 
 const UsersContainer = styled.section`
@@ -8,13 +9,10 @@ const UsersContainer = styled.section`
 
     background: ${({ theme }) => theme.gray_semitransparent};
 
-    &::-webkit-scrollbar {
-        width: 5px;
-    }
+    ${scrollBar};
 
-    &::-webkit-scrollbar-thumb {
-        border-radius: 3px;
-        background: ${({ theme }) => theme.black};
+    &::-webkit-scrollbar-track {
+        margin-top: 4rem;
     }
 
     @media (max-width: ${({ theme }) => theme.media_md}) {
