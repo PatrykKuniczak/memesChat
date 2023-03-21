@@ -12,7 +12,7 @@ const Users = () => {
         return (
             <>
                 {users.length === 0 ? (
-                    <p style={{ color: "mediumpurple", paddingTop: "1rem" }}>
+                    <p style={{ color: "whitesmoke", paddingTop: "1rem" }}>
                         Ładowanie...
                     </p>
                 ) : (
