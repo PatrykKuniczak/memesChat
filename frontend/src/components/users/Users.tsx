@@ -12,25 +12,21 @@ const Users = () => {
         return (
             <>
                 {users.length === 0 ? (
-                    <span style={{ color: "mediumpurple" }}>Ładowanie...</span>
+                    <p style={{ color: "whitesmoke", paddingTop: "1rem" }}>
+                        Ładowanie...
+                    </p>
                 ) : (
-                    <Users />
+                    filteredUsers.map(({ id, username }: IUser) => (
+                        <User
+                            key={id}
+                            id={id}
+                            username={username}
+                        />
+                    ))
                 )}
             </>
         );
     };
-
-    const Users = () => (
-        <>
-            {filteredUsers.map(({ id, username }: IUser) => (
-                <User
-                    key={id}
-                    id={id}
-                    username={username}
-                />
-            ))}
-        </>
-    );
 
     return (
         <UsersContainer>

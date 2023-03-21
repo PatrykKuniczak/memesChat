@@ -1,7 +1,11 @@
+import { css } from "styled-components";
+
 const THEME_DARK = {
     // colors
     primary: "#962EFF",
     primary_hover: "#700BD4",
+    primary_scroll_bar: "#DB9BFC8C",
+    primary_scroll_bar_hover: "#BA5BFC8C",
 
     white: "#D9D1EB",
     red: "#e34a4a",
@@ -11,8 +15,8 @@ const THEME_DARK = {
     gray_400: "#16131f",
     gray_500: "#161616",
     gray_hover: "#242424",
-
-    gray_semitransparent: "#14141470",
+    gray_dark: "#141414cc",
+    gray_semitransparent: "#1414147F",
 
     black: "#050050",
 
@@ -39,4 +43,25 @@ const THEME_DARK = {
     media_xxl: "1536px"
 };
 
-export { THEME_DARK };
+const scrollBar = css`
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+        margin-block: 1rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 3px;
+        background: ${({ theme }) => theme.primary_scroll_bar};
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: ${({ theme }) => theme.primary_scroll_bar_hover};
+    }
+`;
+
+export { THEME_DARK, scrollBar };
