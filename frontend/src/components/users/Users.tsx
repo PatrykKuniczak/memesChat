@@ -8,27 +8,21 @@ export type IUsers = IUser[];
 const Users = () => {
     const { handleChange, filteredUsers, users } = useUsers();
 
-    const Users = () => (
-        <>
-            {filteredUsers.map(({ id, username }: IUser) => (
-                <User
-                    key={id}
-                    id={id}
-                    username={username}
-                />
-            ))}
-        </>
-    );
-
     const UsersList = () => {
         return (
             <>
                 {users.length === 0 ? (
-                    <div style={{ color: "mediumpurple", paddingTop: "1rem" }}>
-                        Ładowanie..
-                    </div>
+                    <p style={{ color: "mediumpurple", paddingTop: "1rem" }}>
+                        Ładowanie...
+                    </p>
                 ) : (
-                    <Users />
+                    filteredUsers.map(({ id, username }: IUser) => (
+                        <User
+                            key={id}
+                            id={id}
+                            username={username}
+                        />
+                    ))
                 )}
             </>
         );
