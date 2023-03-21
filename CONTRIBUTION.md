@@ -5,7 +5,7 @@ GIT CLONE: https://github.com/PatrykKuniczak/memesChat.git
 ##### GO TO FRONTEND AND BACKEND DIRECTORIES, AND DO IT FOR EACH:
 
     CREATE ".env" FILE IN EACH APP ROOT DIRECTORY, VALUES:
-
+        
         FOR BACKEND:
 
         DB_TYPE=postgres # DON'T CHANGE IT #
@@ -17,18 +17,17 @@ GIT CLONE: https://github.com/PatrykKuniczak/memesChat.git
         DB_URL=$DB_TYPE://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST:$POSTGRES_PORT/$POSTGRES_DB # DON'T CHANGE IT #
         SERVER_PORT=3030 (If u have something on that, change it)
         JWT_SECRET=randomSecret
-        DEVELOPMENT=true - if it's true, then validation is OFF, leave empty for default validation
-        DEFAULT_JWT_TOKEN= Default token for swagger for development operation, leave empty for default app behavior,
+        CLIENT_URL=http://localhost:3000 (If u use other port, remeber to change it here)
+        DEVELOPMENT=true - if it's true, then validation is OFF and accept requests from all hosts (skip CORS check), leave empty for default behaviour
+        DEFAULT_JWT_TOKEN= Default token for swagger for development operation, leave empty for default app behavior, 
         work only if "DEVELOPMENT=true"
-
         ### THE DB CREDENTIALS IS DEFAULT, YOU MAY HAVE OTHER ###
 
         FOR FRONTEND:
             REACT_APP_API_URL=http://localhost:3030/api/ (or other youre host/port)
-            REACT_APP_DEVELOPMENT=true - if it's true, then validation is OFF, leave empty for default validation
 
         RUN NPM I FOR EACH
-
+        
         START BACKEND: 'npm run start:dev'
         START FRONTEND: 'npm start'
 
@@ -51,12 +50,13 @@ The hints for env values are the same as in standalone envs config
         JWT_SECRET=randomSecret
         REACT_APP_PORT=3000
         REACT_APP_API_URL=http://localhost:3030/api/
+        CLIENT_URL=http://localhost:3000
         DEVELOPMENT=
         DEFAULT_JWT_TOKEN=
 
 ##### IF U HAVE PORTS: 3030 AND 3000 EMPTY, USE DEFAULT VALUES
 
-RUN `docker-compose up`
+RUN ```docker-compose up```
 
 CONFIGURE PRETTIER IN YOUR IDE:
 

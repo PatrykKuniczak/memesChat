@@ -8,18 +8,25 @@ import { SwaggerModule } from "@nestjs/swagger";
 import swaggerConfig, { swaggerOptions } from "swagger/swagger.config";
 import { JwtToken } from "swagger/jwt-token.property.dto";
 import { User } from "users/model/users.entity";
+import * as process from "process";
 
 (async () => {
     const logger = new Logger("Main");
     dotenvExpand.expand(dotenv.config({ path: ".env" }));
 
-    const app = await NestFactory.create(AppModule);
+    const isDevelopment = process.env.DEVELOPMENT === "true";
+    const corsOptions = isDevelopment
+        ? true
+        : { origin: process.env.CLIENT_URL };
+
+    const app = await NestFactory.create(AppModule, {
+        cors: corsOptions
+    });
+
     const configService = app.get(ConfigService);
     const PORT = +configService.get("SERVER_PORT");
 
-    app.enableCors();
     app.setGlobalPrefix("api");
-    const isDevelopment = configService.get("DEVELOPMENT") === "true";
 
     if (!isDevelopment)
         app.useGlobalPipes(
