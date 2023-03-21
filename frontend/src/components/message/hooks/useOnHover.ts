@@ -3,15 +3,15 @@ import { useState } from "react";
 const useOnHover = () => {
     const [isHovering, setIsHovering] = useState(false);
 
-    const handleMouseOver = () => {
+    const show = () => {
         setIsHovering(true);
     };
 
-    const handleMouseOut = () => {
+    const hide = () => {
         setIsHovering(false);
     };
 
-    return { isHovering, handleMouseOut, handleMouseOver };
+    return { isHovering, show, hide };
 };
 
 export default useOnHover;

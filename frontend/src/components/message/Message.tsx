@@ -23,6 +23,7 @@ export interface IMessage {
 
 const Message: FC<{ message: IMessage }> = ({ message }) => {
     const { author } = message;
+    const { isHovering, hide, show } = useOnHover();
     const {
         handleSubmitForm,
         formik,
@@ -34,15 +35,14 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
         modalIsOpen,
         showModal,
         closeModal
-    } = useMessage(message);
+    } = useMessage(message, hide);
     const { errors, handleChange, values } = formik;
-    const { isHovering, handleMouseOut, handleMouseOver } = useOnHover();
 
     return (
         <>
             <MessageContainer
-                onMouseOver={handleMouseOver}
-                onMouseOut={handleMouseOut}>
+                onMouseOver={show}
+                onMouseOut={hide}>
                 <MessageAuthorImage src={user} />
                 <div>
                     <Wrapper>
@@ -70,7 +70,7 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
                                 {values.content}
                             </MessageContent>
                         )}
-                        {isHovering && (
+                        {(isHovering || inputIsOpen) && (
                             <MessageSettings>
                                 {inputIsOpen ? (
                                     <BsCheckLg
