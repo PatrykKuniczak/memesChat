@@ -7,7 +7,7 @@
 ##### THE DATA FOR PAYLOAD AND WHAT'S RETURN IS THE SAME AS IN THE API, /EXCEPT THAT WHICH HAVE SPECIFIC OBJECT INFORMATION AFTER "Return" WORD HERE/, FOR THAT INFO GO TO API DOCS (SWAGGER)
 
 ```
-emit -> "createMessage" with payload: Message
+emit -> "createMessage" with payload: {content: string, isImage: boolean}
 listen to: "createdMessage", Return the created message object
 
 emit -> "findAllMessages"
@@ -16,7 +16,7 @@ listen to: "foundMessages", Return all messages or empty Array
 emit -> "deleteMessage" with payload: {id: number}
 listen to: "deletedMessage", Return { id: number, statusCode: number }
 
-emit -> "editMessage" with payload: Message
+emit -> "editMessage" with payload: {id:number, content: string}
 listen to: "editedMessage", Return { statusCode: number }
 
 listen to: "exception" for recive exception which can be thrown on each event above

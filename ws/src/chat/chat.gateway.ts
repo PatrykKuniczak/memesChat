@@ -12,11 +12,20 @@ import { HttpService } from "@nestjs/axios";
 import { firstValueFrom } from "rxjs";
 import { Server, Socket } from "socket.io";
 import { ConfigService } from "@nestjs/config";
-import { ParseIntPipe, UseFilters } from "@nestjs/common";
-import { AxiosExceptionFilter } from "filters/AxiosExceptionFilter";
+import {ParseIntPipe, UseFilters, UsePipes, ValidationPipe} from "@nestjs/common";
 import { CreateMessageDto } from "chat/dto/create-message.dto";
+import { TypingDto } from "chat/dto/typing.dto";
+import { WebsocketExceptionsFilter } from "exceptions/AxiosExceptionFilter";
 
-@UseFilters(new AxiosExceptionFilter())
+@UsePipes(
+    new ValidationPipe({
+        transform: true,
+        whitelist: true,
+        forbidNonWhitelisted: true,
+        stopAtFirstError: true
+    })
+)
+@UseFilters(new WebsocketExceptionsFilter())
 @WebSocketGateway(+process.env.GATEWAY_PORT)
 export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @WebSocketServer()
@@ -78,9 +87,10 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @SubscribeMessage("typing")
     async typing(
         @ConnectedSocket() client: Socket,
-        @MessageBody("isTyping") isTyping: boolean,
-        @MessageBody("username") username: string
+        @MessageBody() typingDto: TypingDto
     ) {
+        const { username, isTyping } = typingDto;
+
         client.broadcast.emit("typing", { username, isTyping });
     }
 }
