@@ -6,7 +6,7 @@ GIT CLONE: https://github.com/PatrykKuniczak/memesChat.git
 
     CREATE ".env" FILE IN EACH APP ROOT DIRECTORY, VALUES:
         
-        FOR BACKEND:
+        FOR API:
 
         DB_TYPE=postgres # DON'T CHANGE IT #
         POSTGRES_USER=postgres
@@ -23,12 +23,23 @@ GIT CLONE: https://github.com/PatrykKuniczak/memesChat.git
         work only if "DEVELOPMENT=true"
         ### THE DB CREDENTIALS IS DEFAULT, YOU MAY HAVE OTHER ###
 
+        FOR WS: ### CREATE IT IN ROOT/CONFIG/ENV ### THAT'S SOLUTION FOR CURRENT DEVELOPMENT STATUS
+            dev.env:
+                PORT=3040
+                GATEWAY_PORT=3050
+                API_URL=http://localhost:3030/api (YOU MAY HAVE OTHER PORT)
+                CLIENT_URL=http://localhost:3000 (YOU MAY HAVE OTHER PORT)
+                DEVELOPMENT=true - if it's true, then you can create request from any host,
+                leave empty for default behavior, accept only specific CORS
+    
+            U CAN TAKE DATA FROM "example.env"
+
         FOR FRONTEND:
             REACT_APP_API_URL=http://localhost:3030/api/ (or other youre host/port)
 
         RUN NPM I FOR EACH
         
-        START BACKEND: 'npm run start:dev'
+        START API AND WS: 'npm run start:dev'
         START FRONTEND: 'npm start'
 
 FOR DOCKER
@@ -53,6 +64,8 @@ The hints for env values are the same as in standalone envs config
         CLIENT_URL=http://localhost:3000
         DEVELOPMENT=
         DEFAULT_JWT_TOKEN=
+        WS_SERVER_PORT=3040
+        WS_GATEWAY_PORT=3050
 
 ##### IF U HAVE PORTS: 3030 AND 3000 EMPTY, USE DEFAULT VALUES
 

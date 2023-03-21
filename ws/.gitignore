@@ -1,0 +1,5 @@
+dist
+node_modules
+config/env/*.env
+.DS_Store
+.idea
