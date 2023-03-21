@@ -12,7 +12,12 @@ import { HttpService } from "@nestjs/axios";
 import { firstValueFrom } from "rxjs";
 import { Server, Socket } from "socket.io";
 import { ConfigService } from "@nestjs/config";
-import {ParseIntPipe, UseFilters, UsePipes, ValidationPipe} from "@nestjs/common";
+import {
+    ParseIntPipe,
+    UseFilters,
+    UsePipes,
+    ValidationPipe
+} from "@nestjs/common";
 import { CreateMessageDto } from "chat/dto/create-message.dto";
 import { TypingDto } from "chat/dto/typing.dto";
 import { WebsocketExceptionsFilter } from "exceptions/AxiosExceptionFilter";
@@ -42,10 +47,18 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     handleConnection(@ConnectedSocket() client: Socket) {
         this.httpService.axiosRef.defaults.headers["Authorization"] =
             client.handshake.headers.authorization;
+
+        const onlineUsersAmount = this.server.sockets.sockets.size;
+
+        this.server.emit("onlineUsersAmount", { onlineUsersAmount });
     }
 
     handleDisconnect() {
         this.httpService.axiosRef.defaults.headers["Authorization"] = null;
+
+        const onlineUsersAmount = this.server.sockets.sockets.size;
+
+        this.server.emit("onlineUsersAmount", { onlineUsersAmount });
     }
 
     @SubscribeMessage("createMessage")

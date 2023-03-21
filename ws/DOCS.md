@@ -29,7 +29,9 @@ exception object structure:
 
 emit -> "typing" with payload: {isTyping: boolean, username: string}
 listen to: "typing" Return payload 
-(REMEMBER TO CREATE E.G. 2 SECONDS DELAY BETWEEN CHANGE ISTYPING STATE, FOR BETTER UX) 
+(REMEMBER TO CREATE E.G. 2 SECONDS DELAY BETWEEN CHANGE ISTYPING STATE, FOR BETTER UX)
+
+For check online users amount listen to: "onlineUsersAmount" Return {onlineUsersAmount: number}
 ```
 
 ### REMEMBER TO LISTEN ON ALL CLIENTS FOR EVERYTHING EXCEPT 'findAllMessages' ALL TIME, AND UPDATE DATA WHEN EMIT SOMETHING
