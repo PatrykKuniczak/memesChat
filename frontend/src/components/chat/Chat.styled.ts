@@ -3,11 +3,10 @@ import styled from "styled-components";
 const ChatContainer = styled.main`
     display: flex;
     flex-direction: column;
-
-    padding: .5rem;
-    border-radius: 5px;
-
     min-height: 400px;
+    max-height: calc(100vh - 6rem);
+    padding: 0.5rem;
+    border-radius: 5px;
 
     background: ${({ theme }) => theme.gray_semitransparent};
     backdrop-filter: blur(128px);

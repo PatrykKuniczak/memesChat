@@ -4,17 +4,17 @@ import { SearchIcon, SearchInput, SearchWrapper } from "./Search.styled";
 type ColorVariant = { variant?: "dark" };
 
 const Search: FC<
-	InputHTMLAttributes<HTMLInputElement> & ColorVariant
+    InputHTMLAttributes<HTMLInputElement> & ColorVariant
 > = props => {
-	return (
-		<SearchWrapper $variant={props.variant || ""}>
-			<SearchInput
-				placeholder="Search"
-				{...props}
-			/>
-			<SearchIcon />
-		</SearchWrapper>
-	);
+    return (
+        <SearchWrapper $variant={props.variant || ""}>
+            <SearchInput
+                placeholder="Wyszukaj"
+                {...props}
+            />
+            <SearchIcon />
+        </SearchWrapper>
+    );
 };
 
 export default Search;
