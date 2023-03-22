@@ -2,6 +2,7 @@ import { KeyboardEvent, useRef, useState, FormEvent } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 import { IMessage } from "./Message";
 import useMessageValidation from "hooks/useMessageValidation";
+import useCloseByEsc from "hooks/useCloseByEsc";
 
 const useMessage = (message: IMessage) => {
     const { content } = message;
@@ -9,6 +10,7 @@ const useMessage = (message: IMessage) => {
     const [prevContent, setPrevContent] = useState(content);
     const [inputIsOpen, setInputIsOpen] = useState(false);
     const formik = useMessageValidation(content);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const handleSubmitForm = (event: FormEvent) => {
         event.preventDefault();
@@ -42,9 +44,19 @@ const useMessage = (message: IMessage) => {
         if (event.key === "Escape") cancelEditing();
     };
 
+    const showModal = () => {
+        if (inputIsOpen) cancelEditing();
+        setModalIsOpen(true);
+    };
+
+    const closeModal = () => setModalIsOpen(false);
+
     const handleDeleteMessage = () => {
         // TODO: send request through WS
+        closeModal();
     };
+
+    useCloseByEsc(modalIsOpen, closeModal);
 
     useOnClickOutside(outsideRef, cancelEditing);
 
@@ -55,7 +67,10 @@ const useMessage = (message: IMessage) => {
         handleDeleteMessage,
         closeInputEditByEscape,
         inputIsOpen,
-        showInputEdit
+        showInputEdit,
+        modalIsOpen,
+        showModal,
+        closeModal
     };
 };
 export default useMessage;
