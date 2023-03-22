@@ -22,7 +22,7 @@ const ModalWrapper = styled.form`
     font-weight: ${({ theme }) => theme.font_regular};
 
     @media (max-width: ${({ theme }) => theme.media_md}) {
-        width: 90vw;
+        width: 80vw;
         padding: 3rem 1rem;
     }
 `;

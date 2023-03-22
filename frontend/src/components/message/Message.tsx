@@ -39,62 +39,66 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
     const { isHovering, handleMouseOut, handleMouseOver } = useOnHover();
 
     return (
-        <MessageContainer
-            onMouseOver={handleMouseOver}
-            onMouseOut={handleMouseOut}>
-            <MessageAuthorImage src={user} />
-            <div>
-                <Wrapper>
-                    <MessageAuthor>{author}</MessageAuthor>
-                    {errors.content && (
-                        <MessageError>{errors.content}</MessageError>
-                    )}
-                </Wrapper>
-                <MessageContentWrapper ref={outsideRef}>
-                    {inputIsOpen ? (
-                        <form onSubmit={handleSubmitForm}>
-                            <MessageContent
-                                type="text"
-                                id="content"
-                                name="content"
-                                onChange={handleChange}
-                                value={values.content}
-                                onKeyDown={closeInputEditByEscape}
-                                autoComplete="off"
-                                autoFocus
-                            />
-                        </form>
-                    ) : (
-                        <MessageContent as="p">{values.content}</MessageContent>
-                    )}
-                    {isHovering && (
-                        <MessageSettings>
-                            {inputIsOpen ? (
-                                <BsCheckLg
-                                    onClick={handleSubmitForm}
+        <>
+            <MessageContainer
+                onMouseOver={handleMouseOver}
+                onMouseOut={handleMouseOut}>
+                <MessageAuthorImage src={user} />
+                <div>
+                    <Wrapper>
+                        <MessageAuthor>{author}</MessageAuthor>
+                        {errors.content && (
+                            <MessageError>{errors.content}</MessageError>
+                        )}
+                    </Wrapper>
+                    <MessageContentWrapper ref={outsideRef}>
+                        {inputIsOpen ? (
+                            <form onSubmit={handleSubmitForm}>
+                                <MessageContent
+                                    type="text"
+                                    id="content"
+                                    name="content"
+                                    onChange={handleChange}
+                                    value={values.content}
+                                    onKeyDown={closeInputEditByEscape}
+                                    autoComplete="off"
+                                    autoFocus
+                                />
+                            </form>
+                        ) : (
+                            <MessageContent as="p">
+                                {values.content}
+                            </MessageContent>
+                        )}
+                        {isHovering && (
+                            <MessageSettings>
+                                {inputIsOpen ? (
+                                    <BsCheckLg
+                                        onClick={handleSubmitForm}
+                                        cursor={"pointer"}
+                                    />
+                                ) : (
+                                    <BsPencilSquare
+                                        onClick={showInputEdit}
+                                        cursor={"pointer"}
+                                    />
+                                )}
+                                <BsTrashFill
+                                    onClick={showModal}
                                     cursor={"pointer"}
                                 />
-                            ) : (
-                                <BsPencilSquare
-                                    onClick={showInputEdit}
-                                    cursor={"pointer"}
-                                />
-                            )}
-                            <BsTrashFill
-                                onClick={showModal}
-                                cursor={"pointer"}
-                            />
-                        </MessageSettings>
-                    )}
-                </MessageContentWrapper>
-                {modalIsOpen && (
-                    <DeleteMessageModal
-                        closeModal={closeModal}
-                        handleDeleteMessage={handleDeleteMessage}
-                    />
-                )}
-            </div>
-        </MessageContainer>
+                            </MessageSettings>
+                        )}
+                    </MessageContentWrapper>
+                </div>
+            </MessageContainer>
+            {modalIsOpen && (
+                <DeleteMessageModal
+                    closeModal={closeModal}
+                    handleDeleteMessage={handleDeleteMessage}
+                />
+            )}
+        </>
     );
 };
 
