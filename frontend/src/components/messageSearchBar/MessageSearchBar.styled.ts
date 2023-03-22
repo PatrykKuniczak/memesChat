@@ -1,3 +1,4 @@
+import { hintMessage } from "assets/styles/theme";
 import styled from "styled-components";
 
 const SearchContainer = styled.div`
@@ -21,34 +22,13 @@ const SearchTypeSwitcher = styled.button`
     color: ${({ theme }) => theme.gray_300};
 
     font-size: ${({ theme }) => theme.font_sm};
-    text-transform: capitalize;
 
     cursor: pointer;
 
-    &::after {
-        position: absolute;
-        bottom: -40px;
-        left: 50%;
+    ${hintMessage}
 
-        padding: 0.5rem;
-        border-radius: 5px;
-
-        background: ${({ theme }) => theme.gray_300};
-        color: ${({ theme }) => theme.white};
-
-        font-size: ${({ theme }) => theme.font_xs};
-
-        content: "Wyszukaj wiadomość lub użytkownika";
-        opacity: 0;
-        transform: translate(-50%);
-        transition: opacity 0.2s;
-        white-space: nowrap;
-    }
-
-    &:hover {
-        &:after {
-            opacity: 1;
-        }
+    &:after {
+        content: "Wyszukaj wiadomości po treści lub autorze";
     }
 
     @media (max-width: ${({ theme }) => theme.media_sm}) {

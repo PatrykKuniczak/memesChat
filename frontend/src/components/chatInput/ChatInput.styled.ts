@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { BsImage } from "react-icons/bs";
+import { hintMessage } from "assets/styles/theme";
 
 const InputWrapper = styled.div`
     display: flex;
@@ -39,28 +40,10 @@ const MemeButton = styled.button`
 
     cursor: pointer;
 
-    &::after {
-        position: absolute;
-        bottom: -40px;
-        left: 50%;
+    ${hintMessage}
 
-        padding: 0.5rem;
-        border-radius: 5px;
-
-        background: ${({ theme }) => theme.gray_300};
-        color: ${({ theme }) => theme.white};
-
+    &:after {
         content: "Dodaj mema";
-        opacity: 0;
-        transform: translate(-50%);
-        transition: opacity 0.2s;
-        white-space: nowrap;
-    }
-
-    &:hover {
-        &:after {
-            opacity: 1;
-        }
     }
 `;
 
