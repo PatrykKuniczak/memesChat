@@ -31,9 +31,37 @@ const MessageInput = styled.input`
 `;
 
 const MemeButton = styled.button`
+    position: relative;
+
     border: none;
+
     background-color: transparent;
+
     cursor: pointer;
+
+    &::after {
+        position: absolute;
+        bottom: -40px;
+        left: 50%;
+
+        padding: 0.5rem;
+        border-radius: 5px;
+
+        background: ${({ theme }) => theme.gray_300};
+        color: ${({ theme }) => theme.white};
+
+        content: "Dodaj mema";
+        opacity: 0;
+        transform: translate(-50%);
+        transition: opacity 0.2s;
+        white-space: nowrap;
+    }
+
+    &:hover {
+        &:after {
+            opacity: 1;
+        }
+    }
 `;
 
 const MemeGenerateIcon = styled(BsImage)`
