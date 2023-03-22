@@ -13,6 +13,7 @@ import { BsPencilSquare, BsTrashFill, BsCheckLg } from "react-icons/bs";
 import useMessage from "./useMessage";
 import { FC } from "react";
 import useOnHover from "./hooks/useOnHover";
+import DeleteMessageModal from "./DeleteMessageModal/DeleteMessageModal";
 
 export interface IMessage {
     id: string;
@@ -29,7 +30,10 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
         handleDeleteMessage,
         closeInputEditByEscape,
         inputIsOpen,
-        showInputEdit
+        showInputEdit,
+        modalIsOpen,
+        showModal,
+        closeModal
     } = useMessage(message);
     const { errors, handleChange, values } = formik;
     const { isHovering, handleMouseOut, handleMouseOver } = useOnHover();
@@ -77,12 +81,18 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
                                 />
                             )}
                             <BsTrashFill
-                                onClick={handleDeleteMessage}
+                                onClick={showModal}
                                 cursor={"pointer"}
                             />
                         </MessageSettings>
                     )}
                 </MessageContentWrapper>
+                {modalIsOpen && (
+                    <DeleteMessageModal
+                        closeModal={closeModal}
+                        handleDeleteMessage={handleDeleteMessage}
+                    />
+                )}
             </div>
         </MessageContainer>
     );

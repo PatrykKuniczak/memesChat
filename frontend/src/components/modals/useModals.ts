@@ -1,28 +1,21 @@
-import { useState, useEffect } from "react";
+import useCloseByEsc from "hooks/useCloseByEsc";
+import { useState } from "react";
 
 const useModals = (changeMenuVisible: () => void) => {
-	const [currentModal, setCurrentModal] = useState("");
+    const [currentModal, setCurrentModal] = useState("");
 
-	const hideModal = () => {
-		setCurrentModal("");
-	};
+    const hideModal = () => {
+        setCurrentModal("");
+    };
 
-	const showModal = (modalName: string) => {
-		setCurrentModal(modalName);
-		changeMenuVisible();
-	};
+    const showModal = (modalName: string) => {
+        setCurrentModal(modalName);
+        changeMenuVisible();
+    };
 
-	useEffect(() => {
-		const keyDownHandler = (event: KeyboardEvent) => {
-			if (event.key === "Escape") hideModal();
-		};
+    useCloseByEsc(Boolean(currentModal), hideModal);
 
-		if (currentModal) document.addEventListener("keydown", keyDownHandler);
-
-		return () => document.removeEventListener("keydown", keyDownHandler);
-	}, [currentModal]);
-
-	return { currentModal, hideModal, showModal };
+    return { currentModal, hideModal, showModal };
 };
 
 export default useModals;
