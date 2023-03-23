@@ -80,13 +80,15 @@ const hintMessage = css`
 
         opacity: 0;
         transform: translate(-50%);
-        transition: opacity 0.2s;
         white-space: nowrap;
     }
 
-    &:hover {
-        &:after {
-            opacity: 1;
+    @media (min-width: ${({ theme }) => theme.media_lg}) {
+        &:hover {
+            &::after {
+                transition: opacity 0.2s 1s;
+                opacity: 1;
+            }
         }
     }
 `;

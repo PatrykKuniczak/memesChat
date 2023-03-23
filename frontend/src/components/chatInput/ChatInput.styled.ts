@@ -42,8 +42,8 @@ const MemeButton = styled.button`
 
     ${hintMessage}
 
-    &:after {
-        content: "Dodaj mema";
+    &::after {
+        content: "Wygeneruj gifa";
     }
 `;
 

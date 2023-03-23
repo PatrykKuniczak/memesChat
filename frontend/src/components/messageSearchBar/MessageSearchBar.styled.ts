@@ -27,7 +27,7 @@ const SearchTypeSwitcher = styled.button`
 
     ${hintMessage}
 
-    &:after {
+    &::after {
         content: "Wyszukaj wiadomości po treści lub autorze";
     }
 
