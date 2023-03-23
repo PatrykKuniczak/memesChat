@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { BsImage } from "react-icons/bs";
+import { hintMessage } from "assets/styles/theme";
 
 const InputWrapper = styled.div`
     display: flex;
@@ -31,9 +32,19 @@ const MessageInput = styled.input`
 `;
 
 const MemeButton = styled.button`
+    position: relative;
+
     border: none;
+
     background-color: transparent;
+
     cursor: pointer;
+
+    ${hintMessage}
+
+    &::after {
+        content: "Wygeneruj gifa";
+    }
 `;
 
 const MemeGenerateIcon = styled(BsImage)`

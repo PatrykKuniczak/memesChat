@@ -64,4 +64,33 @@ const scrollBar = css`
     }
 `;
 
-export { THEME_DARK, scrollBar };
+const hintMessage = css`
+    &::after {
+        position: absolute;
+        bottom: -40px;
+        left: 50%;
+
+        padding: 0.5rem;
+        border-radius: 5px;
+
+        background: ${({ theme }) => theme.gray_300};
+        color: ${({ theme }) => theme.white};
+
+        font-size: ${({ theme }) => theme.font_xs};
+
+        opacity: 0;
+        transform: translate(-50%);
+        white-space: nowrap;
+    }
+
+    @media (min-width: ${({ theme }) => theme.media_lg}) {
+        &:hover {
+            &::after {
+                transition: opacity 0.2s 1s;
+                opacity: 1;
+            }
+        }
+    }
+`;
+
+export { THEME_DARK, scrollBar, hintMessage };
