@@ -1,89 +1,106 @@
 GIT CLONE: https://github.com/PatrykKuniczak/memesChat.git
 
-### HOST EACH APP STANDALONE:
+### START YOUR WORK WITH CREATE FEATURE BRANCH FROM 'DEV'.
 
-##### GO TO FRONTEND AND BACKEND DIRECTORIES, AND DO IT FOR EACH:
+### AND NEXT:
 
-    CREATE ".env" FILE IN EACH APP ROOT DIRECTORY, VALUES:
-        
-        FOR API:
+    YOU MUST HAVE INSTALLED LOCALLY ON YOUR MACHINE
 
-        DB_TYPE=postgres # DON'T CHANGE IT #
-        POSTGRES_USER=postgres
-        POSTGRES_PASSWORD=postgres
-        POSTGRES_HOST=localhost
-        POSTGRES_PORT=5432
-        POSTGRES_DB=live_chat_dev # DON'T CHANGE IT #
-        DB_URL=$DB_TYPE://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST:$POSTGRES_PORT/$POSTGRES_DB # DON'T CHANGE IT #
-        SERVER_PORT=3030 (If u have something on that, change it)
-        JWT_SECRET=randomSecret
-        CLIENT_URL=http://localhost:3000 (If u use other port, remeber to change it here)
-        DEVELOPMENT=true - if it's true, then validation is OFF and accept requests from all hosts (skip CORS check), leave empty for default behaviour
-        DEFAULT_JWT_TOKEN= Default token for swagger for development operation, leave empty for default app behavior, 
-        work only if "DEVELOPMENT=true"
-        ### THE DB CREDENTIALS IS DEFAULT, YOU MAY HAVE OTHER ###
+[DOCKER](https://www.docker.com/products/docker-desktop/) IF U WANT TO HOST ENTIRE APP WITH 1 COMMAND
 
-        FOR WS: ### CREATE IT IN ROOT/CONFIG/ENV ### THAT'S SOLUTION FOR CURRENT DEVELOPMENT STATUS
-            dev.env:
-                PORT=3040
-                GATEWAY_PORT=3050
-                API_URL=http://localhost:3030/api (YOU MAY HAVE OTHER PORT)
-                CLIENT_URL=http://localhost:3000 (YOU MAY HAVE OTHER PORT)
-                DEVELOPMENT=true - if it's true, then you can create request from any host,
-                leave empty for default behavior, accept only specific CORS
+    AND 
+
+[POSTGRES](https://www.postgresql.org/download/) ANYWAY, IT'S NECESSARY FOR STANDALONE AND DOCKER
+
+---
+
+### ENV EXPLANATION:
+
+    FOR LOCAL (PC):
+        CREATE "dev.env" FILE IN EACH APP ROOT "/config/env/" DIRECTORY
     
-            U CAN TAKE DATA FROM "example.env"
+        YOU CAN USE VALUE FROM YOUR CASE EXAMPLE FILE E.G. 'example.mobile.env',
+        BELOW I WILL SHOW AND IF NECESSARY EXPLAIN TO YOU THE ENV VALUES,
 
-        FOR FRONTEND:
-            REACT_APP_API_URL=http://localhost:3030/api/ (or other youre host/port)
+        IN EXAMPLES FILE YOU MUST REMOVE COMMENTS, I WRITE IT BECAUSE SOME VALUES ARE NOT FOR CHANGE,
+        THE BETTER WAY TO CREATE ENV IS COPY FROM EXAMPLE AND IF NECESSARY CHANGE TO YOUR VALUE, BECAUSE YOU CAN SEE
+        WHICH VALUES MUST BE NOT CHANGED.
 
-        RUN NPM I FOR EACH
-        
-        START API AND WS: 'npm run start:dev'
-        START FRONTEND: 'npm start'
+---
 
-FOR DOCKER
+    FOR MOBILE LOCAL:
+        WORK WITH ENV FILE THE SAME WAY AS ABOVE.
 
-The hints for env values are the same as in standalone envs config
+        IN EXAMPLE FILE YOU HAVE HOST AND PORT FOR YOUR LOCAL/HOME INTERNET NETWORK, YOU MAY HAVE OTHER, 
+        THEN TYPE IN CONSOLE 'ipconfig' AND TAKE VALUE FROM 'IPv4 Address'.
+    
+        FOR RUN APP CLICK ON IP "ON YOUR NETWORK:" AFTER START FRONTEND, AND WRITE THIS ADRESS ON YOUR DEVICE BROWSER
+    
+        IF U NEED MORE EXPLANATION OR U WANT TO USE DEVTOOLS IN YOUR MOBILE DEVICE OPEN THAT:
 
-### DON'T CHANGE ALL CREDENTIALS EXCEPT PORTS(IF NEEDED) AND DEVELOPMENT AND DEFAULT_JWT_TOKEN
+[TUTORIAL](https://youtu.be/TaPdgj8mucI?t=234) IF U HAVE OPTION ON YOUR DEVICE, YOU CAN ALSO DEBUG BY WI-FI.
 
-    CREATE ".env" FILE IN ROOT (OUTSIDE OF APPS), VALUES:
+---
 
-        DB_TYPE=postgres
-        POSTGRES_USER=postgres
-        POSTGRES_PASSWORD=postgres
-        POSTGRES_HOST=db
-        POSTGRES_PORT=5432
-        POSTGRES_DB=live_chat
-        DB_URL=$DB_TYPE://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST:$POSTGRES_PORT/$POSTGRES_DB
-        SERVER_PORT=3030
-        JWT_SECRET=randomSecret
-        REACT_APP_PORT=3000
-        REACT_APP_API_URL=http://localhost:3030/api/
-        CLIENT_URL=http://localhost:3000
-        DEVELOPMENT=
-        DEFAULT_JWT_TOKEN=
-        WS_SERVER_PORT=3040
-        WS_GATEWAY_PORT=3050
+    FOR DOCKER:
+        YOU MUST CREATE "prod.env" FOLLOW "example.prod.env" IN THE SAME DIRECTORY AS ABOVE.
 
-##### IF U HAVE PORTS: 3030 AND 3000 EMPTY, USE DEFAULT VALUES
+---
 
-RUN ```docker-compose up```
+    REMBEMBER IF YOU USE OTHER PORTS, YOU MUST CHANGE IN IN THE OTHER .ENV FILE VALUES 
+    E.G. 'WS_URL' IN API
 
-CONFIGURE PRETTIER IN YOUR IDE:
+---
 
-    PRETTIER IS IN ROOT(OUTER OF APPS) DIR:
+### ENV VALUES:
 
-    memesChat\node_modules\prettier
+    FOR API:
+        DB_TYPE=
+        POSTGRES_HOST=
+        POSTGRES_PORT=
+        POSTGRES_USER=
+        POSTGRES_PASSWORD=
+        POSTGRES_DB=
+        PORT=
+        WS_URL=
+        CLIENT_URL=
+        JWT_SECRET=YOUR_SECRET
+        DEVELOPMENT=true - if it's 'true', then validation is OFF, BE CAREFUL, leave empty for default validation.
+        DEFAULT_JWT_TOKEN= Default token for swagger for development operation, work only on "DEVELOPMENT"=true,
+        leave empty if you don't want to use it.
 
-EP. FOR WEBSTORM:\
-https://blog.jetbrains.com/webstorm/2020/07/webstorm-2020-2/
+    FOR WS:
+        PORT=
+        GATEWAY_PORT=
+        API_URL=
+        CLIENT_URL=
+        DEVELOPMENT=true - if it's 'true', then you can create request from any host,
+        accept only specific CORS declared in 'CLIENT_URL', leave empty for default behavior.
 
-CONFIGURE RELATIVE IMPORT PATHS IN YOUR IDE:
+    FOR FRONTEND:
+        REACT_APP_API_URL=
+        REACT_APP_WS_URL=
+        REACT_APP_DEVELOPMENT=true - if it's 'true', then validation is OFF, leave empty for default behavior.
+
+### CONFIGURE PRETTIER IN YOUR IDE:
+
+    RUN "npm ci" IN ROOT(OUTER OF APPS) DIR AND PRETTIER IS IN THAT DIRECTORY AND .\node_modules\prettier.
+
+##### E.G. FOR WEBSTORM:
+
+[Prettier config](https://blog.jetbrains.com/webstorm/2020/07/webstorm-2020-2/)
+
+### CONFIGURE RELATIVE IMPORT PATHS IN YOUR IDE:
 
     IN WEBSTORM GO TO SETTING:
         EDITOR/CODE STYLE/TYPESCRIPT
-            [*] USE PATHS RELATIVE TO TSCONFIG.JSON
+            [^] USE PATHS RELATIVE TO TSCONFIG.JSON
 
-ENJOY YOUR TASKS
+### AFTER CREATE ENVS AND CONFIGURE IDE:
+
+    RUN 'npm ci' FOR EACH APP
+    
+    START EACH APP STANDALONE: 'npm run start:dev'
+    START ON DOCKER: 'docker-compose up' (IN ENTIRE PROJECT ROOT DIRECTORY)
+
+###### ENJOY YOUR TASKS
