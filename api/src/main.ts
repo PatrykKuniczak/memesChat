@@ -9,7 +9,6 @@ import { User } from "users/model/users.entity";
 
 (async () => {
     const logger = new Logger("Main");
-    const app = await NestFactory.create(AppModule);
 
     const isDevelopment = process.env.DEVELOPMENT === "true";
     const corsOptions = isDevelopment
