@@ -14,6 +14,7 @@ const SearchTypeSwitcher = styled.button`
     padding: 1rem;
     margin-right: 1rem;
     width: 8rem;
+    min-width: 122px;
     border: transparent;
     border-radius: 5px;
     outline: transparent;
