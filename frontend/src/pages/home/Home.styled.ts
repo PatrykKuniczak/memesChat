@@ -26,15 +26,10 @@ const Main = styled.div`
 const Aside = styled.aside`
     display: flex;
     flex-direction: column;
+    max-height: 400px;
 
-    max-height: calc(100vh - 6rem);
-
-    @media (max-width: ${({ theme }) => theme.media_md}) {
-        max-height: 400px;
-    }
-
-    @media (max-width: ${({ theme }) => theme.media_sm}) {
-        max-height: 214px;
+    @media (min-width: ${({ theme }) => theme.media_md}) {
+        max-height: calc(100vh - 6rem);
     }
 `;
 
