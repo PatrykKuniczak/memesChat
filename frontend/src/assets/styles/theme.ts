@@ -68,7 +68,7 @@ const hintMessage = css`
     &::after {
         position: absolute;
         bottom: -40px;
-        left: 50%;
+        left: 80%;
 
         padding: 0.5rem;
         border-radius: 5px;
@@ -83,7 +83,7 @@ const hintMessage = css`
         white-space: nowrap;
     }
 
-    @media (min-width: ${({ theme }) => theme.media_lg}) {
+    @media (min-width: ${({ theme }) => theme.media_md}) {
         &:hover {
             &::after {
                 transition: opacity 0.2s 1s;

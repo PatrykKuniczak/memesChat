@@ -11,12 +11,10 @@ const MessageContainer = styled.div`
 `;
 
 const MessageContent = styled.input`
-    flex: 1;
-    width: fit-content;
-
     border: none;
     border-radius: 5px;
     padding: 0.5rem;
+    max-width: clamp(30vw, 450px, 80vw);
 
     background-color: ${({ theme }) => theme.gray_400};
     color: ${({ theme }) => theme.gray_300};
@@ -36,7 +34,7 @@ const Wrapper = styled.div`
 
 const MessageAuthorImage = styled.img`
     width: 32px;
-    height: 32px;
+    height: 37px;
     border-radius: 50%;
 
     object-fit: cover;

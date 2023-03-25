@@ -21,7 +21,7 @@ const ChatHeader = styled.header`
     background: rgba(22, 22, 22, 0.3);
 
     @media (max-width: ${({ theme }) => theme.media_sm}) {
-        padding: 0.3rem;
+        padding: 0.7rem;
     }
 `;
 
