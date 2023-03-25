@@ -14,15 +14,6 @@ const UsersContainer = styled.section`
     &::-webkit-scrollbar-track {
         margin-top: 4rem;
     }
-
-    @media (max-width: ${({ theme }) => theme.media_md}) {
-        max-height: 200px;
-    }
-
-    @media (max-width: ${({ theme }) => theme.media_sm}) {
-        padding: 0.5rem;
-        height: 160px;
-    }
 `;
 
 export { UsersContainer };

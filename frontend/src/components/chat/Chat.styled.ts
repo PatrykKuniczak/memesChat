@@ -10,15 +10,6 @@ const ChatContainer = styled.main`
 
     background: ${({ theme }) => theme.gray_semitransparent};
     backdrop-filter: blur(128px);
-
-    @media (max-width: ${({ theme }) => theme.media_md}) {
-        max-height: calc(100vh - 410px);
-    }
-
-    @media (max-width: ${({ theme }) => theme.media_sm}) {
-        min-height: calc(100vh - 250px);
-        max-height: 100vh;
-    }
 `;
 
 const ChatHeader = styled.header`
