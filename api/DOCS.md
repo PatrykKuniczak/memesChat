@@ -2,16 +2,22 @@
 
 ## API Endpoints:
 
-    run backend: npm run start:dev
-    open localhost(or other):YOUR_PORT/docs for default "localhost:3030/docs"
+    FOR OPEN SWAGGER:
+        1. RUN API 'npm run start:dev'
+        2. OPEN 'http://localhost:3030/docs' FOR DEFAULT, OR YOUR HOST AND PORT FROM ENV
+        
+        HERE YOU CAN SEE DTO'S AND CREATE REQUESTS LIKE IN POSTMAN/INSOMNIA
 
-    For get avatar hit this url:
-        For default host and port: "http://localhost:3030/avatars/${sourcePath}"
-        'sourcePath' u can take from User object(Look on swagger schemas). 
-    
-    Run 'npm run documentation:serve' and look an 'http://127.0.0.1:8080' (this will be show in the console after run)
-    for whole backend documentation (structure and etc.)
+---
 
-##### IF TOKEN IS INVALID API RETURN Unauthorized(401),
+    FOR OPEN COMPODOCS:
+        1. RUN 'npm run documentation:serve'
+        2. OPEN 'http://127.0.0.1:5010' (THIS WILL BE SHOWN IN THE CONSOLE AFTER RUN SCRIPT)
 
-##### BUT IF TOKEN IS EXPIRED THEN RETURN NOT FOUND(404) FOR ALL COVERAGE ENDPOINTS.
+        IF YOU WANT OTHER PORT U MUST GO TO PACKAGE.JSON AND CHANGE VALUE IN "--port" in script from point '1.'
+   
+        HERE YOU CAN SEE MORE EXPLANATION ABOUT BACKEND STRUCTURE AND ETC.
+
+---
+
+##### IF TOKEN IS INVALID OR EXPIRED THE API RETURN Unauthorized(401),

@@ -4,7 +4,7 @@
 
 #### listen to - it's this what you must listen to on client
 
-##### THE DATA FOR PAYLOAD AND WHAT'S RETURN IS THE SAME AS IN THE API, /EXCEPT THAT WHICH HAVE SPECIFIC OBJECT INFORMATION AFTER "Return" WORD HERE/, FOR THAT INFO GO TO API DOCS (SWAGGER)
+##### THE DATA WHICH BE RETURNED IS THE SAME AS API (FOR THAT INFO GO TO API DOCS (SWAGGER)), /EXCEPT THAT WHICH HAVE SPECIFIC INFORMATION HERE
 
 ```
 emit -> "createMessage" with payload: {content: string, isImage: boolean}
