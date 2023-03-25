@@ -14,7 +14,9 @@ const MessageContent = styled.input`
     border: none;
     border-radius: 5px;
     padding: 0.5rem;
-    max-width: clamp(30vw, 450px, 80vw);
+    max-width: clamp(30vw, 325px, 80vw);
+
+    word-break: break-all;
 
     background-color: ${({ theme }) => theme.gray_400};
     color: ${({ theme }) => theme.gray_300};
