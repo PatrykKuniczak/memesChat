@@ -71,7 +71,7 @@ const EditAccountModal = ({ hideModal }: IModal) => {
                         onDrop={onDrop}
                         onSelect={onSelect}
                         onDraggingStateChange={onDraggingStateChange}
-                        dropMessageStyle={{ backgroundColor: "fuchsia" }}
+                        dropMessageStyle={{ backgroundColor: "black" }}
                     />
                 </FileUploaderWrapper>
             </OptionEditAvatar>

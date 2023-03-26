@@ -85,14 +85,6 @@ const FileUploaderWrapper = styled.div`
             gap: 0.5rem;
         }
     }
-
-    .file-types {
-        overflow: auto;
-        max-width: none;
-        text-overflow: initial;
-        word-break: break-all;
-        white-space: initial;
-    }
 `;
 
 export {
