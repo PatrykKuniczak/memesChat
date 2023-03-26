@@ -72,11 +72,27 @@ const OptionEditAvatar = styled.div`
     }
 `;
 
+const FileUploaderWrapper = styled.div`
+    label {
+        max-width: 508px;
+        min-width: auto;
+        padding-block: 0.5rem;
+        height: auto;
+        gap: 0.25rem;
+
+        div {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+    }
+`;
+
 export {
     EditAccountWrapper,
     OptionEditAccount,
     TextInput,
     OptionEditAvatar,
     InputWrapper,
-    Error
+    Error,
+    FileUploaderWrapper
 };

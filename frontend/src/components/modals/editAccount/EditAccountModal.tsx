@@ -5,7 +5,8 @@ import {
     TextInput,
     OptionEditAvatar,
     InputWrapper,
-    Error
+    Error,
+    FileUploaderWrapper
 } from "./EditAccountModal.styled";
 import { PrimaryButton } from "../../buttons/Button.styled";
 import useModalEditUsername from "./useModalEditUsername";
@@ -56,21 +57,23 @@ const EditAccountModal = ({ hideModal }: IModal) => {
             </OptionEditAccount>
             <OptionEditAvatar>
                 <ModalSpan>Nowy avatar:</ModalSpan>
-                <FileUploader
-                    handleChange={handleChange}
-                    name="file"
-                    types={fileTypes}
-                    label="Kliknij aby dodać lub upuść nowy avatar."
-                    multiple={false}
-                    hoverTitle="Upuść aby dodać"
-                    onTypeError={onTypeError}
-                    maxSize={1}
-                    onSizeError={onSizeError}
-                    onDrop={onDrop}
-                    onSelect={onSelect}
-                    onDraggingStateChange={onDraggingStateChange}
-                    dropMessageStyle={{ backgroundColor: "fuchsia" }}
-                />
+                <FileUploaderWrapper>
+                    <FileUploader
+                        handleChange={handleChange}
+                        name="file"
+                        types={fileTypes}
+                        label="Kliknij aby dodać lub upuść nowy avatar."
+                        multiple={false}
+                        hoverTitle="Upuść aby dodać"
+                        onTypeError={onTypeError}
+                        maxSize={1}
+                        onSizeError={onSizeError}
+                        onDrop={onDrop}
+                        onSelect={onSelect}
+                        onDraggingStateChange={onDraggingStateChange}
+                        dropMessageStyle={{ backgroundColor: "black" }}
+                    />
+                </FileUploaderWrapper>
             </OptionEditAvatar>
             <PrimaryButton type="submit">Zapisz zmiany</PrimaryButton>
         </EditAccountWrapper>
