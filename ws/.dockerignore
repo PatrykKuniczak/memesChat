@@ -5,6 +5,5 @@ dist
 .gitignore
 Dockerfile
 .dockerignore
-avatars
 documentation
 config/env

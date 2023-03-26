@@ -8,6 +8,8 @@ services:
       - api/config/env/prod.env
     environment:
       - NODE_ENV=prod
+    volumes:
+      - /data/postgres:/data/postgres
     image: "postgres:15.1"
     ports:
       - "5432:5432"
@@ -24,15 +26,37 @@ services:
       - api/config/env/prod.env
     environment:
       - NODE_ENV=prod
-    command: npm start
     volumes:
       - ./api:/api
+      - /api/node_modules
     ports:
       - "3030:3030"
     depends_on:
       - db
     links:
       - db
+    networks:
+      - memesChat
+
+  ws:
+    container_name: ws
+    restart: unless-stopped
+    build:
+      context: ws
+      dockerfile: Dockerfile
+    env_file:
+      - ws/config/env/prod.env
+    environment:
+      - NODE_ENV=prod
+    volumes:
+      - ./ws:/ws
+      - /ws/node_modules
+    ports:
+      - "3040:3040"
+    depends_on:
+      - api
+    links:
+      - api
     networks:
       - memesChat
 
@@ -44,15 +68,17 @@ services:
       dockerfile: Dockerfile
     env_file:
       - frontend/config/env/prod.env
-    command: npm start
     volumes:
       - ./frontend:/frontend
+      - /frontend/node_modules
     ports:
       - "3000:3000"
     depends_on:
       - api
+      - ws
     links:
       - api
+      - ws
     networks:
       - memesChat
 

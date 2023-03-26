@@ -1,7 +1,8 @@
 node_modules
-build
 .idea
 README.md
 .gitignore
 Dockerfile
 .dockerignore
+config/env
+instructions

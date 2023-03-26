@@ -1,11 +1,13 @@
 FROM node:19.3-alpine
 
-WORKDIR /backend
+WORKDIR /api
+
+COPY package*.json .
+
+RUN npm ci --omit=dev
 
 COPY . .
 
-RUN npm ci --production
-
 RUN npm run build
 
-CMD ["node", "dist/main"]
+CMD ["npm", "run", "start:prod"]
