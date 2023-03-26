@@ -1,13 +1,13 @@
 import {
     MessageAuthor,
     MessageAuthorImage,
+    MessageAuthorWrapper,
     MessageContainer,
     MessageContent,
     MessageContentWrapper,
     MessageError,
     MessageSettings,
-    MessageSettingsWrapper,
-    Wrapper
+    MessageSettingsWrapper
 } from "./Message.styled";
 import user from "assets/user.jpg";
 import { BsPencilSquare, BsTrashFill, BsCheckLg } from "react-icons/bs";
@@ -45,13 +45,13 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
                 onMouseOver={show}
                 onMouseOut={hide}>
                 <div>
-                    <Wrapper>
+                    <MessageAuthorWrapper>
                         <MessageAuthorImage src={user} />
                         <MessageAuthor>{author}</MessageAuthor>
                         {errors.content && (
                             <MessageError>{errors.content}</MessageError>
                         )}
-                    </Wrapper>
+                    </MessageAuthorWrapper>
                     <MessageContentWrapper ref={outsideRef}>
                         {inputIsOpen ? (
                             <form onSubmit={handleSubmitForm}>

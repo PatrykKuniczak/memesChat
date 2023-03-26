@@ -29,7 +29,7 @@ const MessageError = styled.p`
     color: ${({ theme }) => theme.red};
 `;
 
-const Wrapper = styled.div`
+const MessageAuthorWrapper = styled.div`
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -87,6 +87,6 @@ export {
     MessageSettingsWrapper,
     MessageSettings,
     MessageError,
-    Wrapper,
+    MessageAuthorWrapper,
     MessageContentWrapper
 };
