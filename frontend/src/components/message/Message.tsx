@@ -6,6 +6,7 @@ import {
     MessageContentWrapper,
     MessageError,
     MessageSettings,
+    MessageSettingsWrapper,
     Wrapper
 } from "./Message.styled";
 import user from "assets/user.jpg";
@@ -43,9 +44,9 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
             <MessageContainer
                 onMouseOver={show}
                 onMouseOut={hide}>
-                <MessageAuthorImage src={user} />
                 <div>
                     <Wrapper>
+                        <MessageAuthorImage src={user} />
                         <MessageAuthor>{author}</MessageAuthor>
                         {errors.content && (
                             <MessageError>{errors.content}</MessageError>
@@ -70,25 +71,27 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
                                 {values.content}
                             </MessageContent>
                         )}
-                        {(isHovering || inputIsOpen) && (
-                            <MessageSettings>
-                                {inputIsOpen ? (
-                                    <BsCheckLg
-                                        onClick={handleSubmitForm}
+                        <MessageSettingsWrapper>
+                            {(isHovering || inputIsOpen) && (
+                                <MessageSettings>
+                                    {inputIsOpen ? (
+                                        <BsCheckLg
+                                            onClick={handleSubmitForm}
+                                            cursor={"pointer"}
+                                        />
+                                    ) : (
+                                        <BsPencilSquare
+                                            onClick={showInputEdit}
+                                            cursor={"pointer"}
+                                        />
+                                    )}
+                                    <BsTrashFill
+                                        onClick={showModal}
                                         cursor={"pointer"}
                                     />
-                                ) : (
-                                    <BsPencilSquare
-                                        onClick={showInputEdit}
-                                        cursor={"pointer"}
-                                    />
-                                )}
-                                <BsTrashFill
-                                    onClick={showModal}
-                                    cursor={"pointer"}
-                                />
-                            </MessageSettings>
-                        )}
+                                </MessageSettings>
+                            )}
+                        </MessageSettingsWrapper>
                     </MessageContentWrapper>
                 </div>
             </MessageContainer>
