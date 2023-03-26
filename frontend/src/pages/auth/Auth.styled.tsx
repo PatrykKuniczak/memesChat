@@ -31,7 +31,7 @@ const Heading = styled.h1`
     text-align: center;
 
     @media (max-height: ${({ theme }) => theme.media_sm}) {
-        font-size: ${({ theme }) => theme.font_lg};
+        font-size: ${({ theme }) => theme.font_xl};
     }
 `;
 

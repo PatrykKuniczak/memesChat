@@ -54,7 +54,7 @@ const DropdownListItem = styled.li`
     @media (max-width: ${({ theme }) => theme.media_md}) {
         padding: 1.5rem;
 
-        font-size: ${({ theme }) => theme.font_lg};
+        font-size: ${({ theme }) => theme.font_xl};
         text-align: center;
     }
 `;

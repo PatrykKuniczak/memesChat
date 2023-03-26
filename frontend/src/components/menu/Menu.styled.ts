@@ -16,7 +16,7 @@ const MenuUserName = styled.span`
 
     color: ${({ theme }) => theme.white};
 
-    font-size: ${({ theme }) => theme.font_lg};
+    font-size: ${({ theme }) => theme.font_xl};
     font-weight: ${({ theme }) => theme.font_medium};
 
     @media (max-width: ${({ theme }) => theme.media_md}) {
@@ -61,7 +61,7 @@ const ChevronIcon = styled(BsChevronDown)`
 
 const BurgerIcon = styled(FiAlignJustify)`
     position: absolute;
-    top: 0.5rem;
+    top: 0.7rem;
     right: 20px;
 
     width: 50px;
@@ -70,7 +70,7 @@ const BurgerIcon = styled(FiAlignJustify)`
     color: ${({ theme }) => theme.white};
 
     @media (max-width: ${({ theme }) => theme.media_sm}) {
-        top: 0;
+        top: 0.25rem;
     }
 `;
 

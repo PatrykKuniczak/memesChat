@@ -35,7 +35,7 @@ const Aside = styled.aside`
 
 const Header = styled.header`
     display: flex;
-    align-items: start;
+    align-items: center;
     gap: 2rem;
 
     @media (max-width: ${({ theme }) => theme.media_sm}) {
@@ -46,11 +46,11 @@ const Header = styled.header`
 const Heading = styled.h1`
     color: ${({ theme }) => theme.white};
 
-    font-size: ${({ theme }) => theme.font_lg};
+    font-size: ${({ theme }) => theme.font_xl};
     font-weight: ${({ theme }) => theme.font_black};
 
     @media (max-width: ${({ theme }) => theme.media_sm}) {
-        font-size: ${({ theme }) => theme.font_md};
+        font-size: ${({ theme }) => theme.font_lg};
         font-weight: ${({ theme }) => theme.font_medium};
     }
 `;

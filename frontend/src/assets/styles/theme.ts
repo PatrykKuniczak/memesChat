@@ -24,7 +24,8 @@ const THEME_DARK = {
     font_xs: ".85rem",
     font_sm: "1rem",
     font_md: "1.125rem",
-    font_lg: "1.75rem",
+    font_lg: "1.5rem",
+    font_xl: "1.75rem",
     font_xxl: "3rem",
 
     // font weights
