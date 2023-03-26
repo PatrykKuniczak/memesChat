@@ -60,7 +60,7 @@ const ChevronIcon = styled(BsChevronDown)`
 // burger menu for mobile view
 
 const BurgerIcon = styled(FiAlignJustify)`
-    position: fixed;
+    position: absolute;
     top: 0.5rem;
     right: 20px;
 
