@@ -11,15 +11,15 @@ const MessageContainer = styled.div`
 `;
 
 const MessageContent = styled.input`
-    flex: 1;
-    width: fit-content;
-
     border: none;
     border-radius: 5px;
     padding: 0.5rem;
+    margin: 0.5rem 0 0 2rem;
 
     background-color: ${({ theme }) => theme.gray_400};
     color: ${({ theme }) => theme.gray_300};
+
+    word-break: break-all;
 `;
 
 const MessageError = styled.p`
@@ -29,14 +29,15 @@ const MessageError = styled.p`
     color: ${({ theme }) => theme.red};
 `;
 
-const Wrapper = styled.div`
+const MessageAuthorWrapper = styled.div`
     display: flex;
     align-items: center;
+    gap: 0.5rem;
 `;
 
 const MessageAuthorImage = styled.img`
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
 
     object-fit: cover;
@@ -51,11 +52,20 @@ const MessageAuthor = styled.p`
 
 const MessageContentWrapper = styled.div`
     position: relative;
+
+    display: flex;
+    gap: 0.5rem;
+`;
+
+const MessageSettingsWrapper = styled.div`
+    display: flex;
+    flex-shrink: 0;
+
+    width: 72px;
 `;
 
 const MessageSettings = styled.div`
     position: absolute;
-    right: -80px;
     top: -35px;
 
     display: flex;
@@ -74,8 +84,9 @@ export {
     MessageContent,
     MessageAuthorImage,
     MessageAuthor,
+    MessageSettingsWrapper,
     MessageSettings,
     MessageError,
-    Wrapper,
+    MessageAuthorWrapper,
     MessageContentWrapper
 };

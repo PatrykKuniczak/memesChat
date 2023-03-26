@@ -4,7 +4,7 @@ import { IMessage } from "./Message";
 import useMessageValidation from "hooks/useMessageValidation";
 import useCloseByEsc from "hooks/useCloseByEsc";
 
-const useMessage = (message: IMessage) => {
+const useMessage = (message: IMessage, hide: () => void) => {
     const { content } = message;
     const outsideRef = useRef<HTMLDivElement>(null);
     const [prevContent, setPrevContent] = useState(content);
@@ -38,6 +38,7 @@ const useMessage = (message: IMessage) => {
     const cancelEditing = () => {
         formik.setFieldValue("content", prevContent);
         closeInputEdit();
+        hide();
     };
 
     const closeInputEditByEscape = (event: KeyboardEvent) => {

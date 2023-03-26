@@ -1,12 +1,13 @@
 import {
     MessageAuthor,
     MessageAuthorImage,
+    MessageAuthorWrapper,
     MessageContainer,
     MessageContent,
     MessageContentWrapper,
     MessageError,
     MessageSettings,
-    Wrapper
+    MessageSettingsWrapper
 } from "./Message.styled";
 import user from "assets/user.jpg";
 import { BsPencilSquare, BsTrashFill, BsCheckLg } from "react-icons/bs";
@@ -23,6 +24,7 @@ export interface IMessage {
 
 const Message: FC<{ message: IMessage }> = ({ message }) => {
     const { author } = message;
+    const { isHovering, hide, show } = useOnHover();
     const {
         handleSubmitForm,
         formik,
@@ -34,23 +36,22 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
         modalIsOpen,
         showModal,
         closeModal
-    } = useMessage(message);
+    } = useMessage(message, hide);
     const { errors, handleChange, values } = formik;
-    const { isHovering, handleMouseOut, handleMouseOver } = useOnHover();
 
     return (
         <>
             <MessageContainer
-                onMouseOver={handleMouseOver}
-                onMouseOut={handleMouseOut}>
-                <MessageAuthorImage src={user} />
+                onMouseOver={show}
+                onMouseOut={hide}>
                 <div>
-                    <Wrapper>
+                    <MessageAuthorWrapper>
+                        <MessageAuthorImage src={user} />
                         <MessageAuthor>{author}</MessageAuthor>
                         {errors.content && (
                             <MessageError>{errors.content}</MessageError>
                         )}
-                    </Wrapper>
+                    </MessageAuthorWrapper>
                     <MessageContentWrapper ref={outsideRef}>
                         {inputIsOpen ? (
                             <form onSubmit={handleSubmitForm}>
@@ -70,25 +71,27 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
                                 {values.content}
                             </MessageContent>
                         )}
-                        {isHovering && (
-                            <MessageSettings>
-                                {inputIsOpen ? (
-                                    <BsCheckLg
-                                        onClick={handleSubmitForm}
+                        <MessageSettingsWrapper>
+                            {(isHovering || inputIsOpen) && (
+                                <MessageSettings>
+                                    {inputIsOpen ? (
+                                        <BsCheckLg
+                                            onClick={handleSubmitForm}
+                                            cursor={"pointer"}
+                                        />
+                                    ) : (
+                                        <BsPencilSquare
+                                            onClick={showInputEdit}
+                                            cursor={"pointer"}
+                                        />
+                                    )}
+                                    <BsTrashFill
+                                        onClick={showModal}
                                         cursor={"pointer"}
                                     />
-                                ) : (
-                                    <BsPencilSquare
-                                        onClick={showInputEdit}
-                                        cursor={"pointer"}
-                                    />
-                                )}
-                                <BsTrashFill
-                                    onClick={showModal}
-                                    cursor={"pointer"}
-                                />
-                            </MessageSettings>
-                        )}
+                                </MessageSettings>
+                            )}
+                        </MessageSettingsWrapper>
                     </MessageContentWrapper>
                 </div>
             </MessageContainer>
