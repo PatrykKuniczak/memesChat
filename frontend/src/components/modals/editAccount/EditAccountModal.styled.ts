@@ -79,11 +79,11 @@ const FileUploaderWrapper = styled.div`
         padding-block: 0.5rem;
         height: auto;
         gap: 0.25rem;
-    }
 
-    label > div {
-        flex-direction: column;
-        gap: 0.5rem;
+        div {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
     }
 
     .file-types {
