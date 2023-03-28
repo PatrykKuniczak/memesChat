@@ -31,7 +31,6 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start:prod": "npx serve -s build",
     "start:dev": "env-cmd -f config/env/dev.env react-scripts start",
     "build": "react-scripts build"
   },

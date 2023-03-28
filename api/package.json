@@ -8,8 +8,7 @@
     "documentation:serve": "npx @compodoc/compodoc -p tsconfig.json --serve --port 5010",
     "start": "nest start",
     "start:dev": "cross-env NODE_ENV=dev nest start --watch",
-    "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/src/main"
+    "start:debug": "nest start --debug --watch"
   },
   "dependencies": {
     "@compodoc/compodoc": "1.1.19",
@@ -23,7 +22,6 @@
     "@nestjs/platform-express": "9.3.7",
     "@nestjs/swagger": "6.2.1",
     "@nestjs/typeorm": "9.0.1",
-    "@types/multer": "1.4.7",
     "bcrypt": "5.1.0",
     "class-transformer": "0.5.1",
     "class-validator": "0.14",
@@ -42,6 +40,7 @@
     "@types/node": "18.13.0",
     "@types/passport-jwt": "3.0.8",
     "@types/passport-local": "1.0.35",
+    "@types/multer": "1.4.7",
     "cross-env": "7.0.3",
     "source-map-support": "0.5.21",
     "ts-loader": "9.4.2",

@@ -1,13 +1,25 @@
-FROM node:19.3-alpine
+FROM node:19.3-alpine AS builder
 
-WORKDIR /frontend
+WORKDIR /app
 
-COPY package*.json .
+COPY --chown=node:node package*.json .
 
-RUN npm ci --omit-dev
+RUN npm ci
 
-COPY . .
+COPY --chown=node:node . .
 
 RUN npm run build
 
-CMD [ "npm", "run", "start:prod" ]
+FROM node:19.3-alpine AS final
+
+WORKDIR /app
+
+COPY --chown=node:node --from=builder app/package*.json .
+
+RUN npm ci --omit=dev
+
+RUN rm package*.json
+
+COPY --chown=node:node --from=builder app/build ./build
+
+CMD [ "npx", "serve", "-s", "build"]

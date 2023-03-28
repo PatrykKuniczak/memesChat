@@ -10,8 +10,7 @@
     "documentation:serve": "npx @compodoc/compodoc -p tsconfig.json --serve --port 5000",
     "start": "nest start",
     "start:dev": "cross-env NODE_ENV=dev nest start --watch",
-    "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main"
+    "start:debug": "nest start --debug --watch"
   },
   "dependencies": {
     "@compodoc/compodoc": "^1.1.19",
