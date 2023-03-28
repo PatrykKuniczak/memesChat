@@ -1,5 +1,7 @@
 FROM node:19.3-alpine AS builder
 
+USER node
+
 WORKDIR /app
 
 COPY --chown=node:node package*.json .
@@ -11,6 +13,8 @@ COPY --chown=node:node . .
 RUN npm run build
 
 FROM node:19.3-alpine AS final
+
+USER node
 
 WORKDIR /app
 
