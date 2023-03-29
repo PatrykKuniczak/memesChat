@@ -2,17 +2,13 @@ import { NestFactory } from "@nestjs/core";
 import { AppModule } from "app.module";
 import { ConfigService } from "@nestjs/config";
 import { Logger, ValidationPipe } from "@nestjs/common";
-import * as dotenv from "dotenv";
-import * as dotenvExpand from "dotenv-expand";
 import { SwaggerModule } from "@nestjs/swagger";
 import swaggerConfig, { swaggerOptions } from "swagger/swagger.config";
 import { JwtToken } from "swagger/jwt-token.property.dto";
 import { User } from "users/model/users.entity";
-import * as process from "process";
 
 (async () => {
     const logger = new Logger("Main");
-    dotenvExpand.expand(dotenv.config({ path: ".env" }));
 
     const isDevelopment = process.env.DEVELOPMENT === "true";
     const corsOptions = isDevelopment
@@ -24,7 +20,7 @@ import * as process from "process";
     });
 
     const configService = app.get(ConfigService);
-    const PORT = +configService.get("SERVER_PORT");
+    const PORT = +configService.get("port");
 
     app.setGlobalPrefix("api");
 
@@ -41,7 +37,7 @@ import * as process from "process";
         extraModels: [JwtToken, User]
     });
 
-    const defaultJwtToken = configService.get("DEFAULT_JWT_TOKEN");
+    const defaultJwtToken = configService.get("devOptions.defaultJwtToken");
 
     SwaggerModule.setup(
         "docs",

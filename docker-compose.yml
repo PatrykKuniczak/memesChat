@@ -5,27 +5,32 @@ services:
     container_name: db
     restart: unless-stopped
     env_file:
-      - .env
-    image: "${DB_TYPE}:15.1"
+      - api/config/env/prod.env
+    environment:
+      - NODE_ENV=prod
+    volumes:
+      - /data/postgres:/data/postgres
+    image: "postgres:15.2-alpine"
     ports:
-      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+      - "5432:5432"
     networks:
       - memesChat
 
   api:
     container_name: api
     restart: unless-stopped
-    env_file:
-      - .env
     build:
       context: api
       dockerfile: Dockerfile
-    command: npm start
+    env_file:
+      - api/config/env/prod.env
+    environment:
+      - NODE_ENV=prod
     volumes:
       - ./api:/api
       - /api/node_modules
     ports:
-      - "${SERVER_PORT}:${SERVER_PORT}"
+      - "3030:3030"
     depends_on:
       - db
     links:
@@ -33,24 +38,47 @@ services:
     networks:
       - memesChat
 
-  frontend:
-    container_name: frontend
+  ws:
+    container_name: ws
     restart: unless-stopped
-    env_file:
-      - .env
     build:
-      context: frontend
+      context: ws
       dockerfile: Dockerfile
-    command: npm start
+    env_file:
+      - ws/config/env/prod.env
+    environment:
+      - NODE_ENV=prod
     volumes:
-      - ./frontend:/frontend
-      - /frontend/node_modules
+      - ./ws:/ws
+      - /ws/node_modules
     ports:
-      - "${REACT_APP_PORT}:${REACT_APP_PORT}"
+      - "3040:3040"
     depends_on:
       - api
     links:
       - api
+    networks:
+      - memesChat
+
+  frontend:
+    container_name: frontend
+    restart: unless-stopped
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    env_file:
+      - frontend/config/env/prod.env
+    volumes:
+      - ./frontend:/frontend
+      - /frontend/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+      - ws
+    links:
+      - api
+      - ws
     networks:
       - memesChat
 
