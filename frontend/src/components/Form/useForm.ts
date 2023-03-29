@@ -49,7 +49,7 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
             Yup.object({
                 login: loginSchema,
                 password: Yup.string()
-                    .min(8, "Hasło jest za krótkie")
+                    .min(10, "Hasło jest zbyt krótkie")
                     .max(60, "Hasło jest za długie")
                     .matches(
                         passwordRegex,
