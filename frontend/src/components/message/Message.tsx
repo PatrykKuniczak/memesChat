@@ -7,7 +7,8 @@ import {
     MessageContentWrapper,
     MessageError,
     MessageSettings,
-    MessageSettingsWrapper
+    MessageSettingsWrapper,
+    MessageTextarea
 } from "./Message.styled";
 import user from "assets/user.jpg";
 import { BsPencilSquare, BsTrashFill, BsCheckLg } from "react-icons/bs";
@@ -26,11 +27,11 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
     const { author } = message;
     const { isHovering, hide, show } = useOnHover();
     const {
+        inputKeyDownHandler,
         handleSubmitForm,
         formik,
         outsideRef,
         handleDeleteMessage,
-        closeInputEditByEscape,
         inputIsOpen,
         showInputEdit,
         modalIsOpen,
@@ -55,13 +56,13 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
                     <MessageContentWrapper ref={outsideRef}>
                         {inputIsOpen ? (
                             <form onSubmit={handleSubmitForm}>
-                                <MessageContent
-                                    type="text"
+                                <MessageTextarea
+                                    as="textarea"
                                     id="content"
                                     name="content"
                                     onChange={handleChange}
                                     value={values.content}
-                                    onKeyDown={closeInputEditByEscape}
+                                    onKeyDown={inputKeyDownHandler}
                                     autoComplete="off"
                                     autoFocus
                                 />
