@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { scrollBar } from "assets/styles/theme";
 
 const MessageContainer = styled.div`
     display: flex;
@@ -23,25 +22,20 @@ const MessageContent = styled.input`
     word-break: break-all;
 `;
 
-const MessageTextarea = styled(MessageContent)`
+const MessageInput = styled(MessageContent)`
     width: 200px;
-    height: 150px;
-
-    resize: none;
-
-    ${scrollBar};
 
     @media (min-width: ${({ theme }) => theme.media_lg}) {
         width: 300px;
-        height: 150px;
     }
 `;
 
 const MessageError = styled.p`
-    margin-left: 10px;
-    font-size: ${({ theme }) => theme.font_xs};
+    margin: 0.5rem 0 0 2rem;
 
     color: ${({ theme }) => theme.red};
+
+    font-size: ${({ theme }) => theme.font_xs};
 `;
 
 const MessageAuthorWrapper = styled.div`
@@ -95,7 +89,7 @@ const MessageSettings = styled.div`
 `;
 
 export {
-    MessageTextarea,
+    MessageInput,
     MessageContainer,
     MessageContent,
     MessageAuthorImage,

@@ -6,9 +6,9 @@ import {
     MessageContent,
     MessageContentWrapper,
     MessageError,
+    MessageInput,
     MessageSettings,
-    MessageSettingsWrapper,
-    MessageTextarea
+    MessageSettingsWrapper
 } from "./Message.styled";
 import user from "assets/user.jpg";
 import { BsPencilSquare, BsTrashFill, BsCheckLg } from "react-icons/bs";
@@ -49,15 +49,11 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
                     <MessageAuthorWrapper>
                         <MessageAuthorImage src={user} />
                         <MessageAuthor>{author}</MessageAuthor>
-                        {errors.content && (
-                            <MessageError>{errors.content}</MessageError>
-                        )}
                     </MessageAuthorWrapper>
                     <MessageContentWrapper ref={outsideRef}>
                         {inputIsOpen ? (
                             <form onSubmit={handleSubmitForm}>
-                                <MessageTextarea
-                                    as="textarea"
+                                <MessageInput
                                     id="content"
                                     name="content"
                                     onChange={handleChange}
@@ -66,6 +62,11 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
                                     autoComplete="off"
                                     autoFocus
                                 />
+                                {errors.content && (
+                                    <MessageError>
+                                        {errors.content}
+                                    </MessageError>
+                                )}
                             </form>
                         ) : (
                             <MessageContent as="p">
