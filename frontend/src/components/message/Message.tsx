@@ -6,6 +6,7 @@ import {
     MessageContent,
     MessageContentWrapper,
     MessageError,
+    MessageInput,
     MessageSettings,
     MessageSettingsWrapper
 } from "./Message.styled";
@@ -26,11 +27,11 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
     const { author } = message;
     const { isHovering, hide, show } = useOnHover();
     const {
+        inputKeyDownHandler,
         handleSubmitForm,
         formik,
         outsideRef,
         handleDeleteMessage,
-        closeInputEditByEscape,
         inputIsOpen,
         showInputEdit,
         modalIsOpen,
@@ -48,23 +49,24 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
                     <MessageAuthorWrapper>
                         <MessageAuthorImage src={user} />
                         <MessageAuthor>{author}</MessageAuthor>
-                        {errors.content && (
-                            <MessageError>{errors.content}</MessageError>
-                        )}
                     </MessageAuthorWrapper>
                     <MessageContentWrapper ref={outsideRef}>
                         {inputIsOpen ? (
                             <form onSubmit={handleSubmitForm}>
-                                <MessageContent
-                                    type="text"
+                                <MessageInput
                                     id="content"
                                     name="content"
                                     onChange={handleChange}
                                     value={values.content}
-                                    onKeyDown={closeInputEditByEscape}
+                                    onKeyDown={inputKeyDownHandler}
                                     autoComplete="off"
                                     autoFocus
                                 />
+                                {errors.content && (
+                                    <MessageError>
+                                        {errors.content}
+                                    </MessageError>
+                                )}
                             </form>
                         ) : (
                             <MessageContent as="p">

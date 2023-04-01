@@ -41,8 +41,9 @@ const useMessage = (message: IMessage, hide: () => void) => {
         hide();
     };
 
-    const closeInputEditByEscape = (event: KeyboardEvent) => {
+    const inputKeyDownHandler = (event: KeyboardEvent) => {
         if (event.key === "Escape") cancelEditing();
+        if (event.key === "Enter") handleSubmitForm(event);
     };
 
     const showModal = () => {
@@ -66,7 +67,7 @@ const useMessage = (message: IMessage, hide: () => void) => {
         formik,
         outsideRef,
         handleDeleteMessage,
-        closeInputEditByEscape,
+        inputKeyDownHandler,
         inputIsOpen,
         showInputEdit,
         modalIsOpen,
