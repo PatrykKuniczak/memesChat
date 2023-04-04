@@ -24,13 +24,13 @@
 
 ## Description
 
-I decide to use Nest, cause have good layer of abstraction, which help me to create less code for sockets, over pure socket.io instances in e.g. express.
+I decide to use Nest, cause have good layer of abstraction, which help me to create less code for sockets, over pure socket.io instantiated in e.g. express app.
 
 Websockets is new for me, but i try my best to create it with best practices.
 
 
 The WS job is communicate with API and Frontend app, for createing messages in live time.
-I decide to use WebSockets cause the live time connection give to user the best experience, cause they can communicate easly and fast as a phone call.
+I decide to use WebSockets cause the live time connection give to the user the best experience, cause they can communicate easly and fast as a phone call.
 
 If u want to see all app structure and events go on:
 
