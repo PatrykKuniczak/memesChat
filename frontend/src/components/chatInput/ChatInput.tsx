@@ -9,16 +9,9 @@ import {
 } from "./ChatInput.styled";
 import useChatInput from "./useChatInput";
 import GifWidget from "components/GifWidget/GifWidget";
-import { useState } from "react";
 
 const ChatInput = () => {
-    const [gifWidgetVisible, setGifWidgetVisible] = useState(false);
-
-    const toggleGifWidgetVisibility = () => {
-        setGifWidgetVisible(prevState => !prevState);
-    };
-
-    const GifWidgetContainer = (): any => gifWidgetVisible && <GifWidget />;
+    const { gifWidgetVisible, toggleGifWidgetVisibility } = useChatInput();
 
     const {
         handleSubmitForm,
@@ -37,11 +30,15 @@ const ChatInput = () => {
                     autoFocus
                 />
             </Form>
-            <GifWidgetContainer />
+            {gifWidgetVisible && (
+                <GifWidget
+                    toggleGifWidgetVisibility={toggleGifWidgetVisibility}
+                />
+            )}
             <Counter isError={values.content.length > maxCount}>
                 {values.content.length} / {maxCount}
             </Counter>
-            <MemeButton>
+            <MemeButton gifWidgetVisible={gifWidgetVisible}>
                 <MemeGenerateIcon onClick={toggleGifWidgetVisibility} />
             </MemeButton>
         </InputWrapper>

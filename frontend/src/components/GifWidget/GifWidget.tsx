@@ -1,93 +1,37 @@
-import { SetStateAction, useEffect, useState } from "react";
+import useGifWidget from "components/GifWidget/useGifWidget";
 import {
-    GifWidgetStyled,
+    GifWidgetWrapper,
     GifWidgetSearch,
     GifList,
-    GifListImage,
-    GifWidgetAtrtibutionSection,
-    GiphyAttributionLogo
+    GifWidgetFooter
 } from "./GifWidget.styled";
-import axios from "axios";
 import GiphyAttributionLogoImage from "assets/GiphyAttributionLogo.png";
 
-interface IGifWidget {
-    id: string;
-    images: Record<
-        string,
-        {
-            url: string;
-        }
-    >;
-}
+type TGifWidget = { toggleGifWidgetVisibility: () => void };
 
-const GifWidget = () => {
-    const [gifsLoading, setGifsLoading] = useState(true);
-    const [gifList, setGifList] = useState<IGifWidget[]>([]);
-    const [gifSearchInput, setGifSearchInput] = useState("");
-
-    const findGif = (event: { target: { value: SetStateAction<string> } }) => {
-        setGifSearchInput(event.target.value);
-        setGifsLoading(true);
-    };
-
-    const getGifUrl = (fullGifUrl: string) => {
-        // image url which should be passed into chat box
-        const gifObject = {
-            content: fullGifUrl,
-            isImage: true
-        };
-        console.log("gif object", gifObject);
-    };
-
-    const renderGifs = () => (
-        <>
-            <GifWidgetSearch
-                type="text"
-                value={gifSearchInput}
-                onChange={findGif}
-                placeholder="find gif"
-            />
-            <GifList>
-                {!gifsLoading &&
-                    gifList.map((item, index) => (
-                        <GifListImage
-                            key={item.images.preview_gif.url}
-                            src={item.images.preview_gif.url}
-                            onClick={() =>
-                                getGifUrl(item.images.downsized_large.url)
-                            }
-                        />
-                    ))}
-            </GifList>
-        </>
-    );
-
-    useEffect(() => {
-        const getGifsList = async () => {
-            if (gifSearchInput.length > 2) {
-                const response = await axios.get(
-                    `https://api.giphy.com/v1/gifs/search?api_key=${process.env.REACT_APP_API_GIPHY_KEY}&q=${gifSearchInput}&limit=18&rating=g&lang=en`
-                );
-                setGifList(response.data.data);
-            }
-        };
-        getGifsList();
-        setGifsLoading(false);
-    }, [gifSearchInput]);
+const GifWidget = ({ toggleGifWidgetVisibility }: TGifWidget) => {
+    const { gifsIsLoading, fetchGifs, findGif, gifSearchInput, ref } =
+        useGifWidget(toggleGifWidgetVisibility);
 
     return (
-        <>
-            <GifWidgetStyled>
-                {renderGifs()}
-                <GifWidgetAtrtibutionSection>
-                    <span>Powered by</span>
-                    <GiphyAttributionLogo
-                        src={GiphyAttributionLogoImage}
-                        alt="Powered by Giphy"
-                    />
-                </GifWidgetAtrtibutionSection>
-            </GifWidgetStyled>
-        </>
+        <GifWidgetWrapper ref={ref}>
+            <GifWidgetSearch
+                type="search"
+                value={gifSearchInput}
+                onChange={findGif}
+                autoFocus={true}
+                placeholder="Znajdź gifa"
+            />
+            <GifList>{!gifsIsLoading && fetchGifs()}</GifList>
+            <GifWidgetFooter>
+                <span>Powered by</span>
+                <img
+                    style={{ width: "5rem" }}
+                    src={GiphyAttributionLogoImage}
+                    alt={"Powered by Giphy"}
+                />
+            </GifWidgetFooter>
+        </GifWidgetWrapper>
     );
 };
 
