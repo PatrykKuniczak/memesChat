@@ -24,39 +24,21 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+I decide to use Nest, cause have good layer of abstraction, which help me to create less code for sockets, over pure socket.io instances in e.g. express.
 
-## Installation
+Websockets is new for me, but i try my best to create it with best practices.
 
-```bash
-$ npm install
+
+The WS job is communicate with API and Frontend app, for createing messages in live time.
+I decide to use WebSockets cause the live time connection give to user the best experience, cause they can communicate easly and fast as a phone call.
+
+If u want to see all app structure and events go on:
+
+```
+http://localhost:5010/ #CHECK THIS
 ```
 
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
+And discover it
 
 ## Support
 
