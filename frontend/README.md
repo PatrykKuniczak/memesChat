@@ -7,14 +7,14 @@ Frontend app job is communicate with API, creating users, fetching data and live
 
 We're using local states and Redux for manage states.
 
-Tech stack:
-React
-Redux ToolKit
-Jwt
-Styled Components
-Axios
-Formik
-socket-io.client
+### Tech stack:
+##### React
+##### Redux ToolKit
+##### Jwt
+##### Styled Components
+##### Axios
+##### Formik
+##### Socket-io.client
 
 
 ## Learn More
