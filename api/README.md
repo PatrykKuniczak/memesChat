@@ -29,7 +29,7 @@
 
 ## SCREEN ##
 
-I decide to use Nest, cause have good layer of abstraction, which help me to create less code, over write it in express.
+I decide to use Nest, cause have good layer of abstraction, which help me to create less code for authentication and CRUD, over pure express.
 I decide to use JWT cause it's improve the security end it's the better beginner idea to learn and create authentication.
 
 Many of tools i have used is new for me, but i try my best to create it with best practices.
