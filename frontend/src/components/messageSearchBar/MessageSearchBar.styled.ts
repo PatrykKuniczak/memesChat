@@ -26,6 +26,7 @@ const SearchTypeSwitcher = styled.button`
     &::after {
         left: 0;
         top: 115%;
+
         content: "Wyszukaj wiadomości po treści lub autorze";
     }
 
