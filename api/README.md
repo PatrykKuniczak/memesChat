@@ -25,39 +25,27 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+#### Structure:
 
-## Installation
+## SCREEN ##
 
-```bash
-$ npm install
+I decide to use Nest, cause have good layer of abstraction, which help me to create less code, over write it in express.
+I decide to use JWT cause it's improve the security end it's the better beginner idea to learn and create authentication.
+
+Many of tools i have used is new for me, but i try my best to create it with best practices.
+
+
+The API job is communicate with WS and Frontend app, for create user account and authenticate user with JWT.
+
+Creating a new records in DB, it's simply CRUD.
+
+If u want to see all structure and endpoints go on:
+
+```
+http://localhost:5010/ #CHECK THIS
 ```
 
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
+And discover it
 
 ## Support
 
