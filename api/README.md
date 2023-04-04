@@ -30,14 +30,14 @@
 ## SCREEN ##
 
 I decide to use Nest, cause have good layer of abstraction, which help me to create less code for authentication and CRUD, over pure express.
-I decide to use JWT cause it's improve the security end it's the better beginner idea to learn and create authentication.
+
+I decide to use JWT cause this can improve the security and it's the better idea for beginner to learn and create authentication.
 
 Many of tools i have used is new for me, but i try my best to create it with best practices.
 
 
-The API job is communicate with WS and Frontend app, for create user account and authenticate user with JWT.
-
-Creating a new records in DB, it's simply CRUD.
+The API job is communicate with WS and Frontend app, for create user account and authenticate user with JWT and
+creating a new records in DB, it's simply CRUD.
 
 If u want to see all structure and endpoints go on:
 
