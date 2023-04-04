@@ -9,13 +9,10 @@ const SearchContainer = styled.div`
 `;
 
 const SearchTypeSwitcher = styled.button`
-    position: relative;
-
     padding: 1rem;
     margin-right: 1rem;
     width: 8rem;
     min-width: 122px;
-    border: transparent;
     border-radius: 5px;
     outline: transparent;
 
@@ -24,11 +21,11 @@ const SearchTypeSwitcher = styled.button`
 
     font-size: ${({ theme }) => theme.font_sm};
 
-    cursor: pointer;
-
-    ${hintMessage}
+    ${hintMessage};
 
     &::after {
+        left: 0;
+        top: 115%;
         content: "Wyszukaj wiadomości po treści lub autorze";
     }
 
