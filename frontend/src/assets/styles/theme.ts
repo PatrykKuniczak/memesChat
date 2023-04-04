@@ -66,10 +66,14 @@ const scrollBar = css`
 `;
 
 const hintMessage = css`
+    position: relative;
+
+    border: none;
+
+    cursor: pointer;
+
     &::after {
         position: absolute;
-        bottom: -40px;
-        left: 80%;
 
         padding: 0.5rem;
         border-radius: 5px;
@@ -80,7 +84,6 @@ const hintMessage = css`
         font-size: ${({ theme }) => theme.font_xs};
 
         opacity: 0;
-        transform: translate(-50%);
         white-space: nowrap;
     }
 

@@ -32,17 +32,14 @@ const MessageInput = styled.input`
 `;
 
 const MemeButton = styled.button`
-    position: relative;
-
-    border: none;
-
     background-color: transparent;
 
-    cursor: pointer;
-
-    ${hintMessage}
+    ${hintMessage};
 
     &::after {
+        bottom: 115%;
+        right: 0;
+
         content: "Wygeneruj gifa";
     }
 `;
