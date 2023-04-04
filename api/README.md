@@ -47,6 +47,13 @@ http://localhost:5010/ #CHECK THIS
 
 And discover it
 
+### Tech stack:
+##### NestJS
+##### JWT
+##### Postgres
+##### TypeORM
+##### Bcrypt
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If
