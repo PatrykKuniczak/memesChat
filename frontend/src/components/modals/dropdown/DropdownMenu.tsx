@@ -4,6 +4,12 @@ import {
     DropdownListItem
 } from "./DropdownMenu.styled";
 import useDropdownMenu from "./useDropdownMenu";
+import {
+    MenuProfileWrapperMobile,
+    MenuUserImage,
+    MenuUserName
+} from "../../menu/Menu.styled";
+import user from "assets/user.jpg";
 
 type IDropdownMenu = {
     showModal: (modalName: string) => void;
@@ -11,10 +17,17 @@ type IDropdownMenu = {
 };
 
 const DropdownMenu = ({ showModal, changeMenuVisible }: IDropdownMenu) => {
-    const { ref, handleLogout } = useDropdownMenu(changeMenuVisible);
+    const { ref, handleLogout, username } = useDropdownMenu(changeMenuVisible);
 
     return (
         <DropdownWrapper>
+            <MenuProfileWrapperMobile>
+                <MenuUserName>{username}</MenuUserName>
+                <MenuUserImage
+                    src={user}
+                    onClick={changeMenuVisible}
+                />
+            </MenuProfileWrapperMobile>
             <DropdownList ref={ref}>
                 <DropdownListItem onClick={() => showModal("edit")}>
                     Edytuj konto
