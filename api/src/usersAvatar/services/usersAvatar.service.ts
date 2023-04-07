@@ -9,7 +9,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { EntityNotFoundError, Repository } from "typeorm";
 import { UserAvatar } from "../model/usersAvatar.entity";
 import { createReadStream, unlinkSync } from "fs";
-import { dirname, join } from "path";
+import { join } from "path";
 import IUploadedFile from "users/types/uploaded-file.interface";
 import { ConfigService } from "@nestjs/config";
 
@@ -56,10 +56,10 @@ export class UsersAvatarService {
     }
 
     async delete(avatar: UserAvatar) {
-        const appDir = dirname(require.main.filename);
+        const appDir = process.cwd();
 
         try {
-            unlinkSync(join(appDir, `../${avatar.sourcePath}`));
+            unlinkSync(join(appDir, avatar.sourcePath));
         } catch (err) {
             throw new InternalServerErrorException(err.message);
         }

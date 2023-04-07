@@ -13,6 +13,7 @@ import { UserCredentialsDto } from "auth/model/dto/user-credentials.dto";
 import { ConfigService } from "@nestjs/config";
 import { UsersAvatarService } from "usersAvatar/services/usersAvatar.service";
 import IUploadedFile from "users/types/uploaded-file.interface";
+import { JwtService } from "@nestjs/jwt";
 
 @Injectable()
 export class UsersService {
@@ -22,7 +23,8 @@ export class UsersService {
         @InjectRepository(User)
         private readonly userRepository: Repository<User>,
         private readonly configService: ConfigService,
-        private readonly usersAvatarService: UsersAvatarService
+        private readonly usersAvatarService: UsersAvatarService,
+        private readonly jwtService: JwtService
     ) {
         this.isDevelopment =
             configService.get("DEVELOPMENT") === "true" || false;
@@ -125,5 +127,13 @@ export class UsersService {
 
             throw error;
         });
+
+        return this.generateJwt({ id, username: updateUserDto.username });
+    }
+
+    private generateJwt(payload: { id: number; username: string }) {
+        const jwtToken = this.jwtService.sign(payload);
+
+        return { accessToken: jwtToken };
     }
 }

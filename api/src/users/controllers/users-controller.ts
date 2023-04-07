@@ -89,7 +89,7 @@ class UsersController {
     @ApiUnauthorizedResponse()
     @ApiConflictResponse()
     @ApiForbiddenResponse()
-    @ApiOkResponse()
+    @ApiOkResponse({description: "Return JWT token"})
     @ApiNotFoundResponse()
     @ApiBadRequestResponse()
     @ApiInternalServerErrorResponse()
@@ -118,7 +118,7 @@ class UsersController {
         )
         file: IUploadedFile
     ) {
-        await this.usersService.update(id, userId, updateUserDto, file);
+        return this.usersService.update(id, userId, updateUserDto, file);
     }
 }
 
