@@ -32,6 +32,10 @@ const MenuProfileWrapperMobile = styled.div`
     border-radius: 0.5rem;
 
     background-color: hsl(270, 100%, 59%, 0.5);
+
+    @media (min-width: ${({ theme }) => theme.media_md}) {
+        display: none;
+    }
 `;
 
 const MenuUserName = styled.span`
