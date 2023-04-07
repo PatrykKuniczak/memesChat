@@ -11,6 +11,33 @@ const MenuWrapper = styled.div`
     padding: 0.5rem;
 `;
 
+const MenuProfileWrapper = styled.div`
+    display: flex;
+    align-items: center;
+
+    @media (max-width: ${({ theme }) => theme.media_md}) {
+        display: none;
+    }
+`;
+
+const MenuProfileWrapperMobile = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 250px;
+
+    padding: 1rem;
+    margin-top: 2rem;
+    border-radius: 0.5rem;
+
+    background-color: hsl(270, 100%, 59%, 0.5);
+
+    @media (min-width: ${({ theme }) => theme.media_md}) {
+        display: none;
+    }
+`;
+
 const MenuUserName = styled.span`
     margin-right: 0.5rem;
 
@@ -18,10 +45,6 @@ const MenuUserName = styled.span`
 
     font-size: ${({ theme }) => theme.font_xl};
     font-weight: ${({ theme }) => theme.font_medium};
-
-    @media (max-width: ${({ theme }) => theme.media_md}) {
-        display: none;
-    }
 `;
 
 const MenuUserImage = styled.img`
@@ -32,10 +55,6 @@ const MenuUserImage = styled.img`
     object-fit: cover;
 
     cursor: pointer;
-
-    @media (max-width: ${({ theme }) => theme.media_md}) {
-        display: none;
-    }
 `;
 
 const DropdownButton = styled.button`
@@ -88,6 +107,8 @@ const BurgerButton = styled.button`
 
 export {
     MenuWrapper,
+    MenuProfileWrapper,
+    MenuProfileWrapperMobile,
     MenuUserName,
     MenuUserImage,
     DropdownButton,
