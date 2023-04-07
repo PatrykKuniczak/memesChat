@@ -24,11 +24,14 @@ const MenuProfileWrapperMobile = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1rem;
-    background-color: hsl(270, 100%, 59%, 0.5);
-    margin-top: 2rem;
+
     width: 250px;
+
+    padding: 1rem;
+    margin-top: 2rem;
     border-radius: 0.5rem;
+
+    background-color: hsl(270, 100%, 59%, 0.5);
 `;
 
 const MenuUserName = styled.span`
