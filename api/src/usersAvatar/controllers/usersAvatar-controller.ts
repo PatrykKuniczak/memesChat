@@ -27,6 +27,7 @@ class UsersAvatarController {
     @ApiUnauthorizedResponse()
     @ApiOkResponse()
     @ApiNotFoundResponse()
+    @UseGuards(JwtAuthGuard)
     @Get(":id")
     async getFile(
         @Param("id", ParseIntPipe) id: number,
