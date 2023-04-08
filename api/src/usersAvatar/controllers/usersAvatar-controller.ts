@@ -2,6 +2,7 @@ import {
     Controller,
     Delete,
     Get,
+    Header,
     Param,
     ParseIntPipe,
     UseGuards
@@ -27,6 +28,7 @@ class UsersAvatarController {
     @ApiUnauthorizedResponse()
     @ApiOkResponse()
     @ApiNotFoundResponse()
+    @Header("Content-Type", "image/jpeg")
     @UseGuards(JwtAuthGuard)
     @Get(":id")
     async getFile(
