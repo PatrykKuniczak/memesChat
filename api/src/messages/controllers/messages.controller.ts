@@ -30,11 +30,11 @@ import { UserReq } from "users/decorators/user.decorator";
 @ApiTags("messages")
 @Controller("messages")
 export class MessagesController {
-    constructor(private readonly messagesService: MessagesService) {}
-
-    @ApiUnauthorizedResponse()
     @ApiCreatedResponse()
-    @ApiBadRequestResponse()
+    @ApiUnauthorizedResponse({ description: "Invalid JWT token" })
+    @ApiBadRequestResponse({
+        description: "Message depend on validation error"
+    })
     @UseGuards(JwtAuthGuard)
     @Post()
     async create(
@@ -45,17 +45,22 @@ export class MessagesController {
         return this.messagesService.create(createMessageDto);
     }
 
-    @ApiUnauthorizedResponse()
+    constructor(private readonly messagesService: MessagesService) {}
+
     @ApiOkResponse()
+    @ApiUnauthorizedResponse({ description: "Invalid JWT token" })
     @UseGuards(JwtAuthGuard)
     @Get()
     async findAll() {
         return this.messagesService.findAll();
     }
 
-    @ApiUnauthorizedResponse()
-    @ApiForbiddenResponse()
     @ApiOkResponse()
+    @ApiUnauthorizedResponse({ description: "Invalid JWT token" })
+    @ApiForbiddenResponse({
+        description:
+            "'You can't manipulate message with no author' or 'You are not author of the message'"
+    })
     @ApiNotFoundResponse()
     @UseGuards(JwtAuthGuard)
     @Delete(":id")
@@ -67,9 +72,12 @@ export class MessagesController {
         await this.messagesService.delete(id);
     }
 
-    @ApiUnauthorizedResponse()
-    @ApiForbiddenResponse()
     @ApiOkResponse()
+    @ApiUnauthorizedResponse({ description: "Invalid JWT token" })
+    @ApiForbiddenResponse({
+        description:
+            "'You can't update image' or 'You can't manipulate message with no author' or 'You are not author of the message'"
+    })
     @ApiNotFoundResponse()
     @ApiBadRequestResponse()
     @UseGuards(JwtAuthGuard)

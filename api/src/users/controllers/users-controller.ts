@@ -44,17 +44,17 @@ class UsersController {
         private readonly usersAvatarService: UsersAvatarService
     ) {}
 
-    @ApiUnauthorizedResponse()
     @ApiOkResponse()
+    @ApiUnauthorizedResponse({ description: "Invalid JWT token" })
     @UseGuards(JwtAuthGuard)
     @Get()
     async findAll() {
         return this.usersService.findAll();
     }
 
-    @ApiUnauthorizedResponse()
-    @ApiForbiddenResponse()
     @ApiOkResponse()
+    @ApiUnauthorizedResponse({ description: "Invalid JWT token" })
+    @ApiForbiddenResponse({ description: "You are not the owner of account" })
     @ApiNotFoundResponse()
     @UseGuards(JwtAuthGuard)
     @Get(":id")
@@ -65,9 +65,13 @@ class UsersController {
         return this.usersService.findOneByIdAndUserJwtId(id, userId);
     }
 
-    @ApiUnauthorizedResponse()
-    @ApiForbiddenResponse()
     @ApiOkResponse()
+    @ApiUnauthorizedResponse({ description: "Invalid JWT token" })
+    @ApiForbiddenResponse({ description: "You are not the owner of account" })
+    @ApiInternalServerErrorResponse({
+        description:
+            "If something goes wrong with deleting file on server, but it's very little chance"
+    })
     @ApiNotFoundResponse()
     @UseGuards(JwtAuthGuard)
     @Delete(":id")
@@ -86,13 +90,17 @@ class UsersController {
         await this.usersService.delete(id);
     }
 
-    @ApiUnauthorizedResponse()
-    @ApiConflictResponse()
-    @ApiForbiddenResponse()
-    @ApiOkResponse({description: "Return JWT token"})
+    @ApiOkResponse({ description: "Return JWT token" })
+    @ApiUnauthorizedResponse({ description: "Invalid JWT token" })
+    @ApiForbiddenResponse({ description: "You are not the owner of account" })
+    @ApiConflictResponse({ description: "Duplicated username" })
+    @ApiBadRequestResponse({
+        description: "Message depend on validation error"
+    })
+    @ApiInternalServerErrorResponse({
+        description: "If something gone wrong with orm"
+    })
     @ApiNotFoundResponse()
-    @ApiBadRequestResponse()
-    @ApiInternalServerErrorResponse()
     @ApiConsumes("multipart/form-data")
     @UseGuards(JwtAuthGuard)
     @Patch(":id")

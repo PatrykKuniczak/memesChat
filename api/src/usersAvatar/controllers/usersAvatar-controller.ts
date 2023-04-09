@@ -25,8 +25,8 @@ import { UserReq } from "users/decorators/user.decorator";
 class UsersAvatarController {
     constructor(private readonly usersAvatarService: UsersAvatarService) {}
 
-    @ApiUnauthorizedResponse()
     @ApiOkResponse()
+    @ApiUnauthorizedResponse({ description: "Invalid JWT token" })
     @ApiNotFoundResponse()
     @Header("Content-Type", "image/jpeg")
     @UseGuards(JwtAuthGuard)
@@ -43,10 +43,10 @@ class UsersAvatarController {
         return this.usersAvatarService.getFile(avatar);
     }
 
-    @ApiUnauthorizedResponse()
-    @ApiForbiddenResponse()
-    @ApiNotFoundResponse()
     @ApiOkResponse()
+    @ApiUnauthorizedResponse({ description: "Invalid JWT token" })
+    @ApiForbiddenResponse({ description: "You are not author of the avatar" })
+    @ApiNotFoundResponse()
     @UseGuards(JwtAuthGuard)
     @Delete(":id")
     async delete(

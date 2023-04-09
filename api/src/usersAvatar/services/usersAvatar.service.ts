@@ -50,7 +50,7 @@ export class UsersAvatarService {
             });
 
         if (!this.isDevelopment && avatar.user.id !== userId)
-            throw new ForbiddenException("You are not author of the message");
+            throw new ForbiddenException("You are not author of the avatar");
 
         return avatar;
     }
