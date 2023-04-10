@@ -1,33 +1,48 @@
 import { IUsers } from "components/users/Users";
 import { ChangeEvent, useDeferredValue, useEffect, useState } from "react";
 import { usersAfterFilter } from "helpers/onlineUsersFiltering";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 const useUsers = () => {
-	const [users, setUsers] = useState<IUsers>([]);
-	const [filteredUsers, setFilteredUsers] = useState<IUsers>([]);
-	const [searchValue, setSearchValue] = useState("");
-	const deferredSearchValue = useDeferredValue(searchValue);
+    const [users, setUsers] = useState<IUsers>([]);
+    const [filteredUsers, setFilteredUsers] = useState<IUsers>([]);
+    const [searchValue, setSearchValue] = useState("");
+    const deferredSearchValue = useDeferredValue(searchValue);
 
-	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-		setSearchValue(event.target.value);
-	};
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setSearchValue(event.target.value);
+    };
 
-	useEffect(() => {
-		setFilteredUsers(usersAfterFilter(users, deferredSearchValue));
-	}, [deferredSearchValue, users]);
+    const fetchAllUsers = async () => {
+        const { data } = await axios.get("users");
+        console.log(data);
+        return data;
+    };
 
-	useEffect(() => {
-		fetch(`https://dummyjson.com/users/`)
-			.then(response => response.json())
-			.then(data => setUsers(data.users));
-	}, []);
+    const { isLoading, data, error } = useQuery({
+        queryKey: ["users"],
+        queryFn: fetchAllUsers
+    });
 
-	return {
-		handleChange,
-		users,
-		setUsers,
-		filteredUsers
-	};
+    useEffect(() => {
+        setFilteredUsers(usersAfterFilter(users, deferredSearchValue));
+    }, [deferredSearchValue, users]);
+
+    useEffect(() => {
+        if (data) {
+            setUsers(data);
+        }
+    }, [data]);
+
+    return {
+        handleChange,
+        users: data,
+        setUsers,
+        filteredUsers,
+        isLoading,
+        error
+    };
 };
 
 export default useUsers;

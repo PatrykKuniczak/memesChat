@@ -6,21 +6,26 @@ import Search from "components/search/Search";
 export type IUsers = IUser[];
 
 const Users = () => {
-    const { handleChange, filteredUsers, users } = useUsers();
+    const { handleChange, filteredUsers, isLoading, error } = useUsers();
 
     const UsersList = () => {
         return (
             <>
-                {users.length === 0 ? (
+                {isLoading ? (
                     <p style={{ color: "whitesmoke", paddingTop: "1rem" }}>
                         Ładowanie...
                     </p>
+                ) : error ? (
+                    <p style={{ color: "whitesmoke", paddingTop: "1rem" }}>
+                        Wystąpił błąd podczas ładowania danych.
+                    </p>
                 ) : (
-                    filteredUsers.map(({ id, username }: IUser) => (
+                    filteredUsers.map(({ id, username, userAvatar }: IUser) => (
                         <User
                             key={id}
                             id={id}
                             username={username}
+                            userAvatar={userAvatar}
                         />
                     ))
                 )}
