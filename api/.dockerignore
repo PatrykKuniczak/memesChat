@@ -8,3 +8,4 @@ Dockerfile
 avatars
 documentation
 config/env
+!config/env/prod.env

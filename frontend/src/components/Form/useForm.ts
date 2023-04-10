@@ -23,7 +23,7 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
         event: "register" | "login"
     ) => {
         axios
-            .post<{ accessToken: string }>(`/auth/${event}`, {
+            .post<{ accessToken: string }>(`auth/${event}`, {
                 username,
                 password
             })
@@ -34,7 +34,7 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
                 }
             })
             .catch(err => {
-                console.log(err.message);
+                console.error(err.message);
             });
     };
 
