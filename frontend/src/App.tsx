@@ -9,6 +9,8 @@ import ProtectedPage from "./ProtectedRoute";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { updateInterceptor } from "./helpers/axios/AuthIncereptor";
 import useToken from "./hooks/useToken";
+import { fetchUser } from "./store/slices/UserSlice";
+import { useAppDispatch } from "./store/store";
 
 export const API_URL = process.env.REACT_APP_API_URL;
 axios.defaults.baseURL = API_URL;
@@ -17,8 +19,10 @@ const queryClient = new QueryClient();
 
 const App = () => {
     const { userToken } = useToken();
+    const dispatch = useAppDispatch();
 
     updateInterceptor(userToken);
+    dispatch(fetchUser());
 
     return (
         <QueryClientProvider client={queryClient}>

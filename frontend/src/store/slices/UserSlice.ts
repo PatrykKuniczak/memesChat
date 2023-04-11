@@ -1,28 +1,33 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { RootState } from "store/store";
+import jwtDecode from "jwt-decode";
+import useToken from "../../hooks/useToken";
+import axios from "axios";
 
 export interface User {
+    id: number;
+    avatarId: number;
     username: string;
     loading: boolean;
     error: string | undefined;
 }
 
 const initialState: User = {
+    id: 0,
+    avatarId: 0,
     username: "",
     loading: false,
     error: ""
 };
 
 export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
-    const getRandomArbitrary = (min: number, max: number) => {
-        return Math.ceil(Math.random() * (max - min) + min);
-    };
+    const { userToken } = useToken();
+    const { id }: { username: string; id: number } = await jwtDecode(userToken);
 
-    const response = await fetch(
-        `https://dummyjson.com/users/${getRandomArbitrary(30, 1)}`
-    );
-
-    return response.json();
+    const { data } = await axios.get(`users/${id}`);
+    const userAvatar = data.userAvatar ? data.userAvatar.id : 0;
+    const username = data.username;
+    return { id, username, userAvatar };
 });
 
 export const userSlice = createSlice({
@@ -38,8 +43,13 @@ export const userSlice = createSlice({
             state.loading = true;
         });
         builder.addCase(fetchUser.fulfilled, (state, action) => {
-            state.loading = false;
-            state.username = action.payload.firstName;
+            return {
+                ...state,
+                loading: false,
+                id: action.payload.id,
+                username: action.payload.username,
+                avatarId: action.payload.userAvatar
+            };
         });
         builder.addCase(fetchUser.rejected, (state, action) => {
             state.loading = false;
