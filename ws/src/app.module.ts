@@ -1,13 +1,15 @@
 import { Module } from "@nestjs/common";
-import { ChatModule } from "chat/chat.module";
+import { MessagesModule } from "messages/messages.module";
 import { ConfigModule } from "@nestjs/config";
+import { UsersModule } from 'users/users.module';
 
 @Module({
     imports: [
         ConfigModule.forRoot({
             isGlobal: true
         }),
-        ChatModule
+        MessagesModule,
+        UsersModule
     ]
 })
 export class AppModule {}
