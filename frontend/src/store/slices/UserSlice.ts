@@ -37,6 +37,9 @@ export const userSlice = createSlice({
         editUsername: (state, action) => {
             state.username = action.payload;
         },
+        deleteAvatar: state => {
+            state.avatarId = 0;
+        },
         updateProfile: (state, action) => {
             state.avatarId = action.payload.avatarId;
         }
@@ -61,7 +64,7 @@ export const userSlice = createSlice({
     }
 });
 
-export const { editUsername, updateProfile } = userSlice.actions;
+export const { editUsername, deleteAvatar, updateProfile } = userSlice.actions;
 
 export const selectUser = (state: RootState) => state.user;
 
