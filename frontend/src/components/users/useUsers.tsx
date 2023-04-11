@@ -16,7 +16,6 @@ const useUsers = () => {
 
     const fetchAllUsers = async () => {
         const { data } = await axios.get("users");
-        console.log(data);
         return data;
     };
 

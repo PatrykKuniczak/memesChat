@@ -22,7 +22,7 @@ const initialState: User = {
 
 export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
     const { userToken } = useToken();
-    const { id }: { username: string; id: number } = await jwtDecode(userToken);
+    const { id }: { id: number } = await jwtDecode(userToken);
 
     const { data } = await axios.get(`users/${id}`);
     const userAvatar = data.userAvatar ? data.userAvatar.id : 0;
