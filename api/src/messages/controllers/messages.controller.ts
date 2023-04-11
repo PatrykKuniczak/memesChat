@@ -30,6 +30,8 @@ import { UserReq } from "users/decorators/user.decorator";
 @ApiTags("messages")
 @Controller("messages")
 export class MessagesController {
+    constructor(private readonly messagesService: MessagesService) {}
+
     @ApiCreatedResponse()
     @ApiUnauthorizedResponse({ description: "Invalid JWT token" })
     @ApiBadRequestResponse({
@@ -45,14 +47,23 @@ export class MessagesController {
         return this.messagesService.create(createMessageDto);
     }
 
-    constructor(private readonly messagesService: MessagesService) {}
-
     @ApiOkResponse()
     @ApiUnauthorizedResponse({ description: "Invalid JWT token" })
     @UseGuards(JwtAuthGuard)
     @Get()
     async findAll() {
         return this.messagesService.findAll();
+    }
+
+    @ApiOkResponse()
+    @ApiUnauthorizedResponse({ description: "Invalid JWT token" })
+    @UseGuards(JwtAuthGuard)
+    @Get(":id")
+    async findOne(
+        @Param("id", ParseIntPipe) id: number,
+        @UserReq("id") userId: number
+    ) {
+        return this.messagesService.findOneByIdAndAuthorId(id, userId);
     }
 
     @ApiOkResponse()
@@ -78,8 +89,10 @@ export class MessagesController {
         description:
             "'You can't update image' or 'You can't manipulate message with no author' or 'You are not author of the message'"
     })
+    @ApiBadRequestResponse({
+        description: "Message depend on validation error"
+    })
     @ApiNotFoundResponse()
-    @ApiBadRequestResponse()
     @UseGuards(JwtAuthGuard)
     @Patch(":id")
     async update(
