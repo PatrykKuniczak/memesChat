@@ -18,16 +18,16 @@ class AuthController {
     constructor(private readonly authService: AuthService) {}
 
     @ApiCreatedResponse({ description: "Return JWT token" })
-    @ApiConflictResponse()
-    @ApiBadRequestResponse()
+    @ApiConflictResponse({description: "Duplicated username"})
+    @ApiBadRequestResponse({description: "Message depend on validation error"})
     @Post("register")
     async register(@Body() userCredentialsDto: UserCredentialsDto) {
         return this.authService.register(userCredentialsDto);
     }
 
     @ApiOkResponse({ description: "Return JWT token" })
-    @ApiBadRequestResponse()
-    @ApiUnauthorizedResponse()
+    @ApiUnauthorizedResponse({description: "Invalid JWT token"})
+    @ApiBadRequestResponse({description: "Message depend on validation error"})
     @ApiNotFoundResponse()
     @UseGuards(LocalAuthGuard)
     @HttpCode(200)

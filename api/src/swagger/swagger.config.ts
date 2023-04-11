@@ -8,7 +8,10 @@ const description = `
     
     Endpoints with "padlock" icon, require BearerAuth
 
-    All schemas and DTO from backend, are located at the bottom of the page`;
+    All schemas and DTO from backend, are located at the bottom of the page
+    
+    If message is not described near to the http status code, it's default e.g for 404 is "Not Found"
+`;
 
 const swaggerConfig = new DocumentBuilder()
     .setTitle("Live Chat API")
