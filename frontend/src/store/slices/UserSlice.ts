@@ -36,6 +36,9 @@ export const userSlice = createSlice({
     reducers: {
         editUsername: (state, action) => {
             state.username = action.payload;
+        },
+        updateProfile: (state, action) => {
+            state.avatarId = action.payload.avatarId;
         }
     },
     extraReducers: builder => {
@@ -58,7 +61,7 @@ export const userSlice = createSlice({
     }
 });
 
-export const { editUsername } = userSlice.actions;
+export const { editUsername, updateProfile } = userSlice.actions;
 
 export const selectUser = (state: RootState) => state.user;
 

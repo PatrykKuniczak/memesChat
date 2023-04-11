@@ -13,7 +13,7 @@ import Modals from "../modals/Modals";
 import user from "assets/user.jpg";
 
 const Menu = () => {
-    const { username, showMenu, changeMenuVisible } = useMenu();
+    const { username, showMenu, changeMenuVisible, avatar } = useMenu();
 
     return (
         <>
@@ -21,7 +21,7 @@ const Menu = () => {
                 <MenuProfileWrapper>
                     <MenuUserName>{username}</MenuUserName>
                     <MenuUserImage
-                        src={user}
+                        src={avatar || user}
                         onClick={changeMenuVisible}
                     />
                     <DropdownButton onClick={changeMenuVisible}>

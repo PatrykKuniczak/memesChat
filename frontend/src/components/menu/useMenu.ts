@@ -2,12 +2,14 @@ import { useAppDispatch, useAppSelector } from "store/store";
 import { useEffect, useState } from "react";
 import { fetchUser } from "store/slices/UserSlice";
 import useCloseByEsc from "hooks/useCloseByEsc";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 export const useMenu = () => {
     const [showMenu, setShowMenu] = useState(false);
 
     const dispatch = useAppDispatch();
-    const username = useAppSelector(state => state.user.username);
+    const { username, avatarId, loading } = useAppSelector(state => state.user);
 
     const changeMenuVisible = () => {
         setShowMenu(prevState => !prevState);
@@ -19,5 +21,19 @@ export const useMenu = () => {
         dispatch(fetchUser());
     }, [dispatch]);
 
-    return { username, showMenu, changeMenuVisible };
+    const fetchAvatar = async () => {
+        const { data } = await axios.get(`users-avatar/${avatarId}`, {
+            responseType: "blob"
+        });
+        return data;
+    };
+
+    const { data } = useQuery({
+        queryKey: ["avatar", avatarId],
+        queryFn: fetchAvatar,
+        select: data => URL.createObjectURL(data),
+        enabled: Boolean(avatarId) && !loading
+    });
+
+    return { username, showMenu, changeMenuVisible, avatar: data };
 };
