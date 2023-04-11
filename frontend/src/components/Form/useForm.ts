@@ -4,6 +4,8 @@ import { useFormik } from "formik";
 import { VALIDATION_OFF } from "index";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { FormEvent } from "react";
 
 export const loginRegex = /^[a-zA-Z0-9]*$/;
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).+$/;
@@ -18,25 +20,26 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
     const navigate = useNavigate();
     const { setAccessToken } = useToken();
 
+    const mutation = useMutation<
+        any,
+        Error,
+        { username: string; password: string; event: "register" | "login" }
+    >({
+        mutationFn: data => {
+            return axios.post(`/auth/${data.event}`, data);
+        },
+        onSuccess: ({ data }) => {
+            setAccessToken(data.accessToken);
+            navigate("/");
+        }
+    });
+
     const handleAuthEvent = (
         username: string,
         password: string,
         event: "register" | "login"
     ) => {
-        axios
-            .post<{ accessToken: string }>(`auth/${event}`, {
-                username,
-                password
-            })
-            .then(res => {
-                if (res.status === 200 || res.status === 201) {
-                    setAccessToken(res.data.accessToken);
-                    navigate("/");
-                }
-            })
-            .catch(err => {
-                console.error(err.message);
-            });
+        mutation.mutate({ username, password, event });
     };
 
     const formik = useFormik({
@@ -82,7 +85,18 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
         }
     });
 
-    return formik;
+    const handleSubmit = (event: FormEvent) => {
+        event.preventDefault();
+        formik.handleSubmit();
+    };
+
+    return {
+        ...formik,
+        handleSubmit,
+        isError: mutation.isError,
+        error: mutation.error,
+        resetRequest: mutation.reset
+    };
 };
 
 export default useForm;
