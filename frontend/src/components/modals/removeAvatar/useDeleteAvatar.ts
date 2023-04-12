@@ -24,7 +24,6 @@ const useDeleteAvatar = (hideModal: () => void) => {
 
     return {
         deleteAvatarHandler,
-        isError: mutation.isError,
         error: mutation.error
     };
 };

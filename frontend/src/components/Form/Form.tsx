@@ -13,7 +13,6 @@ const Form: FC<{ isSignUp: boolean }> = ({ isSignUp }) => {
         errors,
         touched,
         resetForm,
-        isError,
         error,
         resetRequest
     } = useForm({
@@ -66,7 +65,7 @@ const Form: FC<{ isSignUp: boolean }> = ({ isSignUp }) => {
                     <NavLink to="/auth/signUp">Nie mam jeszcze konta</NavLink>
                 )}
             </ButtonsContainer>
-            <>{isError && <ErrorMessage>{error?.message}</ErrorMessage>}</>
+            {error && <ErrorMessage>{error.message}</ErrorMessage>}
         </FormWrapper>
     );
 };

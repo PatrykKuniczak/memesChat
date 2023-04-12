@@ -93,7 +93,6 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
     return {
         ...formik,
         handleSubmit,
-        isError: mutation.isError,
         error: mutation.error,
         resetRequest: mutation.reset
     };
