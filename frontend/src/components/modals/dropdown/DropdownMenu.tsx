@@ -9,7 +9,7 @@ import {
     MenuUserImage,
     MenuUserName
 } from "../../menu/Menu.styled";
-import user from "assets/user.jpg";
+import defaultUserAvatar from "assets/defaultUserAvatar.png";
 
 type IDropdownMenu = {
     showModal: (modalName: string) => void;
@@ -25,11 +25,10 @@ const DropdownMenu = ({ showModal, changeMenuVisible }: IDropdownMenu) => {
                 <MenuProfileWrapperMobile>
                     <MenuUserName>{username}</MenuUserName>
                     <MenuUserImage
-                        src={user}
+                        src={defaultUserAvatar}
                         onClick={changeMenuVisible}
                     />
                 </MenuProfileWrapperMobile>
-
                 <DropdownListItem onClick={() => showModal("edit")}>
                     Edytuj konto
                 </DropdownListItem>
