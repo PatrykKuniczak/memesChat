@@ -7,10 +7,14 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { FormEvent, useState } from "react";
 
-type MutationVariables = {
+interface MutationResponse {
+    accessToken: string;
+}
+
+interface MutationVariables {
     username: string;
-    userAvatar?: File;
-};
+    userAvatar: File | null;
+}
 
 const useAccountEdit = (hideModal: () => void) => {
     const dispatch = useAppDispatch();
@@ -24,7 +28,7 @@ const useAccountEdit = (hideModal: () => void) => {
             .then(({ data }) => callback(data.userAvatar.id));
     };
 
-    const mutation = useMutation<any, Error, MutationVariables>({
+    const mutation = useMutation<MutationResponse, Error, MutationVariables>({
         mutationFn: data => {
             return axios.patch(`users/${id}`, data, {
                 headers: { "Content-Type": "multipart/form-data" }
@@ -37,9 +41,7 @@ const useAccountEdit = (hideModal: () => void) => {
     });
     const updateUsername = (login: string) => {
         dispatch(editUsername(login));
-        mutation.mutate(
-            file ? { userAvatar: file, username: login } : { username: login }
-        );
+        mutation.mutate({ userAvatar: file, username: login });
     };
     const formik = useFormik({
         initialValues: {
