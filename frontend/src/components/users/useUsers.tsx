@@ -29,9 +29,7 @@ const useUsers = () => {
     }, [deferredSearchValue, users]);
 
     useEffect(() => {
-        if (data) {
-            setUsers(data);
-        }
+        data && setUsers(data);
     }, [data]);
 
     return {
