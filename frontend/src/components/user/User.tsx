@@ -31,7 +31,7 @@ const User = ({ username, userAvatar }: IUser) => {
         <UserContainer>
             <UserImage
                 src={data || defaultUserAvatar}
-                alt=""
+                alt="user"
             />
             <UserName>{username}</UserName>
         </UserContainer>
