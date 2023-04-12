@@ -10,7 +10,7 @@ import {
     MessageSettings,
     MessageSettingsWrapper
 } from "./Message.styled";
-import user from "assets/user.jpg";
+import defaultUserAvatar from "assets/defaultUserAvatar.png";
 import { BsPencilSquare, BsTrashFill, BsCheckLg } from "react-icons/bs";
 import useMessage from "./useMessage";
 import { FC } from "react";
@@ -47,7 +47,7 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
                 onMouseOut={hide}>
                 <div>
                     <MessageAuthorWrapper>
-                        <MessageAuthorImage src={user} />
+                        <MessageAuthorImage src={defaultUserAvatar} />
                         <MessageAuthor>{author}</MessageAuthor>
                     </MessageAuthorWrapper>
                     <MessageContentWrapper ref={ref}>

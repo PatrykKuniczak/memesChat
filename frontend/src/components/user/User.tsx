@@ -1,4 +1,4 @@
-import user from "assets/user.jpg";
+import defaultUserAvatar from "assets/defaultUserAvatar.png";
 import { UserImage, UserName, UserContainer } from "./User.styled";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
@@ -30,7 +30,7 @@ const User = ({ username, userAvatar }: IUser) => {
     return (
         <UserContainer>
             <UserImage
-                src={data || user}
+                src={data || defaultUserAvatar}
                 alt=""
             />
             <UserName>{username}</UserName>
