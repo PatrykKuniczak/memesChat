@@ -4,22 +4,22 @@ import useRemoveAvatar from "./useDeleteAvatar";
 import { ModalSpan } from "../GenericModalComponents.styled";
 import { PrimaryButton, SecondaryButton } from "../../buttons/Button.styled";
 import {
-    DeleteAvatarButtonsWrapper,
-    DeleteAvatarWrapper
-} from "./DeleteAvatarModal.styled";
+    RemoveAvatarButtonsWrapper,
+    RemoveAvatarWrapper
+} from "./RemoveAvatarModal.styled";
 import { ErrorMessage } from "assets/styles/theme";
 
-const DeleteAvatarModal = ({ hideModal }: IModal) => {
-    const { deleteAvatarHandler, error } = useRemoveAvatar(hideModal);
+const RemoveAvatarModal = ({ hideModal }: IModal) => {
+    const { removeAvatarHandler, error } = useRemoveAvatar(hideModal);
 
 	const { ref } = useClickOutside(hideModal);
 
     return (
-        <DeleteAvatarWrapper
+        <RemoveAvatarWrapper
             ref={ref}
-            onSubmit={deleteAvatarHandler}>
+            onSubmit={removeAvatarHandler}>
             <ModalSpan>Czy na pewno chcesz usunąć avatar?</ModalSpan>
-            <DeleteAvatarButtonsWrapper>
+            <RemoveAvatarButtonsWrapper>
                 <SecondaryButton type="submit">
                     Tak, usuwam avatar
                 </SecondaryButton>
@@ -28,10 +28,10 @@ const DeleteAvatarModal = ({ hideModal }: IModal) => {
                     onClick={hideModal}>
                     Anuluj
                 </PrimaryButton>
-            </DeleteAvatarButtonsWrapper>
+            </RemoveAvatarButtonsWrapper>
             {error && <ErrorMessage>{error.message}</ErrorMessage>}
-        </DeleteAvatarWrapper>
+        </RemoveAvatarWrapper>
     );
 };
 
-export default DeleteAvatarModal;
+export default RemoveAvatarModal;
