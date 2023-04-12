@@ -72,7 +72,6 @@ const useAccountEdit = (hideModal: () => void) => {
     return {
         ...formik,
         submitChanges,
-        isError: mutation.isError,
         error: mutation.error,
         file,
         fileTypes,

@@ -10,7 +10,7 @@ import {
 import { ErrorMessage } from "assets/styles/theme";
 
 const DeleteAvatarModal = ({ hideModal }: IModal) => {
-    const { deleteAvatarHandler, isError, error } = useRemoveAvatar(hideModal);
+    const { deleteAvatarHandler, error } = useRemoveAvatar(hideModal);
 
 	const { ref } = useClickOutside(hideModal);
 
@@ -29,7 +29,7 @@ const DeleteAvatarModal = ({ hideModal }: IModal) => {
                     Anuluj
                 </PrimaryButton>
             </DeleteAvatarButtonsWrapper>
-            <>{isError && <ErrorMessage>{error?.message}</ErrorMessage>}</>
+            {error && <ErrorMessage>{error.message}</ErrorMessage>}
         </DeleteAvatarWrapper>
     );
 };

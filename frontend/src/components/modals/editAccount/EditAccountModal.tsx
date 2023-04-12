@@ -22,7 +22,6 @@ const EditAccountModal = ({ hideModal }: IModal) => {
         values,
         errors,
         touched,
-        isError,
         error,
         fileTypes,
         handleFileChange,
@@ -66,7 +65,7 @@ const EditAccountModal = ({ hideModal }: IModal) => {
                 </FileUploaderWrapper>
             </OptionEditAvatar>
             <PrimaryButton type="submit">Zapisz zmiany</PrimaryButton>
-            <>{isError && <ErrorMessage>{error?.message}</ErrorMessage>}</>
+            {error && <ErrorMessage>{error.message}</ErrorMessage>}
         </EditAccountWrapper>
     );
 };
