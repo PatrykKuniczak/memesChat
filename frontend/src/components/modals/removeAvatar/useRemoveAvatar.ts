@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "store/store";
 import { FormEvent } from "react";
 import { deleteAvatar } from "store/slices/UserSlice";
 
-const useDeleteAvatar = (hideModal: () => void) => {
+const useRemoveAvatar = (hideModal: () => void) => {
     const dispatch = useAppDispatch();
     const avatarId = useAppSelector(state => state.user.avatarId);
 
@@ -17,15 +17,15 @@ const useDeleteAvatar = (hideModal: () => void) => {
             }
         }
     );
-    const deleteAvatarHandler = (event: FormEvent) => {
+    const removeAvatarHandler = (event: FormEvent) => {
         event.preventDefault();
         mutation.mutate();
     };
 
     return {
-        deleteAvatarHandler,
+        removeAvatarHandler: removeAvatarHandler,
         error: mutation.error
     };
 };
 
-export default useDeleteAvatar;
+export default useRemoveAvatar;
