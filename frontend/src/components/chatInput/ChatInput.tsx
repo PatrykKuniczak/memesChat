@@ -11,10 +11,10 @@ import useChatInput from "./useChatInput";
 import GifWidget from "components/GifWidget/GifWidget";
 
 const ChatInput = () => {
-    const { gifWidgetVisible, toggleGifWidgetVisibility } = useChatInput();
-
     const {
         handleSubmitForm,
+        gifWidgetVisible,
+        toggleGifWidgetVisibility,
         formik: { handleChange, values }
     } = useChatInput();
 

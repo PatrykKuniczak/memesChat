@@ -1,6 +1,6 @@
 import axios from "axios";
 import { GifListImage } from "components/GifWidget/GifWidget.styled";
-import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 
 interface IGifList {
@@ -25,20 +25,12 @@ const useGifWidget = (toggleGifWidgetVisibility: () => void) => {
         setGifsIsLoading(true);
     };
 
-    const getGifUrl = useCallback((gifUrl: string) => {
-        // // image url which should be passed into chat box
-        const parsedGifObject = {
-            content: gifUrl,
-            isImage: true
-        };
-    }, []);
-
     const fetchGifs = () =>
         gifList.map(item => (
             <GifListImage
                 key={item.id}
                 src={item.images.fixed_height_downsampled.url}
-                onClick={() => getGifUrl(item.images.fixed_height.url)}
+                onClick={() => console.log()} //item.images.fixed_height.url
             />
         ));
 
@@ -59,7 +51,6 @@ const useGifWidget = (toggleGifWidgetVisibility: () => void) => {
     return {
         gifsIsLoading,
         gifList,
-        getGifUrl,
         fetchGifs,
         findGif,
         gifSearchInput,
