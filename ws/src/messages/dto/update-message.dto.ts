@@ -1,4 +1,4 @@
-import { CreateMessageDto } from "chat/dto/create-message.dto";
+import { CreateMessageDto } from "messages/dto/create-message.dto";
 import { PickType } from "@nestjs/mapped-types";
 import {IsNumber} from "class-validator";
 
