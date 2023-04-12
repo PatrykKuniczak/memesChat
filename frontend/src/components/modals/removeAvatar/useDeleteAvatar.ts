@@ -8,7 +8,7 @@ const useDeleteAvatar = (hideModal: () => void) => {
     const dispatch = useAppDispatch();
     const avatarId = useAppSelector(state => state.user.avatarId);
 
-    const mutation = useMutation<string, Error>(
+    const mutation = useMutation<null, Error>(
         () => axios.delete(`users-avatar/${avatarId}`),
         {
             onSuccess: () => {

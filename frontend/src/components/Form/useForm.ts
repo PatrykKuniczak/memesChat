@@ -7,6 +7,16 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { FormEvent } from "react";
 
+interface RequestResponse {
+    accessToken: string;
+}
+
+interface RequestVariables {
+    username: string;
+    password: string;
+    event: "register" | "login";
+}
+
 export const loginRegex = /^[a-zA-Z0-9]*$/;
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).+$/;
 
@@ -20,16 +30,22 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
     const navigate = useNavigate();
     const { setAccessToken } = useToken();
 
-    const mutation = useMutation<
-        any,
-        Error,
-        { username: string; password: string; event: "register" | "login" }
-    >({
-        mutationFn: data => {
-            return axios.post(`/auth/${data.event}`, data);
-        },
-        onSuccess: ({ data }) => {
-            setAccessToken(data.accessToken);
+    const sendRequest = async ({
+        username,
+        password,
+        event
+    }: RequestVariables) => {
+        const { data } = await axios.post(`/auth/${event}`, {
+            username,
+            password
+        });
+        return data;
+    };
+
+    const mutation = useMutation<RequestResponse, Error, RequestVariables>({
+        mutationFn: sendRequest,
+        onSuccess: ({ accessToken }) => {
+            setAccessToken(accessToken);
             navigate("/");
         }
     });
