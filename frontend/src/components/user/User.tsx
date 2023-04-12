@@ -1,7 +1,6 @@
 import defaultUserAvatar from "assets/defaultUserAvatar.png";
 import { UserImage, UserName, UserContainer } from "./User.styled";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
+import useAvatar from "hooks/useAvatar";
 
 export interface IUser {
     username: string;
@@ -13,24 +12,12 @@ export interface IUser {
 }
 
 const User = ({ username, userAvatar }: IUser) => {
-    const fetchAvatar = async () => {
-        const { data } = await axios.get(`users-avatar/${userAvatar.id}`, {
-            responseType: "blob"
-        });
-        return data;
-    };
-
-    const { data } = useQuery({
-        queryKey: ["avatar", userAvatar?.id],
-        queryFn: fetchAvatar,
-        select: data => URL.createObjectURL(data),
-        enabled: Boolean(userAvatar)
-    });
+    const avatarUrl = useAvatar(userAvatar);
 
     return (
         <UserContainer>
             <UserImage
-                src={data || defaultUserAvatar}
+                src={avatarUrl || defaultUserAvatar}
                 alt="user"
             />
             <UserName>{username}</UserName>

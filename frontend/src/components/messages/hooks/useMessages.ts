@@ -1,49 +1,27 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { SetStateAction, useState } from "react";
 import { TMessages } from "./useMessagesContainer";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 const UseMessages = () => {
     const [messages, setMessages] = useState<TMessages>([]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(`https://dummyjson.com/comments`);
-            const json = await response.json();
+    const fetchAllMessages = async () => {
+        const { data } = await axios.get("messages");
+        return data;
+    };
 
-            setMessages(
-                json.comments.map(
-                    (comment: {
-                        id: string;
-                        body: string;
-                        user: { username: string };
-                    }) => {
-                        return {
-                            id: comment.id,
-                            content: comment.body,
-                            author: comment.user.username
-                        };
-                    }
-                )
-            );
-
-            setMessages(prevState => [
-                ...prevState,
-                {
-                    id: "15512341",
-                    content:
-                        "asdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                    author: "Papryk"
-                }
-            ]);
-        };
-
-        fetchData().catch(console.error);
-    }, []);
+    const { isLoading, error } = useQuery({
+        queryKey: ["messages"],
+        queryFn: fetchAllMessages,
+        onSuccess: setMessages
+    });
 
     const handleSetMessages = (messages: SetStateAction<TMessages>) => {
         setMessages(messages);
     };
 
-    return { messages, handleSetMessages };
+    return { messages, handleSetMessages, isLoading, error };
 };
 
 export default UseMessages;

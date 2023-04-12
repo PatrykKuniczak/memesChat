@@ -16,15 +16,23 @@ import useMessage from "./useMessage";
 import { FC } from "react";
 import useOnHover from "./hooks/useOnHover";
 import DeleteMessageModal from "./DeleteMessageModal/DeleteMessageModal";
+import useAvatar from "hooks/useAvatar";
 
 export interface IMessage {
     id: string;
-    author: string;
     content: string;
+    isImage: boolean;
+    author: {
+        id: number;
+        username: string;
+        userAvatar: { id: number; sourcePath: string };
+    };
 }
 
 const Message: FC<{ message: IMessage }> = ({ message }) => {
     const { author } = message;
+    const avatarUrl = useAvatar(author.userAvatar);
+
     const { isHovering, hide, show } = useOnHover();
     const {
         inputKeyDownHandler,
@@ -47,8 +55,11 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
                 onMouseOut={hide}>
                 <div>
                     <MessageAuthorWrapper>
-                        <MessageAuthorImage src={defaultUserAvatar} />
-                        <MessageAuthor>{author}</MessageAuthor>
+                        <MessageAuthorImage
+                            src={avatarUrl || defaultUserAvatar}
+                            alt="user"
+                        />
+                        <MessageAuthor>{author.username}</MessageAuthor>
                     </MessageAuthorWrapper>
                     <MessageContentWrapper ref={ref}>
                         {inputIsOpen ? (
