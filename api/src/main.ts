@@ -10,7 +10,9 @@ import { User } from "users/model/users.entity";
 (async () => {
     const logger = new Logger("Main");
 
-    const isDevelopment = process.env.DEVELOPMENT === "true";
+    const isDevelopment = process.env.NODE_ENV === "dev";
+    const validationOff = process.env.VALIDATION_OFF === "true";
+
     const corsOptions = isDevelopment
         ? true
         : { origin: process.env.CLIENT_URL };
@@ -24,7 +26,7 @@ import { User } from "users/model/users.entity";
 
     app.setGlobalPrefix("api");
 
-    if (!isDevelopment)
+    if (!validationOff)
         app.useGlobalPipes(
             new ValidationPipe({
                 transform: true,
@@ -33,18 +35,22 @@ import { User } from "users/model/users.entity";
             })
         );
 
-    const document = SwaggerModule.createDocument(app, swaggerConfig, {
-        extraModels: [JwtToken, User]
-    });
+    const document =
+        isDevelopment &&
+        SwaggerModule.createDocument(app, swaggerConfig, {
+            extraModels: [JwtToken, User]
+        });
 
-    const defaultJwtToken = configService.get("devOptions.defaultJwtToken");
+    const defaultJwtToken =
+        isDevelopment && configService.get("devOptions.defaultJwtToken");
 
-    SwaggerModule.setup(
-        "docs",
-        app,
-        document,
-        isDevelopment && swaggerOptions(defaultJwtToken)
-    );
+    isDevelopment &&
+        SwaggerModule.setup(
+            "docs",
+            app,
+            document,
+            validationOff && swaggerOptions(defaultJwtToken)
+        );
 
     await app.listen(PORT);
     logger.log(`Server running on PORT ${PORT}`);
