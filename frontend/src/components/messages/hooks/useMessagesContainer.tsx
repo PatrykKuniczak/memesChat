@@ -7,39 +7,49 @@ import { messagesAfterFilter } from "helpers/messagesFiltering";
 export type TMessages = IMessage[];
 
 const useMessagesContainer = ({
-	searchValue,
-	searchMode
+    searchValue,
+    searchMode
 }: IMessagesContainer) => {
-	const [filteredMessages, setFilteredMessages] = useState<TMessages>([]);
-	const deferredSearchValue = useDeferredValue(searchValue);
+    const [filteredMessages, setFilteredMessages] = useState<TMessages>([]);
+    const deferredSearchValue = useDeferredValue(searchValue);
 
-	const { messages } = useMessages();
+    const { messages, isLoading, error } = useMessages();
 
-	useEffect(() => {
-		startTransition(() => {
-			setFilteredMessages(
-				messagesAfterFilter(messages, searchMode, deferredSearchValue)
-			);
-		});
-	}, [messages, searchMode, deferredSearchValue]);
+    useEffect(() => {
+        startTransition(() => {
+            setFilteredMessages(
+                messagesAfterFilter(messages, searchMode, deferredSearchValue)
+            );
+        });
+    }, [messages, searchMode, deferredSearchValue]);
 
-	const MessagesList = () => {
-		return (
-			<>
-				{filteredMessages.map(message => (
-					<Message
-						key={message.id}
-						message={message}
-					/>
-				))}
-			</>
-		);
-	};
+    const MessagesList = () => {
+        return (
+            <>
+                {isLoading ? (
+                    <p style={{ color: "whitesmoke", paddingTop: "1rem" }}>
+                        Ładowanie...
+                    </p>
+                ) : error ? (
+                    <p style={{ color: "indianred", paddingTop: "1rem" }}>
+                        Wystąpił błąd podczas ładowania danych.
+                    </p>
+                ) : (
+                    filteredMessages.map(message => (
+                        <Message
+                            key={message.id}
+                            message={message}
+                        />
+                    ))
+                )}
+            </>
+        );
+    };
 
-	return {
-		filteredMessages,
-		MessagesList
-	};
+    return {
+        filteredMessages,
+        MessagesList
+    };
 };
 
 export default useMessagesContainer;
