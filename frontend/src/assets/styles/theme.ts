@@ -99,7 +99,9 @@ const hintMessage = css`
 
 const ErrorMessage = styled.p`
     margin-top: 1rem;
+
     color: #ac2925;
+
     text-align: center;
 `;
 
