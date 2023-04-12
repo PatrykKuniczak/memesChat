@@ -1,5 +1,4 @@
 import { config } from "dotenv";
-
 config({
     path: `${process.cwd()}/config/env/${process.env.NODE_ENV}.env`
 });
@@ -10,7 +9,9 @@ import { ConfigService } from "@nestjs/config";
 
 const bootstrap = async () => {
     const logger = new Logger("Main");
-    const isDevelopment = process.env.DEVELOPMENT === "true";
+
+    const isDevelopment = process.env.NODE_ENV === "dev";
+
     const corsOptions = isDevelopment
         ? true
         : { origin: process.env.CLIENT_URL };

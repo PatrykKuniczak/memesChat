@@ -1,3 +1,4 @@
+import { VALIDATION_OFF } from "index";
 import { editUsername } from "store/slices/UserSlice";
 import { useAppDispatch, useAppSelector } from "store/store";
 import { useFormik } from "formik";
@@ -17,7 +18,7 @@ const useModalEditUsername = (hideModal: () => void, avatar: File | null) => {
             login: username
         },
         validationSchema:
-            process.env.REACT_APP_DEVELOPMENT !== "true" &&
+            VALIDATION_OFF !== "true" &&
             Yup.object({
                 login: loginSchema
             }),

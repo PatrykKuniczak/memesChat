@@ -1,4 +1,5 @@
 import { useFormik } from "formik";
+import { VALIDATION_OFF } from "index";
 import * as Yup from "yup";
 
 const regExp =
@@ -12,7 +13,7 @@ const useMessageValidation = (content?: string | null) => {
             content: content ? content : ""
         },
         validationSchema:
-            process.env.REACT_APP_DEVELOPMENT !== "true" &&
+            VALIDATION_OFF !== "true" &&
             Yup.object({
                 content: isImage
                     ? Yup.string().matches(regExp)

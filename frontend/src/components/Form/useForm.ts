@@ -1,6 +1,7 @@
 import axios from "axios";
 import useToken from "hooks/useToken";
 import { useFormik } from "formik";
+import { VALIDATION_OFF } from "index";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 
@@ -45,7 +46,7 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
             passwordConfirmation: ""
         },
         validationSchema:
-            process.env.REACT_APP_DEVELOPMENT !== "true" &&
+            VALIDATION_OFF !== "true" &&
             Yup.object({
                 login: loginSchema,
                 password: Yup.string()
