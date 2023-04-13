@@ -17,16 +17,13 @@ import { FC } from "react";
 import useOnHover from "./hooks/useOnHover";
 import DeleteMessageModal from "./DeleteMessageModal/DeleteMessageModal";
 import useAvatar from "hooks/useAvatar";
+import { IUser } from "../user/User";
 
 export interface IMessage {
     id: string;
     content: string;
     isImage: boolean;
-    author: {
-        id: number;
-        username: string;
-        userAvatar: { id: number; sourcePath: string };
-    };
+    author: IUser;
 }
 
 const Message: FC<{ message: IMessage }> = ({ message }) => {
