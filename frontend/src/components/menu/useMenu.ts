@@ -9,7 +9,7 @@ export const useMenu = () => {
     const [showMenu, setShowMenu] = useState(false);
 
     const dispatch = useAppDispatch();
-    const { username, avatarId, loading } = useAppSelector(state => state.user);
+    const { username, avatarId } = useAppSelector(state => state.user);
 
     const changeMenuVisible = () => {
         setShowMenu(prevState => !prevState);
@@ -31,8 +31,8 @@ export const useMenu = () => {
     const { data } = useQuery({
         queryKey: ["avatar", avatarId],
         queryFn: fetchAvatar,
-        select: data => URL.createObjectURL(data),
-        enabled: Boolean(avatarId) && !loading
+        select: URL.createObjectURL,
+        enabled: !!avatarId
     });
 
     return { username, showMenu, changeMenuVisible, avatar: data };
