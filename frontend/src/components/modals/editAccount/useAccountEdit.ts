@@ -65,7 +65,7 @@ const useAccountEdit = (hideModal: () => void) => {
         formik.handleSubmit();
     };
 
-    const handleFileChange = (file: File) => {
+    const handleFileChange = (file: File | null) => {
         setFile(file);
     };
 
