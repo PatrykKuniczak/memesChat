@@ -1,14 +1,11 @@
 import defaultUserAvatar from "assets/defaultUserAvatar.png";
 import { UserImage, UserName, UserContainer } from "./User.styled";
-import useAvatar from "hooks/useAvatar";
+import useAvatar, { IUserAvatar } from "hooks/useAvatar";
 
 export interface IUser {
     username: string;
     id: number;
-    userAvatar: {
-        id: number;
-        sourcePath: string;
-    };
+    userAvatar: IUserAvatar;
 }
 
 const User = ({ username, userAvatar }: IUser) => {

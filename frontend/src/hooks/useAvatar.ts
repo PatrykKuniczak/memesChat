@@ -1,12 +1,12 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
-interface useAvatarProps {
+export interface IUserAvatar {
     id: number;
     sourcePath: string;
 }
 
-const useAvatar = (userAvatar: useAvatarProps) => {
+const useAvatar = (userAvatar: IUserAvatar) => {
     const fetchAvatar = async () => {
         const { data } = await axios.get(`users-avatar/${userAvatar.id}`, {
             responseType: "blob"
