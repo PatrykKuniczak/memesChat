@@ -1,11 +1,9 @@
-import { useRef } from "react";
-import { useOnClickOutside } from "usehooks-ts";
+import useClickOutside from "hooks/useClickOutside";
 import { useNavigate } from "react-router-dom";
 import useToken from "hooks/useToken";
 import { useAppSelector } from "store/store";
 
 const useDropdownMenu = (changeMenuVisible: () => void) => {
-    const ref = useRef(null);
     const navigate = useNavigate();
     const { setAccessToken } = useToken();
 
@@ -20,7 +18,7 @@ const useDropdownMenu = (changeMenuVisible: () => void) => {
         navigate("auth/signIn");
     };
 
-    useOnClickOutside(ref, handleClickOutside);
+    const { ref } = useClickOutside(handleClickOutside);
 
     return { ref, handleLogout, username };
 };

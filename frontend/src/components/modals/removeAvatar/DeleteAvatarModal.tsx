@@ -1,6 +1,5 @@
 import { IModal } from "../modals.interfaces";
-import { useRef } from "react";
-import { useOnClickOutside } from "usehooks-ts";
+import useClickOutside from "hooks/useClickOutside";
 import useRemoveAvatar from "./useDeleteAvatar";
 import { ModalSpan } from "../GenericModalComponents.styled";
 import { PrimaryButton, SecondaryButton } from "../../buttons/Button.styled";
@@ -12,9 +11,7 @@ import {
 const DeleteAvatarModal = ({ hideModal }: IModal) => {
 	const { deleteAvatarHandler } = useRemoveAvatar(hideModal);
 
-	const ref = useRef(null);
-
-	useOnClickOutside(ref, hideModal);
+	const { ref } = useClickOutside(hideModal);
 
 	return (
 		<DeleteAvatarWrapper ref={ref}>

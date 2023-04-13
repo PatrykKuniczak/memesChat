@@ -1,5 +1,5 @@
-import { FC, useRef } from "react";
-import { useOnClickOutside } from "usehooks-ts";
+import { FC } from "react";
+import useClickOutside from "hooks/useClickOutside";
 import {
     ButtonsWrapper,
     ModalSpan
@@ -14,12 +14,10 @@ const DeleteMessageModal: FC<{
     closeModal: () => void;
     handleDeleteMessage: () => void;
 }> = ({ closeModal, handleDeleteMessage }) => {
-    const outsideRef = useRef(null);
-
-    useOnClickOutside(outsideRef, closeModal);
+    const { ref } = useClickOutside(closeModal);
 
     return (
-        <DeleteMessageWrapper ref={outsideRef}>
+        <DeleteMessageWrapper ref={ref}>
             <ModalSpan>Czy na pewno chcesz usunąć wiadomość?</ModalSpan>
             <ButtonsWrapper>
                 <SecondaryButton onClick={handleDeleteMessage}>
