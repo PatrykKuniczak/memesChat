@@ -31,9 +31,9 @@ export interface IMessage {
 
 const Message: FC<{ message: IMessage }> = ({ message }) => {
     const { author } = message;
-    const avatarUrl = useAvatar(author.userAvatar);
 
     const { isHovering, hide, show } = useOnHover();
+
     const {
         inputKeyDownHandler,
         handleSubmitForm,
@@ -46,6 +46,9 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
         showModal,
         closeModal
     } = useMessage(message, hide);
+
+    const avatarUrl = useAvatar(author.userAvatar);
+
     const { errors, handleChange, values } = formik;
 
     return (

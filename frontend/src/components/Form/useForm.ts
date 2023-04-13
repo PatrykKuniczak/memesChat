@@ -7,11 +7,11 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { FormEvent } from "react";
 
-interface RequestResponse {
+interface IAuthResponse {
     accessToken: string;
 }
 
-interface RequestVariables {
+interface IAuthRequest {
     username: string;
     password: string;
     event: "register" | "login";
@@ -30,11 +30,7 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
     const navigate = useNavigate();
     const { setAccessToken } = useToken();
 
-    const sendRequest = async ({
-        username,
-        password,
-        event
-    }: RequestVariables) => {
+    const sendRequest = async ({ username, password, event }: IAuthRequest) => {
         const { data } = await axios.post(`/auth/${event}`, {
             username,
             password
@@ -42,7 +38,7 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
         return data;
     };
 
-    const mutation = useMutation<RequestResponse, Error, RequestVariables>({
+    const mutation = useMutation<IAuthResponse, Error, IAuthRequest>({
         mutationFn: sendRequest,
         onSuccess: ({ accessToken }) => {
             setAccessToken(accessToken);
