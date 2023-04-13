@@ -16,7 +16,7 @@ const Users = () => {
                         Ładowanie...
                     </p>
                 ) : error ? (
-                    <p style={{ color: "whitesmoke", paddingTop: "1rem" }}>
+                    <p style={{ color: "indianred", paddingTop: "1rem" }}>
                         Wystąpił błąd podczas ładowania danych.
                     </p>
                 ) : (
