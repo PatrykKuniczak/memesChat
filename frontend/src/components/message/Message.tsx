@@ -47,7 +47,7 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
         closeModal
     } = useMessage(message, hide);
 
-    const avatarUrl = useAvatar(author.userAvatar);
+    const avatarUrl = useAvatar(author?.userAvatar);
 
     const { errors, handleChange, values } = formik;
 
@@ -62,7 +62,9 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
                             src={avatarUrl || defaultUserAvatar}
                             alt="user"
                         />
-                        <MessageAuthor>{author.username}</MessageAuthor>
+                        <MessageAuthor>
+                            {author?.username || "Konto usunięte"}
+                        </MessageAuthor>
                     </MessageAuthorWrapper>
                     <MessageContentWrapper ref={ref}>
                         {inputIsOpen ? (
