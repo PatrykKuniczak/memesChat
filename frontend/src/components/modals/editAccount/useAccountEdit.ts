@@ -7,11 +7,11 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { FormEvent, useState } from "react";
 
-interface MutationResponse {
+interface IUserUpdateResponse {
     accessToken: string;
 }
 
-interface MutationVariables {
+interface IUserUpdateRequest {
     username: string;
     userAvatar: File | null;
 }
@@ -28,7 +28,11 @@ const useAccountEdit = (hideModal: () => void) => {
             .then(({ data }) => callback(data.userAvatar.id));
     };
 
-    const mutation = useMutation<MutationResponse, Error, MutationVariables>({
+    const mutation = useMutation<
+        IUserUpdateResponse,
+        Error,
+        IUserUpdateRequest
+    >({
         mutationFn: data => {
             return axios.patch(`users/${id}`, data, {
                 headers: { "Content-Type": "multipart/form-data" }
