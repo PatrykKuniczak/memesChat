@@ -7,3 +7,4 @@ Dockerfile
 .dockerignore
 documentation
 config/env
+!config/env/prod.env

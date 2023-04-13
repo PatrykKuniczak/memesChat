@@ -2,25 +2,27 @@ FROM node:19.3-alpine AS builder
 
 USER node
 
-WORKDIR /app
+WORKDIR /frontend
 
-COPY --chown=node:node package*.json .
+COPY --chown=node package*.json .
 
 RUN npm ci
 
-COPY --chown=node:node . .
+COPY --chown=node . .
 
 RUN npm run build
 
 RUN npm ci --omit=dev
 
-FROM node:19.3-alpine AS final
+FROM nginx:1.23.4-alpine AS final
 
-USER node
+ARG USER
 
-WORKDIR /app
+WORKDIR /frontend
 
-COPY --chown=node:node --from=builder app/build ./build
-COPY --chown=node:node --from=builder app/node_modules ./node_modules
+COPY --chown=${USER} --from=builder frontend/build /usr/share/nginx/html
+COPY --chown=${USER} nginx.conf /etc/nginx/nginx.conf
 
-CMD [ "npx", "serve", "build"]
+EXPOSE 3000
+
+CMD [ "nginx", "-g", "daemon off;"]

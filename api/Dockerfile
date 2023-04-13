@@ -2,13 +2,13 @@ FROM node:19.3-alpine AS builder
 
 USER node
 
-WORKDIR /app
+WORKDIR /api
 
-COPY --chown=node:node package*.json .
+COPY --chown=node package*.json .
 
 RUN npm ci
 
-COPY --chown=node:node . .
+COPY --chown=node . .
 
 RUN npm run build
 
@@ -18,9 +18,9 @@ FROM node:19.3-alpine AS final
 
 USER node
 
-WORKDIR /app
+WORKDIR /api
 
-COPY --chown=node:node --from=builder app/dist ./dist
-COPY --chown=node:node --from=builder app/node_modules ./node_modules
+COPY --chown=node --from=builder api/dist ./dist
+COPY --chown=node --from=builder api/node_modules ./node_modules
 
 CMD [ "node", "dist/src/main.js"]
