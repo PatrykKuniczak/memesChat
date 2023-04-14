@@ -7,20 +7,22 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { FormEvent, useState } from "react";
 
+export type TUserAvatarFile = File | null;
+
 interface IUserUpdateResponse {
     accessToken: string;
 }
 
 interface IUserUpdateRequest {
     username: string;
-    userAvatar: File | null;
+    userAvatar: TUserAvatarFile;
 }
 
 const useAccountEdit = (hideModal: () => void) => {
     const dispatch = useAppDispatch();
     const { username, id } = useAppSelector(state => state.user);
     const fileTypes: ["JPG", "PNG"] = ["JPG", "PNG"];
-    const [file, setFile] = useState<File | null>(null);
+    const [file, setFile] = useState<TUserAvatarFile>(null);
 
     const fetchNewAvatar = (callback: (id: number) => void) => {
         axios
@@ -68,7 +70,7 @@ const useAccountEdit = (hideModal: () => void) => {
         formik.handleSubmit();
     };
 
-    const handleFileChange = (file: File | null) => {
+    const handleFileChange = (file: TUserAvatarFile) => {
         setFile(file);
     };
 
