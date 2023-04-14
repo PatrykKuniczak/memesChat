@@ -43,10 +43,12 @@ const useAccountEdit = (hideModal: () => void) => {
             hideModal();
         }
     });
+
     const updateUsername = (login: string) => {
         dispatch(editUsername(login));
         mutation.mutate({ userAvatar: file, username: login });
     };
+
     const formik = useFormik({
         initialValues: {
             login: username
@@ -60,6 +62,7 @@ const useAccountEdit = (hideModal: () => void) => {
             updateUsername(login);
         }
     });
+
     const submitChanges = (event: FormEvent) => {
         event.preventDefault();
         formik.handleSubmit();
