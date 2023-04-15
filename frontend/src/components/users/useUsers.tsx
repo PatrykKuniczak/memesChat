@@ -3,6 +3,7 @@ import { ChangeEvent, useDeferredValue, useEffect, useState } from "react";
 import { usersAfterFilter } from "helpers/onlineUsersFiltering";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import User, { IUser } from "../user/User";
 
 const useUsers = () => {
     const [users, setUsers] = useState<IUsers>([]);
@@ -32,13 +33,39 @@ const useUsers = () => {
         data && setUsers(data);
     }, [data]);
 
+    const UsersList = () => {
+        return (
+            <>
+                {isLoading ? (
+                    <p style={{ color: "whitesmoke", paddingTop: "1rem" }}>
+                        Ładowanie...
+                    </p>
+                ) : error ? (
+                    <p style={{ color: "indianred", paddingTop: "1rem" }}>
+                        Wystąpił błąd podczas ładowania danych.
+                    </p>
+                ) : (
+                    filteredUsers.map(({ id, username, userAvatar }: IUser) => (
+                        <User
+                            key={id}
+                            id={id}
+                            username={username}
+                            userAvatar={userAvatar}
+                        />
+                    ))
+                )}
+            </>
+        );
+    };
+
     return {
         handleChange,
         users: data,
         setUsers,
         filteredUsers,
         isLoading,
-        error
+        error,
+        UsersList
     };
 };
 
