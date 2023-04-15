@@ -6,9 +6,11 @@ export interface IUserAvatar {
     sourcePath: string;
 }
 
-const useAvatar = (userAvatar: IUserAvatar) => {
+type IUserAvatarOrNull = IUserAvatar | null;
+
+const useAvatar = (userAvatar: IUserAvatarOrNull) => {
     const fetchAvatar = async () => {
-        const { data } = await axios.get(`users-avatar/${userAvatar.id}`, {
+        const { data } = await axios.get(`users-avatar/${userAvatar?.id}`, {
             responseType: "blob"
         });
         return data;
