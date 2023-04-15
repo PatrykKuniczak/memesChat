@@ -4,6 +4,7 @@ import { usersAfterFilter } from "helpers/onlineUsersFiltering";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import User, { IUser } from "../user/User";
+import { ErrorIndicator, LoadingIndicator } from "../../assets/styles/theme";
 
 const useUsers = () => {
     const [users, setUsers] = useState<IUsers>([]);
@@ -34,26 +35,28 @@ const useUsers = () => {
     }, [data]);
 
     const UsersList = () => {
+        if (isLoading) {
+            return <LoadingIndicator>Ładowanie...</LoadingIndicator>;
+        }
+
+        if (error) {
+            return (
+                <ErrorIndicator>
+                    Wystąpił błąd podczas ładowania danych.
+                </ErrorIndicator>
+            );
+        }
+
         return (
             <>
-                {isLoading ? (
-                    <p style={{ color: "whitesmoke", paddingTop: "1rem" }}>
-                        Ładowanie...
-                    </p>
-                ) : error ? (
-                    <p style={{ color: "indianred", paddingTop: "1rem" }}>
-                        Wystąpił błąd podczas ładowania danych.
-                    </p>
-                ) : (
-                    filteredUsers.map(({ id, username, userAvatar }: IUser) => (
-                        <User
-                            key={id}
-                            id={id}
-                            username={username}
-                            userAvatar={userAvatar}
-                        />
-                    ))
-                )}
+                {filteredUsers.map(({ id, username, userAvatar }: IUser) => (
+                    <User
+                        key={id}
+                        id={id}
+                        username={username}
+                        userAvatar={userAvatar}
+                    />
+                ))}
             </>
         );
     };

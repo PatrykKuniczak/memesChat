@@ -13,7 +13,7 @@ import useAccountEdit from "./useAccountEdit";
 import { IModal } from "../modals.interfaces";
 import useClickOutside from "hooks/useClickOutside";
 import { ModalSpan } from "../GenericModalComponents.styled";
-import { ErrorMessage } from "assets/styles/theme";
+import { ErrorIndicator } from "assets/styles/theme";
 
 const EditAccountModal = ({ hideModal }: IModal) => {
     const {
@@ -61,7 +61,7 @@ const EditAccountModal = ({ hideModal }: IModal) => {
                 </FileUploaderWrapper>
             </OptionEditAvatar>
             <PrimaryButton type="submit">Zapisz zmiany</PrimaryButton>
-            {error && <ErrorMessage>{error.message}</ErrorMessage>}
+            {error && <ErrorIndicator>{error.message}</ErrorIndicator>}
         </EditAccountWrapper>
     );
 };

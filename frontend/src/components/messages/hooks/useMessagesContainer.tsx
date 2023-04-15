@@ -3,6 +3,7 @@ import { startTransition, useDeferredValue, useEffect, useState } from "react";
 import Message, { IMessage } from "../../message/Message";
 import useMessages from "./useMessages";
 import { messagesAfterFilter } from "helpers/messagesFiltering";
+import { ErrorIndicator, LoadingIndicator } from "../../../assets/styles/theme";
 
 export type TMessages = IMessage[];
 
@@ -24,24 +25,26 @@ const useMessagesContainer = ({
     }, [messages, searchMode, deferredSearchValue]);
 
     const MessagesList = () => {
+        if (isLoading) {
+            return <LoadingIndicator>Ładowanie...</LoadingIndicator>;
+        }
+
+        if (error) {
+            return (
+                <ErrorIndicator>
+                    Wystąpił błąd podczas ładowania danych.
+                </ErrorIndicator>
+            );
+        }
+
         return (
             <>
-                {isLoading ? (
-                    <p style={{ color: "whitesmoke", paddingTop: "1rem" }}>
-                        Ładowanie...
-                    </p>
-                ) : error ? (
-                    <p style={{ color: "indianred", paddingTop: "1rem" }}>
-                        Wystąpił błąd podczas ładowania danych.
-                    </p>
-                ) : (
-                    filteredMessages.map(message => (
-                        <Message
-                            key={message.id}
-                            message={message}
-                        />
-                    ))
-                )}
+                {filteredMessages.map(message => (
+                    <Message
+                        key={message.id}
+                        message={message}
+                    />
+                ))}
             </>
         );
     };
