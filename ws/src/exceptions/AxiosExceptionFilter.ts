@@ -15,12 +15,20 @@ export class WebsocketExceptionsFilter extends BaseWsExceptionFilter {
         let exceptionData: IAxiosException;
 
         if (exception instanceof AxiosError) {
-            exceptionData = exception.response.data as IAxiosException;
+            if (exception.code === "ECONNREFUSED")
+                exceptionData = {
+                    statusCode: 503,
+                    message: "Connection to API refused",
+                    error: exception.code
+                };
+            else {
+                exceptionData = exception.response.data as IAxiosException;
 
-            if (exceptionData["statusCode"] === 500)
-                exceptionData["error"] = exceptionData[
-                    "message"
-                ] as IAxiosException["error"];
+                if (exceptionData["statusCode"] === 500)
+                    exceptionData["error"] = exceptionData[
+                        "message"
+                    ] as IAxiosException["error"];
+            }
         } else {
             exceptionData = exception.getResponse() as IAxiosException;
             if (exceptionData["message"] instanceof Array)
