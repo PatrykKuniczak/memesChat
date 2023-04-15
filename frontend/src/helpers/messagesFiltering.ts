@@ -4,7 +4,7 @@ import { TMessages } from "components/messages/hooks/useMessagesContainer";
 export const messagesAfterFilter = (
     messages: TMessages,
     searchMode: TSearchMode,
-    searchValue: string
+    searchValue: string | null
 ) => {
     return messages.filter(({ author, content }) => {
         if (searchValue === null) {
