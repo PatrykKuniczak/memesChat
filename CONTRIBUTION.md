@@ -79,7 +79,7 @@ GIT CLONE: https://github.com/PatrykKuniczak/memesChat.git
     FOR FRONTEND:
         REACT_APP_API_URL=
         REACT_APP_WS_URL=
-        REACT_APP_VALIDATION_OFF=true - leave empty for leave validation active.
+        REACT_APP_VALIDATION_OFF=true - leave empty for default validation.
 
 ### CONFIGURE PRETTIER IN YOUR IDE:
 
