@@ -6,11 +6,11 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "nest build",
-    "documentation:serve": "npx @compodoc/compodoc -p tsconfig.json --serve --port 5000",
     "start": "nest start",
     "start:dev": "cross-env NODE_ENV=dev nest start --watch",
-    "start:debug": "nest start --debug --watch"
+    "start:debug": "nest start --debug --watch",
+    "build": "cross-env NODE_ENV=prod nest build",
+    "documentation:serve": "npx @compodoc/compodoc -p tsconfig.json --serve --port 5000"
   },
   "dependencies": {
     "@compodoc/compodoc": "^1.1.19",

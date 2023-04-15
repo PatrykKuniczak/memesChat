@@ -19,6 +19,7 @@ import {
 } from "@nestjs/common";
 import { CreateMessageDto } from "messages/dto/create-message.dto";
 import { WebsocketExceptionsFilter } from "exceptions/AxiosExceptionFilter";
+import { ENABLE_ALL_CORS } from "main";
 
 @UsePipes(
     new ValidationPipe({
@@ -29,7 +30,10 @@ import { WebsocketExceptionsFilter } from "exceptions/AxiosExceptionFilter";
     })
 )
 @UseFilters(new WebsocketExceptionsFilter())
-@WebSocketGateway(+process.env.GATEWAY_PORT, { namespace: "messages" })
+@WebSocketGateway(+process.env.GATEWAY_PORT, {
+    namespace: "messages",
+    cors: { origin: ENABLE_ALL_CORS ? "*" : process.env.CLIENT_URL }
+})
 export class MessagesGateway implements OnGatewayDisconnect {
     @WebSocketServer()
     server: Namespace;
