@@ -1,12 +1,12 @@
 import { UsersContainer } from "./Users.styled";
 import { IUser } from "../user/User";
 import Search from "components/search/Search";
-import useUsersContainer from "./UsersContainer";
+import useUsers from "./useUsers";
 
 export type IUsers = IUser[];
 
 const Users = () => {
-    const { UsersList, handleChange } = useUsersContainer();
+    const { UsersList, handleChange } = useUsers();
 
     return (
         <UsersContainer>
