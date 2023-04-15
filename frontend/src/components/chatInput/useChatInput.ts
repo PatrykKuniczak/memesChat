@@ -1,12 +1,12 @@
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import useMessageValidation from "hooks/useMessageValidation";
 
 const useChatInput = () => {
+    const [gifWidgetVisible, setGifWidgetVisible] = useState(false);
     const formik = useMessageValidation();
 
     const handleSubmitForm = (event: FormEvent) => {
         event.preventDefault();
-
         if (formik.errors.content) return;
 
         const newContent = formik.values.content.trim();
@@ -18,9 +18,15 @@ const useChatInput = () => {
         formik.resetForm();
     };
 
+    const toggleGifWidgetVisibility = () => {
+        setGifWidgetVisible(prevState => !prevState);
+    };
+
     return {
         handleSubmitForm,
-        formik
+        formik,
+        gifWidgetVisible,
+        toggleGifWidgetVisibility
     };
 };
 export default useChatInput;

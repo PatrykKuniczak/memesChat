@@ -8,8 +8,11 @@ import {
     MessageInput
 } from "./ChatInput.styled";
 import useChatInput from "./useChatInput";
+import GifWidget from "components/GifWidget/GifWidget";
 
 const ChatInput = () => {
+    const { gifWidgetVisible, toggleGifWidgetVisibility } = useChatInput();
+
     const {
         handleSubmitForm,
         formik: { handleChange, values }
@@ -27,11 +30,16 @@ const ChatInput = () => {
                     autoFocus
                 />
             </Form>
+            {gifWidgetVisible && (
+                <GifWidget
+                    toggleGifWidgetVisibility={toggleGifWidgetVisibility}
+                />
+            )}
             <Counter isError={values.content.length > maxCount}>
                 {values.content.length} / {maxCount}
             </Counter>
-            <MemeButton>
-                <MemeGenerateIcon />
+            <MemeButton gifWidgetVisible={gifWidgetVisible}>
+                <MemeGenerateIcon onClick={toggleGifWidgetVisibility} />
             </MemeButton>
         </InputWrapper>
     );

@@ -80,7 +80,8 @@ GIT CLONE: https://github.com/PatrykKuniczak/memesChat.git
     FOR FRONTEND:
         REACT_APP_API_URL=
         REACT_APP_WS_URL=
-        REACT_APP_DEVELOPMENT=true - if it's 'true', then validation is OFF, leave empty for default behavior.
+        REACT_APP_DEVELOPMENT=true - If it's 'true', then validation is OFF, leave empty for default behavior.
+        REACT_APP_API_GIPHY_KEY= - You must generate it in giphy API https://developers.giphy.com/dashboard/ (YOU MUST HAVE ACCOUNT)
 
 ### CONFIGURE PRETTIER IN YOUR IDE:
 
@@ -97,13 +98,14 @@ GIT CLONE: https://github.com/PatrykKuniczak/memesChat.git
             [^] USE PATHS RELATIVE TO TSCONFIG.JSON
 
 ### CONFIGURE DEFAULT BRANCH UPDATE SETTINGS:
+
     IN WEBSTORM GO TO SETTING:
         GIT/PUSH:
             PROTECTED BRANCH: 'main"
         /UPDATE:
             UPDATE METHOD: 'rebase'
             CLEAN WORKING TREE USING: 'stash' 
-    
+
 ### AFTER CREATE ENVS AND CONFIGURE IDE:
 
     RUN 'npm ci' FOR EACH APP
