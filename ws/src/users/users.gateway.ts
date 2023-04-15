@@ -19,6 +19,7 @@ import { HttpService } from "@nestjs/axios";
 import { ConfigService } from "@nestjs/config";
 import { firstValueFrom } from "rxjs";
 import { TypingDto } from "messages/dto/typing.dto";
+import { ENABLE_ALL_CORS } from "main";
 
 @UsePipes(
     new ValidationPipe({
@@ -29,7 +30,10 @@ import { TypingDto } from "messages/dto/typing.dto";
     })
 )
 @UseFilters(new WebsocketExceptionsFilter())
-@WebSocketGateway(+process.env.GATEWAY_PORT, { namespace: "users" })
+@WebSocketGateway(+process.env.GATEWAY_PORT, {
+    namespace: "users",
+    cors: ENABLE_ALL_CORS ? "*" : process.env.CLIENT_URL
+})
 export class UsersGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @WebSocketServer()
     server: Namespace;

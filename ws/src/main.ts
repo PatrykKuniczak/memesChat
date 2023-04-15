@@ -8,16 +8,12 @@ import { AppModule } from "app.module";
 import { Logger } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 
+export const ENABLE_ALL_CORS = process.env.ENABLE_ALL_CORS === "true";
+
 const bootstrap = async () => {
     const logger = new Logger("Main");
-    const isDevelopment = process.env.DEVELOPMENT === "true";
-    const corsOptions = isDevelopment
-        ? true
-        : { origin: process.env.CLIENT_URL };
 
-    const app = await NestFactory.create(AppModule, {
-        cors: corsOptions
-    });
+    const app = await NestFactory.create(AppModule);
 
     const configService = app.get(ConfigService);
     const PORT = +configService.get("PORT");

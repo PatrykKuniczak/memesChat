@@ -8,6 +8,8 @@ import axios from "axios";
 export const API_URL = process.env.REACT_APP_API_URL;
 axios.defaults.baseURL = API_URL;
 
+export const VALIDATION_OFF = process.env.REACT_APP_VALIDATION_OFF;
+
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement
 );

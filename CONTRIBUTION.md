@@ -74,13 +74,12 @@ GIT CLONE: https://github.com/PatrykKuniczak/memesChat.git
         GATEWAY_PORT=
         API_URL=
         CLIENT_URL=
-        DEVELOPMENT=true - if it's 'true', then you can create request from any host,
-        accept only specific CORS declared in 'CLIENT_URL', leave empty for default behavior.
+        ENABLE_ALL_CORS=true - leave empty for default behavior.
 
     FOR FRONTEND:
         REACT_APP_API_URL=
         REACT_APP_WS_URL=
-        REACT_APP_DEVELOPMENT=true - if it's 'true', then validation is OFF, leave empty for default behavior.
+        REACT_APP_VALIDATION_OFF=true - leave empty for default validation.
 
 ### CONFIGURE PRETTIER IN YOUR IDE:
 
