@@ -97,12 +97,16 @@ const hintMessage = css`
     }
 `;
 
-const ErrorMessage = styled.p`
+const LoadingIndicator = styled.p`
+    margin-top: 1rem;
+
+    color: #ffffff;
+`;
+
+const ErrorIndicator = styled.p`
     margin-top: 1rem;
 
     color: #ac2925;
-
-    text-align: center;
 `;
 
-export { THEME_DARK, scrollBar, hintMessage, ErrorMessage };
+export { THEME_DARK, scrollBar, hintMessage, ErrorIndicator, LoadingIndicator };

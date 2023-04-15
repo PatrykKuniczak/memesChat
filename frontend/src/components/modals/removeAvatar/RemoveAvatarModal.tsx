@@ -7,7 +7,7 @@ import {
     RemoveAvatarButtonsWrapper,
     RemoveAvatarWrapper
 } from "./RemoveAvatarModal.styled";
-import { ErrorMessage } from "assets/styles/theme";
+import { ErrorIndicator } from "assets/styles/theme";
 
 const RemoveAvatarModal = ({ hideModal }: IModal) => {
     const { removeAvatarHandler, error } = useRemoveAvatar(hideModal);
@@ -29,7 +29,7 @@ const RemoveAvatarModal = ({ hideModal }: IModal) => {
                     Anuluj
                 </PrimaryButton>
             </RemoveAvatarButtonsWrapper>
-            {error && <ErrorMessage>{error.message}</ErrorMessage>}
+            {error && <ErrorIndicator>{error.message}</ErrorIndicator>}
         </RemoveAvatarWrapper>
     );
 };

@@ -3,7 +3,7 @@ import { NavLink, PrimaryButton } from "components/buttons/Button.styled";
 import FormField from "components/FormField/FormField";
 import useForm from "../../components/Form/useForm";
 import { ButtonsContainer, FormWrapper } from "./Form.styled";
-import { ErrorMessage } from "assets/styles/theme";
+import { ErrorIndicator } from "assets/styles/theme";
 
 const Form: FC<{ isSignUp: boolean }> = ({ isSignUp }) => {
     const {
@@ -65,7 +65,7 @@ const Form: FC<{ isSignUp: boolean }> = ({ isSignUp }) => {
                     <NavLink to="/auth/signUp">Nie mam jeszcze konta</NavLink>
                 )}
             </ButtonsContainer>
-            {error && <ErrorMessage>{error.message}</ErrorMessage>}
+            {error && <ErrorIndicator>{error.message}</ErrorIndicator>}
         </FormWrapper>
     );
 };
