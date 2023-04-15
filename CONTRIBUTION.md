@@ -68,6 +68,7 @@ GIT CLONE: https://github.com/PatrykKuniczak/memesChat.git
         DEVELOPMENT=true - if it's 'true', then validation is OFF, BE CAREFUL, leave empty for default validation.
         DEFAULT_JWT_TOKEN= Default token for swagger for development operation, work only on "DEVELOPMENT"=true,
         leave empty if you don't want to use it.
+        ENABLE_ALL_CORS=true - leave empty for default behavior.
 
     FOR WS:
         PORT=
