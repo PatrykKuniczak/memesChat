@@ -74,7 +74,7 @@ GIT CLONE: https://github.com/PatrykKuniczak/memesChat.git
         GATEWAY_PORT=
         API_URL=
         CLIENT_URL=
-        ENBALE_ALL_CORS=true - leave empty for default behavior.
+        ENABLE_ALL_CORS=true - leave empty for default behavior.
 
     FOR FRONTEND:
         REACT_APP_API_URL=
