@@ -12,12 +12,10 @@ import { PrimaryButton } from "../../buttons/Button.styled";
 import useModalEditUsername from "./useModalEditUsername";
 import useModalEditAvatar from "./useModalEditAvatar";
 import { IModal } from "../modals.interfaces";
-import { useRef } from "react";
-import { useOnClickOutside } from "usehooks-ts";
+import useClickOutside from "hooks/useClickOutside";
 import { ModalSpan } from "../GenericModalComponents.styled";
 
 const EditAccountModal = ({ hideModal }: IModal) => {
-    const ref = useRef(null);
     const {
         file,
         fileTypes,
@@ -37,7 +35,7 @@ const EditAccountModal = ({ hideModal }: IModal) => {
         touched
     } = useModalEditUsername(hideModal, file);
 
-    useOnClickOutside(ref, hideModal);
+    const { ref } = useClickOutside(hideModal);
 
     return (
         <EditAccountWrapper

@@ -30,7 +30,7 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
         inputKeyDownHandler,
         handleSubmitForm,
         formik,
-        outsideRef,
+        ref,
         handleDeleteMessage,
         inputIsOpen,
         showInputEdit,
@@ -50,7 +50,7 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
                         <MessageAuthorImage src={user} />
                         <MessageAuthor>{author}</MessageAuthor>
                     </MessageAuthorWrapper>
-                    <MessageContentWrapper ref={outsideRef}>
+                    <MessageContentWrapper ref={ref}>
                         {inputIsOpen ? (
                             <form onSubmit={handleSubmitForm}>
                                 <MessageInput

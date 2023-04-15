@@ -1,12 +1,11 @@
 import { KeyboardEvent, useRef, useState, FormEvent } from "react";
-import { useOnClickOutside } from "usehooks-ts";
+import useClickOutside from "hooks/useClickOutside";
 import { IMessage } from "./Message";
 import useMessageValidation from "hooks/useMessageValidation";
 import useCloseByEsc from "hooks/useCloseByEsc";
 
 const useMessage = (message: IMessage, hide: () => void) => {
     const { content } = message;
-    const outsideRef = useRef<HTMLDivElement>(null);
     const [prevContent, setPrevContent] = useState(content);
     const [inputIsOpen, setInputIsOpen] = useState(false);
     const formik = useMessageValidation(content);
@@ -60,12 +59,12 @@ const useMessage = (message: IMessage, hide: () => void) => {
 
     useCloseByEsc(modalIsOpen, closeModal);
 
-    useOnClickOutside(outsideRef, cancelEditing);
+    const { ref } = useClickOutside(cancelEditing);
 
     return {
         handleSubmitForm,
         formik,
-        outsideRef,
+        ref,
         handleDeleteMessage,
         inputKeyDownHandler,
         inputIsOpen,
