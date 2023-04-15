@@ -74,21 +74,13 @@ const useAccountEdit = (hideModal: () => void) => {
         setFile(file);
     };
 
-    const onTypeError = (err: string) => {
-        console.log(err);
-    };
-
-    const onSizeError = (err: string) => console.log(err);
-
     return {
         ...formik,
         submitChanges,
         error: mutation.error,
         file,
         fileTypes,
-        handleFileChange,
-        onTypeError,
-        onSizeError
+        handleFileChange
     };
 };
 export default useAccountEdit;

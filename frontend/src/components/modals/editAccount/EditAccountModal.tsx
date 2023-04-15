@@ -24,9 +24,7 @@ const EditAccountModal = ({ hideModal }: IModal) => {
         touched,
         error,
         fileTypes,
-        handleFileChange,
-        onTypeError,
-        onSizeError
+        handleFileChange
     } = useAccountEdit(hideModal);
 
     const { ref } = useClickOutside(hideModal);
@@ -57,9 +55,7 @@ const EditAccountModal = ({ hideModal }: IModal) => {
                         label="Kliknij aby dodać lub upuść nowy avatar."
                         multiple={false}
                         hoverTitle="Upuść aby dodać"
-                        onTypeError={onTypeError}
                         maxSize={5}
-                        onSizeError={onSizeError}
                         dropMessageStyle={{ backgroundColor: "black" }}
                     />
                 </FileUploaderWrapper>
