@@ -35,11 +35,10 @@ const useAccountEdit = (hideModal: () => void) => {
         Error,
         IUserUpdateRequest
     >({
-        mutationFn: data => {
-            return axios.patch(`users/${id}`, data, {
+        mutationFn: data =>
+            axios.patch(`users/${id}`, data, {
                 headers: { "Content-Type": "multipart/form-data" }
-            });
-        },
+            }),
         onSuccess: () => {
             fetchNewAvatar(id => dispatch(updateProfile({ avatarId: id })));
             hideModal();
