@@ -1,5 +1,5 @@
 import { TSearchMode } from "components/chat/useChat";
-import { TMessages } from "components/messages/hooks/useMessagesContainer";
+import { TMessages } from "components/messages/useMessages";
 
 export const messagesAfterFilter = (
     messages: TMessages,
