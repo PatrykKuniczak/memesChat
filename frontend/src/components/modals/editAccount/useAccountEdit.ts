@@ -19,10 +19,10 @@ interface IUserUpdateRequest {
 }
 
 const useAccountEdit = (hideModal: () => void) => {
+    const [file, setFile] = useState<TUserAvatarFile>(null);
     const dispatch = useAppDispatch();
     const { username, id } = useAppSelector(state => state.user);
     const fileTypes: ["JPG", "PNG"] = ["JPG", "PNG"];
-    const [file, setFile] = useState<TUserAvatarFile>(null);
 
     const fetchNewAvatar = (callback: (id: number) => void) => {
         axios
