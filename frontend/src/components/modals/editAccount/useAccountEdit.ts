@@ -6,6 +6,7 @@ import { loginSchema } from "components/Form/useForm";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { FormEvent, useState } from "react";
+import { VALIDATION_OFF } from "index";
 
 type TUserAvatarFile = File | null;
 
@@ -55,7 +56,7 @@ const useAccountEdit = (hideModal: () => void) => {
             login: username
         },
         validationSchema:
-            process.env.REACT_APP_DEVELOPMENT !== "true" &&
+            VALIDATION_OFF !== "true" &&
             Yup.object({
                 login: loginSchema
             }),
