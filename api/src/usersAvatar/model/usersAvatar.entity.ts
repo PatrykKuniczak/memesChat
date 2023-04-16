@@ -7,7 +7,7 @@ export class UserAvatar {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ length: 50 })
+    @Column()
     name: string;
 
     @Column()
