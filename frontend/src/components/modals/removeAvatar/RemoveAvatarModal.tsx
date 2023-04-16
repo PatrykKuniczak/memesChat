@@ -8,11 +8,12 @@ import {
     RemoveAvatarWrapper
 } from "./RemoveAvatarModal.styled";
 import { ErrorIndicator } from "assets/styles/theme";
+import useClickOutside from "hooks/useClickOutside";
 
 const RemoveAvatarModal = ({ hideModal }: IModal) => {
     const { removeAvatarHandler, error } = useRemoveAvatar(hideModal);
 
-	const { ref } = useClickOutside(hideModal);
+    const { ref } = useClickOutside(hideModal);
 
     return (
         <RemoveAvatarWrapper
