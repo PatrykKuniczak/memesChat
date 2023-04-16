@@ -3,9 +3,9 @@ import { UserImage, UserName, UserContainer } from "./User.styled";
 import useAvatar, { IUserAvatar } from "hooks/useAvatar";
 
 export interface IUser {
-    username: string;
     id: number;
-    userAvatar: IUserAvatar;
+    username: string;
+    userAvatar: IUserAvatar | null;
 }
 
 const User = ({ username, userAvatar }: IUser) => {
