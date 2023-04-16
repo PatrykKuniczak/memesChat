@@ -12,10 +12,6 @@ const useUsers = () => {
     const [searchValue, setSearchValue] = useState("");
     const deferredSearchValue = useDeferredValue(searchValue);
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setSearchValue(event.target.value);
-    };
-
     const fetchAllUsers = async () => {
         const { data } = await axios.get("users");
         return data;
@@ -26,13 +22,9 @@ const useUsers = () => {
         queryFn: fetchAllUsers
     });
 
-    useEffect(() => {
-        setFilteredUsers(usersAfterFilter(users, deferredSearchValue));
-    }, [deferredSearchValue, users]);
-
-    useEffect(() => {
-        data && setUsers(data);
-    }, [data]);
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setSearchValue(event.target.value);
+    };
 
     const UsersList = () => {
         if (isLoading) {
@@ -60,6 +52,14 @@ const useUsers = () => {
             </>
         );
     };
+
+    useEffect(() => {
+        setFilteredUsers(usersAfterFilter(users, deferredSearchValue));
+    }, [deferredSearchValue, users]);
+
+    useEffect(() => {
+        data && setUsers(data);
+    }, [data]);
 
     return {
         handleChange,
