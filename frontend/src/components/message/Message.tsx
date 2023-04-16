@@ -20,7 +20,7 @@ import useAvatar from "hooks/useAvatar";
 import { IUser } from "../user/User";
 
 export interface IMessage {
-    id: string;
+    id: number;
     content: string;
     isImage: boolean;
     author: IUser;
