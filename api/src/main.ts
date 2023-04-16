@@ -10,13 +10,14 @@ import { User } from "users/model/users.entity";
 (async () => {
     const logger = new Logger("Main");
 
-    const isDevelopment = process.env.DEVELOPMENT === "true";
-    const corsOptions = isDevelopment
-        ? true
-        : { origin: process.env.CLIENT_URL };
+    const IS_DEVELOPMENT = process.env.NODE_ENV === "dev";
+    const VALIDATION_OFF = process.env.VALIDATION_OFF === "true";
+    const ENABLE_ALL_CORS = process.env.ENABLE_ALL_CORS === "true";
 
     const app = await NestFactory.create(AppModule, {
-        cors: corsOptions
+        cors: {
+            origin: ENABLE_ALL_CORS ? "*" : process.env.CLIENT_URL
+        }
     });
 
     const configService = app.get(ConfigService);
@@ -24,7 +25,7 @@ import { User } from "users/model/users.entity";
 
     app.setGlobalPrefix("api");
 
-    if (!isDevelopment)
+    if (!VALIDATION_OFF)
         app.useGlobalPipes(
             new ValidationPipe({
                 transform: true,
@@ -33,18 +34,22 @@ import { User } from "users/model/users.entity";
             })
         );
 
-    const document = SwaggerModule.createDocument(app, swaggerConfig, {
-        extraModels: [JwtToken, User]
-    });
+    const document =
+        IS_DEVELOPMENT &&
+        SwaggerModule.createDocument(app, swaggerConfig, {
+            extraModels: [JwtToken, User]
+        });
 
-    const defaultJwtToken = configService.get("devOptions.defaultJwtToken");
+    const defaultJwtToken =
+        IS_DEVELOPMENT && configService.get("devOptions.defaultJwtToken");
 
-    SwaggerModule.setup(
-        "docs",
-        app,
-        document,
-        isDevelopment && swaggerOptions(defaultJwtToken)
-    );
+    IS_DEVELOPMENT &&
+        SwaggerModule.setup(
+            "docs",
+            app,
+            document,
+            VALIDATION_OFF && swaggerOptions(defaultJwtToken)
+        );
 
     await app.listen(PORT);
     logger.log(`Server running on PORT ${PORT}`);
