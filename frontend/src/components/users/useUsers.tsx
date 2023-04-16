@@ -4,7 +4,7 @@ import { usersAfterFilter } from "helpers/onlineUsersFiltering";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import User, { IUser } from "../user/User";
-import { ErrorIndicator, LoadingIndicator } from "../../assets/styles/theme";
+import { ErrorIndicator, LoadingIndicator } from "assets/styles/theme";
 
 const useUsers = () => {
     const [users, setUsers] = useState<IUsers>([]);

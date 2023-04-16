@@ -7,10 +7,10 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/home/Home";
 import ProtectedPage from "./ProtectedRoute";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { updateInterceptor } from "./helpers/axios/AuthIncereptor";
+import { updateInterceptor } from "helpers/axios/AuthIncereptor";
 import useToken from "./hooks/useToken";
-import { useAppDispatch } from "./store/store";
-import { fetchUser } from "./store/slices/UserSlice";
+import { useAppDispatch } from "store/store";
+import { fetchUser } from "store/slices/UserSlice";
 
 export const API_URL = process.env.REACT_APP_API_URL;
 axios.defaults.baseURL = API_URL;

@@ -1,6 +1,6 @@
 import { IModal } from "../modals.interfaces";
 import useClickOutside from "hooks/useClickOutside";
-import useRemoveAvatar from "./useDeleteAvatar";
+import useRemoveAvatar from "./useRemoveAvatar";
 import { ModalSpan } from "../GenericModalComponents.styled";
 import { PrimaryButton, SecondaryButton } from "../../buttons/Button.styled";
 import {
@@ -8,7 +8,6 @@ import {
     RemoveAvatarWrapper
 } from "./RemoveAvatarModal.styled";
 import { ErrorIndicator } from "assets/styles/theme";
-import useClickOutside from "hooks/useClickOutside";
 
 const RemoveAvatarModal = ({ hideModal }: IModal) => {
     const { removeAvatarHandler, error } = useRemoveAvatar(hideModal);
