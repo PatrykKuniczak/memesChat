@@ -6,10 +6,12 @@ import useCloseByEsc from "hooks/useCloseByEsc";
 
 const useMessage = (message: IMessage, hide: () => void) => {
     const { content } = message;
+
     const [prevContent, setPrevContent] = useState(content);
     const [inputIsOpen, setInputIsOpen] = useState(false);
-    const formik = useMessageValidation(content);
     const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    const formik = useMessageValidation(content);
 
     const handleSubmitForm = (event: FormEvent) => {
         event.preventDefault();

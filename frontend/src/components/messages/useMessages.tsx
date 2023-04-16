@@ -7,9 +7,9 @@ import {
 } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { ErrorIndicator, LoadingIndicator } from "../../assets/styles/theme";
+import { ErrorIndicator, LoadingIndicator } from "assets/styles/theme";
 import Message, { IMessage } from "../message/Message";
-import { messagesAfterFilter } from "../../helpers/messagesFiltering";
+import { messagesAfterFilter } from "helpers/messagesFiltering";
 import { IMessagesContainer } from "./Messages";
 
 export type TMessages = IMessage[];
