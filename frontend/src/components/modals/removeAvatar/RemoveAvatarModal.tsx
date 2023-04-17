@@ -1,5 +1,4 @@
 import { IModal } from "../modals.interfaces";
-import useClickOutside from "hooks/useClickOutside";
 import useRemoveAvatar from "./useRemoveAvatar";
 import { ModalSpan } from "../GenericModalComponents.styled";
 import { PrimaryButton, SecondaryButton } from "../../buttons/Button.styled";
@@ -8,8 +7,12 @@ import {
     RemoveAvatarWrapper
 } from "./RemoveAvatarModal.styled";
 import { ErrorIndicator } from "assets/styles/theme";
+import useClickOutside from "hooks/useClickOutside";
+import { useAppSelector } from "store/store";
 
 const RemoveAvatarModal = ({ hideModal }: IModal) => {
+    const { avatarId } = useAppSelector(state => state.user);
+
     const { removeAvatarHandler, error } = useRemoveAvatar(hideModal);
 
     const { ref } = useClickOutside(hideModal);
@@ -20,7 +23,9 @@ const RemoveAvatarModal = ({ hideModal }: IModal) => {
             onSubmit={removeAvatarHandler}>
             <ModalSpan>Czy na pewno chcesz usunąć avatar?</ModalSpan>
             <RemoveAvatarButtonsWrapper>
-                <SecondaryButton type="submit">
+                <SecondaryButton
+                    type="submit"
+                    disabled={avatarId === 0}>
                     Tak, usuwam avatar
                 </SecondaryButton>
                 <PrimaryButton
