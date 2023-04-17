@@ -44,7 +44,7 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
         closeModal
     } = useMessage(message, hide);
 
-    const avatarUrl = useAvatar(author?.userAvatar);
+    const avatarUrl = useAvatar(author?.userAvatar?.id);
 
     const { errors, handleChange, values } = formik;
 

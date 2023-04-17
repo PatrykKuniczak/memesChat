@@ -9,7 +9,7 @@ export interface IUser {
 }
 
 const User = ({ username, userAvatar }: IUser) => {
-    const avatarUrl = useAvatar(userAvatar);
+    const avatarUrl = useAvatar(userAvatar?.id);
 
     return (
         <UserContainer>

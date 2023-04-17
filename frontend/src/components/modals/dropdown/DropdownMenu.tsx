@@ -17,7 +17,8 @@ type IDropdownMenu = {
 };
 
 const DropdownMenu = ({ showModal, changeMenuVisible }: IDropdownMenu) => {
-    const { ref, handleLogout, username } = useDropdownMenu(changeMenuVisible);
+    const { ref, handleLogout, username, avatar } =
+        useDropdownMenu(changeMenuVisible);
 
     return (
         <DropdownWrapper>
@@ -25,7 +26,7 @@ const DropdownMenu = ({ showModal, changeMenuVisible }: IDropdownMenu) => {
                 <MenuProfileWrapperMobile>
                     <MenuUserName>{username}</MenuUserName>
                     <MenuUserImage
-                        src={defaultUserAvatar}
+                        src={avatar || defaultUserAvatar}
                         onClick={changeMenuVisible}
                     />
                 </MenuProfileWrapperMobile>
