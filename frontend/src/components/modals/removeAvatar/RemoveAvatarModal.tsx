@@ -34,7 +34,9 @@ const RemoveAvatarModal = ({ hideModal }: IModal) => {
                     Anuluj
                 </PrimaryButton>
             </RemoveAvatarButtonsWrapper>
-            {error && <ErrorIndicator>{error.message}</ErrorIndicator>}
+            {error && (
+                <ErrorIndicator>{error.response.data.message}</ErrorIndicator>
+            )}
         </RemoveAvatarWrapper>
     );
 };
