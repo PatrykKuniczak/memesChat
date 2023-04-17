@@ -7,6 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { FormEvent, useState } from "react";
 import { VALIDATION_OFF } from "index";
+import { IRequestError } from "helpers/error-interface";
 
 type TUserAvatarFile = File | null;
 
@@ -33,7 +34,7 @@ const useAccountEdit = (hideModal: () => void) => {
 
     const mutation = useMutation<
         IUserUpdateResponse,
-        Error,
+        IRequestError,
         IUserUpdateRequest
     >({
         mutationFn: data =>

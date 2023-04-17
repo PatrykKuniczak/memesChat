@@ -65,7 +65,9 @@ const Form: FC<{ isSignUp: boolean }> = ({ isSignUp }) => {
                     <NavLink to="/auth/signUp">Nie mam jeszcze konta</NavLink>
                 )}
             </ButtonsContainer>
-            {error && <ErrorIndicator>{error.message}</ErrorIndicator>}
+            {error && (
+                <ErrorIndicator>{error.response.data.message}</ErrorIndicator>
+            )}
         </FormWrapper>
     );
 };

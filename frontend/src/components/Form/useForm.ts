@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { FormEvent } from "react";
+import { IRequestError } from "helpers/error-interface";
 
 interface IAuthResponse {
     accessToken: string;
@@ -38,7 +39,7 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
         return data;
     };
 
-    const mutation = useMutation<IAuthResponse, Error, IAuthRequest>({
+    const mutation = useMutation<IAuthResponse, IRequestError, IAuthRequest>({
         mutationFn: sendRequest,
         onSuccess: ({ accessToken }) => {
             setAccessToken(accessToken);
