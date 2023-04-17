@@ -21,14 +21,15 @@ const DropdownMenu = ({ showModal, changeMenuVisible }: IDropdownMenu) => {
 
     return (
         <DropdownWrapper>
-            <MenuProfileWrapperMobile>
-                <MenuUserName>{username}</MenuUserName>
-                <MenuUserImage
-                    src={user}
-                    onClick={changeMenuVisible}
-                />
-            </MenuProfileWrapperMobile>
             <DropdownList ref={ref}>
+                <MenuProfileWrapperMobile>
+                    <MenuUserName>{username}</MenuUserName>
+                    <MenuUserImage
+                        src={user}
+                        onClick={changeMenuVisible}
+                    />
+                </MenuProfileWrapperMobile>
+
                 <DropdownListItem onClick={() => showModal("edit")}>
                     Edytuj konto
                 </DropdownListItem>
