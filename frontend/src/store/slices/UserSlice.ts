@@ -6,7 +6,7 @@ import axios from "axios";
 
 export interface User {
     id: number;
-    avatarId: number;
+    avatarId: number | null;
     username: string;
     loading: boolean;
     error: string | undefined;

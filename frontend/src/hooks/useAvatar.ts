@@ -6,16 +6,16 @@ export interface IUserAvatar {
     sourcePath: string;
 }
 
-const useAvatar = (userAvatar: IUserAvatar | null) => {
+const useAvatar = (userAvatar: number | null | undefined) => {
     const fetchAvatar = async () => {
-        const { data } = await axios.get(`users-avatar/${userAvatar?.id}`, {
+        const { data } = await axios.get(`users-avatar/${userAvatar}`, {
             responseType: "blob"
         });
         return data;
     };
 
     const { data: avatarUrl } = useQuery({
-        queryKey: ["avatar", userAvatar?.id],
+        queryKey: ["avatar", userAvatar],
         queryFn: fetchAvatar,
         select: data => URL.createObjectURL(data),
         enabled: !!userAvatar
