@@ -34,9 +34,10 @@ const SearchInput = styled.input.attrs<InputHTMLAttributes<HTMLInputElement>>(
         type: "search"
     })
 )`
+    display: flex;
+
     padding: 1rem;
-    width: -webkit-calc(100% - 10px);
-    width: -moz-calc(100% - 10px);
+    width: calc(100% - 10px);
 
     border: none;
     outline: transparent;
