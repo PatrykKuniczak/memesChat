@@ -7,6 +7,8 @@ import { useMutation } from "@tanstack/react-query";
 import { FormEvent } from "react";
 import { IRequestError } from "helpers/error-interface";
 import { sendAuthRequest } from "services/AuthService";
+import { fetchUser } from "store/slices/UserSlice";
+import { useAppDispatch } from "store/store";
 
 interface IAuthResponse {
     accessToken: string;
@@ -29,6 +31,7 @@ export const loginSchema = Yup.string()
 
 const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
     const { setAccessToken } = useToken();
 
     const mutation = useMutation<IAuthResponse, IRequestError, IAuthRequest>({
@@ -36,6 +39,7 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
         onSuccess: ({ accessToken }) => {
             setAccessToken(accessToken);
             navigate("/");
+            dispatch(fetchUser());
         }
     });
 

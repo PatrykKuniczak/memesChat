@@ -1,4 +1,4 @@
-import { editUsername, updateProfile } from "store/slices/UserSlice";
+import { updateProfile } from "store/slices/UserSlice";
 import { useAppDispatch, useAppSelector } from "store/store";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -9,6 +9,7 @@ import { FormEvent, useState } from "react";
 import { VALIDATION_OFF } from "index";
 import { IRequestError } from "helpers/error-interface";
 import { updateUser } from "services/UsersService";
+import useToken from "hooks/useToken";
 
 type TUserAvatarFile = File | null;
 
@@ -25,6 +26,7 @@ const useAccountEdit = (hideModal: () => void) => {
     const [file, setFile] = useState<TUserAvatarFile>(null);
     const dispatch = useAppDispatch();
     const { username, id } = useAppSelector(state => state.user);
+    const { setAccessToken } = useToken();
     const fileTypes: ["JPG", "PNG"] = ["JPG", "PNG"];
 
     const fetchNewAvatar = (callback: (id: number) => void) => {
@@ -39,14 +41,14 @@ const useAccountEdit = (hideModal: () => void) => {
         IUserUpdateRequest
     >({
         mutationFn: data => updateUser(id, data),
-        onSuccess: () => {
+        onSuccess: data => {
             fetchNewAvatar(id => dispatch(updateProfile({ avatarId: id })));
+            setAccessToken(data.accessToken);
             hideModal();
         }
     });
 
     const updateUsername = (login: string) => {
-        dispatch(editUsername(login));
         mutation.mutate({ userAvatar: file, username: login });
     };
 
