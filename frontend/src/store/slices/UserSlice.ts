@@ -22,11 +22,12 @@ const initialState: User = {
 
 export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
     const { userToken } = useToken();
-    const { id }: { id: number } = await jwtDecode(userToken);
+    const { id, username }: { id: number; username: string } = await jwtDecode(
+        userToken
+    );
 
     const data = await getUser(id);
     const userAvatar = data.userAvatar ? data.userAvatar.id : 0;
-    const username = data.username;
 
     return { id, username, userAvatar };
 });

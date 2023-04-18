@@ -12,9 +12,10 @@ export const getUser = async (id: number): Promise<IUser> => {
 
 export const updateUser = async (
     id: number,
-    data: IUserUpdateRequest
+    params: IUserUpdateRequest
 ): Promise<IUserUpdateResponse> => {
-    return await axios.patch(`users/${id}`, data, {
+    const { data } = await axios.patch(`users/${id}`, params, {
         headers: { "Content-Type": "multipart/form-data" }
     });
+    return data;
 };
