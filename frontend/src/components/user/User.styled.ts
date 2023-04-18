@@ -34,6 +34,7 @@ const UserImage = styled.img`
 const UserName = styled.p`
     color: ${({ theme }) => theme.white};
 
+    word-break: break-all;
     font-size: ${({ theme }) => theme.font_md};
     font-weight: ${({ theme }) => theme.font_medium};
 
