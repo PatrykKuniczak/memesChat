@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { RootState } from "store/store";
 import jwtDecode from "jwt-decode";
 import useToken from "../../hooks/useToken";
-import axios from "axios";
+import { getUser } from "services/UsersService";
 
 export interface User {
     id: number;
@@ -24,9 +24,10 @@ export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
     const { userToken } = useToken();
     const { id }: { id: number } = await jwtDecode(userToken);
 
-    const { data } = await axios.get(`users/${id}`);
+    const data = await getUser(id);
     const userAvatar = data.userAvatar ? data.userAvatar.id : 0;
     const username = data.username;
+
     return { id, username, userAvatar };
 });
 
@@ -37,7 +38,7 @@ export const userSlice = createSlice({
         editUsername: (state, action) => {
             state.username = action.payload;
         },
-        deleteAvatar: state => {
+        removeAvatar: state => {
             state.avatarId = 0;
         },
         updateProfile: (state, action) => {
@@ -64,7 +65,7 @@ export const userSlice = createSlice({
     }
 });
 
-export const { editUsername, deleteAvatar, updateProfile } = userSlice.actions;
+export const { editUsername, removeAvatar, updateProfile } = userSlice.actions;
 
 export const selectUser = (state: RootState) => state.user;
 

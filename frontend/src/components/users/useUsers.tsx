@@ -1,10 +1,10 @@
 import { IUsers } from "components/users/Users";
 import { ChangeEvent, useDeferredValue, useEffect, useState } from "react";
 import { usersAfterFilter } from "helpers/onlineUsersFiltering";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import User, { IUser } from "../user/User";
 import { ErrorIndicator, LoadingIndicator } from "assets/styles/theme";
+import { getAllUsers } from "services/UsersAvatarService";
 
 const useUsers = () => {
     const [users, setUsers] = useState<IUsers>([]);
@@ -12,14 +12,9 @@ const useUsers = () => {
     const [searchValue, setSearchValue] = useState("");
     const deferredSearchValue = useDeferredValue(searchValue);
 
-    const fetchAllUsers = async () => {
-        const { data } = await axios.get("users");
-        return data;
-    };
-
     const { isLoading, data, error } = useQuery({
         queryKey: ["users"],
-        queryFn: fetchAllUsers
+        queryFn: getAllUsers
     });
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -63,7 +58,6 @@ const useUsers = () => {
 
     return {
         handleChange,
-        users: data,
         setUsers,
         filteredUsers,
         isLoading,
