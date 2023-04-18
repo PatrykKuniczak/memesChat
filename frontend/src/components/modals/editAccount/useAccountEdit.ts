@@ -8,14 +8,15 @@ import axios from "axios";
 import { FormEvent, useState } from "react";
 import { VALIDATION_OFF } from "index";
 import { IRequestError } from "helpers/error-interface";
+import { updateUser } from "services/UsersService";
 
 type TUserAvatarFile = File | null;
 
-interface IUserUpdateResponse {
+export interface IUserUpdateResponse {
     accessToken: string;
 }
 
-interface IUserUpdateRequest {
+export interface IUserUpdateRequest {
     username: string;
     userAvatar: TUserAvatarFile;
 }
@@ -37,10 +38,7 @@ const useAccountEdit = (hideModal: () => void) => {
         IRequestError,
         IUserUpdateRequest
     >({
-        mutationFn: data =>
-            axios.patch(`users/${id}`, data, {
-                headers: { "Content-Type": "multipart/form-data" }
-            }),
+        mutationFn: data => updateUser(id, data),
         onSuccess: () => {
             fetchNewAvatar(id => dispatch(updateProfile({ avatarId: id })));
             hideModal();

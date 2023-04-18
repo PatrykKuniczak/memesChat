@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import { getAvatar } from "services/UsersAvatarService";
 
 export interface IUserAvatar {
     id: number;
@@ -7,16 +7,9 @@ export interface IUserAvatar {
 }
 
 const useAvatar = (userAvatar: number | null | undefined) => {
-    const fetchAvatar = async () => {
-        const { data } = await axios.get(`users-avatar/${userAvatar}`, {
-            responseType: "blob"
-        });
-        return data;
-    };
-
     const { data: avatarUrl } = useQuery({
         queryKey: ["avatar", userAvatar],
-        queryFn: fetchAvatar,
+        queryFn: () => getAvatar(userAvatar),
         select: data => URL.createObjectURL(data),
         enabled: !!userAvatar
     });

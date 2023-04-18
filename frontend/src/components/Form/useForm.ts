@@ -1,4 +1,3 @@
-import axios from "axios";
 import useToken from "hooks/useToken";
 import { useFormik } from "formik";
 import { VALIDATION_OFF } from "index";
@@ -7,12 +6,13 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { FormEvent } from "react";
 import { IRequestError } from "helpers/error-interface";
+import { sendAuthRequest } from "services/AuthService";
 
 interface IAuthResponse {
     accessToken: string;
 }
 
-interface IAuthRequest {
+export interface IAuthRequest {
     username: string;
     password: string;
     event: "register" | "login";
@@ -31,16 +31,8 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
     const navigate = useNavigate();
     const { setAccessToken } = useToken();
 
-    const sendRequest = async ({ username, password, event }: IAuthRequest) => {
-        const { data } = await axios.post(`/auth/${event}`, {
-            username,
-            password
-        });
-        return data;
-    };
-
     const mutation = useMutation<IAuthResponse, IRequestError, IAuthRequest>({
-        mutationFn: sendRequest,
+        mutationFn: sendAuthRequest,
         onSuccess: ({ accessToken }) => {
             setAccessToken(accessToken);
             navigate("/");
