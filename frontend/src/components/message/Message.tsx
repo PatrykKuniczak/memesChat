@@ -18,6 +18,7 @@ import useOnHover from "./hooks/useOnHover";
 import DeleteMessageModal from "./DeleteMessageModal/DeleteMessageModal";
 import useAvatar from "hooks/useAvatar";
 import { IUser } from "../user/User";
+import { useAppSelector } from "store/store";
 
 export interface IMessage {
     id: number;
@@ -30,6 +31,8 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
     const { author } = message;
 
     const { isHovering, hide, show } = useOnHover();
+
+    const { id } = useAppSelector(state => state.user);
 
     const {
         inputKeyDownHandler,
@@ -47,6 +50,8 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
     const avatarUrl = useAvatar(author?.userAvatar?.id);
 
     const { errors, handleChange, values } = formik;
+
+    const isAuthor = message.author && message.author.id === id;
 
     return (
         <>
@@ -87,7 +92,7 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
                             </MessageContent>
                         )}
                         <MessageSettingsWrapper>
-                            {(isHovering || inputIsOpen) && (
+                            {((isHovering && isAuthor) || inputIsOpen) && (
                                 <MessageSettings>
                                     {inputIsOpen ? (
                                         <BsCheckLg
