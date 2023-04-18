@@ -12,6 +12,9 @@ export const messagesAfterFilter = (
         }
 
         if (searchMode === "user") {
+            if (author === null) {
+                return false;
+            }
             return author.username
                 .toLowerCase()
                 .startsWith(searchValue.toLowerCase());
