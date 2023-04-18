@@ -57,6 +57,7 @@ const MessageAuthor = styled.p`
     padding-block: 0.25rem;
 
     color: ${({ theme }) => theme.gray_300};
+    word-break: break-all;
 `;
 
 const MessageContentWrapper = styled.div`
