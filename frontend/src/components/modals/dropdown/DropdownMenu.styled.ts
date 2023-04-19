@@ -37,6 +37,8 @@ const DropdownList = styled.ul`
 const DropdownListItem = styled.li`
     padding: 1rem;
 
+    font-size: ${({ theme }) => theme.font_xl};
+
     cursor: pointer;
 
     &:focus-visible {
@@ -51,10 +53,9 @@ const DropdownListItem = styled.li`
         transition: background-color 0.3s ease-out;
     }
 
-    @media (max-width: ${({ theme }) => theme.media_md}) {
+    @media (width < ${({ theme }) => theme.media_md}) {
         padding: 1.5rem;
 
-        font-size: ${({ theme }) => theme.font_xl};
         text-align: center;
     }
 `;
