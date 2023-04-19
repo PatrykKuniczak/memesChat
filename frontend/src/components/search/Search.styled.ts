@@ -6,14 +6,14 @@ const SearchWrapper = styled.div<{ $variant: string }>`
   position: sticky;
   top: 0;
   z-index: 1;
-
+  
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5rem;
+
+  padding: 1rem 0.5rem;
 
   border-radius: 5px;
-  padding: 0 1rem 0 0;
 
   ${({ $variant }) => {
       if ($variant === "dark") {
@@ -36,7 +36,6 @@ const SearchInput = styled.input.attrs<InputHTMLAttributes<HTMLInputElement>>(
 )`
     display: flex;
 
-    padding: 1rem;
     width: calc(100% - 10px);
 
     border: none;
