@@ -75,7 +75,6 @@ const MessageSettingsWrapper = styled.div`
 
 const MessageSettings = styled.div`
     position: absolute;
-    top: -35px;
 
     display: flex;
     align-items: center;
@@ -83,6 +82,7 @@ const MessageSettings = styled.div`
 
     border-radius: 25px;
     padding: 0.5rem 1rem;
+    margin-top: 0.5rem;
 
     background-color: ${({ theme }) => theme.gray_400};
     color: ${({ theme }) => theme.gray_300};
