@@ -24,7 +24,8 @@ const EditAccountModal = ({ hideModal }: IModal) => {
         touched,
         error,
         fileTypes,
-        handleFileChange
+        handleFileChange,
+        file
     } = useAccountEdit(hideModal);
 
     const { ref } = useClickOutside(hideModal);
@@ -57,6 +58,7 @@ const EditAccountModal = ({ hideModal }: IModal) => {
                         hoverTitle="Upuść aby dodać"
                         maxSize={5}
                         dropMessageStyle={{ backgroundColor: "black" }}
+                        fileOrFiles={file}
                     />
                 </FileUploaderWrapper>
             </OptionEditAvatar>

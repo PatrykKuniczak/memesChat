@@ -9,6 +9,7 @@ import { IRequestError } from "helpers/error-interface";
 import { sendAuthRequest } from "services/AuthService";
 import { fetchUser } from "store/slices/UserSlice";
 import { useAppDispatch } from "store/store";
+import { updateInterceptor } from "helpers/axios/AuthIncereptor";
 
 interface IAuthResponse {
     accessToken: string;
@@ -38,6 +39,7 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
         mutationFn: sendAuthRequest,
         onSuccess: ({ accessToken }) => {
             setAccessToken(accessToken);
+            updateInterceptor(accessToken);
             navigate("/");
             dispatch(fetchUser());
         }

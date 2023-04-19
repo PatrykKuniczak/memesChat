@@ -16,9 +16,11 @@ import useMessage from "./useMessage";
 import { FC } from "react";
 import useOnHover from "./hooks/useOnHover";
 import DeleteMessageModal from "./DeleteMessageModal/DeleteMessageModal";
-import useAvatar from "hooks/useAvatar";
 import { IUser } from "../user/User";
 import { useAppSelector } from "store/store";
+import { useQuery } from "@tanstack/react-query";
+import { getUser } from "services/UsersService";
+import { getAvatar } from "services/UsersAvatarService";
 
 export interface IMessage {
     id: number;
@@ -47,7 +49,18 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
         closeModal
     } = useMessage(message, hide);
 
-    const avatarUrl = useAvatar(author?.userAvatar?.id);
+    const { data } = useQuery({
+        queryKey: ["user", author?.id],
+        queryFn: () => getUser(author?.id),
+        enabled: !!author?.id
+    });
+
+    const { data: avatarUrl } = useQuery({
+        queryKey: ["avatar2", data?.userAvatar?.id],
+        queryFn: () => getAvatar(data?.userAvatar?.id),
+        select: URL.createObjectURL,
+        enabled: !!data?.userAvatar?.id
+    });
 
     const { errors, handleChange, values } = formik;
 
