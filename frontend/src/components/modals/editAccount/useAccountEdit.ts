@@ -3,13 +3,13 @@ import { useAppDispatch, useAppSelector } from "store/store";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { loginSchema } from "components/Form/useForm";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FormEvent, useState } from "react";
 import { VALIDATION_OFF } from "index";
 import { IRequestError } from "helpers/error-interface";
-import { updateUser } from "services/UsersService";
+import { getUser, updateUser } from "services/UsersService";
 import useToken from "hooks/useToken";
+import { getAvatar } from "services/UsersAvatarService";
 
 type TUserAvatarFile = File | null;
 
@@ -28,12 +28,19 @@ const useAccountEdit = (hideModal: () => void) => {
     const { username, id } = useAppSelector(state => state.user);
     const { setAccessToken } = useToken();
     const fileTypes: ["JPG", "PNG"] = ["JPG", "PNG"];
+    const queryClient = useQueryClient();
 
-    const fetchNewAvatar = (callback: (id: number) => void) => {
-        axios
-            .get(`users/${id}`)
-            .then(({ data }) => callback(data.userAvatar.id));
-    };
+    const { data } = useQuery({
+        queryKey: ["user3", id],
+        queryFn: () => getUser(id),
+        enabled: !!id
+    });
+    useQuery({
+        queryKey: ["avatar4", data?.userAvatar?.id],
+        queryFn: () => getAvatar(data?.userAvatar?.id),
+        onSuccess: setFile,
+        enabled: !!data?.userAvatar?.id && !file
+    });
 
     const mutation = useMutation<
         IUserUpdateResponse,
@@ -42,8 +49,16 @@ const useAccountEdit = (hideModal: () => void) => {
     >({
         mutationFn: data => updateUser(id, data),
         onSuccess: data => {
-            fetchNewAvatar(id => dispatch(updateProfile({ avatarId: id })));
             setAccessToken(data.accessToken);
+
+            getUser(id).then(data => {
+                if (data.userAvatar) {
+                    dispatch(updateProfile({ avatarId: data.userAvatar.id }));
+                    queryClient.invalidateQueries({ queryKey: ["user2"] });
+                    queryClient.invalidateQueries({ queryKey: ["user3"] });
+                    queryClient.invalidateQueries({ queryKey: ["user"] });
+                }
+            });
             hideModal();
         }
     });

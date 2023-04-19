@@ -16,7 +16,17 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 export const API_URL = process.env.REACT_APP_API_URL;
 axios.defaults.baseURL = API_URL;
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            refetchOnWindowFocus: false,
+            refetchOnMount: false,
+            refetchOnReconnect: false,
+            retry: 1,
+            staleTime: 5 * 1000
+        }
+    }
+});
 
 const App = () => {
     const { userToken } = useToken();
