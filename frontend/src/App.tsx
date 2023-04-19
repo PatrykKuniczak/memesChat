@@ -11,6 +11,7 @@ import { updateInterceptor } from "helpers/axios/AuthIncereptor";
 import useToken from "./hooks/useToken";
 import { useAppDispatch } from "store/store";
 import { fetchUser } from "store/slices/UserSlice";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 export const API_URL = process.env.REACT_APP_API_URL;
 axios.defaults.baseURL = API_URL;
@@ -52,6 +53,7 @@ const App = () => {
                     </Routes>
                 </BrowserRouter>
             </ThemeProvider>
+            <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
     );
 };
