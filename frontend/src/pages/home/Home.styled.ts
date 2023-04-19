@@ -32,7 +32,7 @@ const Aside = styled.aside`
 
     @media (min-width: ${({ theme }) => theme.media_md}) {
         max-height: calc(100vh - 6rem);
-        min-width: 400px;
+        min-width: 350px;
     }
 `;
 
