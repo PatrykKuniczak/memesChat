@@ -64,7 +64,7 @@ const EditAccountModal = ({ hideModal }: IModal) => {
                         multiple={false}
                         hoverTitle="Upuść aby dodać"
                         onTypeError={onTypeError}
-                        maxSize={1}
+                        maxSize={5}
                         onSizeError={onSizeError}
                         onDrop={onDrop}
                         onSelect={onSelect}

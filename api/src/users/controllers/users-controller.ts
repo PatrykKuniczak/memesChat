@@ -4,6 +4,7 @@ import {
     Delete,
     FileTypeValidator,
     Get,
+    MaxFileSizeValidator,
     Param,
     ParseFilePipe,
     ParseIntPipe,
@@ -119,6 +120,7 @@ class UsersController {
         @UploadedFile(
             new ParseFilePipe({
                 validators: [
+                    new MaxFileSizeValidator({ maxSize: 5000000 }),
                     new FileTypeValidator({ fileType: /(jpg|jpeg|png)$/ })
                 ],
                 fileIsRequired: false
