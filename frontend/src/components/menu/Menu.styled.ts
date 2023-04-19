@@ -14,19 +14,19 @@ const MenuProfileWrapper = styled.div`
     align-items: center;
     gap: 0.5rem;
 
-    @media (max-width: ${({ theme }) => theme.media_md}) {
+    @media (width < ${({ theme }) => theme.media_md}) {
         display: none;
     }
 `;
 
 const MenuProfileWrapperMobile = styled.div`
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
     gap: 0.5rem;
 
-    padding: 1rem;
+    padding: 1rem 0.5rem;
     border-radius: 0.5rem;
 
     background-color: hsl(270, 100%, 59%, 0.5);
@@ -39,10 +39,10 @@ const MenuProfileWrapperMobile = styled.div`
 const MenuUserName = styled.span`
     color: ${({ theme }) => theme.white};
 
-    font-size: clamp(1vw, ${({ theme }) => theme.font_xl}, 3vw);
     font-weight: ${({ theme }) => theme.font_medium};
+    font-size: clamp(1vw, ${({ theme }) => theme.font_xl}, 2.4vw);
 
-    @media (max-width: ${({ theme }) => theme.media_md}) {
+    @media (width < ${({ theme }) => theme.media_md}) {
         font-size: clamp(1vw, ${({ theme }) => theme.font_lg}, 5vw);
     }
 `;
@@ -64,7 +64,7 @@ const DropdownButton = styled.button`
 
     cursor: pointer;
 
-    @media (max-width: ${({ theme }) => theme.media_md}) {
+    @media (width < ${({ theme }) => theme.media_md}) {
         display: none;
     }
 `;

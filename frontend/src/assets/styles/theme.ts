@@ -38,7 +38,7 @@ const THEME_DARK = {
 
     // media queries
     media_sm: "640px",
-    media_md: "850px",
+    media_md: "768px",
     media_lg: "1024px",
     media_xl: "1280px",
     media_xxl: "1536px"
