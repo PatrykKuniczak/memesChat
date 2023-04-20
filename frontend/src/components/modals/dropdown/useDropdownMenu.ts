@@ -21,7 +21,7 @@ const useDropdownMenu = (changeMenuVisible: () => void) => {
 
     const { ref } = useClickOutside(handleClickOutside);
 
-    let avatar = useAvatar(avatarId);
+    const avatar = useAvatar(avatarId);
 
     return { ref, handleLogout, username, avatar };
 };
