@@ -5,16 +5,19 @@ import { useQuery } from "@tanstack/react-query";
 import User, { IUser } from "../user/User";
 import { ErrorIndicator, LoadingIndicator } from "assets/styles/theme";
 import { getAllUsers } from "services/UsersAvatarService";
+import useToken from "hooks/useToken";
 
 const useUsers = () => {
     const [users, setUsers] = useState<IUsers>([]);
     const [filteredUsers, setFilteredUsers] = useState<IUsers>([]);
     const [searchValue, setSearchValue] = useState("");
     const deferredSearchValue = useDeferredValue(searchValue);
+    const { userToken } = useToken();
 
     const { isLoading, data, error } = useQuery({
         queryKey: ["users"],
-        queryFn: getAllUsers
+        queryFn: getAllUsers,
+        enabled: !!userToken
     });
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
