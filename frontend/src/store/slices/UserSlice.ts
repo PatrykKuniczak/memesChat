@@ -13,7 +13,7 @@ export interface User {
 
 const initialState: User = {
     id: 0,
-    avatarId: 0,
+    avatarId: null,
     username: "",
     loading: false,
     error: ""
@@ -26,7 +26,7 @@ export const fetchUser = createAsyncThunk(
             await jwtDecode(accessToken);
 
         const data = await getUser(id);
-        const userAvatar = data.userAvatar ? data.userAvatar.id : 0;
+        const userAvatar = data.userAvatar ? data.userAvatar.id : null;
 
         return { id, username, userAvatar };
     }
@@ -40,7 +40,7 @@ export const userSlice = createSlice({
             state.username = action.payload;
         },
         removeAvatar: state => {
-            state.avatarId = 0;
+            state.avatarId = null;
         },
         updateProfile: (state, action) => {
             state.avatarId = action.payload.avatarId;
