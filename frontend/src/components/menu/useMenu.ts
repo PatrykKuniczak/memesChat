@@ -3,8 +3,8 @@ import { useState } from "react";
 import useCloseByEsc from "hooks/useCloseByEsc";
 import { useQuery } from "@tanstack/react-query";
 import { getUser } from "services/UsersService";
-import { getAvatar } from "services/UsersAvatarService";
 import useToken from "hooks/useToken";
+import useAvatar from "hooks/useAvatar";
 
 export const useMenu = () => {
     const [showMenu, setShowMenu] = useState(false);
@@ -23,12 +23,7 @@ export const useMenu = () => {
         enabled: !!id && !!userToken
     });
 
-    const { data: avatar } = useQuery({
-        queryKey: ["avatar3", data?.userAvatar?.id],
-        queryFn: () => getAvatar(data?.userAvatar?.id),
-        select: URL.createObjectURL,
-        enabled: !!data?.userAvatar?.id
-    });
+    const avatar = useAvatar(data?.userAvatar?.id);
 
     return { username, showMenu, changeMenuVisible, avatar };
 };

@@ -6,12 +6,12 @@ export interface IUserAvatar {
     sourcePath: string;
 }
 
-const useAvatar = (userAvatar: number | null | undefined) => {
+const useAvatar = (userAvatarId: number | null | undefined) => {
     const { data: avatarUrl } = useQuery({
-        queryKey: ["avatar", userAvatar],
-        queryFn: () => getAvatar(userAvatar),
+        queryKey: ["avatar", userAvatarId],
+        queryFn: () => getAvatar(userAvatarId),
         select: data => URL.createObjectURL(data),
-        enabled: !!userAvatar
+        enabled: !!userAvatarId
     });
 
     return avatarUrl;
