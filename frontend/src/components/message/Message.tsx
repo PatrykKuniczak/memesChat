@@ -49,17 +49,11 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
         closeModal
     } = useMessage(message, hide);
 
-    const { data } = useQuery({
-        queryKey: ["user", author?.id],
-        queryFn: () => getUser(author?.id),
-        enabled: !!author?.id
-    });
-
     const { data: avatarUrl } = useQuery({
-        queryKey: ["avatar2", data?.userAvatar?.id],
-        queryFn: () => getAvatar(data?.userAvatar?.id),
+        queryKey: ["avatar2", author?.userAvatar?.id],
+        queryFn: () => getAvatar(author?.userAvatar?.id),
         select: URL.createObjectURL,
-        enabled: !!data?.userAvatar?.id
+        enabled: !!author?.userAvatar?.id
     });
 
     const { errors, handleChange, values } = formik;

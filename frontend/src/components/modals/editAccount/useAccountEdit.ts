@@ -56,7 +56,6 @@ const useAccountEdit = (hideModal: () => void) => {
                     dispatch(updateProfile({ avatarId: data.userAvatar.id }));
                     queryClient.invalidateQueries({ queryKey: ["user2"] });
                     queryClient.invalidateQueries({ queryKey: ["user3"] });
-                    queryClient.invalidateQueries({ queryKey: ["user"] });
                 }
             });
             hideModal();

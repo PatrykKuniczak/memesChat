@@ -17,7 +17,6 @@ const useRemoveAvatar = (hideModal: () => void) => {
                 hideModal();
                 dispatch(removeAvatar());
                 queryClient.invalidateQueries({ queryKey: ["user2"] });
-                queryClient.invalidateQueries({ queryKey: ["user"] });
             }
         }
     );
