@@ -36,6 +36,7 @@ const useAccountEdit = (hideModal: () => void) => {
         queryFn: () => getUser(id),
         enabled: !!id
     });
+
     useQuery({
         queryKey: ["avatar4", data?.userAvatar?.id],
         queryFn: () => getAvatar(data?.userAvatar?.id),
