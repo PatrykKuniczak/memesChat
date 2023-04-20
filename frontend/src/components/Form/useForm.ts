@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { VALIDATION_OFF } from "index";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { FormEvent } from "react";
 import { IRequestError } from "helpers/error-interface";
 import { sendAuthRequest } from "services/AuthService";
@@ -33,6 +33,7 @@ export const loginSchema = Yup.string()
 const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+    const queryClient = useQueryClient();
     const { setAccessToken } = useToken();
 
     const mutation = useMutation<IAuthResponse, IRequestError, IAuthRequest>({
@@ -40,8 +41,9 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
         onSuccess: ({ accessToken }) => {
             setAccessToken(accessToken);
             updateInterceptor(accessToken);
+            dispatch(fetchUser(accessToken));
+            queryClient.invalidateQueries({ queryKey: ["user2"] });
             navigate("/");
-            dispatch(fetchUser());
         }
     });
 

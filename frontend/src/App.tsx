@@ -12,6 +12,7 @@ import useToken from "./hooks/useToken";
 import { useAppDispatch } from "store/store";
 import { fetchUser } from "store/slices/UserSlice";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { useEffect } from "react";
 
 export const API_URL = process.env.REACT_APP_API_URL;
 axios.defaults.baseURL = API_URL;
@@ -32,8 +33,13 @@ const App = () => {
     const { userToken } = useToken();
     const dispatch = useAppDispatch();
 
-    updateInterceptor(userToken);
-    dispatch(fetchUser());
+    useEffect(() => {
+        if (userToken) {
+            updateInterceptor(userToken);
+            dispatch(fetchUser(userToken));
+            queryClient.invalidateQueries({ queryKey: ["user2"] });
+        }
+    }, [dispatch, userToken]);
 
     return (
         <QueryClientProvider client={queryClient}>

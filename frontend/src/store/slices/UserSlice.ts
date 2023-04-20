@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { RootState } from "store/store";
 import jwtDecode from "jwt-decode";
-import useToken from "../../hooks/useToken";
 import { getUser } from "services/UsersService";
 
 export interface User {
@@ -20,17 +19,18 @@ const initialState: User = {
     error: ""
 };
 
-export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
-    const { userToken } = useToken();
-    const { id, username }: { id: number; username: string } = await jwtDecode(
-        userToken
-    );
+export const fetchUser = createAsyncThunk(
+    "user/fetchUser",
+    async (accessToken: string) => {
+        const { id, username }: { id: number; username: string } =
+            await jwtDecode(accessToken);
 
-    const data = await getUser(id);
-    const userAvatar = data.userAvatar ? data.userAvatar.id : 0;
+        const data = await getUser(id);
+        const userAvatar = data.userAvatar ? data.userAvatar.id : 0;
 
-    return { id, username, userAvatar };
-});
+        return { id, username, userAvatar };
+    }
+);
 
 export const userSlice = createSlice({
     name: "user",

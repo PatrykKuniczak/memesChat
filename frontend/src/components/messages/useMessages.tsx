@@ -1,16 +1,11 @@
-import {
-    SetStateAction,
-    startTransition,
-    useDeferredValue,
-    useEffect,
-    useState
-} from "react";
+import { SetStateAction, useDeferredValue, useEffect, useState } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { ErrorIndicator, LoadingIndicator } from "assets/styles/theme";
 import Message, { IMessage } from "../message/Message";
 import { messagesAfterFilter } from "helpers/messagesFiltering";
 import { IMessagesContainer } from "./Messages";
+import useToken from "hooks/useToken";
 
 export type TMessages = IMessage[];
 
@@ -19,15 +14,17 @@ const UseMessages = ({ searchValue, searchMode }: IMessagesContainer) => {
     const [filteredMessages, setFilteredMessages] = useState<TMessages>([]);
     const deferredSearchValue = useDeferredValue(searchValue);
 
+    const { userToken } = useToken();
+
     const fetchAllMessages = async () => {
         const { data } = await axios.get("messages");
         return data;
     };
 
-    const { isLoading, error } = useQuery({
+    const { data, isLoading, error } = useQuery({
         queryKey: ["messages"],
         queryFn: fetchAllMessages,
-        onSuccess: setMessages
+        enabled: !!userToken
     });
 
     const handleSetMessages = (messages: SetStateAction<TMessages>) => {
@@ -60,12 +57,14 @@ const UseMessages = ({ searchValue, searchMode }: IMessagesContainer) => {
     };
 
     useEffect(() => {
-        startTransition(() => {
-            setFilteredMessages(
-                messagesAfterFilter(messages, searchMode, deferredSearchValue)
-            );
-        });
+        setFilteredMessages(
+            messagesAfterFilter(messages, searchMode, deferredSearchValue)
+        );
     }, [messages, searchMode, deferredSearchValue]);
+
+    useEffect(() => {
+        data && setMessages(data);
+    }, [data]);
 
     return { messages, handleSetMessages, MessagesList };
 };

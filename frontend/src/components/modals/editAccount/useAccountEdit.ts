@@ -10,6 +10,7 @@ import { IRequestError } from "helpers/error-interface";
 import { getUser, updateUser } from "services/UsersService";
 import useToken from "hooks/useToken";
 import { getAvatar } from "services/UsersAvatarService";
+import { updateInterceptor } from "helpers/axios/AuthIncereptor";
 
 type TUserAvatarFile = File | null;
 
@@ -50,6 +51,7 @@ const useAccountEdit = (hideModal: () => void) => {
         mutationFn: data => updateUser(id, data),
         onSuccess: data => {
             setAccessToken(data.accessToken);
+            updateInterceptor(data.accessToken);
 
             getUser(id).then(data => {
                 if (data.userAvatar) {
