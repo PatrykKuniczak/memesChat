@@ -7,9 +7,10 @@ import { useDeleteAccountModal } from "./useDeleteAccountModal";
 import { IModal } from "../modals.interfaces";
 import useClickOutside from "hooks/useClickOutside";
 import { ModalSpan } from "../GenericModalComponents.styled";
+import { ErrorIndicator } from "assets/styles/theme";
 
 const DeleteAccountModal = ({ hideModal }: IModal) => {
-    const { deleteAccountConfirm } = useDeleteAccountModal(hideModal);
+    const { deleteAccountConfirm, error } = useDeleteAccountModal(hideModal);
 
     const { ref } = useClickOutside(hideModal);
 
@@ -28,6 +29,9 @@ const DeleteAccountModal = ({ hideModal }: IModal) => {
                     Anuluj
                 </PrimaryButton>
             </DeleteAccountButtonsWrapper>
+            {error && (
+                <ErrorIndicator>{error.response.data.message}</ErrorIndicator>
+            )}
         </DeleteAccountWrapper>
     );
 };
