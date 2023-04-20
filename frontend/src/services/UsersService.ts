@@ -19,3 +19,8 @@ export const updateUser = async (
     });
     return data;
 };
+
+export const deleteUser = async (id: number): Promise<null> => {
+    const { data } = await axios.delete(`users/${id}`);
+    return data;
+};
