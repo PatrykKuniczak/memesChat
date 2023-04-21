@@ -48,12 +48,13 @@ export class UsersGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
     handleConnection(@ConnectedSocket() client: Socket) {
         const onlineUsersAmount = this.server.sockets.size;
-
+        console.log("Połączono Users")
         this.server.emit("onlineUsersAmount", { onlineUsersAmount });
     }
 
     handleDisconnect() {
         this.httpService.axiosRef.defaults.headers["Authorization"] = null;
+        console.log("Rozłączono Users")
 
         const onlineUsersAmount = this.server.sockets.size;
 

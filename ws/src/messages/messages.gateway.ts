@@ -47,6 +47,8 @@ export class MessagesGateway implements OnGatewayDisconnect {
     }
 
     handleDisconnect() {
+        console.log("Rozłączono Messages")
+
         this.httpService.axiosRef.defaults.headers["Authorization"] = null;
     }
 
