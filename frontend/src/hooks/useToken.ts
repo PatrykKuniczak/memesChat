@@ -1,14 +1,15 @@
-import axios from "axios";
+import { useCallback } from "react";
 import { useLocalStorage } from "usehooks-ts";
 
 const useToken = () => {
     const [userToken, setUserToken] = useLocalStorage("userToken", "");
-    const setAccessToken = (accessToken: string) => {
-        setUserToken(accessToken);
-        axios.defaults.headers.common[
-            "Authorization"
-        ] = `Bearer ${accessToken}`;
-    };
+
+    const setAccessToken = useCallback(
+        (accessToken: string) => {
+            setUserToken(accessToken);
+        },
+        [setUserToken]
+    );
 
     return { userToken, setAccessToken };
 };
