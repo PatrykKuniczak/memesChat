@@ -1,7 +1,7 @@
+import dependlyComponentDisplay from "helpers/dependly-component-display";
 import { SetStateAction, useDeferredValue, useEffect, useState } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { ErrorIndicator, LoadingIndicator } from "assets/styles/theme";
 import Message, { IMessage } from "../message/Message";
 import { messagesAfterFilter } from "helpers/messagesFiltering";
 import { IMessagesContainer } from "./Messages";
@@ -32,28 +32,18 @@ const UseMessages = ({ searchValue, searchMode }: IMessagesContainer) => {
     };
 
     const MessagesList = () => {
-        if (isLoading) {
-            return <LoadingIndicator>Ładowanie...</LoadingIndicator>;
-        }
+        const filteredMessagesArray = filteredMessages.map(message => (
+            <Message
+                key={message.id}
+                message={message}
+            />
+        ));
 
-        if (error) {
-            return (
-                <ErrorIndicator>
-                    Wystąpił błąd podczas ładowania danych.
-                </ErrorIndicator>
-            );
-        }
-
-        return (
-            <>
-                {filteredMessages.map(message => (
-                    <Message
-                        key={message.id}
-                        message={message}
-                    />
-                ))}
-            </>
-        );
+        return dependlyComponentDisplay({
+            isLoading,
+            error,
+            data: filteredMessagesArray
+        });
     };
 
     useEffect(() => {

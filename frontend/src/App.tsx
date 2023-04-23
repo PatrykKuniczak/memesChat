@@ -7,12 +7,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/home/Home";
 import ProtectedPage from "./ProtectedRoute";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { updateInterceptor } from "helpers/axios/AuthIncereptor";
-import useToken from "./hooks/useToken";
-import { useAppDispatch } from "store/store";
-import { fetchUser } from "store/slices/UserSlice";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { useEffect } from "react";
 
 export const API_URL = process.env.REACT_APP_API_URL;
 axios.defaults.baseURL = API_URL;
@@ -23,24 +18,12 @@ const queryClient = new QueryClient({
             refetchOnWindowFocus: false,
             refetchOnMount: false,
             refetchOnReconnect: false,
-            retry: 1,
-            staleTime: 5 * 1000
+            retry: 1
         }
     }
 });
 
 const App = () => {
-    const { userToken } = useToken();
-    const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        if (userToken) {
-            updateInterceptor(userToken);
-            dispatch(fetchUser(userToken));
-            queryClient.invalidateQueries({ queryKey: ["user2"] });
-        }
-    }, [dispatch, userToken]);
-
     return (
         <QueryClientProvider client={queryClient}>
             <GlobalStyles />

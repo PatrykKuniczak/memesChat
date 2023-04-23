@@ -14,9 +14,14 @@ export const updateUser = async (
     id: number,
     params: IUserUpdateRequest
 ): Promise<IUserUpdateResponse> => {
+    params.userAvatar = params.userAvatar
+        ? new File([params.userAvatar], "params", { type: "image/jpeg" })
+        : null;
+
     const { data } = await axios.patch(`users/${id}`, params, {
         headers: { "Content-Type": "multipart/form-data" }
     });
+
     return data;
 };
 

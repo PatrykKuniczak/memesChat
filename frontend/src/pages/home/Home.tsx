@@ -1,3 +1,6 @@
+import { updateInterceptor } from "helpers/axios/AuthIncereptor";
+import useToken from "hooks/useToken";
+import { useLayoutEffect } from "react";
 import {
     MainWrapper,
     Main,
@@ -11,6 +14,16 @@ import Users from "components/users/Users";
 import Chat from "components/chat/Chat";
 
 const Home = () => {
+    const { userToken } = useToken();
+
+    useLayoutEffect(() => {
+        const axiosAuthUpdate = async () => {
+            await updateInterceptor(userToken);
+        };
+
+        axiosAuthUpdate();
+    }, [userToken]);
+
     return (
         <MainWrapper>
             <Navbar />

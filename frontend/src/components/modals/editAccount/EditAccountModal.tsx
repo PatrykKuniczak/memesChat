@@ -24,8 +24,8 @@ const EditAccountModal = ({ hideModal }: IModal) => {
         touched,
         error,
         fileTypes,
-        handleFileChange,
-        file
+        handleAvatarChange,
+        userAvatar
     } = useAccountEdit(hideModal);
 
     const { ref } = useClickOutside(hideModal);
@@ -50,7 +50,7 @@ const EditAccountModal = ({ hideModal }: IModal) => {
                 <ModalSpan>Nowy avatar:</ModalSpan>
                 <FileUploaderWrapper>
                     <FileUploader
-                        handleChange={handleFileChange}
+                        handleChange={handleAvatarChange}
                         name="file"
                         types={fileTypes}
                         label="Kliknij aby dodać lub upuść nowy avatar."
@@ -58,7 +58,7 @@ const EditAccountModal = ({ hideModal }: IModal) => {
                         hoverTitle="Upuść aby dodać"
                         maxSize={5}
                         dropMessageStyle={{ backgroundColor: "black" }}
-                        fileOrFiles={file}
+                        fileOrFiles={userAvatar}
                     />
                 </FileUploaderWrapper>
             </OptionEditAvatar>

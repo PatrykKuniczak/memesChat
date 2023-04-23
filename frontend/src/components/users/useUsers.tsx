@@ -1,9 +1,9 @@
 import { IUsers } from "components/users/Users";
+import dependlyComponentDisplay from "helpers/dependly-component-display";
 import { ChangeEvent, useDeferredValue, useEffect, useState } from "react";
 import { usersAfterFilter } from "helpers/onlineUsersFiltering";
 import { useQuery } from "@tanstack/react-query";
 import User, { IUser } from "../user/User";
-import { ErrorIndicator, LoadingIndicator } from "assets/styles/theme";
 import { getAllUsers } from "services/UsersAvatarService";
 import useToken from "hooks/useToken";
 
@@ -25,30 +25,22 @@ const useUsers = () => {
     };
 
     const UsersList = () => {
-        if (isLoading) {
-            return <LoadingIndicator>Ładowanie...</LoadingIndicator>;
-        }
-
-        if (error) {
-            return (
-                <ErrorIndicator>
-                    Wystąpił błąd podczas ładowania danych.
-                </ErrorIndicator>
-            );
-        }
-
-        return (
-            <>
-                {filteredUsers.map(({ id, username, userAvatar }: IUser) => (
-                    <User
-                        key={id}
-                        id={id}
-                        username={username}
-                        userAvatar={userAvatar}
-                    />
-                ))}
-            </>
+        const filteredUsersArray = filteredUsers.map(
+            ({ id, username, userAvatar }: IUser) => (
+                <User
+                    key={id}
+                    id={id}
+                    username={username}
+                    userAvatar={userAvatar}
+                />
+            )
         );
+
+        return dependlyComponentDisplay({
+            isLoading,
+            error,
+            data: filteredUsersArray
+        });
     };
 
     useEffect(() => {

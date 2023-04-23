@@ -1,3 +1,4 @@
+import useFetchAvatar from "hooks/useFetchAvatar";
 import {
     MessageAuthor,
     MessageAuthorImage,
@@ -18,9 +19,6 @@ import useOnHover from "./hooks/useOnHover";
 import DeleteMessageModal from "./DeleteMessageModal/DeleteMessageModal";
 import { IUser } from "../user/User";
 import { useAppSelector } from "store/store";
-import { useQuery } from "@tanstack/react-query";
-import { getUser } from "services/UsersService";
-import { getAvatar } from "services/UsersAvatarService";
 
 export interface IMessage {
     id: number;
@@ -48,13 +46,7 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
         showModal,
         closeModal
     } = useMessage(message, hide);
-
-    const { data: avatarUrl } = useQuery({
-        queryKey: ["avatar2", author?.userAvatar?.id],
-        queryFn: () => getAvatar(author?.userAvatar?.id),
-        select: URL.createObjectURL,
-        enabled: !!author?.userAvatar?.id
-    });
+    const { userAvatarUrl } = useFetchAvatar();
 
     const { errors, handleChange, values } = formik;
 
@@ -68,7 +60,7 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
                 <div>
                     <MessageAuthorWrapper>
                         <MessageAuthorImage
-                            src={avatarUrl || defaultUserAvatar}
+                            src={userAvatarUrl || defaultUserAvatar}
                             alt="user"
                         />
                         <MessageAuthor>

@@ -1,15 +1,10 @@
+import useLogout from "hooks/useLogout";
 import {
     DropdownWrapper,
     DropdownList,
     DropdownListItem
 } from "./DropdownMenu.styled";
 import useDropdownMenu from "./useDropdownMenu";
-import {
-    MenuProfileWrapperMobile,
-    MenuUserImage,
-    MenuUserName
-} from "../../menu/Menu.styled";
-import defaultUserAvatar from "assets/defaultUserAvatar.png";
 
 type IDropdownMenu = {
     showModal: (modalName: string) => void;
@@ -17,19 +12,13 @@ type IDropdownMenu = {
 };
 
 const DropdownMenu = ({ showModal, changeMenuVisible }: IDropdownMenu) => {
-    const { ref, handleLogout, username, avatar } =
-        useDropdownMenu(changeMenuVisible);
+    const { ref, menuProfileHandler } = useDropdownMenu(changeMenuVisible);
+    const { logoutUser } = useLogout();
 
     return (
         <DropdownWrapper>
             <DropdownList ref={ref}>
-                <MenuProfileWrapperMobile>
-                    <MenuUserName>{username}</MenuUserName>
-                    <MenuUserImage
-                        src={avatar || defaultUserAvatar}
-                        onClick={changeMenuVisible}
-                    />
-                </MenuProfileWrapperMobile>
+                {menuProfileHandler()}
                 <DropdownListItem onClick={() => showModal("edit")}>
                     Edytuj konto
                 </DropdownListItem>
@@ -42,7 +31,7 @@ const DropdownMenu = ({ showModal, changeMenuVisible }: IDropdownMenu) => {
                     Usuń konto
                 </DropdownListItem>
 
-                <DropdownListItem onClick={handleLogout}>
+                <DropdownListItem onClick={logoutUser}>
                     Wyloguj się
                 </DropdownListItem>
             </DropdownList>
