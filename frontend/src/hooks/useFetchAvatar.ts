@@ -17,7 +17,7 @@ const useFetchAvatar = (userAvatarId: number | null = null) => {
     const { isInitialLoading: isLoading, error } = useQuery({
         queryKey: ["avatar", userAvatarId],
         queryFn: () => getAvatar(userAvatarId),
-        onSuccess: data => handleAvatarChange(data),
+        onSuccess: handleAvatarChange,
         enabled: !!userAvatarId
     });
 

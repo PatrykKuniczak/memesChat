@@ -21,7 +21,7 @@ const useDecodeToken = () => {
 
                 setId(id);
                 setUsername(username);
-            } catch (err: any) {
+            } catch (err) {
                 logoutUser();
             }
         };
