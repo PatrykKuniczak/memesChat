@@ -1,6 +1,6 @@
 import defaultUserAvatar from "assets/defaultUserAvatar.png";
 import { UserImage, UserName, UserContainer } from "./User.styled";
-import { IUserAvatar } from "hooks/useFetchAvatar";
+import useFetchAvatar, { IUserAvatar } from "hooks/useFetchAvatar";
 
 export interface IUser {
     id: number;
@@ -8,11 +8,13 @@ export interface IUser {
     userAvatar: IUserAvatar | null;
 }
 
-const User = ({ username }: IUser) => {
+const User = ({ username, userAvatar }: IUser) => {
+    const { userAvatarUrl } = useFetchAvatar(userAvatar?.id);
+
     return (
         <UserContainer>
             <UserImage
-                src={defaultUserAvatar}
+                src={userAvatarUrl || defaultUserAvatar}
                 alt="user"
             />
             <UserName>{username}</UserName>

@@ -8,6 +8,7 @@ import { VALIDATION_OFF } from "index";
 import { IRequestError } from "helpers/error-interface";
 import { updateUser } from "services/UsersService";
 import useToken from "hooks/useToken";
+import useFetchUser from "hooks/useFetchUser";
 
 export interface IUserUpdateResponse {
     accessToken: string;
@@ -21,8 +22,10 @@ export interface IUserUpdateRequest {
 const useAccountEdit = (hideModal: () => void) => {
     const fileTypes: ["JPG", "PNG"] = ["JPG", "PNG"];
 
-    const { userAvatar, handleAvatarChange, userId, username } =
-        useFetchAvatar();
+    const { id, username, userAvatar } = useFetchUser();
+    const { userAvatar: avatar, handleAvatarChange } = useFetchAvatar(
+        userAvatar?.id
+    );
     const { setAccessToken } = useToken();
 
     const mutation = useMutation<
@@ -30,15 +33,17 @@ const useAccountEdit = (hideModal: () => void) => {
         IRequestError,
         IUserUpdateRequest
     >({
-        mutationFn: data => updateUser(userId, data),
+        mutationFn: data => updateUser(id!, data),
         onSuccess: data => {
             setAccessToken(data.accessToken);
             hideModal();
         }
     });
 
-    const updateUsername = (login: string) => {
-        mutation.mutate({ userAvatar, username: login });
+    const updateUsername = (login: string | undefined) => {
+        if (id && login) {
+            mutation.mutate({ userAvatar: avatar, username: login });
+        }
     };
 
     const formik = useFormik({

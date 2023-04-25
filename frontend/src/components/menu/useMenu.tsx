@@ -4,10 +4,13 @@ import dependlyComponentDisplay from "helpers/dependly-component-display";
 import { useState } from "react";
 import useCloseByEsc from "hooks/useCloseByEsc";
 import useFetchAvatar from "hooks/useFetchAvatar";
+import useFetchUser from "hooks/useFetchUser";
 
 export const useMenu = () => {
     const [showMenu, setShowMenu] = useState(false);
-    const { username, userAvatarUrl, error, isLoading } = useFetchAvatar();
+
+    const { username, userAvatar } = useFetchUser();
+    const { userAvatarUrl, error, isLoading } = useFetchAvatar(userAvatar?.id);
 
     const changeMenuVisible = () => {
         setShowMenu(prevState => !prevState);

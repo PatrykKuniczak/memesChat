@@ -7,9 +7,11 @@ import {
 import dependlyComponentDisplay from "helpers/dependly-component-display";
 import useClickOutside from "hooks/useClickOutside";
 import useFetchAvatar from "hooks/useFetchAvatar";
+import useFetchUser from "hooks/useFetchUser";
 
 const useDropdownMenu = (changeMenuVisible: () => void) => {
-    const { username, userAvatarUrl, error, isLoading } = useFetchAvatar();
+    const { username, userAvatar } = useFetchUser();
+    const { userAvatarUrl, error, isLoading } = useFetchAvatar(userAvatar?.id);
 
     const handleClickOutside = () => {
         changeMenuVisible();

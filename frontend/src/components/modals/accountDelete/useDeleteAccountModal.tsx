@@ -1,16 +1,16 @@
 import { useMutation } from "@tanstack/react-query";
 import { IRequestError } from "helpers/error-interface";
 import { deleteUser } from "services/UsersService";
-import { useAppSelector } from "store/store";
 import useToken from "hooks/useToken";
 import { FormEvent } from "react";
+import useFetchUser from "hooks/useFetchUser";
 
 export const useDeleteAccountModal = (hideModal: () => void) => {
-    const id = useAppSelector(state => state.user.id);
+    const { id } = useFetchUser();
     const { setAccessToken } = useToken();
 
     const mutation = useMutation<null, IRequestError>({
-        mutationFn: () => deleteUser(id),
+        mutationFn: () => deleteUser(id!),
         onSuccess: () => {
             setAccessToken("");
             hideModal();
@@ -18,7 +18,10 @@ export const useDeleteAccountModal = (hideModal: () => void) => {
     });
     const deleteAccountConfirm = (event: FormEvent) => {
         event.preventDefault();
-        mutation.mutate();
+
+        if (id) {
+            mutation.mutate();
+        }
     };
 
     return {
