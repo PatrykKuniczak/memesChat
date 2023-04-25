@@ -34,16 +34,12 @@ import {
 } from "@nestjs/swagger";
 import IUploadedFile from "users/types/uploaded-file.interface";
 import { UserReq } from "users/decorators/user.decorator";
-import { UsersAvatarService } from "usersAvatar/services/usersAvatar.service";
 
 @ApiBearerAuth("defaultBearerAuth")
 @ApiTags("users")
 @Controller("users")
 class UsersController {
-    constructor(
-        private readonly usersService: UsersService,
-        private readonly usersAvatarService: UsersAvatarService
-    ) {}
+    constructor(private readonly usersService: UsersService) {}
 
     @ApiOkResponse()
     @ApiUnauthorizedResponse({ description: "Invalid JWT token" })
@@ -55,23 +51,18 @@ class UsersController {
 
     @ApiOkResponse()
     @ApiUnauthorizedResponse({ description: "Invalid JWT token" })
-    @ApiForbiddenResponse({ description: "You are not the owner of account" })
     @ApiNotFoundResponse()
     @UseGuards(JwtAuthGuard)
     @Get(":id")
-    async findOne(
-        @Param("id", ParseIntPipe) id: number,
-        @UserReq("id") userId: number
-    ) {
-        return this.usersService.findOneByIdAndUserJwtId(id, userId);
+    async findOne(@Param("id", ParseIntPipe) id: number) {
+        return this.usersService.findOne(id);
     }
 
     @ApiOkResponse()
     @ApiUnauthorizedResponse({ description: "Invalid JWT token" })
-    @ApiForbiddenResponse({ description: "You are not the owner of account" })
+    @ApiForbiddenResponse({ description: "You aren't the owner of an account" })
     @ApiInternalServerErrorResponse({
-        description:
-            "If something goes wrong with deleting file on server, but it's very little chance"
+        description: "Something goes wrong with deleting file on server"
     })
     @ApiNotFoundResponse()
     @UseGuards(JwtAuthGuard)
@@ -80,26 +71,18 @@ class UsersController {
         @Param("id", ParseIntPipe) id: number,
         @UserReq("id") userId: number
     ) {
-        const user = await this.usersService.findOneByIdAndUserJwtId(
-            id,
-            userId
-        );
-
-        if (user.userAvatar)
-            await this.usersAvatarService.delete(user.userAvatar);
-
-        await this.usersService.delete(id);
+        await this.usersService.delete(id, userId);
     }
 
     @ApiOkResponse({ description: "Return JWT token" })
     @ApiUnauthorizedResponse({ description: "Invalid JWT token" })
-    @ApiForbiddenResponse({ description: "You are not the owner of account" })
+    @ApiForbiddenResponse({ description: "You aren't the owner of account" })
     @ApiConflictResponse({ description: "Duplicated username" })
     @ApiBadRequestResponse({
         description: "Message depend on validation error"
     })
     @ApiInternalServerErrorResponse({
-        description: "If something gone wrong with orm"
+        description: "Something gone wrong with orm"
     })
     @ApiNotFoundResponse()
     @ApiConsumes("multipart/form-data")

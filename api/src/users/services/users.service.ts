@@ -2,8 +2,7 @@ import {
     Injectable,
     ConflictException,
     NotFoundException,
-    ForbiddenException,
-    UnauthorizedException
+    ForbiddenException
 } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { EntityNotFoundError, QueryFailedError, Repository } from "typeorm";
@@ -17,18 +16,13 @@ import { JwtService } from "@nestjs/jwt";
 
 @Injectable()
 export class UsersService {
-    private readonly isDevelopment: boolean;
-
     constructor(
         @InjectRepository(User)
         private readonly userRepository: Repository<User>,
         private readonly configService: ConfigService,
         private readonly usersAvatarService: UsersAvatarService,
         private readonly jwtService: JwtService
-    ) {
-        this.isDevelopment =
-            configService.get("DEVELOPMENT") === "true" || false;
-    }
+    ) {}
 
     async create(userCredentialsDto: UserCredentialsDto) {
         const user = await this.userRepository
@@ -48,29 +42,13 @@ export class UsersService {
         return this.userRepository.find();
     }
 
-    async findOneForValidate(id: number) {
+    async findOne(id: number) {
         return this.userRepository.findOneByOrFail({ id }).catch(error => {
             if (error instanceof EntityNotFoundError)
-                throw new UnauthorizedException();
+                throw new NotFoundException();
 
             throw error;
         });
-    }
-
-    async findOneByIdAndUserJwtId(id: number, userId: number) {
-        const user = await this.userRepository
-            .findOneByOrFail({ id })
-            .catch(error => {
-                if (error instanceof EntityNotFoundError)
-                    throw new NotFoundException();
-
-                throw error;
-            });
-
-        if (!this.isDevelopment && user.id !== userId)
-            throw new ForbiddenException("You are not the owner of account");
-
-        return user;
     }
 
     async findOneByUsername(username: string) {
@@ -98,7 +76,15 @@ export class UsersService {
             });
     }
 
-    async delete(id: number) {
+    async delete(id: number, userId: number) {
+        if (id !== userId)
+            throw new ForbiddenException("You aren't the owner of account");
+
+        const user = await this.findOne(id);
+
+        if (user.userAvatar)
+            await this.deleteAvatar(user.userAvatar.id, userId);
+
         return this.userRepository.delete(id);
     }
 
@@ -108,11 +94,12 @@ export class UsersService {
         updateUserDto: UpdateUserDto,
         file: IUploadedFile
     ) {
-        const user = await this.findOneByIdAndUserJwtId(id, userId);
+        if (id !== userId)
+            throw new ForbiddenException("You aren't the owner of account");
 
-        const avatar = user.userAvatar;
+        const { userAvatar } = await this.findOne(id);
 
-        if (avatar) await this.usersAvatarService.delete(avatar);
+        if (userAvatar) await this.deleteAvatar(userAvatar.id, userId);
 
         if (file) {
             updateUserDto.userAvatar =
@@ -129,6 +116,10 @@ export class UsersService {
         });
 
         return this.generateJwt({ id, username: updateUserDto.username });
+    }
+
+    private async deleteAvatar(avatarId: number, userId: number) {
+        await this.usersAvatarService.delete(avatarId, userId);
     }
 
     private generateJwt(payload: { id: number; username: string }) {

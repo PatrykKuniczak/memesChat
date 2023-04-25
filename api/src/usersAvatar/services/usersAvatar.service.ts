@@ -11,21 +11,17 @@ import { UserAvatar } from "../model/usersAvatar.entity";
 import { createReadStream, unlinkSync } from "fs";
 import { join } from "path";
 import IUploadedFile from "users/types/uploaded-file.interface";
-import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class UsersAvatarService {
-    private readonly isDevelopment: boolean;
-
     constructor(
         @InjectRepository(UserAvatar)
-        private readonly usersAvatarRepository: Repository<UserAvatar>,
-        private readonly configService: ConfigService
-    ) {
-        this.isDevelopment = configService.get("DEVELOPMENT") === "true";
-    }
+        private readonly usersAvatarRepository: Repository<UserAvatar>
+    ) {}
 
-    getFile(avatar: UserAvatar) {
+    async getFile(id: number) {
+        const avatar = await this.findOne(id);
+
         const file = createReadStream(process.cwd() + "\\" + avatar.sourcePath);
 
         return new StreamableFile(file);
@@ -39,8 +35,8 @@ export class UsersAvatarService {
         return this.usersAvatarRepository.save({ name, sourcePath, extension });
     }
 
-    async findOneByIdAndUserId(id: number, userId: number) {
-        const avatar = await this.usersAvatarRepository
+    async findOne(id: number) {
+        return this.usersAvatarRepository
             .findOneOrFail({ where: { id }, relations: { user: true } })
             .catch(error => {
                 if (error instanceof EntityNotFoundError) {
@@ -48,14 +44,14 @@ export class UsersAvatarService {
                 }
                 throw error;
             });
-
-        if (!this.isDevelopment && avatar.user.id !== userId)
-            throw new ForbiddenException("You are not author of the avatar");
-
-        return avatar;
     }
 
-    async delete(avatar: UserAvatar) {
+    async delete(id: number, userId: number) {
+        const avatar = await this.findOne(id);
+
+        if (avatar.user.id !== userId)
+            throw new ForbiddenException("You aren't author of the avatar");
+
         const appDir = process.cwd();
 
         try {

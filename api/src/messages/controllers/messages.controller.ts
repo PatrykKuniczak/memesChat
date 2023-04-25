@@ -7,7 +7,6 @@ import {
     Delete,
     UseGuards,
     Param,
-    ForbiddenException,
     ParseIntPipe
 } from "@nestjs/common";
 import { MessagesService } from "messages/services/messages.service";
@@ -34,6 +33,9 @@ export class MessagesController {
 
     @ApiCreatedResponse()
     @ApiUnauthorizedResponse({ description: "Invalid JWT token" })
+    @ApiForbiddenResponse({
+        description: "You can't create a message for other user"
+    })
     @ApiBadRequestResponse({
         description: "Message depend on validation error"
     })
@@ -43,8 +45,7 @@ export class MessagesController {
         @Body() createMessageDto: CreateMessageDto,
         @UserReq("id") userId: number
     ) {
-        createMessageDto.authorId = userId;
-        return this.messagesService.create(createMessageDto);
+        return this.messagesService.create(createMessageDto, userId);
     }
 
     @ApiOkResponse()
@@ -57,20 +58,18 @@ export class MessagesController {
 
     @ApiOkResponse()
     @ApiUnauthorizedResponse({ description: "Invalid JWT token" })
+    @ApiNotFoundResponse()
     @UseGuards(JwtAuthGuard)
     @Get(":id")
-    async findOne(
-        @Param("id", ParseIntPipe) id: number,
-        @UserReq("id") userId: number
-    ) {
-        return this.messagesService.findOneByIdAndAuthorId(id, userId);
+    async findOne(@Param("id", ParseIntPipe) id: number) {
+        return this.messagesService.findOne(id);
     }
 
     @ApiOkResponse()
     @ApiUnauthorizedResponse({ description: "Invalid JWT token" })
     @ApiForbiddenResponse({
         description:
-            "'You can't manipulate message with no author' or 'You are not author of the message'"
+            "'You can't manipulate message with no author' or 'You aren't author of a message'"
     })
     @ApiNotFoundResponse()
     @UseGuards(JwtAuthGuard)
@@ -79,15 +78,14 @@ export class MessagesController {
         @Param("id", ParseIntPipe) id: number,
         @UserReq("id") userId: number
     ) {
-        await this.messagesService.findOneByIdAndAuthorId(id, userId);
-        await this.messagesService.delete(id);
+        await this.messagesService.delete(id, userId);
     }
 
     @ApiOkResponse()
     @ApiUnauthorizedResponse({ description: "Invalid JWT token" })
     @ApiForbiddenResponse({
         description:
-            "'You can't update image' or 'You can't manipulate message with no author' or 'You are not author of the message'"
+            "'You can't update a message which is an image' or 'You aren't author of a message'"
     })
     @ApiBadRequestResponse({
         description: "Message depend on validation error"
@@ -100,12 +98,6 @@ export class MessagesController {
         @Param("id", ParseIntPipe) id: number,
         @UserReq("id") userId: number
     ) {
-        const currentMessage =
-            await this.messagesService.findOneByIdAndAuthorId(id, userId);
-
-        if (currentMessage.isImage)
-            throw new ForbiddenException("You can't update image.");
-
-        await this.messagesService.update(id, updateMessageDto);
+        await this.messagesService.update(id, userId, updateMessageDto);
     }
 }

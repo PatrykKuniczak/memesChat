@@ -2,7 +2,6 @@ import {
     Controller,
     Delete,
     Get,
-    Header,
     Param,
     ParseIntPipe,
     UseGuards
@@ -17,7 +16,7 @@ import {
     ApiTags,
     ApiUnauthorizedResponse
 } from "@nestjs/swagger";
-import { UserReq } from "users/decorators/user.decorator";
+import {UserReq} from "users/decorators/user.decorator";
 
 @ApiBearerAuth("defaultBearerAuth")
 @ApiTags("users-avatar")
@@ -28,24 +27,15 @@ class UsersAvatarController {
     @ApiOkResponse()
     @ApiUnauthorizedResponse({ description: "Invalid JWT token" })
     @ApiNotFoundResponse()
-    @Header("Content-Type", "image/jpeg")
     @UseGuards(JwtAuthGuard)
     @Get(":id")
-    async getFile(
-        @Param("id", ParseIntPipe) id: number,
-        @UserReq("id") userId: number
-    ) {
-        const avatar = await this.usersAvatarService.findOneByIdAndUserId(
-            id,
-            userId
-        );
-
-        return this.usersAvatarService.getFile(avatar);
+    async getFile(@Param("id", ParseIntPipe) id: number) {
+        return this.usersAvatarService.getFile(id);
     }
 
     @ApiOkResponse()
     @ApiUnauthorizedResponse({ description: "Invalid JWT token" })
-    @ApiForbiddenResponse({ description: "You are not author of the avatar" })
+    @ApiForbiddenResponse({ description: "You aren't author of the avatar" })
     @ApiNotFoundResponse()
     @UseGuards(JwtAuthGuard)
     @Delete(":id")
@@ -53,12 +43,7 @@ class UsersAvatarController {
         @Param("id", ParseIntPipe) id: number,
         @UserReq("id") userId: number
     ) {
-        const avatar = await this.usersAvatarService.findOneByIdAndUserId(
-            id,
-            userId
-        );
-
-        await this.usersAvatarService.delete(avatar);
+        await this.usersAvatarService.delete(id, userId);
     }
 }
 
