@@ -1,7 +1,7 @@
-import {Allow, IsAlphanumeric, IsString, Length} from "class-validator";
+import { Allow, IsAlphanumeric, IsString, Length } from "class-validator";
 import { Transform } from "class-transformer";
 import { UserAvatar } from "usersAvatar/model/usersAvatar.entity";
-import {ApiProperty} from "@nestjs/swagger";
+import { ApiProperty } from "@nestjs/swagger";
 
 export class UpdateUserDto {
     @Length(5, 30)
@@ -10,7 +10,11 @@ export class UpdateUserDto {
     @Transform(({ value }) => value.replace(/\s/g, "").toLowerCase())
     username: string;
 
+    @ApiProperty({
+        type: "string",
+        format: "binary",
+        description: "File which contain .jpg/.jpeg/.png extension"
+    })
     @Allow()
-    @ApiProperty({ type: "string", format: "binary", description: "File which contain .jpg/.jpeg/.png extension" })
-    userAvatar?: UserAvatar;
+    userAvatar?: UserAvatar | null;
 }

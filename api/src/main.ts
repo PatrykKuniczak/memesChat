@@ -6,13 +6,14 @@ import { SwaggerModule } from "@nestjs/swagger";
 import swaggerConfig, { swaggerOptions } from "swagger/swagger.config";
 import { JwtToken } from "swagger/jwt-token.property.dto";
 import { User } from "users/model/users.entity";
+import {Message} from "messages/model/message.entity";
+
+const IS_DEVELOPMENT = process.env.NODE_ENV === "dev";
+const VALIDATION_OFF = process.env.VALIDATION_OFF === "true";
+const ENABLE_ALL_CORS = process.env.ENABLE_ALL_CORS === "true";
 
 (async () => {
     const logger = new Logger("Main");
-
-    const IS_DEVELOPMENT = process.env.NODE_ENV === "dev";
-    const VALIDATION_OFF = process.env.VALIDATION_OFF === "true";
-    const ENABLE_ALL_CORS = process.env.ENABLE_ALL_CORS === "true";
 
     const app = await NestFactory.create(AppModule, {
         cors: {
@@ -37,7 +38,7 @@ import { User } from "users/model/users.entity";
     const document =
         IS_DEVELOPMENT &&
         SwaggerModule.createDocument(app, swaggerConfig, {
-            extraModels: [JwtToken, User]
+            extraModels: [JwtToken, User, Message]
         });
 
     const defaultJwtToken =
@@ -48,7 +49,7 @@ import { User } from "users/model/users.entity";
             "docs",
             app,
             document,
-            VALIDATION_OFF && swaggerOptions(defaultJwtToken)
+            swaggerOptions(defaultJwtToken)
         );
 
     await app.listen(PORT);

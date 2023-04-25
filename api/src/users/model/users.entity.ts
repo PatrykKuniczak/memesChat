@@ -18,15 +18,15 @@ export class User {
     username: string;
 
     @Column({ select: false })
-    password?: string;
+    password: string;
 
     @OneToOne(() => UserAvatar, userAvatar => userAvatar.user, {
         onDelete: "SET NULL",
         eager: true
     })
     @JoinColumn()
-    userAvatar?: UserAvatar;
+    userAvatar?: UserAvatar | null;
 
     @OneToMany(() => Message, message => message.author)
-    messages?: Message[];
+    messages?: Message[] | null;
 }

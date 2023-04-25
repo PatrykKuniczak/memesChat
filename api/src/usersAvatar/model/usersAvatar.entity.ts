@@ -18,5 +18,5 @@ export class UserAvatar {
     extension: string;
 
     @OneToOne(() => User, user => user.userAvatar)
-    user?: User;
+    user: User;
 }

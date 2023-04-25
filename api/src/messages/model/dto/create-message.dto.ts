@@ -1,5 +1,5 @@
-import { IsBoolean, IsOptional, IsString, Min } from "class-validator";
-import { ApiHideProperty, ApiProperty } from "@nestjs/swagger";
+import { IsBoolean, IsString, Min } from "class-validator";
+import { ApiProperty } from "@nestjs/swagger";
 import MessageLengthCustomValidator from "messages/model/custom-validators/message-length";
 import UrlCustomValidator from "messages/model/custom-validators/url";
 
@@ -20,8 +20,6 @@ export class CreateMessageDto {
     @IsBoolean()
     readonly isImage: boolean;
 
-    @ApiHideProperty()
-    @IsOptional()
     @Min(1)
-    authorId?: number;
+    authorId: number;
 }
