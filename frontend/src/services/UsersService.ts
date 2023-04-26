@@ -4,6 +4,12 @@ import {
     IUserUpdateRequest,
     IUserUpdateResponse
 } from "components/modals/editAccount/useAccountEdit";
+import { IUsers } from "components/users/Users";
+
+export const getAllUsers = async (): Promise<IUsers> => {
+    const { data } = await axios.get("users");
+    return data;
+};
 
 export const getUser = async (id: number): Promise<IUser> => {
     const { data } = await axios.get(`users/${id}`);
@@ -26,6 +32,5 @@ export const updateUser = async (
 };
 
 export const deleteUser = async (id: number): Promise<null> => {
-    const { data } = await axios.delete(`users/${id}`);
-    return data;
+    return await axios.delete(`users/${id}`);
 };

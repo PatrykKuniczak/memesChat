@@ -4,7 +4,7 @@ import { ChangeEvent, useDeferredValue, useEffect, useState } from "react";
 import { usersAfterFilter } from "helpers/onlineUsersFiltering";
 import { useQuery } from "@tanstack/react-query";
 import User, { IUser } from "../user/User";
-import { getAllUsers } from "services/UsersAvatarService";
+import { getAllUsers } from "services/UsersService";
 import useToken from "hooks/useToken";
 
 const useUsers = () => {

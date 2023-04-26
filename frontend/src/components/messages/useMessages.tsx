@@ -6,6 +6,7 @@ import Message, { IMessage } from "../message/Message";
 import { messagesAfterFilter } from "helpers/messagesFiltering";
 import { IMessagesContainer } from "./Messages";
 import useToken from "hooks/useToken";
+import { fetchAllMessages } from "services/MessagesService";
 
 export type TMessages = IMessage[];
 
@@ -15,11 +16,6 @@ const UseMessages = ({ searchValue, searchMode }: IMessagesContainer) => {
     const deferredSearchValue = useDeferredValue(searchValue);
 
     const { userToken } = useToken();
-
-    const fetchAllMessages = async () => {
-        const { data } = await axios.get("messages");
-        return data;
-    };
 
     const { data, isLoading, error } = useQuery({
         queryKey: ["messages"],

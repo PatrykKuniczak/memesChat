@@ -1,10 +1,4 @@
 import axios from "axios";
-import { IUsers } from "components/users/Users";
-
-export const getAllUsers = async (): Promise<IUsers> => {
-    const { data } = await axios.get("users");
-    return data;
-};
 
 export const getAvatar = async (
     id: number | null | undefined
