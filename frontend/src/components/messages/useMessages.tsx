@@ -28,7 +28,7 @@ const UseMessages = ({ searchValue, searchMode }: IMessagesContainer) => {
     };
 
     const MessagesList = () => {
-        const filteredMessagesArray = filteredMessages.map(message => (
+        const mappedFilteredMessages = filteredMessages.map(message => (
             <Message
                 key={message.id}
                 message={message}
@@ -38,7 +38,7 @@ const UseMessages = ({ searchValue, searchMode }: IMessagesContainer) => {
         return dependlyComponentDisplay({
             isLoading,
             error,
-            data: filteredMessagesArray
+            data: mappedFilteredMessages
         });
     };
 

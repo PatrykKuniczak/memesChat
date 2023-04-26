@@ -25,7 +25,7 @@ const useUsers = () => {
     };
 
     const UsersList = () => {
-        const filteredUsersArray = filteredUsers.map(
+        const mappedFilteredUsers = filteredUsers.map(
             ({ id, username, userAvatar }: IUser) => (
                 <User
                     key={id}
@@ -39,7 +39,7 @@ const useUsers = () => {
         return dependlyComponentDisplay({
             isLoading,
             error,
-            data: filteredUsersArray
+            data: mappedFilteredUsers
         });
     };
 
