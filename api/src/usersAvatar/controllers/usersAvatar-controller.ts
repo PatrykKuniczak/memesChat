@@ -16,7 +16,7 @@ import {
     ApiTags,
     ApiUnauthorizedResponse
 } from "@nestjs/swagger";
-import {UserReq} from "users/decorators/user.decorator";
+import { UserReq } from "users/decorators/user.decorator";
 
 @ApiBearerAuth("defaultBearerAuth")
 @ApiTags("users-avatar")
@@ -35,7 +35,7 @@ class UsersAvatarController {
 
     @ApiOkResponse()
     @ApiUnauthorizedResponse({ description: "Invalid JWT token" })
-    @ApiForbiddenResponse({ description: "You aren't author of the avatar" })
+    @ApiForbiddenResponse({ description: "You aren't owner of the avatar" })
     @ApiNotFoundResponse()
     @UseGuards(JwtAuthGuard)
     @Delete(":id")

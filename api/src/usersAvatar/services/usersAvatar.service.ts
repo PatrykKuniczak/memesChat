@@ -50,7 +50,7 @@ export class UsersAvatarService {
         const avatar = await this.findOne(id);
 
         if (avatar.user.id !== userId)
-            throw new ForbiddenException("You aren't author of the avatar");
+            throw new ForbiddenException("You aren't owner of the avatar");
 
         const appDir = process.cwd();
 

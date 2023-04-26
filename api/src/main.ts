@@ -6,18 +6,18 @@ import { SwaggerModule } from "@nestjs/swagger";
 import swaggerConfig, { swaggerOptions } from "swagger/swagger.config";
 import { JwtToken } from "swagger/jwt-token.property.dto";
 import { User } from "users/model/users.entity";
-import {Message} from "messages/model/message.entity";
+import { Message } from "messages/model/message.entity";
 
-const IS_DEVELOPMENT = process.env.NODE_ENV === "dev";
-const VALIDATION_OFF = process.env.VALIDATION_OFF === "true";
-const ENABLE_ALL_CORS = process.env.ENABLE_ALL_CORS === "true";
+const IS_DEVELOPMENT_ENABLED = process.env.NODE_ENV === "dev";
+const IS_VALIDATION_OFF_ENABLED = process.env.IS_VALIDATION_OFF_ENABLED === "true";
+const IS_EACH_CORS_ENABLED = process.env.IS_EACH_CORS_ENABLED === "true";
 
 (async () => {
     const logger = new Logger("Main");
 
     const app = await NestFactory.create(AppModule, {
         cors: {
-            origin: ENABLE_ALL_CORS ? "*" : process.env.CLIENT_URL
+            origin: IS_EACH_CORS_ENABLED ? "*" : process.env.CLIENT_URL
         }
     });
 
@@ -26,7 +26,7 @@ const ENABLE_ALL_CORS = process.env.ENABLE_ALL_CORS === "true";
 
     app.setGlobalPrefix("api");
 
-    if (!VALIDATION_OFF)
+    if (!IS_VALIDATION_OFF_ENABLED)
         app.useGlobalPipes(
             new ValidationPipe({
                 transform: true,
@@ -36,15 +36,15 @@ const ENABLE_ALL_CORS = process.env.ENABLE_ALL_CORS === "true";
         );
 
     const document =
-        IS_DEVELOPMENT &&
+        IS_DEVELOPMENT_ENABLED &&
         SwaggerModule.createDocument(app, swaggerConfig, {
             extraModels: [JwtToken, User, Message]
         });
 
     const defaultJwtToken =
-        IS_DEVELOPMENT && configService.get("devOptions.defaultJwtToken");
+        IS_DEVELOPMENT_ENABLED && configService.get("devOptions.defaultJwtToken");
 
-    IS_DEVELOPMENT &&
+    IS_DEVELOPMENT_ENABLED &&
         SwaggerModule.setup(
             "docs",
             app,
