@@ -8,22 +8,20 @@ import { UpdateMessageDto } from "messages/model/dto/update-message.dto";
 import { InjectRepository } from "@nestjs/typeorm";
 import { EntityNotFoundError, Repository } from "typeorm";
 import { Message } from "messages/model/message.entity";
-import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class MessagesService {
-    private readonly isDevelopment: boolean;
-
     constructor(
         @InjectRepository(Message)
-        private readonly messageRepository: Repository<Message>,
-        private readonly configService: ConfigService
-    ) {
-        this.isDevelopment =
-            configService.get("DEVELOPMENT") === "true" || false;
-    }
+        private readonly messageRepository: Repository<Message>
+    ) {}
 
-    async create(createMessageDto: CreateMessageDto) {
+    async create(createMessageDto: CreateMessageDto, userId: number) {
+        if (createMessageDto.authorId !== userId)
+            throw new ForbiddenException(
+                "You can't create a message for other user"
+            );
+
         return this.messageRepository.save(createMessageDto);
     }
 
@@ -31,34 +29,41 @@ export class MessagesService {
         return this.messageRepository.find();
     }
 
-    async findOneByIdAndAuthorId(id: number, authorId: number) {
-        const message = await this.messageRepository
-            .findOneByOrFail({ id })
-            .catch(error => {
-                if (error instanceof EntityNotFoundError)
-                    throw new NotFoundException();
+    async findOne(id: number) {
+        return this.messageRepository.findOneByOrFail({ id }).catch(error => {
+            if (error instanceof EntityNotFoundError)
+                throw new NotFoundException();
 
-                throw error;
-            });
-
-        if (!message.author)
-            throw new ForbiddenException(
-                "You can't manipulate message with no author"
-            );
-
-        if (!this.isDevelopment && message.author.id !== authorId)
-            throw new ForbiddenException("You are not author of the message");
-
-        return message;
+            throw error;
+        });
     }
 
-    async delete(id: number) {
+    async delete(id: number, userId: number) {
+        const message = await this.findOne(id);
+
+        if (message.author.id !== userId)
+            throw new ForbiddenException("You aren't author of a message");
+
         return this.messageRepository.delete(id).catch(error => {
             throw error;
         });
     }
 
-    async update(id: number, updateMessageDto: UpdateMessageDto) {
+    async update(
+        id: number,
+        userId: number,
+        updateMessageDto: UpdateMessageDto
+    ) {
+        if (updateMessageDto.authorId !== userId)
+            throw new ForbiddenException("You aren't author of a message");
+
+        const currentMessage = await this.findOne(id);
+
+        if (currentMessage.isImage)
+            throw new ForbiddenException(
+                "You can't update a message which is an image"
+            );
+
         return this.messageRepository
             .update(id, updateMessageDto)
             .catch(error => {

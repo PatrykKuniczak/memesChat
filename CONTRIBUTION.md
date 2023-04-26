@@ -65,8 +65,8 @@ GIT CLONE: https://github.com/PatrykKuniczak/memesChat.git
         WS_URL=
         CLIENT_URL=
         JWT_SECRET=YOUR_SECRET
-        VALIDATION_OFF=true - leave empty for default validation.
-        DEFAULT_JWT_TOKEN= Default token for swagger for development operation, work only on "VALIDATION_OFF=true",
+        VALIDATION_OFF=true - leave empty for default behavior.
+        DEFAULT_JWT_TOKEN= Default token for swagger for development operation, work only only on "npm run start:dev",
         leave empty if you don't want to use it.
         ENABLE_ALL_CORS=true - leave empty for default behavior.
 
@@ -97,13 +97,14 @@ GIT CLONE: https://github.com/PatrykKuniczak/memesChat.git
             [^] USE PATHS RELATIVE TO TSCONFIG.JSON
 
 ### CONFIGURE DEFAULT BRANCH UPDATE SETTINGS:
+
     IN WEBSTORM GO TO SETTING:
         GIT/PUSH:
             PROTECTED BRANCH: 'main"
         /UPDATE:
             UPDATE METHOD: 'rebase'
             CLEAN WORKING TREE USING: 'stash' 
-    
+
 ### AFTER CREATE ENVS AND CONFIGURE IDE:
 
     RUN 'npm ci' FOR EACH APP
