@@ -50,7 +50,7 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
 
     const { errors, handleChange, values } = formik;
 
-    const isAuthor = message.author && message.author.id === id;
+    const isAuthor = message.author?.id === id;
 
     return (
         <>

@@ -19,9 +19,7 @@ export const useDeleteAccountModal = (hideModal: () => void) => {
     const deleteAccountConfirm = (event: FormEvent) => {
         event.preventDefault();
 
-        if (id) {
-            mutation.mutate();
-        }
+        id && mutation.mutate();
     };
 
     return {

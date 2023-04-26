@@ -13,7 +13,7 @@ const useFetchUser = () => {
     } = useQuery<IUser>({
         queryKey: ["user", id, userToken],
         queryFn: () => getUser(id),
-        enabled: !!id && id !== 0 && !!userToken
+        enabled: !!id && id > 0 && !!userToken
     });
 
     return { ...user, isInitialLoading, error };
