@@ -7,10 +7,11 @@ import { useEffect, useState } from "react";
 type TUserDecodedData = Omit<IUser, "userAvatar">;
 
 const useDecodeToken = () => {
-    const { userToken } = useToken();
-    const { logoutUser } = useLogout();
     const [id, setId] = useState(0);
     const [username, setUsername] = useState("");
+
+    const { userToken } = useToken();
+    const { logoutUser } = useLogout();
 
     useEffect(() => {
         const decode = async () => {
