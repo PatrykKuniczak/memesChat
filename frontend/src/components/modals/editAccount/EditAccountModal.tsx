@@ -64,7 +64,11 @@ const EditAccountModal = ({ hideModal }: IModal) => {
             </OptionEditAvatar>
             <PrimaryButton type="submit">Zapisz zmiany</PrimaryButton>
             {error && (
-                <ErrorIndicator>{error.response.data.message}</ErrorIndicator>
+                <ErrorIndicator>
+                    {error.response
+                        ? error.response.data.message
+                        : "Network error"}
+                </ErrorIndicator>
             )}
         </EditAccountWrapper>
     );

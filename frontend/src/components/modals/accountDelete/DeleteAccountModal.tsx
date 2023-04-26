@@ -30,7 +30,11 @@ const DeleteAccountModal = ({ hideModal }: IModal) => {
                 </PrimaryButton>
             </DeleteAccountButtonsWrapper>
             {error && (
-                <ErrorIndicator>{error.response.data.message}</ErrorIndicator>
+                <ErrorIndicator>
+                    {error.response
+                        ? error.response.data.message
+                        : "Network error"}
+                </ErrorIndicator>
             )}
         </DeleteAccountWrapper>
     );

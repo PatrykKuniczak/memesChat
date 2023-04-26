@@ -66,7 +66,11 @@ const Form: FC<{ isSignUp: boolean }> = ({ isSignUp }) => {
                 )}
             </ButtonsContainer>
             {error && (
-                <ErrorIndicator>{error.response.data.message}</ErrorIndicator>
+                <ErrorIndicator>
+                    {error.response
+                        ? error.response.data.message
+                        : "Network error"}
+                </ErrorIndicator>
             )}
         </FormWrapper>
     );

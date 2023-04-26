@@ -35,7 +35,11 @@ const RemoveAvatarModal = ({ hideModal }: IModal) => {
                 </PrimaryButton>
             </RemoveAvatarButtonsWrapper>
             {error && (
-                <ErrorIndicator>{error.response.data.message}</ErrorIndicator>
+                <ErrorIndicator>
+                    {error.response
+                        ? error.response.data.message
+                        : "Network error"}
+                </ErrorIndicator>
             )}
         </RemoveAvatarWrapper>
     );
