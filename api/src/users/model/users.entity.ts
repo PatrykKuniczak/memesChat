@@ -25,8 +25,8 @@ export class User {
         eager: true
     })
     @JoinColumn()
-    userAvatar?: UserAvatar | null;
+    userAvatar: UserAvatar | null;
 
     @OneToMany(() => Message, message => message.author)
-    messages?: Message[] | null;
+    messages: Message[];
 }

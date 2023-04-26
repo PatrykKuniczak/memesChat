@@ -16,5 +16,5 @@ export class UpdateUserDto {
         description: "File which contain .jpg/.jpeg/.png extension"
     })
     @Allow()
-    userAvatar?: UserAvatar | null;
+    userAvatar: UserAvatar | null;
 }

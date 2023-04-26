@@ -22,11 +22,11 @@ export class Message {
     readonly createdAt: number;
 
     @Column({ select: false, nullable: true })
-    authorId?: number | null;
+    authorId: number | null;
 
     @ManyToOne(() => User, user => user.messages, {
         eager: true,
         onDelete: "SET NULL"
     })
-    readonly author?: User | null;
+    readonly author: User | null;
 }
