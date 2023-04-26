@@ -9,7 +9,8 @@ import { User } from "users/model/users.entity";
 import { Message } from "messages/model/message.entity";
 
 const IS_DEVELOPMENT_ENABLED = process.env.NODE_ENV === "dev";
-const IS_VALIDATION_OFF_ENABLED = process.env.IS_VALIDATION_OFF_ENABLED === "true";
+const IS_VALIDATION_OFF_ENABLED =
+    process.env.IS_VALIDATION_OFF_ENABLED === "true";
 const IS_EACH_CORS_ENABLED = process.env.IS_EACH_CORS_ENABLED === "true";
 
 (async () => {
@@ -42,7 +43,8 @@ const IS_EACH_CORS_ENABLED = process.env.IS_EACH_CORS_ENABLED === "true";
         });
 
     const defaultJwtToken =
-        IS_DEVELOPMENT_ENABLED && configService.get("devOptions.defaultJwtToken");
+        IS_DEVELOPMENT_ENABLED &&
+        configService.get("devOptions.defaultJwtToken");
 
     IS_DEVELOPMENT_ENABLED &&
         SwaggerModule.setup(
