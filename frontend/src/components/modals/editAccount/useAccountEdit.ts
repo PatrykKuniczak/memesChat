@@ -22,7 +22,7 @@ export interface IUserUpdateRequest {
 const useAccountEdit = (hideModal: () => void) => {
     const fileTypes: ["JPG", "PNG"] = ["JPG", "PNG"];
 
-    const { id, username, userAvatar } = useFetchUser();
+    const { id, username = "", userAvatar } = useFetchUser();
     const { userAvatar: avatar, handleAvatarChange } = useFetchAvatar(
         userAvatar?.id
     );
