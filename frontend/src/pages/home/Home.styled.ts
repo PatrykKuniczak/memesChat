@@ -6,13 +6,15 @@ const MainWrapper = styled.div`
 
 const Main = styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fill);
+    grid-template-rows: 1fr 4fr;
+
     gap: 1.5rem;
     height: 100%;
 
     padding: 1rem;
 
     @media (min-width: ${({ theme }) => theme.media_md}) {
+        grid-template-rows: auto;
         grid-template-columns: 1fr 2fr;
 
         padding: 5rem 2.5rem 1rem;

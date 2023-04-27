@@ -24,8 +24,7 @@ const EditAccountModal = ({ hideModal }: IModal) => {
         onSizeError,
         onDrop,
         onSelect,
-        onDraggingStateChange,
-        submitChanges
+        onDraggingStateChange
     } = useModalEditAvatar();
     const {
         handleSubmit,

@@ -4,7 +4,6 @@ import styled from "styled-components";
 const UsersContainer = styled.section`
     margin-top: 1rem;
     padding: 0.5rem;
-    overflow-y: auto;
     border-radius: 5px;
 
     background: ${({ theme }) => theme.gray_semitransparent};
@@ -13,6 +12,10 @@ const UsersContainer = styled.section`
 
     &::-webkit-scrollbar-track {
         margin-top: 4rem;
+    }
+
+    @media (width <= ${({ theme }) => theme.media_md}) {
+        max-height: 200px;
     }
 `;
 

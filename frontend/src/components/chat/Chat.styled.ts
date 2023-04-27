@@ -23,6 +23,10 @@ const ChatHeader = styled.header`
     @media (max-width: ${({ theme }) => theme.media_sm}) {
         padding: 0.7rem;
     }
+
+    @media (width <= ${({ theme }) => theme.media_md}) {
+        max-height: 50px;
+    }
 `;
 
 export { ChatContainer, ChatHeader };

@@ -5,12 +5,17 @@ import { hintMessage } from "assets/styles/theme";
 const InputWrapper = styled.div`
     display: flex;
     align-items: center;
-    margin: 2rem;
-    padding: 0.5rem 1rem 0.5rem;
+
+    gap: 0.5rem;
+    height: 50px;
+    margin: 1rem;
+    padding: 1rem 0.5rem;
     border-radius: 5px;
+
     background-color: ${({ theme }) => theme.gray_400};
-    @media (max-width: ${({ theme }) => theme.media_sm}) {
-        margin: 0.5rem 0 0 0;
+
+    @media (width <=${({ theme }) => theme.media_md}) {
+        height: 40px;
     }
 `;
 
@@ -19,16 +24,14 @@ const Form = styled.form`
 `;
 
 const MessageInput = styled.input`
-    padding: 1rem;
     width: 100%;
     border: none;
     outline: transparent;
-    font-size: ${({ theme }) => theme.font_md};
+
     color: ${({ theme }) => theme.gray_300};
     background-color: ${({ theme }) => theme.gray_400};
-    @media (max-width: ${({ theme }) => theme.media_sm}) {
-        padding: 0.5rem;
-    }
+
+    font-size: ${({ theme }) => theme.font_md};
 `;
 
 const MemeButton = styled.button`
@@ -48,11 +51,19 @@ const MemeGenerateIcon = styled(BsImage)`
     width: 26px;
     height: 26px;
     fill: ${({ theme }) => theme.gray_300};
+
+    @media (width <=${({ theme }) => theme.media_md}) {
+        width: 20px;
+        height: 20px;
+    }
 `;
 
 export const Counter = styled.p<{ isError: boolean }>`
-    min-width: 75px;
+    min-width: 4rem;
+
     color: ${({ theme, isError }) => (isError ? theme.red : theme.white)};
+
+    text-align: center;
 `;
 
 export { InputWrapper, Form, MessageInput, MemeButton, MemeGenerateIcon };

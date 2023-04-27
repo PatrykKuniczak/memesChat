@@ -86,7 +86,8 @@ const BurgerIcon = styled(FiAlignJustify)`
     color: ${({ theme }) => theme.white};
 
     @media (max-width: ${({ theme }) => theme.media_sm}) {
-        top: 0.25rem;
+        width: 40px;
+        height: 40px;
     }
 `;
 
