@@ -4,6 +4,7 @@ import { deleteUser } from "services/UsersService";
 import useToken from "hooks/useToken";
 import { FormEvent } from "react";
 import useFetchUser from "hooks/useFetchUser";
+import { updateInterceptor } from "helpers/axios/AuthIncereptor";
 
 export const useDeleteAccountModal = (hideModal: () => void) => {
     const { id } = useFetchUser();
@@ -13,6 +14,7 @@ export const useDeleteAccountModal = (hideModal: () => void) => {
         mutationFn: () => deleteUser(id!),
         onSuccess: () => {
             setAccessToken("");
+            updateInterceptor(null);
             hideModal();
         }
     });
