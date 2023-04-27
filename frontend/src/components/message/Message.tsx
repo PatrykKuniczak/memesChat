@@ -18,7 +18,7 @@ import { FC } from "react";
 import useOnHover from "./hooks/useOnHover";
 import DeleteMessageModal from "./DeleteMessageModal/DeleteMessageModal";
 import { IUser } from "../user/User";
-import { useAppSelector } from "store/store";
+import useFetchUser from "hooks/useFetchUser";
 
 export interface IMessage {
     id: number;
@@ -32,7 +32,7 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
 
     const { isHovering, hide, show } = useOnHover();
 
-    const { id } = useAppSelector(state => state.user);
+    const { id } = useFetchUser();
 
     const {
         inputKeyDownHandler,

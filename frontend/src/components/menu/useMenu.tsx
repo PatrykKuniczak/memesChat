@@ -12,6 +12,8 @@ export const useMenu = () => {
     const { username, userAvatar } = useFetchUser();
     const { userAvatarUrl, error, isLoading } = useFetchAvatar(userAvatar?.id);
 
+    const hasUserAvatar = userAvatar && userAvatarUrl;
+
     const changeMenuVisible = () => {
         setShowMenu(prevState => !prevState);
     };
@@ -21,7 +23,7 @@ export const useMenu = () => {
             <>
                 <MenuUserName>{username}</MenuUserName>
                 <MenuUserImage
-                    src={userAvatarUrl || defaultUserAvatar}
+                    src={(hasUserAvatar && userAvatarUrl) || defaultUserAvatar}
                     onClick={changeMenuVisible}
                 />
             </>

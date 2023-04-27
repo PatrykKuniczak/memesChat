@@ -1,28 +1,26 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAppDispatch, useAppSelector } from "store/store";
 import { FormEvent } from "react";
 import { IRequestError } from "helpers/error-interface";
 import { deleteAvatar } from "services/UsersAvatarService";
-import { removeAvatar } from "store/slices/UserSlice";
+import useFetchUser from "hooks/useFetchUser";
 
 const useRemoveAvatar = (hideModal: () => void) => {
-    const dispatch = useAppDispatch();
-    const avatarId = useAppSelector(state => state.user.avatarId);
+    const { userAvatar } = useFetchUser();
     const queryClient = useQueryClient();
 
     const mutation = useMutation<null, IRequestError>(
-        () => deleteAvatar(avatarId),
+        () => deleteAvatar(userAvatar?.id),
         {
-            onSuccess: () => {
+            onSuccess: async () => {
                 hideModal();
-                dispatch(removeAvatar());
-                queryClient.invalidateQueries({ queryKey: ["user2"] });
+                await queryClient.invalidateQueries({ queryKey: ["user"] });
             }
         }
     );
     const removeAvatarHandler = (event: FormEvent) => {
         event.preventDefault();
-        mutation.mutate();
+
+        userAvatar && mutation.mutate();
     };
 
     return {

@@ -8,11 +8,10 @@ import {
 } from "./RemoveAvatarModal.styled";
 import { ErrorIndicator } from "assets/styles/theme";
 import useClickOutside from "hooks/useClickOutside";
-import { useAppSelector } from "store/store";
+import useFetchUser from "hooks/useFetchUser";
 
 const RemoveAvatarModal = ({ hideModal }: IModal) => {
-    const { avatarId } = useAppSelector(state => state.user);
-
+    const { userAvatar } = useFetchUser();
     const { removeAvatarHandler, error } = useRemoveAvatar(hideModal);
 
     const { ref } = useClickOutside(hideModal);
@@ -25,7 +24,7 @@ const RemoveAvatarModal = ({ hideModal }: IModal) => {
             <RemoveAvatarButtonsWrapper>
                 <SecondaryButton
                     type="submit"
-                    disabled={avatarId === 0}>
+                    disabled={userAvatar === null}>
                     Tak, usuwam avatar
                 </SecondaryButton>
                 <PrimaryButton

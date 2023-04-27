@@ -1,6 +1,5 @@
 import dependlyComponentDisplay from "helpers/dependly-component-display";
 import { SetStateAction, useDeferredValue, useEffect, useState } from "react";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import Message, { IMessage } from "../message/Message";
 import { messagesAfterFilter } from "helpers/messagesFiltering";
