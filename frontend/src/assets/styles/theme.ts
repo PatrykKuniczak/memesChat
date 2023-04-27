@@ -74,24 +74,25 @@ const hintMessage = css`
 
     &::after {
         position: absolute;
+        z-index: 1;
+
+        display: none;
 
         padding: 0.5rem;
         border-radius: 5px;
 
-        background: ${({ theme }) => theme.gray_300};
+        background-color: ${({ theme }) => theme.gray_200};
         color: ${({ theme }) => theme.white};
 
         font-size: ${({ theme }) => theme.font_xs};
 
-        opacity: 0;
         white-space: nowrap;
     }
 
     @media (min-width: ${({ theme }) => theme.media_md}) {
         &:hover {
             &::after {
-                transition: opacity 0.2s 1s;
-                opacity: 1;
+                display: block;
             }
         }
     }
