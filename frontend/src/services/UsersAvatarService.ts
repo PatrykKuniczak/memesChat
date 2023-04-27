@@ -9,8 +9,6 @@ export const getAvatar = async (
     return data;
 };
 
-export const deleteAvatar = async (
-    id: number | null | undefined
-): Promise<null> => {
-    return await axios.delete(`users-avatar/${id}`);
+export const deleteAvatar = async (id: number | null | undefined): Promise<null> => {
+    return axios.delete(`users-avatar/${id}`);
 };

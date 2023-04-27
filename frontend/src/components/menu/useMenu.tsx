@@ -16,8 +16,8 @@ export const useMenu = () => {
         setShowMenu(prevState => !prevState);
     };
 
-    const menuProfileHandler = () => {
-        const menuProfileContentDisplay = (
+    const menuProfileContentDisplay = () => {
+        const menuProfileContent = (
             <>
                 <MenuUserName>{username}</MenuUserName>
                 <MenuUserImage
@@ -30,7 +30,7 @@ export const useMenu = () => {
         return dependlyComponentDisplay({
             isLoading,
             error,
-            data: menuProfileContentDisplay
+            data: menuProfileContent
         });
     };
 
@@ -39,6 +39,6 @@ export const useMenu = () => {
     return {
         showMenu,
         changeMenuVisible,
-        menuProfileHandler
+        menuProfileContentDisplay
     };
 };

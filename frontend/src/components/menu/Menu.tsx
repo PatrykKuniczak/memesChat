@@ -10,13 +10,14 @@ import { useMenu } from "./useMenu";
 import Modals from "../modals/Modals";
 
 const Menu = () => {
-    const { showMenu, changeMenuVisible, menuProfileHandler } = useMenu();
+    const { showMenu, changeMenuVisible, menuProfileContentDisplay } =
+        useMenu();
 
     return (
         <>
             <MenuWrapper>
                 <MenuProfileWrapper>
-                    {menuProfileHandler()}
+                    {menuProfileContentDisplay()}
                     <DropdownButton onClick={changeMenuVisible}>
                         <ChevronIcon />
                     </DropdownButton>

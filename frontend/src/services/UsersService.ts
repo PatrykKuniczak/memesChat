@@ -32,5 +32,5 @@ export const updateUser = async (
 };
 
 export const deleteUser = async (id: number): Promise<null> => {
-    return await axios.delete(`users/${id}`);
+    return axios.delete(`users/${id}`);
 };
