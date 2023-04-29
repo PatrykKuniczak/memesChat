@@ -14,7 +14,7 @@ const InputWrapper = styled.div`
 
     background-color: ${({ theme }) => theme.gray_400};
 
-    @media (width <=${({ theme }) => theme.media_md}) {
+    @media (width <= ${({ theme }) => theme.media_md}) {
         height: 40px;
     }
 `;
@@ -52,7 +52,7 @@ const MemeGenerateIcon = styled(BsImage)`
     height: 26px;
     fill: ${({ theme }) => theme.gray_300};
 
-    @media (width <=${({ theme }) => theme.media_md}) {
+    @media (width <= ${({ theme }) => theme.media_md}) {
         width: 20px;
         height: 20px;
     }
