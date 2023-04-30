@@ -1,7 +1,5 @@
 import {
     MenuWrapper,
-    MenuUserName,
-    MenuUserImage,
     DropdownButton,
     ChevronIcon,
     BurgerIcon,
@@ -10,20 +8,16 @@ import {
 } from "./Menu.styled";
 import { useMenu } from "./useMenu";
 import Modals from "../modals/Modals";
-import user from "assets/user.jpg";
 
 const Menu = () => {
-    const { username, showMenu, changeMenuVisible } = useMenu();
+    const { showMenu, changeMenuVisible, menuProfileContentDisplay } =
+        useMenu();
 
     return (
         <>
             <MenuWrapper>
                 <MenuProfileWrapper>
-                    <MenuUserName>{username}</MenuUserName>
-                    <MenuUserImage
-                        src={user}
-                        onClick={changeMenuVisible}
-                    />
+                    {menuProfileContentDisplay()}
                     <DropdownButton onClick={changeMenuVisible}>
                         <ChevronIcon />
                     </DropdownButton>

@@ -1,3 +1,4 @@
+import useFetchAvatar from "hooks/useFetchAvatar";
 import {
     MessageAuthor,
     MessageAuthorImage,
@@ -10,22 +11,29 @@ import {
     MessageSettings,
     MessageSettingsWrapper
 } from "./Message.styled";
-import user from "assets/user.jpg";
+import defaultUserAvatar from "assets/defaultUserAvatar.png";
 import { BsPencilSquare, BsTrashFill, BsCheckLg } from "react-icons/bs";
 import useMessage from "./useMessage";
 import { FC } from "react";
 import useOnHover from "./hooks/useOnHover";
 import DeleteMessageModal from "./DeleteMessageModal/DeleteMessageModal";
+import { IUser } from "../user/User";
+import useFetchUser from "hooks/useFetchUser";
 
 export interface IMessage {
-    id: string;
-    author: string;
+    id: number;
     content: string;
+    isImage: boolean;
+    author: IUser;
 }
 
 const Message: FC<{ message: IMessage }> = ({ message }) => {
     const { author } = message;
+
     const { isHovering, hide, show } = useOnHover();
+
+    const { id } = useFetchUser();
+
     const {
         inputKeyDownHandler,
         handleSubmitForm,
@@ -38,7 +46,11 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
         showModal,
         closeModal
     } = useMessage(message, hide);
+    const { userAvatarUrl } = useFetchAvatar(author?.userAvatar?.id);
+
     const { errors, handleChange, values } = formik;
+
+    const isAuthor = message.author?.id === id;
 
     return (
         <>
@@ -47,8 +59,13 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
                 onMouseOut={hide}>
                 <div>
                     <MessageAuthorWrapper>
-                        <MessageAuthorImage src={user} />
-                        <MessageAuthor>{author}</MessageAuthor>
+                        <MessageAuthorImage
+                            src={userAvatarUrl || defaultUserAvatar}
+                            alt="user"
+                        />
+                        <MessageAuthor>
+                            {author?.username || "Konto usunięte"}
+                        </MessageAuthor>
                     </MessageAuthorWrapper>
                     <MessageContentWrapper ref={ref}>
                         {inputIsOpen ? (
@@ -74,7 +91,7 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
                             </MessageContent>
                         )}
                         <MessageSettingsWrapper>
-                            {(isHovering || inputIsOpen) && (
+                            {((isHovering && isAuthor) || inputIsOpen) && (
                                 <MessageSettings>
                                     {inputIsOpen ? (
                                         <BsCheckLg

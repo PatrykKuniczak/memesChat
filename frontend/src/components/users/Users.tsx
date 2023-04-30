@@ -1,32 +1,12 @@
 import { UsersContainer } from "./Users.styled";
-import useUsers from "./useUsers";
-import User, { IUser } from "../user/User";
+import { IUser } from "../user/User";
 import Search from "components/search/Search";
+import useUsers from "./useUsers";
 
 export type IUsers = IUser[];
 
 const Users = () => {
-    const { handleChange, filteredUsers, users } = useUsers();
-
-    const UsersList = () => {
-        return (
-            <>
-                {users.length === 0 ? (
-                    <p style={{ color: "whitesmoke", paddingTop: "1rem" }}>
-                        Ładowanie...
-                    </p>
-                ) : (
-                    filteredUsers.map(({ id, username }: IUser) => (
-                        <User
-                            key={id}
-                            id={id}
-                            username={username}
-                        />
-                    ))
-                )}
-            </>
-        );
-    };
+    const { UsersList, handleChange } = useUsers();
 
     return (
         <UsersContainer>

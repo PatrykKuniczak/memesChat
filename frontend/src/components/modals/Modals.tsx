@@ -4,7 +4,7 @@ import DeleteAccountModal from "./accountDelete/DeleteAccountModal";
 import useModals from "./useModals";
 import { IModals } from "./modals.interfaces";
 import { ModalsWrapper } from "./Modals.styled";
-import DeleteAvatarModal from "./removeAvatar/DeleteAvatarModal";
+import RemoveAvatarModal from "./removeAvatar/RemoveAvatarModal";
 
 const Modals = ({ showMenu, changeMenuVisible }: IModals) => {
     const { currentModal, hideModal, showModal } = useModals(changeMenuVisible);
@@ -23,7 +23,7 @@ const Modals = ({ showMenu, changeMenuVisible }: IModals) => {
             )}
 
             {currentModal === "deleteAvatar" && (
-                <DeleteAvatarModal hideModal={hideModal} />
+                <RemoveAvatarModal hideModal={hideModal} />
             )}
 
             {currentModal === "deleteAccount" && (

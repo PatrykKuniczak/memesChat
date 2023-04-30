@@ -1,3 +1,6 @@
+import axios from "axios";
+import useToken from "hooks/useToken";
+import { useLayoutEffect } from "react";
 import {
     MainWrapper,
     Main,
@@ -11,6 +14,13 @@ import Users from "components/users/Users";
 import Chat from "components/chat/Chat";
 
 const Home = () => {
+    const { userToken } = useToken();
+
+    useLayoutEffect(() => {
+        if (userToken)
+            axios.defaults.headers.common.Authorization = "Bearer " + userToken;
+    }, [userToken]);
+
     return (
         <MainWrapper>
             <Navbar />

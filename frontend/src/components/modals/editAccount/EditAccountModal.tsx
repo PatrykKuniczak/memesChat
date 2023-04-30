@@ -9,37 +9,31 @@ import {
     FileUploaderWrapper
 } from "./EditAccountModal.styled";
 import { PrimaryButton } from "../../buttons/Button.styled";
-import useModalEditUsername from "./useModalEditUsername";
-import useModalEditAvatar from "./useModalEditAvatar";
+import useAccountEdit from "./useAccountEdit";
 import { IModal } from "../modals.interfaces";
 import useClickOutside from "hooks/useClickOutside";
 import { ModalSpan } from "../GenericModalComponents.styled";
+import { ErrorIndicator } from "assets/styles/theme";
 
 const EditAccountModal = ({ hideModal }: IModal) => {
     const {
-        file,
-        fileTypes,
-        handleChange,
-        onTypeError,
-        onSizeError,
-        onDrop,
-        onSelect,
-        onDraggingStateChange
-    } = useModalEditAvatar();
-    const {
-        handleSubmit,
+        submitChanges,
         handleChange: handleInputChange,
         values,
         errors,
-        touched
-    } = useModalEditUsername(hideModal, file);
+        touched,
+        error,
+        fileTypes,
+        handleAvatarChange,
+        userAvatar
+    } = useAccountEdit(hideModal);
 
     const { ref } = useClickOutside(hideModal);
 
     return (
         <EditAccountWrapper
             ref={ref}
-            onSubmit={handleSubmit}>
+            onSubmit={submitChanges}>
             <OptionEditAccount>
                 <InputWrapper>
                     <ModalSpan>Twój nowy nick:</ModalSpan>
@@ -56,23 +50,26 @@ const EditAccountModal = ({ hideModal }: IModal) => {
                 <ModalSpan>Nowy avatar:</ModalSpan>
                 <FileUploaderWrapper>
                     <FileUploader
-                        handleChange={handleChange}
+                        handleChange={handleAvatarChange}
                         name="file"
                         types={fileTypes}
                         label="Kliknij aby dodać lub upuść nowy avatar."
                         multiple={false}
                         hoverTitle="Upuść aby dodać"
-                        onTypeError={onTypeError}
                         maxSize={5}
-                        onSizeError={onSizeError}
-                        onDrop={onDrop}
-                        onSelect={onSelect}
-                        onDraggingStateChange={onDraggingStateChange}
                         dropMessageStyle={{ backgroundColor: "black" }}
+                        fileOrFiles={userAvatar}
                     />
                 </FileUploaderWrapper>
             </OptionEditAvatar>
             <PrimaryButton type="submit">Zapisz zmiany</PrimaryButton>
+            {error && (
+                <ErrorIndicator>
+                    {error.response
+                        ? error.response.data.message
+                        : "Network error"}
+                </ErrorIndicator>
+            )}
         </EditAccountWrapper>
     );
 };

@@ -1,4 +1,4 @@
-import { css } from "styled-components";
+import styled, { css } from "styled-components";
 
 const THEME_DARK = {
     // colors
@@ -98,4 +98,16 @@ const hintMessage = css`
     }
 `;
 
-export { THEME_DARK, scrollBar, hintMessage };
+const LoadingIndicator = styled.p`
+    margin-top: 1rem;
+
+    color: #ffffff;
+`;
+
+const ErrorIndicator = styled.p`
+    margin-top: 1rem;
+
+    color: #ac2925;
+`;
+
+export { THEME_DARK, scrollBar, hintMessage, ErrorIndicator, LoadingIndicator };

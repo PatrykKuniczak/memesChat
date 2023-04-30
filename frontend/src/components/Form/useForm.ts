@@ -1,9 +1,22 @@
-import axios from "axios";
 import useToken from "hooks/useToken";
 import { useFormik } from "formik";
 import { VALIDATION_OFF } from "index";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { FormEvent } from "react";
+import { IRequestError } from "helpers/error-interface";
+import { sendAuthRequest } from "services/AuthService";
+
+interface IAuthResponse {
+    accessToken: string;
+}
+
+export interface IAuthRequest {
+    username: string;
+    password: string;
+    event: "register" | "login";
+}
 
 export const loginRegex = /^[a-zA-Z0-9]*$/;
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).+$/;
@@ -18,25 +31,20 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
     const navigate = useNavigate();
     const { setAccessToken } = useToken();
 
+    const mutation = useMutation<IAuthResponse, IRequestError, IAuthRequest>({
+        mutationFn: sendAuthRequest,
+        onSuccess: ({ accessToken }) => {
+            setAccessToken(accessToken);
+            navigate("/");
+        }
+    });
+
     const handleAuthEvent = (
         username: string,
         password: string,
         event: "register" | "login"
     ) => {
-        axios
-            .post<{ accessToken: string }>(`auth/${event}`, {
-                username,
-                password
-            })
-            .then(res => {
-                if (res.status === 200 || res.status === 201) {
-                    setAccessToken(res.data.accessToken);
-                    navigate("/");
-                }
-            })
-            .catch(err => {
-                console.error(err.message);
-            });
+        mutation.mutate({ username, password, event });
     };
 
     const formik = useFormik({
@@ -82,7 +90,17 @@ const useForm = ({ isSignUp }: { isSignUp: boolean }) => {
         }
     });
 
-    return formik;
+    const handleSubmit = (event: FormEvent) => {
+        event.preventDefault();
+        formik.handleSubmit();
+    };
+
+    return {
+        ...formik,
+        handleSubmit,
+        error: mutation.error,
+        resetRequest: mutation.reset
+    };
 };
 
 export default useForm;

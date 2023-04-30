@@ -1,20 +1,25 @@
 import { TSearchMode } from "components/chat/useChat";
-import { TMessages } from "components/messages/hooks/useMessagesContainer";
+import { TMessages } from "components/messages/useMessages";
 
 export const messagesAfterFilter = (
-	messages: TMessages,
-	searchMode: TSearchMode,
-	searchValue: string
+    messages: TMessages,
+    searchMode: TSearchMode,
+    searchValue: string | null
 ) => {
-	return messages.filter(({ author, content }) => {
-		if (searchValue === null) {
-			return true;
-		}
+    return messages.filter(({ author, content }) => {
+        if (searchValue === null) {
+            return true;
+        }
 
-		if (searchMode === "user") {
-			return author.toLowerCase().startsWith(searchValue.toLowerCase());
-		}
+        if (searchMode === "user") {
+            if (author === null) {
+                return false;
+            }
+            return author.username
+                .toLowerCase()
+                .startsWith(searchValue.toLowerCase());
+        }
 
-		return content.toLowerCase().includes(searchValue.toLowerCase());
-	});
+        return content.toLowerCase().includes(searchValue.toLowerCase());
+    });
 };

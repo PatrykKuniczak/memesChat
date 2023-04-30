@@ -20,7 +20,7 @@ const useChatInput = () => {
 
     return {
         handleSubmitForm,
-        formik
+        ...formik
     };
 };
 export default useChatInput;

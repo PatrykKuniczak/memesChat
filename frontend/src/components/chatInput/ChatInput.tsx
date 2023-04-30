@@ -10,10 +10,7 @@ import {
 import useChatInput from "./useChatInput";
 
 const ChatInput = () => {
-    const {
-        handleSubmitForm,
-        formik: { handleChange, values }
-    } = useChatInput();
+    const { handleSubmitForm, handleChange, values } = useChatInput();
 
     return (
         <InputWrapper>
