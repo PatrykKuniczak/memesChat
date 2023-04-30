@@ -1,10 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 import { IRequestError } from "helpers/error-interface";
 import { deleteUser } from "services/UsersService";
 import useToken from "hooks/useToken";
 import { FormEvent } from "react";
 import useFetchUser from "hooks/useFetchUser";
-import { updateInterceptor } from "helpers/axios/AuthIncereptor";
 
 export const useDeleteAccountModal = (hideModal: () => void) => {
     const { id } = useFetchUser();
@@ -14,7 +14,7 @@ export const useDeleteAccountModal = (hideModal: () => void) => {
         mutationFn: () => deleteUser(id!),
         onSuccess: () => {
             setAccessToken("");
-            updateInterceptor(null);
+            axios.defaults.headers.common.Authorization = null;
             hideModal();
         }
     });

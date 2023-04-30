@@ -1,4 +1,4 @@
-import { updateInterceptor } from "helpers/axios/AuthIncereptor";
+import axios from "axios";
 import useToken from "hooks/useToken";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,7 @@ const useLogout = () => {
 
     const logoutUser = useCallback(() => {
         setAccessToken("");
-        updateInterceptor(null);
+        axios.defaults.headers.common.Authorization = null;
         navigate("auth/signIn");
     }, [navigate, setAccessToken]);
 

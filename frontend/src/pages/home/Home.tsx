@@ -1,4 +1,4 @@
-import { updateInterceptor } from "helpers/axios/AuthIncereptor";
+import axios from "axios";
 import useToken from "hooks/useToken";
 import { useLayoutEffect } from "react";
 import {
@@ -17,11 +17,8 @@ const Home = () => {
     const { userToken } = useToken();
 
     useLayoutEffect(() => {
-        const axiosAuthUpdate = async () => {
-            await updateInterceptor(userToken);
-        };
-
-        axiosAuthUpdate();
+        if (userToken)
+            axios.defaults.headers.common.Authorization = "Bearer " + userToken;
     }, [userToken]);
 
     return (
