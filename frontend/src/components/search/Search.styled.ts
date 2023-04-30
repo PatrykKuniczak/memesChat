@@ -27,6 +27,14 @@ const SearchWrapper = styled.div<{ $variant: string }>`
       `;
   }}
 }
+
+@media (max-width: ${({ theme }) => theme.media_md}) {
+  padding: 0.7rem;
+}
+
+@media (max-width: ${({ theme }) => theme.media_sm}) {
+  padding: 0 0.5rem;
+}
 `;
 
 const SearchInput = styled.input.attrs<InputHTMLAttributes<HTMLInputElement>>(
