@@ -1,4 +1,4 @@
-import { KeyboardEvent, useRef, useState, FormEvent } from "react";
+import { KeyboardEvent, useState, FormEvent } from "react";
 import useClickOutside from "hooks/useClickOutside";
 import { IMessage } from "./Message";
 import useMessageValidation from "hooks/useMessageValidation";

@@ -4,9 +4,9 @@ import styled from "styled-components";
 const MessagesWrapper = styled.div`
     display: flex;
     flex-direction: column;
+
     gap: 1rem;
     height: 100%;
-
     padding: 1rem;
 
     ${scrollBar};
